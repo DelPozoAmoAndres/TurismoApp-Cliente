@@ -1,0 +1,85 @@
+#card-home {
+  height: 280px;
+  width: 100%;
+  background-size: contain;
+  margin-top: 0;
+}
+
+#card-home ion-card-content ion-card {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  height: 160px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+#card-home ion-card-content ion-card ion-card-title {
+  font-size: 18px;
+  margin-top: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+}
+
+#card-home ion-card-content ion-card ion-card-subtitle {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+#card-home ion-card-content ion-card ion-card-subtitle ion-text:first-child {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+#card-home ion-card-content ion-card ion-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  width: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  width: fit-content !important;
+  height: fit-content;
+}
+
+#cards-home .swiper-wrapper,
+  #categories .swiper-wrapper {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+
+
+#categories .swiper-wrapper {
+  margin-bottom: 1%;
+}
+
+#cards-home .swiper-wrapper {
+  padding-right: 13px;
+  margin-bottom: 4%;
+}
+
+ion-card-header img {
+  object-fit: cover;
+  aspect-ratio: 4/3;
+}

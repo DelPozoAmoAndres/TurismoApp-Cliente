@@ -1,0 +1,32 @@
+{
+  "name": "astour",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "com.astour",
+  "integrations_enabled": true,
+  "capacitor": {
+    "appId": "com.astour",
+    "appName": "asTour",
+    "bundledWebRuntime": false,
+    "plugins": {
+      "SplashScreen": {
+        "launchShowDuration": 3000
+      },
+      "StatusBar": {
+        "style": "light"
+      }
+    },
+    "cordovaPlugins": [],
+    "ios": {
+      "appId": "com.astour",
+      "minVersion": "10"
+    },
+    "android": {
+      "allowMixedContent": true,
+      "appId": "com.astour",
+      "minVersion": "21"
+    }
+  }
+}

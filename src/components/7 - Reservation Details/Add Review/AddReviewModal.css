@@ -1,0 +1,16 @@
+@media only screen and (width >=900px) {
+    #modal-review-add {
+        --width: 600px;
+        --height: 550px
+    }
+}
+
+#modal-review-add ion-row ion-icon {
+    font-size: 128px;
+    width: 100%;
+}
+
+#modal-review-add ion-row ion-list {
+
+    width: 100%;
+}

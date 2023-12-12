@@ -1,0 +1,13 @@
+@media only screen and (width >= 900px) {
+    #modal-event-edit {
+      --width: 600px;
+      --height: 750px;
+      --border-radius: 6px;
+  
+      background-color: rgba(0 0 0 60%);
+    }
+}
+
+#modal-event-edit ion-list {
+    width: 95%;
+}

@@ -1,0 +1,4 @@
+#activity-review ion-row div {
+    display: flex;
+    justify-content: space-between;
+}

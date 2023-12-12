@@ -1,0 +1,36 @@
+.limits-content {
+    max-width: 1300px; 
+    margin: auto;
+}
+
+.toolBar-content {
+  max-width: 1300px; 
+  margin: auto;
+
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2{
+  margin:0
+}
+
+@media screen and (max-width: 1300px) {
+  h2 {
+    margin-left: 10px;
+  }
+  
+}
+
+#pageWeb ion-content > div{
+  display: grid;
+  grid-template-rows: auto 1fr auto; 
+  min-height: 100vh;
+  grid-template-columns: 1fr;
+}
+

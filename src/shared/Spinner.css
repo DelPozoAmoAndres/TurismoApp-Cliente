@@ -1,0 +1,13 @@
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.spinner-message {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}

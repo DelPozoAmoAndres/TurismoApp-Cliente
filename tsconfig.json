@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@apis/*": ["./src/apis/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@contexts/*": ["./src/contexts/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@models/*": ["./src/models/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@utils/*": ["./src/utils/*"],
+
+      // Components
+      "@menu/*": ["./src/components/0 - Menu/*"],
+      "@home/*": ["./src/components/1 - Home/*"],
+      "@search-activity/*": ["./src/components/2 - Search Activity/*"],
+      "@activity-details/*": ["./src/components/3 - Activity Details/*"],
+      "@personal-area/*": ["./src/components/4 - Personal Area/*"],
+      "@create-reservation/*": ["./src/components/5 - Create Reservation/*"],
+      "@reservation-list/*": ["./src/components/6 - Reservation List/*"],
+      "@reservation-details/*": ["./src/components/7 - Reservation Details/*"],
+      "@search-user/*": ["./src/components/8 - Search User/*"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

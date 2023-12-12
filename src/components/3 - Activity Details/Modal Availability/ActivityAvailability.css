@@ -1,0 +1,60 @@
+#availability-modal-card ion-grid ion-row ion-datetime {
+  margin: auto;
+  border-radius: 20px;
+}
+
+#availability-modal-card ion-grid ion-list ion-button {
+  height: 60px;
+}
+
+#availability-modal-card ion-grid ion-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: var(--ion-color-background);
+  margin-bottom: 80px;
+  margin-top: 10px;
+}
+
+#availability-modal-card ion-grid div {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--background);
+}
+
+@media only screen and (width >= 650px) {
+  #availability-modal-card {
+    --width: 600px;
+    --height: 493px;
+    --border-radius: 6px;
+
+    background-color: rgba(0 0 0 60%);
+  }
+
+  #availability-modal-card ion-grid div {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--background);
+  }
+
+  #availability-modal-card ion-grid {
+    display: flex;
+    flex-direction: column;
+    max-height: 100px;
+  }
+
+  #availability-modal-card ion-grid ion-list {
+    display: inline;
+    max-width: 220px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+}

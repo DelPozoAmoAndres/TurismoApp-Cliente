@@ -1,0 +1,52 @@
+#activity-review {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#activity-review section {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+#activity-review section section {
+  display: flex;
+  flex-direction: column;
+}
+
+#activity-review section section section {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+#list-activity-review {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  max-width: 400px;
+}
+
+#list-activity-review+ion-button {
+  margin-bottom: 80px;
+}
+
+#list-activity-review ion-card section ion-img {
+  width: 80px;
+}
+
+@media only screen and (width <=1100px) {
+  #list-activity-review {
+    max-width: 600px;
+  }
+}
+
+
+@media only screen and (width <=440) {
+  #activity-review {
+    min-width: none;
+  }
+}

@@ -1,0 +1,9 @@
+@media only screen and (width>= 650px) {
+    #register-modal-card{
+      --width: 600px;
+      --height: 550px;
+      --border-radius: 6px;
+  
+      background-color: rgb(0 0 0 60%);
+    }
+}

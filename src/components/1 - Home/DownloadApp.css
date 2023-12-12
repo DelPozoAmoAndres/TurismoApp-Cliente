@@ -1,0 +1,36 @@
+.download-section {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .download-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .download-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+  
+  .download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* Estilos para botones específicos de tiendas, si es necesario */
+  .download-buttons ion-button {
+    --padding-start: 1em;
+    --padding-end: 1em;
+    --padding-top: 0.5em;
+    --padding-bottom: 0.5em;
+    font-weight: bold;
+  }
+  
+  /* Añade estilos responsivos si es necesario */
+  @media (max-width: 600px) {
+    .download-buttons {
+      flex-direction: column;
+    }
+  }

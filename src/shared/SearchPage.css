@@ -1,0 +1,19 @@
+#activity-search-page {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto 1fr;
+  justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+  #activity-search-page {
+    grid-template-columns: 1fr;
+  }
+  
+}
+
+ion-header.sticky {
+  position:sticky;
+  top: 0;
+  background-color: var(--background);
+}
