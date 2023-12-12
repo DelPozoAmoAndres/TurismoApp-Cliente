@@ -1,6 +1,5 @@
 import { IonContent, IonPage } from '@ionic/react';
 import React, { ReactNode } from 'react';
-import Login from '@personal-area/Login/Login';
 import PropTypes from 'prop-types';
 type Props = {
   children: ReactNode;

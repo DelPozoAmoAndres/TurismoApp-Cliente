@@ -4,7 +4,6 @@ import { AuthContextType } from '@models/AuthContextType';
 import { User } from '@models/User';
 import { RegisterFormData } from '@models/User';
 import { getItem, removeItem, setItem } from '@utils/Utils';
-import { useIonRouter } from '@ionic/react';
 import Login from '@components/4 - Personal Area/Login/Login';
 
 export const AuthContext = createContext<AuthContextType>({

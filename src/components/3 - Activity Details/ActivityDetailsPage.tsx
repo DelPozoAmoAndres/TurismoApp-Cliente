@@ -2,7 +2,6 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 /* Ionic components */
 import {
-  IonContent,
   IonButton,
   IonHeader,
   IonToolbar,
@@ -12,7 +11,6 @@ import {
   IonAlert,
   IonRow,
   IonCard,
-  IonCol
 } from '@ionic/react';
 import { shareSocialOutline } from 'ionicons/icons';
 /* Hooks */

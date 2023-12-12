@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 /* Ionic components */
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
 /* Apis */
 import { getActivityList } from '@apis/activityApi';
 /* Hooks */

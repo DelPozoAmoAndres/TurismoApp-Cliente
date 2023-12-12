@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic Components */
-import { IonButtons, IonHeader, IonLabel, IonMenuButton, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButtons, IonHeader, IonLabel, IonMenuButton, IonToolbar } from '@ionic/react';
 import { briefcaseOutline, gridOutline, homeOutline, personOutline } from 'ionicons/icons';
 /* Hooks */
 import { useScreen } from '@hooks/useScreen';
@@ -14,8 +14,6 @@ import DarkModeToggle from '@shared/DarkModeToggle';
 import './Header.css';
 /* i18n */
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router';
-import AppMenu from '@components/web/AppMenu';
 import { useAuth } from '@contexts/AuthContexts';
 
 export const Header : React.FC = () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic components */
-import { IonButton, IonCard, IonCardContent, IonCardTitle, IonRouterLink, IonSearchbar, IonText } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardTitle, IonText } from '@ionic/react';
 /* Styles*/
 import './Home.css';
 /* i18n */

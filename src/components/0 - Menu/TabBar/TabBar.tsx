@@ -7,7 +7,6 @@ import { useAuth } from '@contexts/AuthContexts';
 import TabsFiltered from '@menu/TabBar/TabsFiltered';
 import ProfilePage from '@personal-area/Profile/ProfilePage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
-import { Button } from '@shared/Button';
 
 const TabBar: React.FC = () => {
   const auth = useAuth();

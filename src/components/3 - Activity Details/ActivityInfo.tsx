@@ -14,7 +14,6 @@ import { useSoldOut } from '@hooks/useSoldOut';
 /* Contexts */
 import { useAuth } from '@contexts/AuthContexts';
 import { shareSocialOutline } from 'ionicons/icons';
-import Login from '@components/4 - Personal Area/Login/Login';
 
 export const ActivityInfo: React.FC<{
   activityData: Activity;

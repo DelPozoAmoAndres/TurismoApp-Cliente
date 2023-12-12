@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 /* Ionic components */
-import { IonAlert, IonContent } from '@ionic/react';
+import { IonAlert } from '@ionic/react';
 /* Hooks */
 import { useExitAlert } from '@hooks/useExitAlert';
 /* Components*/

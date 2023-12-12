@@ -1,4 +1,4 @@
-import { IonContent, IonGrid, IonIcon, IonLabel, IonRow, IonSegment, IonSegmentButton } from '@ionic/react';
+import { IonGrid, IonIcon, IonLabel, IonRow, IonSegment, IonSegmentButton } from '@ionic/react';
 import { useState } from 'react';
 import { PersonalData } from '@personal-area/Profile/PersonalData';
 import { Account } from '@personal-area/Profile/Account';
