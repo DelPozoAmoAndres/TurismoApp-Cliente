@@ -6,26 +6,26 @@ import { ActivityItem } from '@search-activity/List/ActivityItem';
 import { ActivitySortSelect } from './ActivitySortSelect';
 /* Hooks */
 import { useScreen } from '@hooks/useScreen';
-/* Models */
-import { Activity } from '@models/Activity';
 /* Stles */
 import "@shared/List.css";
 /* i18n */
 import { useTranslation } from 'react-i18next';
+import { useActivityList } from '@contexts/ActivityListContext';
+
 
 export const ActivityList: React.FC<{
-  items: Activity[];
   setSearchText: (arg0: string) => void;
   numFilters: number;
-}> = ({ items, setSearchText, numFilters }) => {
+}> = ({ setSearchText, numFilters }) => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { isMobile } = useScreen(); //Hook to have data of screen dimensions
   const searchBar = React.useRef<HTMLIonSearchbarElement>(null);
+  const { activities } = useActivityList(); //Context of the activities
 
   useEffect(() => {
     searchBar.current?.setFocus();
-  }, [searchBar,items]);
-  
+  }, [searchBar]);
+
   return (
     <div id="activity-list">
       <section>
@@ -39,8 +39,8 @@ export const ActivityList: React.FC<{
         <ActivitySortSelect />
       </section>
       <IonList class='ion-no-padding'>
-        {items?.map((activity, index) => (
-          <ActivityItem key={'Activity' + index} activity={activity} />
+        {activities?.map((activity) => (
+            <ActivityItem key={activity._id} activity={activity} />
         ))}
         {isMobile && (
           <IonButton class='sticky' id="filters-modal" style={{ width: '100%' }} expand="block" size="default">
