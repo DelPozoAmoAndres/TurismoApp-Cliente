@@ -32,7 +32,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './ActivityDetailsPage.css';
 import LoadingPage from '@pages/LoadingPage';
-import PageTemplate from '@components/web/PageTemplate';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 
 type ActivityDetailsProps = RouteComponentProps<{ id: string }>;
 
@@ -109,7 +109,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
       {content}
     </AppPage>
   ) : (
-    <PageTemplate>{content}</PageTemplate>
+    <GenericWebLayout>{content}</GenericWebLayout>
   );
 };
 

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useScreen } from '@hooks/useScreen';
 import { AppPage } from '@pages/AppPage';
 import Logo from '@components/web/Logo';
-import PageTemplate from '@components/web/PageTemplate';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 import DownloadApp from './DownloadApp';
 
 const HomePage: React.FC<RouteComponentProps> = () => {
@@ -45,12 +45,12 @@ const HomePage: React.FC<RouteComponentProps> = () => {
       {!browsingWeb && <Logo />}
       <HomeWelcomeCard />
       <ActivityCardList />
-      {browsingWeb && <DownloadApp />}
+      {/* {browsingWeb && <DownloadApp />} */}
       {alert}
     </>
   );
 
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <PageTemplate>{content}</PageTemplate>;
+  return !browsingWeb ? <AppPage>{content}</AppPage> : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 
 export default HomePage;

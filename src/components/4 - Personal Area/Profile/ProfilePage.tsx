@@ -9,7 +9,7 @@ import { bookOutline, shieldOutline } from 'ionicons/icons';
 import { useScreen } from '@hooks/useScreen';
 import { AppPage } from '@pages/AppPage';
 import React from 'react';
-import PageTemplate from '@components/web/PageTemplate';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 
 const ProfilePage: React.FC = () => {
   const auth = useAuth();
@@ -57,7 +57,7 @@ const ProfilePage: React.FC = () => {
         </IonRow>
       </IonGrid>
   );
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <PageTemplate>{content}</PageTemplate>;
+  return !browsingWeb ? <AppPage>{content}</AppPage> : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 
 export default ProfilePage;

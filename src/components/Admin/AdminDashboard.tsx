@@ -1,12 +1,13 @@
 import React from 'react';
-import { IonContent, IonButton, IonLabel, IonIcon, IonRow } from '@ionic/react';
+import { IonButton, IonLabel, IonIcon, IonRow } from '@ionic/react';
 import { list } from 'ionicons/icons';
 import { useTranslation } from 'react-i18next';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 
 const AdminDashboard: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <IonContent>
+    <GenericWebLayout>
       <IonRow style={{ height: '100%', gap: '20px' }} class="ion-justify-content-center ion-align-items-center">
         <div>
           <IonButton routerLink="/admin/users" style={{ height: '200px', width: '500px' }}>
@@ -19,7 +20,7 @@ const AdminDashboard: React.FC = () => {
           <IonLabel>Listar actividades</IonLabel>
         </IonButton>
       </IonRow>
-    </IonContent>
+    </GenericWebLayout>
   );
 };
 
