@@ -1,40 +1,23 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 /* Ionic components */
-import { IonHeader, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
 /* Apis */
+import { getUserList } from '@apis/adminUserApi';
 /* Hooks */
 import { useSearch } from '@hooks/useSearch';
 import { useScreen } from '@hooks/useScreen';
 /* Components */
-/* Styles */
-import "@shared/SearchPage.css";
-/* i18n */
-import { useTranslation } from 'react-i18next';
-import { getUserList } from '@apis/adminUserApi';
 import { UserList } from '@search-user/List/UserList';
 import { UserFiltersView } from './Filters/UserFiltersView';
+/* Styles */
+import "@shared/SearchPage.css";
+/* Layouts */
 import SearchWebLayout from '@components/web/layouts/SearchWebLayout';
 import BackHeaderAppLayout from '@components/app/layouts/BackHeaderAppLayout';
 
 const UserSearchPage: React.FC<RouteComponentProps> = () => {
-  const { setSearchText, handleFilter, filters, items } = useSearch(getUserList, {
-    country: null,
-    role: null,
-  });
-  const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+  const { setSearchText, handleFilter, filters, items } = useSearch(getUserList, { country: null, role: null});
   const { browsingWeb } = useScreen(); //Hook to have data of screen dimensions
-
-
-  const header = (
-    <IonHeader mode="ios" collapse="fade" class="ion-no-border sticky">
-      <IonToolbar>
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/" text={t('go.back')} />
-        </IonButtons>
-      </IonToolbar>
-    </IonHeader>
-  );
 
   const leftMenu = (modal? : React.RefObject<HTMLIonModalElement>) => <UserFiltersView filters={filters} applyFilters={(filters) => { handleFilter(filters); modal?.current?.dismiss(); }} />;
   const content = (
