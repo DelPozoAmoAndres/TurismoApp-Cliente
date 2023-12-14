@@ -16,17 +16,19 @@ const SearchWebLayout: React.FC<Props> = ({ leftMenu, children }) => {
     return (
         <>
             <AppMenu />
-            <IonPage id="pageWeb" class="search-web">
-                <IonContent>
-                    <header><Header /></header>
-                    <main>
-                        {!isMobile && <div className="sticky">
-                            {leftMenu()}
-                        </div>}
-                        {children}
-                    </main>
-                    <footer><Footer /></footer>
-                </IonContent >
+            <IonPage id="pageWeb" >
+                    <IonContent>
+                        <div className="search-web">
+                        <header><Header /></header>
+                        <main>
+                            {!isMobile && <div className="sticky">
+                                {leftMenu()}
+                            </div>}
+                            {children}
+                        </main>
+                        <footer><Footer /></footer>
+                        </div>
+                    </IonContent >
             </IonPage >
         </>
     );
