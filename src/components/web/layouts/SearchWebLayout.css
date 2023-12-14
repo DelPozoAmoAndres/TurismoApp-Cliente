@@ -1,47 +1,13 @@
-.limits-content {
-    max-width: 1300px;
-    margin: auto;
-}
-
-.toolBar-content {
-    max-width: 1300px;
-    margin: auto;
-
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
-
-a {
-    text-decoration: none;
-}
-
-h2 {
-    margin: 0
-}
-
-@media screen and (max-width: 1300px) {
-    h2 {
-        margin-left: 10px;
-    }
-
-}
-
-#pageWeb ion-content>div {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
-    grid-template-columns: 1fr;
-}
-
-main>div {
+.search-web main {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: auto 1fr;
     justify-content: center;
+    max-width: 1300px;
+    margin: auto;
 }
 
-.sticky > ion-list{
+.search-web .sticky > ion-list{
     position: -webkit-sticky;
     position: sticky;
     top: 44px;
@@ -49,7 +15,7 @@ main>div {
 }
 
 @media screen and (max-width: 900px) {
-    main>div {
+    .search-web main {
         grid-template-columns: 1fr;
     }
 

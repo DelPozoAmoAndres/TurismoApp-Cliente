@@ -7,7 +7,6 @@ import { IonHeader, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
 import { useSearch } from '@hooks/useSearch';
 import { useScreen } from '@hooks/useScreen';
 /* Components */
-import { AppPage } from '@pages/AppPage';
 /* Styles */
 import "@shared/SearchPage.css";
 /* i18n */
@@ -16,6 +15,7 @@ import { getUserList } from '@apis/adminUserApi';
 import { UserList } from '@search-user/List/UserList';
 import { UserFiltersView } from './Filters/UserFiltersView';
 import SearchWebLayout from '@components/web/layouts/SearchWebLayout';
+import BackHeaderAppLayout from '@components/app/layouts/BackHeaderAppLayout';
 
 const UserSearchPage: React.FC<RouteComponentProps> = () => {
   const { setSearchText, handleFilter, filters, items } = useSearch(getUserList, {
@@ -36,28 +36,11 @@ const UserSearchPage: React.FC<RouteComponentProps> = () => {
     </IonHeader>
   );
 
+  const leftMenu = (modal? : React.RefObject<HTMLIonModalElement>) => <UserFiltersView filters={filters} applyFilters={(filters) => { handleFilter(filters); modal?.current?.dismiss(); }} />;
   const content = (
         <UserList setSearchText={setSearchText} items={items} numFilters={Object.values(filters).filter((v) => v !== null).length} />
   );
-  return !browsingWeb ? (
-    <AppPage>
-      {header}
-      {content}
-    </AppPage>
-  ) : (
-    <SearchWebLayout 
-      leftMenu={
-        <UserFiltersView
-          filters={filters}
-          applyFilters={(filters: Record<string, unknown>) => {
-            handleFilter(filters);
-            // modal.current?.dismiss();
-          }}
-        />
-      }>
-      {content}
-      </SearchWebLayout>
-  );
+  return !browsingWeb ? <BackHeaderAppLayout>{content}</BackHeaderAppLayout> : <SearchWebLayout leftMenu={ leftMenu  }>{content}</SearchWebLayout>;
 };
 
 export default UserSearchPage;

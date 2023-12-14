@@ -5,7 +5,7 @@ import HomePage from '@home/HomePage';
 import PrivateRoute from '@shared/PrivateRoute';
 import { useAuth } from '@contexts/AuthContexts';
 import TabsFiltered from '@menu/TabBar/TabsFiltered';
-import ProfilePage from '@personal-area/Profile/ProfilePage';
+import ProfilePage from '@components/4 - Personal Area/ProfilePage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
 
 const TabBar: React.FC = () => {
