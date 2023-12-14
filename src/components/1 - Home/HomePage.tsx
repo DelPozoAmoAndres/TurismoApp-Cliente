@@ -10,10 +10,9 @@ import { ActivityCardList } from './ActivityCardList';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { useScreen } from '@hooks/useScreen';
-import { AppPage } from '@pages/AppPage';
-import Logo from '@components/web/Logo';
-import PageTemplate from '@components/web/PageTemplate';
-import DownloadApp from './DownloadApp';
+/* Layouts */
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
+import LogoHeaderAppLayout from '@components/app/layouts/LogoHeaderAppLayout';
 
 const HomePage: React.FC<RouteComponentProps> = () => {
   const { showAlert, handleAlertCancel, handleAlertConfirm } = useExitAlert(); // Hook to handle the alert of exit when its pressed back button on native apps
@@ -42,15 +41,15 @@ const HomePage: React.FC<RouteComponentProps> = () => {
 
   const content = (
     <>
-      {!browsingWeb && <Logo />}
       <HomeWelcomeCard />
       <ActivityCardList />
-      {browsingWeb && <DownloadApp />}
       {alert}
     </>
   );
 
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <PageTemplate>{content}</PageTemplate>;
+  return !browsingWeb 
+    ? <LogoHeaderAppLayout>{content}</LogoHeaderAppLayout> 
+    : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 
 export default HomePage;

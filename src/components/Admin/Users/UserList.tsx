@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   IonList,
   IonItem,
   IonLabel,
@@ -56,51 +51,44 @@ const UserList: React.FC<UserListProps> = ({ history }) => {
   const roles = Object.values(Role);
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar mode="ios">
-          <IonTitle>Listado de Usuarios</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonItem>
-          <IonSearchbar placeholder="Buscar usuarios" onIonChange={handleSearch}></IonSearchbar>
-        </IonItem>
-        <IonItem>
-          <IonSelect
-            value={filters.role}
-            placeholder="Filtrar por rol"
-            onIonChange={(e) => handleFilter(e, 'role')}
-            label="Role"
-            labelPlacement="floating"
-          >
-            <IonSelectOption value={null}>Todos los roles</IonSelectOption>
-            {roles.map((role) => (
-              <IonSelectOption key={role} value={role}>
-                {role}
-              </IonSelectOption>
-            ))}
-          </IonSelect>
-          <IonInput
-            value={filters.country}
-            placeholder="Introduce el país"
-            onIonChange={(e) => handleFilter(e, 'country')}
-            label="País"
-            labelPlacement="floating"
-          />
-        </IonItem>
-        <IonList>
-          {users.map((user) => (
-            <IonItem key={user.email}>
-              <IonLabel>{user.name}</IonLabel>
-              <IonButton onClick={() => handleViewDetails(user.email)} slot="end">
-                Ver Detalles
-              </IonButton>
-            </IonItem>
+    <>
+      <IonItem>
+        <IonSearchbar placeholder="Buscar usuarios" onIonChange={handleSearch}></IonSearchbar>
+      </IonItem>
+      <IonItem>
+        <IonSelect
+          value={filters.role}
+          placeholder="Filtrar por rol"
+          onIonChange={(e) => handleFilter(e, 'role')}
+          label="Role"
+          labelPlacement="floating"
+        >
+          <IonSelectOption value={null}>Todos los roles</IonSelectOption>
+          {roles.map((role) => (
+            <IonSelectOption key={role} value={role}>
+              {role}
+            </IonSelectOption>
           ))}
-        </IonList>
-      </IonContent>
-    </IonPage>
+        </IonSelect>
+        <IonInput
+          value={filters.country}
+          placeholder="Introduce el país"
+          onIonChange={(e) => handleFilter(e, 'country')}
+          label="País"
+          labelPlacement="floating"
+        />
+      </IonItem>
+      <IonList>
+        {users.map((user) => (
+          <IonItem key={user.email}>
+            <IonLabel>{user.name}</IonLabel>
+            <IonButton onClick={() => handleViewDetails(user.email)} slot="end">
+              Ver Detalles
+            </IonButton>
+          </IonItem>
+        ))}
+      </IonList>
+    </>
   );
 };
 

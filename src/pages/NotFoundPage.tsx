@@ -2,7 +2,7 @@
 import React from 'react';
 import { IonContent, IonHeader, IonToolbar, IonTitle, IonText } from '@ionic/react';
 import { useScreen } from '../hooks/useScreen';
-import { AppPage } from './AppPage';
+import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 
 const NotFound: React.FC = () => {
   const { browsingWeb } = useScreen();
@@ -20,7 +20,7 @@ const NotFound: React.FC = () => {
       </IonContent>
     </>
   );
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <>{content}</>;
+  return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <>{content}</>;
 };
 
 export default NotFound;

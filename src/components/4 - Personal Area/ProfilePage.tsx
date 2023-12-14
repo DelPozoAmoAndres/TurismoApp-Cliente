@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { formatDate } from '@utils/Utils';
 import { bookOutline, shieldOutline } from 'ionicons/icons';
 import { useScreen } from '@hooks/useScreen';
-import { AppPage } from '@pages/AppPage';
+import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import React from 'react';
-import PageTemplate from '@components/web/PageTemplate';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 
 const ProfilePage: React.FC = () => {
   const auth = useAuth();
@@ -57,7 +57,7 @@ const ProfilePage: React.FC = () => {
         </IonRow>
       </IonGrid>
   );
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <PageTemplate>{content}</PageTemplate>;
+  return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 
 export default ProfilePage;

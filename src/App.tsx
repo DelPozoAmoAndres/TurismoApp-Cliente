@@ -12,9 +12,8 @@ import AdminDashboard from '@components/Admin/AdminDashboard';
 import ReservationDetailsPage from '@reservation-details/ReservationDetailsPage';
 import SearchActivityPage from '@search-activity/ActivitySearchPage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
-import ProfilePage from '@personal-area/Profile/ProfilePage';
+import ProfilePage from '@components/4 - Personal Area/ProfilePage';
 import ReservationPage from '@create-reservation/ReservationPage';
-import { AppPage } from '@pages/AppPage';
 import ActivityDetailsPage from '@activity-details/ActivityDetailsPage';
 /* Styles */
 import '@ionic/react/css/core.css';
@@ -28,6 +27,7 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import '@theme/variables.css';
+import 'src/components/web/layouts/WebLayout.css';
 /* Utility */
 import axios from 'axios';
 import { getItem } from '@utils/Utils';
@@ -76,7 +76,6 @@ const AppIndex: React.FC = () => {
     <I18nextProvider i18n={i18n}>
       <IonApp>
         <IonReactRouter>
-          <AppPage>
             <IonRouterOutlet>
             <Route path={"/*"} component={NotFound} />
               <Route exact path="/">
@@ -102,7 +101,6 @@ const AppIndex: React.FC = () => {
               <AdminRoute exact path="/admin/activity/:id/events/" component={EventsPage}/>
               {/*<PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />*/}
             </IonRouterOutlet>
-          </AppPage>
         </IonReactRouter>
       </IonApp>
     </I18nextProvider>

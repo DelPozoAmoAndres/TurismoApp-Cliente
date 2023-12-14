@@ -2,17 +2,10 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 /* Ionic components */
 import {
-  IonButton,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonBackButton,
-  IonIcon,
   IonAlert,
   IonRow,
-  IonCard,
+  IonCard
 } from '@ionic/react';
-import { shareSocialOutline } from 'ionicons/icons';
 /* Hooks */
 import { useScreen } from '@hooks/useScreen';
 import { useActivityData } from '@hooks/useActivityData';
@@ -23,7 +16,6 @@ import { ActivityReviews } from '@activity-details/Reviews/ActivityReviews';
 import { ActivityAvailability } from '@activity-details/Modal Availability/ActivityAvailability';
 /* i18n */
 import { useTranslation } from 'react-i18next';
-import { AppPage } from '@pages/AppPage';
 /* Carousel */
 import { Keyboard, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -32,7 +24,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import './ActivityDetailsPage.css';
 import LoadingPage from '@pages/LoadingPage';
-import PageTemplate from '@components/web/PageTemplate';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
+import BackShareAppLayout from '@components/app/layouts/BackShareAppLayout';
 
 type ActivityDetailsProps = RouteComponentProps<{ id: string }>;
 
@@ -42,28 +35,11 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
   const { activityData } = useActivityData(match.params.id); //Hook to have all the data of an activity
   const { shareActivity, showAlert, setShowAlert } = useShare(match.params.id); //Hook to share a link to the activity
 
-  const header = (
-    <IonHeader mode="ios" collapse="fade" class="ion-no-border sticky">
-      <IonToolbar>
-        {/* Back button */}
-        <IonButtons slot="start">
-          <IonBackButton defaultHref="/" text={t('go.back')} />
-        </IonButtons>
-        {/* Share button */}
-        <IonButtons slot="end" onClick={async () => await shareActivity()}>
-          <IonButton>
-            {t('share')}
-            <IonIcon slot="end" icon={shareSocialOutline} />
-          </IonButton>
-        </IonButtons>
-      </IonToolbar>
-    </IonHeader>
-  );
+
 
   const content = activityData ? (
     <>
       <ActivityAvailability activityId={match.params.id} />
-      {!browsingWeb && header}
       <IonRow class="ion-justify-content-center ion-margin-top limits-content">
         <section id="activity-section-info" className="ion-margin-horizontal">
           <IonCard id="activity-image-card" class="ion-no-margin" mode="ios">
@@ -104,13 +80,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
     <LoadingPage />
   );
 
-  return !browsingWeb ? (
-    <AppPage>
-      {content}
-    </AppPage>
-  ) : (
-    <PageTemplate>{content}</PageTemplate>
-  );
+  return !browsingWeb ? <BackShareAppLayout onShareClick={shareActivity}> {content} </BackShareAppLayout> : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 
 export default ActivityDetailsPage;

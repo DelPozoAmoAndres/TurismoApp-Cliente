@@ -1,11 +1,11 @@
 import React from 'react';
 /* Ionic Components */
-import { IonCard, IonContent, IonIcon, IonLabel, IonList, IonRow } from '@ionic/react';
+import { IonCard, IonIcon, IonLabel, IonList, IonRow } from '@ionic/react';
 /* Hooks */
 import { useScreen } from '@hooks/useScreen';
 import { useReservationList } from '@hooks/useReservationList';
 /* Components */
-import { AppPage } from '@pages/AppPage';
+import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import { ReservationItemList } from '@reservation-list/ReservationItemList';
 /* Utils */
 import { formatDate } from '@utils/Utils';
@@ -14,6 +14,7 @@ import "./ReservationList.css";
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { ellipsisHorizontal } from 'ionicons/icons';
+import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 
 const ReservationListPage: React.FC = () => {
   const { browsingWeb } = useScreen(); //Hook to have data of screen dimensions
@@ -21,7 +22,6 @@ const ReservationListPage: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
   const content = (
-    <IonContent>
       <IonList mode="ios" id="reservation-list">
         <IonRow class="ion-justify-content-center ion-margin-top">
           <IonLabel class="ion-text-center">
@@ -51,10 +51,9 @@ const ReservationListPage: React.FC = () => {
             </div>
           ))}
       </IonList>
-    </IonContent>
   );
 
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <>{content}</>;
+  return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 
 export default ReservationListPage;

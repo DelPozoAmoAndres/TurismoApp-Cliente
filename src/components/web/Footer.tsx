@@ -1,5 +1,6 @@
 import React from 'react';
 import { IonFooter, IonToolbar, IonGrid, IonRow, IonCol, IonText } from '@ionic/react';
+import DownloadApp from '@components/1 - Home/DownloadApp';
 
 const Footer: React.FC = () => {
   return (
@@ -14,6 +15,9 @@ const Footer: React.FC = () => {
                   <p>Email: contacto@turismoasturias.com</p>
                   <p>Teléfono: +34 123 456 789</p>
                 </IonText>
+              </IonCol>
+              <IonCol>
+                <DownloadApp />
               </IonCol>
               {/* <IonCol>
                 <IonText color="light" class='ion-text-center'>
