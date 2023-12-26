@@ -36,7 +36,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from '@components/i18n/i18n';
 /* Components */
 import AdminRoute from '@shared/AdminRoute';
-import TabBar from '@menu/TabBar/TabBar';
+import TabBar from '@components/app/TabBar/TabBar';
 import PrivateRoute from '@shared/PrivateRoute';
 /* Hooks */
 import { useTheme } from '@hooks/useTheme';

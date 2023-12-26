@@ -9,6 +9,11 @@
     height: 100%;
 }
 
+.search-web{
+    overflow-y: auto; /* Hace que la barra de desplazamiento sea automática según el contenido */
+    height: 100%;
+}
+
 .search-web .sticky > ion-list{
     position: -webkit-sticky;
     position: sticky;

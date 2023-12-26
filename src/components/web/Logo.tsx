@@ -4,7 +4,7 @@ import { IonLabel } from "@ionic/react"
 
 const Logo : React.FC = ()=>{
     return(
-    <div className="ion-text-center ion-margin-top">
+    <div className="ion-text-center">
       <strong>
         <IonLabel class="ion-margin-start ion-text-start" id="title-app" color={"primary"}>
           As

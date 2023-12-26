@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonTabBar } from '@ionic/react';
 import { Role } from '@models/User';
-import { Tabs } from '@menu/TabBar/Tabs';
+import { Tabs } from '@components/app/TabBar/Tabs';
 
 const TabsFiltered = () => {
   const { HomeTab, ProfileTab, PersonalAreaTab, ReservationsTab, NextEventsTab } = Tabs();

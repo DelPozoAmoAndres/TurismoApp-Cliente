@@ -4,7 +4,7 @@ import { IonButton, IonContent, IonRouterOutlet, IonTabs } from '@ionic/react';
 import HomePage from '@home/HomePage';
 import PrivateRoute from '@shared/PrivateRoute';
 import { useAuth } from '@contexts/AuthContexts';
-import TabsFiltered from '@menu/TabBar/TabsFiltered';
+import TabsFiltered from '@components/app/TabBar/TabsFiltered';
 import ProfilePage from '@components/4 - Personal Area/ProfilePage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
 
