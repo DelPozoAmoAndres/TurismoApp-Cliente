@@ -12,7 +12,6 @@ import "@shared/List.css";
 import { useTranslation } from 'react-i18next';
 import { Modal } from '@shared/Modal';
 import { useActivityList } from '@contexts/ActivityListContext';
-import { Activity } from '@models/Activity';
 
 export const ActivityList: React.FC<{
   setSearchText: (arg0: string) => void;

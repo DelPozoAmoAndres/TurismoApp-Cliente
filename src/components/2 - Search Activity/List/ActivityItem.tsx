@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 /* Ionic components */
-import { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton, IonIcon, IonItem, IonText, IonAlert, IonCol } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton, IonIcon, IonItem, IonText, IonAlert } from '@ionic/react';
 import { pencilOutline, star, trashOutline } from 'ionicons/icons';
 /* Styles */
 import './ActivityItem.css';

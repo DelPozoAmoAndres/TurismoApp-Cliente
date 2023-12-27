@@ -24,7 +24,7 @@ const ActivitySearchPage: React.FC<RouteComponentProps> = () => {
 
   useEffect(() => {
     updateActivities(items);
-}, [items]);
+}, [items, updateActivities]);
 
   const leftMenu = (modal?: React.RefObject<HTMLIonModalElement>) => <ActivityFiltersView filters={filters} applyFilters={(filters: ActivityFilter) => { handleFilter(filters); modal?.current?.dismiss(); }} />
   const content = <ActivityList setSearchText={setSearchText} leftMenu={leftMenu} numFilters={Object.values(filters).filter((v) => v !== null).length} />;
