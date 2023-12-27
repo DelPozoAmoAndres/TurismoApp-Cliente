@@ -42,13 +42,15 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
         if (filtersToApply && filtersToApply.originDate == null && filtersToApply.endDate == null && showDate) {
             setShowDate(false)
         }
-    }, [showDate,filtersToApply]);
+        // eslint-disable-next-line
+    }, [filtersToApply]);
 
     useEffect(() => {
         if (filtersToApply && filtersToApply.originDate != null && filtersToApply.endDate != null && !showDate) {
             setShowDate(true)
         }
-    }, [showDate, filtersToApply]);
+        //eslint-disable-next-line
+    }, [filtersToApply]);
 
     return (
         <>
