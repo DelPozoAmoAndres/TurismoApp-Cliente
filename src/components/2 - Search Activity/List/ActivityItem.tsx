@@ -36,7 +36,7 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
           <IonIcon icon={star} color="primary" />
           3/5 (323)
         </IonText>
-        {!isMobile && <IonText>
+        {<IonText>
           <p>{activity.description}</p>
         </IonText>}
         <IonCardContent class="ion-no-padding" style={{ position: "absolute", bottom: 0, width: "90%" }}>
