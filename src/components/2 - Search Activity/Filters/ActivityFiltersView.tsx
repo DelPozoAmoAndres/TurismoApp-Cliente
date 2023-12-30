@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic components */
-import { IonButton, IonCheckbox, IonCol, IonDatetime, IonDatetimeButton, IonIcon, IonLabel, IonModal, IonRange, IonRow } from '@ionic/react';
+import { IonCheckbox, IonCol, IonLabel, IonRange, IonRow } from '@ionic/react';
 /* Hooks */
 import { useFilters } from '@hooks/useFilters';
 /* Models */
@@ -11,8 +11,6 @@ import FilterList from '@shared/FilterList';
 import { useAuth } from '@contexts/AuthContexts';
 import { Role } from '@models/User';
 import { useLanguage } from '@hooks/useLanguage';
-import { formatDate } from '@utils/Utils';
-import { trashBinOutline } from 'ionicons/icons';
 import DateFilter from './DateFilter';
 import { useScreen } from '@hooks/useScreen';
 

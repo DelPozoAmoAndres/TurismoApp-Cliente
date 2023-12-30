@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic Components */
-import { IonButtons, IonHeader, IonLabel, IonMenuButton, IonRow, IonToolbar } from '@ionic/react';
+import { IonButtons, IonHeader, IonMenuButton, IonRow, IonToolbar } from '@ionic/react';
 import { briefcaseOutline, gridOutline, homeOutline, personOutline } from 'ionicons/icons';
 /* Hooks */
 import { useScreen } from '@hooks/useScreen';

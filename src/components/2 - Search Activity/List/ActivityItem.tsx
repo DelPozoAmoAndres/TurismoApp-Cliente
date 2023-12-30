@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 /* Ionic components */
-import { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton, IonIcon, IonItem, IonText, IonAlert, IonCol } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonButton, IonIcon, IonItem, IonText, IonAlert } from '@ionic/react';
 import { pencilOutline, star, trashOutline } from 'ionicons/icons';
 /* Styles */
 import './ActivityItem.css';
@@ -36,7 +36,7 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
           <IonIcon icon={star} color="primary" />
           3/5 (323)
         </IonText>
-        {!isMobile && <IonText>
+        {<IonText>
           <p>{activity.description}</p>
         </IonText>}
         <IonCardContent class="ion-no-padding" style={{ position: "absolute", bottom: 0, width: "90%" }}>

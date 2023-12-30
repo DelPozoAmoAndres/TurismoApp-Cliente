@@ -12,7 +12,7 @@ interface Props {
 }
 
 const FilterList: React.FC<Props> = ({ children, onConfirm, onClear, newFilters }) => {
-    const { width, isMobile } = useScreen(); //Hook to have data of screen dimensions
+    const {isMobile } = useScreen(); //Hook to have data of screen dimensions
     const { t } = useTranslation(); //Hook to change the translation without refreshing the page
     return (
         <IonList class="ion-padding" style={{ width: isMobile ? "100%" : '360px' }}>

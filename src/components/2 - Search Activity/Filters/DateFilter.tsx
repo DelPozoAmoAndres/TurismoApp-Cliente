@@ -1,9 +1,8 @@
 import { useScreen } from '@hooks/useScreen';
-import { IonButton, IonDatetime, IonDatetimeButton, IonIcon, IonLabel, IonModal, IonRow } from '@ionic/react';
+import { IonButton, IonDatetime, IonIcon, IonLabel, IonRow } from '@ionic/react';
 import { Modal } from '@shared/Modal';
 import { formatDate } from '@utils/Utils';
-import { use } from 'i18next';
-import { filter, trashBinOutline } from 'ionicons/icons';
+import { trashBinOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -43,13 +42,15 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
         if (filtersToApply && filtersToApply.originDate == null && filtersToApply.endDate == null && showDate) {
             setShowDate(false)
         }
+        // eslint-disable-next-line
     }, [filtersToApply]);
 
     useEffect(() => {
         if (filtersToApply && filtersToApply.originDate != null && filtersToApply.endDate != null && !showDate) {
             setShowDate(true)
         }
-    }, [showDate, filtersToApply]);
+        //eslint-disable-next-line
+    }, [filtersToApply]);
 
     return (
         <>
