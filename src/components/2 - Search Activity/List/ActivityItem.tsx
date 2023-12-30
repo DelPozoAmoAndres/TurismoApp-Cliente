@@ -17,7 +17,7 @@ import { deleteActivity } from '@apis/adminActivityApi';
 import { ActivityModal } from '@components/2 - Search Activity/Modal/ActivityModal';
 import { IonicReactProps } from '@ionic/react/dist/types/components/IonicReactProps';
 
-export const ActivityItem: React.FC<{ activity: Activity, style?:IonicReactProps["style"]}> = ({ activity, style ={}}) => {
+export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProps["style"] }> = ({ activity, style = {} }) => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const auth = useAuth(); //Context of the user
   const { isMobile } = useScreen(); //Hook to have data of screen dimensions
@@ -31,53 +31,53 @@ export const ActivityItem: React.FC<{ activity: Activity, style?:IonicReactProps
         <IonCardTitle>{activity.name}</IonCardTitle>
         <IonCardSubtitle>
           <IonText className="ion-margin-left">{activity.location}</IonText>
-          <IonText class="ion-no-margin ion-align-items-center">
-            <IonIcon icon={star} color="primary" />
-            <IonText class="ion-no-margin">3/5 (323)</IonText>
-          </IonText>
         </IonCardSubtitle>
-        <IonText>
-          <p>{activity.description}</p>
+        <IonText class="ion-no-margin ion-align-items-center">
+          <IonIcon icon={star} color="primary" />
+          3/5 (323)
         </IonText>
-        <IonCardContent class="ion-no-padding" style={{position:"absolute", bottom:0, width : "90%"}}>
-            <div hidden={!(auth.user?.role === Role.administrador && !isMobile)}>
-              <IonButton color={'danger'} onClick={() => activity._id && setShowDeleteAlert(true)} >
-                <IonIcon icon={trashOutline} />
-                {t('delete')}
-              </IonButton>
-              <IonButton id={activity._id}>
-                <IonIcon icon={pencilOutline} />
-                {t('edit')}
-              </IonButton>
-            </div>
-            <IonText  hidden={auth.user?.role === Role.administrador && !isMobile}>
-              <strong>
-                {activity?.events && t('from') + activity?.events && activity.events.length > 0
-                  ? t('from')+" "+Math.min(...activity.events.map((e) => e.price)).toString()
-                  : t('sold.out')}
-              </strong>
-            </IonText>
+        {<IonText>
+          <p>{activity.description}</p>
+        </IonText>}
+        <IonCardContent class="ion-no-padding" style={{ position: "absolute", bottom: 0, width: "90%" }}>
+          <div hidden={!(auth.user?.role === Role.administrador && !isMobile)}>
+            <IonButton color={'danger'} onClick={() => activity._id && setShowDeleteAlert(true)} >
+              <IonIcon icon={trashOutline} />
+              {t('delete')}
+            </IonButton>
+            <IonButton id={activity._id}>
+              <IonIcon icon={pencilOutline} />
+              {t('edit')}
+            </IonButton>
+          </div>
+          <IonText hidden={auth.user?.role === Role.administrador && !isMobile}>
+            <strong>
+              {activity?.events && t('from') + activity?.events && activity.events.length > 0
+                ? t('from') + " " + Math.min(...activity.events.map((e) => e.price)).toString()
+                : t('sold.out')}
+            </strong>
+          </IonText>
           <IonButton routerLink={`/activity/${activity._id}`}>{t('show.info')}</IonButton>
         </IonCardContent>
       </IonCard>
-       { auth.user?.role==Role.administrador && <ActivityModal activity={activity} action="edit" />}
+      {auth.user?.role == Role.administrador && <ActivityModal activity={activity} action="edit" />}
       <IonAlert
-          isOpen={showDeleteAlert}
-          onDidDismiss={()=>setShowDeleteAlert(false)}
-          header="Eliminar cuenta"
-          message="Estás seguro que desear eliminar permanentemente esta cuenta, no podrás recuperar la cuenta"
-          buttons={[
-            {
-              text: 'Cancelar',
-              role: 'cancel',
-              handler: ()=>setShowDeleteAlert(false),
-            },
-            {
-              text: 'Eliminar',
-              handler: ()=>{ activity._id && deleteActivity(activity._id).then(()=>window.location.reload())},
-            },
-          ]}
-        />
+        isOpen={showDeleteAlert}
+        onDidDismiss={() => setShowDeleteAlert(false)}
+        header="Eliminar cuenta"
+        message="Estás seguro que desear eliminar permanentemente esta cuenta, no podrás recuperar la cuenta"
+        buttons={[
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => setShowDeleteAlert(false),
+          },
+          {
+            text: 'Eliminar',
+            handler: () => { activity._id && deleteActivity(activity._id).then(() => window.location.reload()) },
+          },
+        ]}
+      />
     </IonItem>
   );
 };

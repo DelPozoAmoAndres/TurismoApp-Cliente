@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic Components */
-import { IonButtons, IonHeader, IonLabel, IonMenuButton, IonToolbar } from '@ionic/react';
+import { IonButtons, IonHeader, IonMenuButton, IonRow, IonToolbar } from '@ionic/react';
 import { briefcaseOutline, gridOutline, homeOutline, personOutline } from 'ionicons/icons';
 /* Hooks */
 import { useScreen } from '@hooks/useScreen';
@@ -15,6 +15,7 @@ import './Header.css';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@contexts/AuthContexts';
+import Logo from './Logo';
 
 export const Header : React.FC = () => {
   const { isMobile, browsingWeb } = useScreen();
@@ -26,13 +27,11 @@ export const Header : React.FC = () => {
         <div className="toolBar-content">
           <IonButtons slot="start">
             {browsingWeb && isMobile
-              ? <IonMenuButton autoHide={false} />
-              : <strong><IonLabel class="ion-text-start " id="title-app">
-                As<img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cruz_de_Asturias.svg/1200px-Cruz_de_Asturias.svg.png"
-                  width={20} />our
-              </IonLabel></strong>
-
+              ? <IonRow class="ion-align-items-center">
+                  <IonMenuButton autoHide={false}/>
+                  <Logo />
+                </IonRow>
+              : <Logo />
             }
           </IonButtons>
           <IonButtons slot="end" >

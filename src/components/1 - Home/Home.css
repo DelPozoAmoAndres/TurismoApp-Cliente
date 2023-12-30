@@ -1,6 +1,5 @@
 #card-welcome {
   background-image: linear-gradient(rgba(0, 0, 0, 50%), rgba(0, 0, 0, 50%)),
-    /* url('https://imagenes.elpais.com/resizer/2kZjFxiNoG3Pvq9dbeHPTe7aiXc=/1960x1470/cloudfront-eu-central-1.images.arcpublishing.com/prisa/RWF77A5EQGZX4QA2ABH76KQAZE.jpg'); */
     url('https://cdn.pixabay.com/photo/2018/04/27/08/56/water-3354063_1280.jpg');
   background-size: cover;
   background-position: center;
@@ -13,7 +12,7 @@
 @media screen and (max-width: 1300px) {
   #card-welcome {
     border-radius: 0;
-    margin: 0
+    margin: 0;
   }
   
 }

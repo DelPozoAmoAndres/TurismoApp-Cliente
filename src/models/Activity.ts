@@ -72,4 +72,8 @@ export interface ActivityFilter extends Record<string, unknown>{
   duration?: number ;
   petsPermited?: boolean ;
   state?: ActivityState ;
+  language?: string ;
+  originDate?: string ;
+  endDate?: string ;
+  score?: number ;
 }

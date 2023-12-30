@@ -11,8 +11,8 @@ export const ActivityCardList: React.FC = () => {
   const [filtro] = useState<'populares' | 'montaña' | 'playa'>('populares'); // Variable to change between the 3 lists of activities
 
   return (
-    <IonGrid class="ion-no-padding ion-margin-top ion-margin-bottom limits-content" >
-      <IonRow class="grid-container">
+    <IonGrid class="limits-content ion-no-padding" >
+      <IonRow class="grid-container ion-margin-bottom ion-margin-top">
         {/* <strong className="ion-no-margin">{t('welcome.categories.title')}</strong> */}
         <h2> <strong className="chosen-title">Los <span className="plus">+</span><span className="highlight">Elegidos</span></strong></h2>
         {categories[filtro].map((activity, index) => (
