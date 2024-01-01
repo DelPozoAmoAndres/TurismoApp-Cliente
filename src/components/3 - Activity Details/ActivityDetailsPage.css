@@ -1,6 +1,7 @@
 #activity-image-card {
   /* max-width: 600px; */
   max-height: 450px;
+  width: fit-content;
 }
 
 @media only screen and (width <= 1052px) {

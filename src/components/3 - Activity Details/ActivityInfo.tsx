@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic components */
-import { IonButton, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
+import { IonButton, IonCardSubtitle, IonCardTitle, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
 /* Models */
 import { Activity } from '@models/Activity';
 import { Role } from '@models/User';
@@ -53,7 +53,7 @@ export const ActivityInfo: React.FC<{
               </IonLabel>
             </IonRow>
             {t('from')}{' '}
-            {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString() : ''}
+            {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString()+"€" : ''}
           </IonRow>
         )}
         <IonRow>
@@ -93,7 +93,7 @@ export const ActivityInfo: React.FC<{
         </IonButton>
       </section>
       {isMobile && <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
-        <IonButton {...soldOutProps} expand="block" id="login-modal">
+        <IonButton {...soldOutProps} expand="block" id="Availability-modal">
           {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
         </IonButton>
       </section>

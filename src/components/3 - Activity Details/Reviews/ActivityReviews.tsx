@@ -10,17 +10,15 @@ import { useReviewsData } from '@hooks/useReviewsData';
 import './ActivityReviews.css';
 /* i18n */
 import { useTranslation } from 'react-i18next';
-import { Review } from '@models/Activity';
 import { useScreen } from '@hooks/useScreen';
 
 export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }) => {
-  // const listOfComments = useReviewsData(activityId);
-  const listOfComments: Review[] = [{ _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }]
+  const listOfComments = useReviewsData(activityId) || [{ _id: "1", activityId: "1", author: "1", comment: "HOlaaaa HOlaaaa HOlaaaa HOlaaaa HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa HOlaaaa HOlaaaa HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }, { _id: "1", activityId: "1", author: "1", comment: "HOlaaaa", score: 1, date: new Date() }]
   const { isMobile } = useScreen();
   const { t } = useTranslation();
   return (
     listOfComments && listOfComments.length > 0 ?
-      <div className={isMobile?"ion-margin-start ion-margin-end ion-margin-bottom":"ion-margin"} style={{width: isMobile?"auto":300, maxWidth:isMobile?"100%":300 }}>
+      <div className={isMobile?"ion-margin-start ion-margin-end ion-margin-bottom":"ion-margin"} style={{minWidth:isMobile?"":300 }}>
         {!isMobile &&
           <>
             <IonLabel>

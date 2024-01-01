@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic components */
-import { IonButton, IonCard, IonIcon, IonImg, IonLabel, IonRow, IonText } from '@ionic/react';
+import { IonButton, IonCard, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
 import { starOutline } from 'ionicons/icons';
 /* Models */
 import { Review } from '@models/Activity';
@@ -20,7 +20,7 @@ export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
     const { t } = useTranslation();
     const auth = useAuth();
     return (
-        <IonCard id="activity-review" class="ion-no-margin">
+        <IonCard id="activity-review" class="ion-no-margin" style={{width:"100%"}}>
             <section className="ion-margin-bottom">
                 <img src={comment.authorImage || "https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_person_people_avatar_white_tone_icon_159365.png"} width={40} />
                 <section>
