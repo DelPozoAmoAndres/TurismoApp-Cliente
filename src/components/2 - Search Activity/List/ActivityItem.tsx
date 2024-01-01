@@ -53,7 +53,7 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
           <IonText hidden={auth.user?.role === Role.administrador && !isMobile}>
             <strong>
               {activity?.events && t('from') + activity?.events && activity.events.length > 0
-                ? t('from') + " " + Math.min(...activity.events.map((e) => e.price)).toString()
+                ? t('from') + " " + Math.min(...activity.events.map((e) => e.price)).toString()+"€"
                 : t('sold.out')}
             </strong>
           </IonText>
