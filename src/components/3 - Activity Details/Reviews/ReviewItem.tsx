@@ -22,10 +22,10 @@ export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
     return (
         <IonCard id="activity-review" class="ion-no-margin">
             <section className="ion-margin-bottom">
-                <IonImg src={comment.authorImage} />
+                <img src={comment.authorImage || "https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_person_people_avatar_white_tone_icon_159365.png"} width={40} />
                 <section>
                     <IonLabel>
-                        <strong>{comment.authorName}</strong>
+                        <strong>{comment.authorName || "Anónimo"}</strong>
                     </IonLabel>
                     <section>
                         <IonLabel>{formatDate(comment.date)}</IonLabel>

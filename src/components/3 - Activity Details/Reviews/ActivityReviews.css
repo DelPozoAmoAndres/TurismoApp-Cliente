@@ -14,6 +14,8 @@
 #activity-review section section {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 }
 
 #activity-review section section section {
@@ -21,6 +23,8 @@
   flex-direction: row;
   gap: 10px;
   align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
 
 #list-activity-review {
@@ -49,4 +53,11 @@
   #activity-review {
     min-width: none;
   }
+}
+
+.outlined {
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 5px;
+  color: var(--ion-color-primary);
+  --background: transparent;
 }
