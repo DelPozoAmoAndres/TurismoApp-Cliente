@@ -1,0 +1,29 @@
+#event-list ion-card-content {
+    display: flex;
+}
+
+#event-list ion-card-content ion-col {
+    display: flex;
+    flex-direction: column;
+}
+
+#event-list section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#event-list section ion-col {
+    padding: 0;
+}
+
+@media screen and (max-width: 900px) {
+    #event-list ion-card-content {
+        flex-direction: column;
+    }
+    
+}
+
+#event-list .img {
+    margin-bottom: 0;
+}

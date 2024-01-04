@@ -33,7 +33,7 @@ export enum ActivityState {
 export class Event {
   seats: number;
   bookedSeats?: number;
-  date: Date | null;
+  date: Date ;
   price: number;
   language: string;
   guide: string;
@@ -45,6 +45,7 @@ export class Event {
     this.price=0;
     this.language="español";
     this.guide=""
+    this.bookedSeats=0;
   }
 }
 
