@@ -7,6 +7,17 @@
     flex-direction: column;
 }
 
+#event-list ion-card-content ion-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: x-large;
+    align-items: center;
+    color: var(--ion-color-primary);
+    margin-right: -20px;
+}
+
 #event-list section {
     display: flex;
     flex-direction: row;
@@ -20,10 +31,36 @@
 @media screen and (max-width: 900px) {
     #event-list ion-card-content {
         flex-direction: column;
+        height: 350px;
     }
-    
+
+    #event-list img {
+        width: 70%;
+        max-width: 70%;
+    }
+
+    #event-list h1 {
+        margin: 0;
+        margin-left: 5px;
+        text-align: left;
+    }
+
+    #event-list .grid{
+        position: sticky;
+        position: -webkit-sticky;
+        top:40px;
+        right: 0;
+        z-index: 1000;
+        background: var(--ion-background-color,#ffff);
+    }
+
+    #event-list .grid {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr auto;    }
 }
 
 #event-list .img {
     margin-bottom: 0;
 }
+

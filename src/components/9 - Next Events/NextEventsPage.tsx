@@ -1,12 +1,14 @@
 import LogoHeaderAppLayout from '@components/app/layouts/LogoHeaderAppLayout';
-import TwoColumnWebLayout from '@components/web/layouts/TwoColumnWebLayout';
 import { useScreen } from '@hooks/useScreen';
-import { IonDatetime, IonList } from '@ionic/react';
+import { IonButton, IonDatetime, IonIcon, IonList } from '@ionic/react';
 import { Event } from '@models/Activity';
 import { formatDate } from '@utils/Utils';
 import React, { useEffect, useState } from 'react';
 import { EventItemList } from './EventItemList';
 import "./EventList.css"
+import SearchWebLayout from '@components/web/layouts/SearchWebLayout';
+import { Modal } from '@shared/Modal';
+import { calendarOutline } from 'ionicons/icons';
 
 export const NextEventsPage: React.FC = () => {
     const { browsingWeb } = useScreen();
@@ -22,13 +24,16 @@ export const NextEventsPage: React.FC = () => {
     const [highlightedDates, setHighlightedDates] = useState<{ date: string; textColor: string; backgroundColor: string }[]>()
     const [filterEvents, setFilterEvents] = useState<Event[]>()
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const { isMobile } = useScreen();
+    const modal = React.useRef<HTMLIonModalElement>(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         // eventList = getEventsByUser(user?._id);
         getHighlightedDates();
         console.log("highlightedDates", highlightedDates);
         //eslint-disable-next-line
-    },[]);
+    }, []);
 
     useEffect(() => {
         getFilterEvents();
@@ -63,17 +68,28 @@ export const NextEventsPage: React.FC = () => {
 
     const leftContent = () => (
         <IonDatetime
-            style={{ marginTop: '85px' }}
-            min={new Date().toISOString()}
+            style={{  margin:isMobile?"auto":"",marginTop: isMobile?"0":'85px', height: isMobile?"100%":"", width: isMobile?"100%":"",}}
+            class='sticky'
+            // min={new Date().toISOString()}
             highlightedDates={highlightedDates}
             value={formatDate(selectedDate)}
             onIonChange={e => e.detail.value && setSelectedDate(new Date(e.detail.value.toString()))}
-            presentation='date' />
+            presentation='date'
+            showDefaultButtons={isMobile} />
     )
 
+    const mobileContent = () => (
+        <>
+            <Modal id="dateTimeOrigin" modal={modal} minWidthAndroid={0} minWidthIos={0} tittle='OriginDate' isOpen={showModal} setOpen={setShowModal}>
+                {leftContent()}
+            </Modal>
+            <IonButton class="outlined" onClick={() => setShowModal(true)}><IonIcon icon={calendarOutline} class='ion-margin-end' />{formatDate(selectedDate)}</IonButton>
+        </>
+    );
+
     const content = (
-        <IonList id="event-list" class='ion-margin'>
-            <h1>Next Events</h1>
+        <IonList id="event-list" class={isMobile ? 'ion-margin' : ''}>
+            <div className ="grid"><h1>Next Events</h1>{isMobile && mobileContent()} </div>
             <div>
                 {filterEvents?.map((event, index) => (
                     <EventItemList event={event} key={index} />
@@ -84,5 +100,5 @@ export const NextEventsPage: React.FC = () => {
 
     return !browsingWeb
         ? <LogoHeaderAppLayout>{content}</LogoHeaderAppLayout>
-        : <TwoColumnWebLayout leftContent={leftContent}>{content}</TwoColumnWebLayout>;
+        : <SearchWebLayout leftMenu={leftContent}>{content}</SearchWebLayout>;
 };

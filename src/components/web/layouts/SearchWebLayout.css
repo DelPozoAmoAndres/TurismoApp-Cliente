@@ -10,18 +10,18 @@
 }
 
 .search-web{
-    overflow-y: auto; /* Hace que la barra de desplazamiento sea automática según el contenido */
+    overflow-y: auto; 
     height: 100%;
-}
+} 
 
 .search-web .sticky > ion-list{
     position: -webkit-sticky;
     position: sticky;
     top: 44px;
     background-color: var(--background);
-}
+} 
 
-@media screen and (max-width: 900px) {
+ @media screen and (max-width: 900px) {
     .search-web main {
         grid-template-columns: 1fr;
     }

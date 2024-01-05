@@ -1,6 +1,8 @@
-import { IonButton, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonLabel, IonText } from "@ionic/react";
+import { useScreen } from "@hooks/useScreen";
+import { IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonIcon, IonLabel, IonText } from "@ionic/react";
 import { Event } from "@models/Activity";
 import { formatDateToTime } from "@utils/Utils";
+import { arrowDownOutline } from "ionicons/icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -10,30 +12,31 @@ interface Props {
 
 export const EventItemList: React.FC<Props> = ({ event }) => {
     const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+    const { isMobile } = useScreen();
     return (
-        <IonCardContent className="ion-no-margin" style={{ height: 275 }}>
+        <IonCardContent className="ion-no-margin ion-no-padding">
             <IonCol>
-                <section>
+                <section className="ion-margin-bottom">
+                    <IonCol>
+                        <IonCard class="ion-no-margin">
+                            <IonText>{formatDateToTime(event.date || null)}</IonText>
+                            <IonIcon icon={arrowDownOutline} />
+                            <IonText>{formatDateToTime(event.date || null)}</IonText>
+                        </IonCard>
+                    </IonCol>
                     <img
-                        width={"50%"}
+                        width={"85%"}
                         height={150}
                         alt={t('img.activity.alt') || ''}
-                        className="ion-margin-end img"
+                        className="img"
                         style={{ borderRadius: 6 }}
                         src={"https://imagenes.elpais.com/resizer/2kZjFxiNoG3Pvq9dbeHPTe7aiXc=/1960x1470/cloudfront-eu-central-1.images.arcpublishing.com/prisa/RWF77A5EQGZX4QA2ABH76KQAZE.jpg"}
                     />
-                    <IonCol class="ion-no-margin">
-                        <IonButton class="outlined" style={{ height: "100%" }} routerLink={`/events/${event._id}`}>
-                            {t('activity.details')}
-                        </IonButton>
-                        <IonButton color={"primary"} style={{ height: "100%" }} routerLink={`/events/${event._id}`}>
-                            {t('event.participants')}
-                        </IonButton>
-                    </IonCol>
                 </section>
+                <section>
                 <IonCol>
                     <IonCardTitle>
-                        {"NAMENAMENAMENAMENAMENAMENAME"}
+                        {"NAMENAME"}
                     </IonCardTitle>
                     <IonCardSubtitle>
                         {"LocationLocationLocationLocation"}
@@ -45,16 +48,7 @@ export const EventItemList: React.FC<Props> = ({ event }) => {
                             </IonLabel>
                             <IonText>{event.bookedSeats}</IonText>
                         </IonCol>
-                        <IonCol>
-                            <IonLabel>
-                                <strong>{t('hour')}</strong>
-                            </IonLabel>
-                            <div>
-                                <IonText>{formatDateToTime(event.date || null)}</IonText>
-                                -
-                                <IonText>{formatDateToTime(event.date || null)}</IonText>
-                            </div>
-                        </IonCol>
+
                         <IonCol>
                             <IonLabel>
                                 <strong>{t('event.language')}</strong>
@@ -64,7 +58,30 @@ export const EventItemList: React.FC<Props> = ({ event }) => {
                             </IonLabel>
                         </IonCol>
                     </section>
+                    {isMobile &&
+                        <section>
+                            <IonCol class="ion-no-margin">
+                                <IonButton color={"primary"} routerLink={`/events/${event._id}`}>
+                                    {t('event.participants')}
+                                </IonButton>
+                                <IonButton class="outlined" routerLink={`/events/${event._id}`}>
+                                    {t('activity.details')}
+                                </IonButton>
+                            </IonCol>
+                        </section>
+                    }
                 </IonCol>
+                {!isMobile &&
+                        <IonCol class="ion-no-margin">
+                            <IonButton color={"primary"} routerLink={`/events/${event._id}`}>
+                                {t('event.participants')}
+                            </IonButton>
+                            <IonButton class="outlined" routerLink={`/events/${event._id}`}>
+                                {t('activity.details')}
+                            </IonButton>
+                        </IonCol>
+                }
+                </section>
             </IonCol>
         </IonCardContent>
     )
