@@ -1,7 +1,7 @@
 import LogoHeaderAppLayout from '@components/app/layouts/LogoHeaderAppLayout';
 import { useScreen } from '@hooks/useScreen';
 import { IonButton, IonDatetime, IonIcon, IonList } from '@ionic/react';
-import { Activity, Event } from '@models/Activity';
+import { Activity } from '@models/Activity';
 import { formatDate } from '@utils/Utils';
 import React, { useEffect, useState } from 'react';
 import { EventItemList } from './EventItemList';
@@ -30,10 +30,11 @@ export const NextEventsPage: React.FC = () => {
 
     useEffect(() => {
         getEventList();
+        //eslint-disable-next-line
     }, [user]);
     useEffect(() => {
         getHighlightedDates();
-        console.log("highlightedDates", highlightedDates);
+        //eslint-disable-next-line
     }, [eventList]);
 
     useEffect(() => {

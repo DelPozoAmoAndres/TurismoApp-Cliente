@@ -1,6 +1,6 @@
 import { useScreen } from "@hooks/useScreen";
 import { IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonIcon, IonItem, IonLabel, IonList, IonText } from "@ionic/react";
-import { Activity, Event } from "@models/Activity";
+import { Activity } from "@models/Activity";
 import { Modal } from "@shared/Modal";
 import { formatDateToTime, formatTime } from "@utils/Utils";
 import { ellipsisHorizontalOutline } from "ionicons/icons";
@@ -22,6 +22,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
 
     useEffect(() => {
         getParticipantsList();
+        // eslint-disable-next-line
     }, [event]);
 
     const getParticipantsList = async () => {
@@ -97,7 +98,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
                     {participants?.map((participant, index) => (
                         <IonItem key={index} >
                             <IonLabel style={{ textAlign: "start", maxWidth: "70%" }}>{participant.name}</IonLabel>
-                            <IonLabel style={{ textAlign: "end" }}>{participant.reservations!.at(0)?.numPersons} {t("persons")}</IonLabel>
+                            <IonLabel style={{ textAlign: "end" }}>{participant.reservations && participant.reservations.at(0)?.numPersons} {t("persons")}</IonLabel>
                         </IonItem>
                     ))}
                 </IonList>

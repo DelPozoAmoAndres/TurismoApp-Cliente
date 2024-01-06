@@ -1,4 +1,3 @@
-import { Activity } from './Activity';
 import { Reservation } from './Reservation';
 
 export class User {
