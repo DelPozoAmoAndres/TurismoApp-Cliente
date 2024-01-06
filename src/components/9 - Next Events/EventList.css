@@ -5,6 +5,7 @@
 #event-list ion-card-content ion-col {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 #event-list ion-card-content ion-card {
@@ -16,6 +17,8 @@
     align-items: center;
     color: var(--ion-color-primary);
     margin-right: -20px;
+    box-shadow: none;
+    border: 1px solid var(--ion-color-primary);
 }
 
 #event-list section {
@@ -31,7 +34,6 @@
 @media screen and (max-width: 900px) {
     #event-list ion-card-content {
         flex-direction: column;
-        height: 350px;
     }
 
     #event-list img {
@@ -64,3 +66,15 @@
     margin-bottom: 0;
 }
 
+#participantsModal ion-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#participantsModal ion-list ion-item {
+    margin-right: 5%;
+}
+
+#participantsModal ion-list ion-item ion-label {
+    flex: auto;
+}

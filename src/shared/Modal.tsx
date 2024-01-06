@@ -8,8 +8,8 @@ export const Modal: React.FC<{
   id: string;
   children: React.ReactNode;
   modal: React.RefObject<HTMLIonModalElement>;
-  minWidthIos: number;
-  minWidthAndroid: number;
+  minWidthIos?: number;
+  minWidthAndroid?: number;
   trigger?: string;
   tittle: string;
   isOpen?: boolean;
@@ -18,7 +18,7 @@ export const Modal: React.FC<{
   let initialBreakpoint = 0;
   let props = {};
   if (Capacitor.isNativePlatform()) {
-    if (Capacitor.getPlatform() == 'ios') {
+    if (Capacitor.getPlatform() == 'ios' && minWidthIos!==undefined) {
       //const minWidth = 492;
       initialBreakpoint = minWidthIos / window.innerHeight;
     } else if (Capacitor.getPlatform() == 'android' && minWidthAndroid!==undefined) {

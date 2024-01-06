@@ -34,6 +34,12 @@ const formatDateToTime = (date: Date | null): string => {
   return formatDate(date, true).split('T')[1];
 };
 
+const formatTime = (time: number): string => {
+  const hours = Math.floor(time / 60);
+  const minutes = time % 60;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
 function getItem(key: string) {
   try {
     return localStorage.getItem(key);
@@ -113,4 +119,4 @@ async function optimizeImage(fr: FileReader, file: File) {
   });
 }
 
-export { filterPropertiesNotNull, formatDate, formatDateToTime, getItem, setItem, removeItem, uploadImage };
+export { filterPropertiesNotNull, formatDate, formatDateToTime, getItem, setItem, removeItem, uploadImage,formatTime };
