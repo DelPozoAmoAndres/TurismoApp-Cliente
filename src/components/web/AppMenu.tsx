@@ -59,6 +59,12 @@ const AppMenu: React.FC = () => {
               <IonLabel>{t('search.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle hidden={auth.user !== null} onClick={()=>auth.setShowLoginModal(true)}>
+            <IonItem button>
+              <IonIcon slot="start" icon={personOutline} />
+              <IonLabel>{t('account.title')}</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null} onClick={handleClick}>
             <IonItem button routerLink="/perfil">
               <IonIcon slot="start" icon={personOutline} />
