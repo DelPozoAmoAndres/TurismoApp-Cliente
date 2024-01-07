@@ -43,6 +43,7 @@ import { useTheme } from '@hooks/useTheme';
 import UserSearchPage from '@search-user/UserSearchpage';
 import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
 import EventsPage from '@components/Events/EventsPage';
+import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';
 
 setupIonicReact();
 
@@ -63,9 +64,7 @@ const AppIndex: React.FC = () => {
 
   useEffect(() => {
     App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-      // Example url: https://example.app/tabs/tab2
-      // slug = /tabs/tab2
-      const slug = event.url.split('.app').pop();
+      const slug = event.url.split('.online').pop();
       if (slug) {
         history.push(slug);
       }
@@ -99,7 +98,7 @@ const AppIndex: React.FC = () => {
               <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
               <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
               <AdminRoute exact path="/admin/activity/:id/events/" component={EventsPage}/>
-              {/*<PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />*/}
+              <PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />
             </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>

@@ -55,12 +55,12 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
     return (
         <>
             <IonRow>
-                <Modal id="dateTimeOrigin" modal={originModal} minWidthAndroid={0} minWidthIos={0} tittle='OriginDate' isOpen={showOrigin} setOpen={setShowOrigin}>
+                <Modal id="dateTimeOrigin" modal={originModal}  tittle='OriginDate' isOpen={showOrigin} setOpen={setShowOrigin}>
                     <div style={{ width: "100%", height: isMobile?"auto" : "90%", display: "flex", justifyContent: "center", marginTop: "10px" }}>
                         <IonDatetime presentation='date' id="datetimeOrigin" showDefaultButtons value={getDate('originDate')} onIonChange={e => handleFilters(formatDate(new Date(String(e.detail.value))), 'originDate')} min={new Date(Date.now()).toISOString()} max={getLimitDate('endDate')}></IonDatetime>
                     </div>
                 </Modal >
-                <Modal id="dateTimeEnd" modal={endModal} minWidthAndroid={0} minWidthIos={0} tittle='EndDate' isOpen={showEnd} setOpen={setShowEnd}>
+                <Modal id="dateTimeEnd" modal={endModal}  tittle='EndDate' isOpen={showEnd} setOpen={setShowEnd}>
                     <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "10px" }}>
                         <IonDatetime presentation='date' id="datetimeEnd" showDefaultButtons value={getDate('endDate')} onIonChange={e => handleFilters(formatDate(new Date(String(e.detail.value))), 'endDate')} min={getLimitDate('originDate')}></IonDatetime>
                     </div>

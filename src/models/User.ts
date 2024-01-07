@@ -1,4 +1,4 @@
-import { Activity } from './Activity';
+import { Reservation } from './Reservation';
 
 export class User {
   name: string ;
@@ -10,7 +10,7 @@ export class User {
   role?: Role;
   createdAt?: Date;
   updatedAt?: Date;
-  schedules?: Schedule[];
+  reservations?: Reservation[];
   _id?: string;
 
   constructor() {
@@ -18,11 +18,6 @@ export class User {
     this.email="",
     this.password=""
   }
-}
-
-export interface Schedule {
-  name: string;
-  activities: Activity[];
 }
 
 export interface FieldConfig {

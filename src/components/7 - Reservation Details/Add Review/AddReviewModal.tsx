@@ -14,7 +14,7 @@ export const AddReviewModal: React.FC<{ activityId: string }> = ({ activityId })
     const [review] = useState<Review>(new Review(activityId));
     const { formData, setFormData, guardarCambios} = useEdit(review, createReview);
     return (
-        <Modal id='modal-review-add' trigger={"reviews-modal"} minWidthAndroid={0} minWidthIos={0} tittle={t("valoration.add.title")} modal={modal} >
+        <Modal id='modal-review-add' trigger={"reviews-modal"}  tittle={t("valoration.add.title")} modal={modal} >
             <IonRow class=' ion-padding-horizontal ion-align-items-center ion-justify-content-center'>
                 <IonIcon icon={starOutline} />
                 <IonList>

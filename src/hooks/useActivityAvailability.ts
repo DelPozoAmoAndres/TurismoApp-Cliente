@@ -33,7 +33,7 @@ export const useActivityAvailability = (activityId: string) => {
         days.push({
           date: formatDate(event.date),
           textColor: 'white',
-          backgroundColor: '#B37FD9',
+          backgroundColor: 'var(--ion-color-tertiary)',
         })
       );
       setHighlightedDates(days);

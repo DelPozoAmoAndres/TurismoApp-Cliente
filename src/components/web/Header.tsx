@@ -41,6 +41,7 @@ export const Header : React.FC = () => {
             <Button role={null} routeLink="/home" icon={homeOutline} text={t('home.title')} />
             <Button role={null} routeLink="/perfil" icon={personOutline} text={t('profile.title')} />
             <Button role={Role.administrador} routeLink="/admin/dashboard" icon={gridOutline} text={t('dashboard.title')} />
+            <Button role={Role.guía} routeLink="/nextEvents" icon={briefcaseOutline} text={t('nextEvents.title')} />
             <Button role={Role.turista} routeLink="/reservas" icon={briefcaseOutline} text={t('reservations.title')} />
             <LanguageSelector hidden={isMobile} />
             <DarkModeToggle hidden={isMobile} />
