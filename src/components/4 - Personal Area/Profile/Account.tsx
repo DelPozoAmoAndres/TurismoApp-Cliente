@@ -5,9 +5,12 @@ import { shieldOutline, trashOutline } from 'ionicons/icons';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { ChangePasswordModal } from '../Change Password/ChangePasswordModal';
+import { deleteUser } from '@apis/adminUserApi';
+import { useAuth } from '@contexts/AuthContexts';
 
 export const Account: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+  const {deleteAccount} = useAuth();
   return (
     <IonGrid>
       <ChangePasswordModal/>
@@ -23,7 +26,7 @@ export const Account: React.FC = () => {
         </IonButton>
       </IonRow>
       <IonRow class="ion-justify-content-between ">
-        <IonButton color={'danger'}  style={{ width: '100%' }} >
+        <IonButton color={'danger'}  style={{ width: '100%' }} onClick={deleteAccount}>
           <IonIcon slot="start" icon={trashOutline} />
           {t('account.delete')}
         </IonButton>

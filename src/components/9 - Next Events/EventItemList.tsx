@@ -32,7 +32,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
     const buttons = (
         <IonCol class="ion-no-margin">
             <IonButton
-                disabled={event?.bookedSeats !== null || event?.bookedSeats == 0}
+                disabled={event?.bookedSeats === null || event?.bookedSeats == 0}
                 color={"primary"} id={"participants-" + event?._id}>
                 {t('event.participants')}
             </IonButton>

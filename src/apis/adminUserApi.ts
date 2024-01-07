@@ -20,7 +20,7 @@ export const editUser = async (user: User): Promise<User> => {
 };
 
 export const deleteUser = async (id: string): Promise<User> => {
-    return axios.delete(`${baseUrl}?id=${id}`).then((res) => res.data);
+    return axios.delete(`${baseUrl}/${id}`).then((res) => res.data);
 };
 
 export const registerUser = async (user: User) => {
