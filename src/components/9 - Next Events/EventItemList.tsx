@@ -7,7 +7,7 @@ import { ellipsisHorizontalOutline } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getParticipants } from "@apis/eventsApi";
-import { User } from "@models/User";
+import { Reservation } from "@models/Reservation";
 
 interface Props {
     activity: Activity;
@@ -17,7 +17,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
     const { t } = useTranslation(); //Hook to change the translation without refreshing the page
     const { isMobile } = useScreen();
     const modal = React.useRef<HTMLIonModalElement>(null);
-    const [participants, setParticipants] = useState<User[]>();
+    const [participants, setParticipants] = useState<Reservation[]>();
     const event = activity?.events !== undefined ? activity?.events[0] : null;
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
     const buttons = (
         <IonCol class="ion-no-margin">
             <IonButton
-                // disabled={event?.bookedSeats !== null || event?.bookedSeats == 0}
+                disabled={event?.bookedSeats !== null || event?.bookedSeats == 0}
                 color={"primary"} id={"participants-" + event?._id}>
                 {t('event.participants')}
             </IonButton>
@@ -54,7 +54,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
                             </IonCard>
                         </IonCol>
                         <img
-                            width={"85%"}
+                            width={"90%"}
                             height={150}
                             alt={t('img.activity.alt') || ''}
                             className="img"
@@ -75,7 +75,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
                                     <IonLabel>
                                         <strong>{t('event.bookedseats')}</strong>
                                     </IonLabel>
-                                    <IonText>{event?.bookedSeats || 0}</IonText>
+                                    <IonText>{event?.bookedSeats || 0}/{event?.seats}</IonText>
                                 </IonCol>
 
                                 <IonCol>
@@ -95,14 +95,14 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
             </IonCardContent>
             <Modal tittle={t('participant.list')} trigger={"participants-" + event?._id} id='participantsModal' modal={modal}>
                 <IonList>
-                    {participants?.map((participant, index) => (
-                        <IonItem key={index} >
+                    {participants?.map((participant) => (
+                        <IonItem key={participant._id} >
                             <IonLabel style={{ textAlign: "start", maxWidth: "70%" }}>{participant.name}</IonLabel>
-                            <IonLabel style={{ textAlign: "end" }}>{participant.reservations && participant.reservations.at(0)?.numPersons} {t("persons")}</IonLabel>
+                            <IonLabel style={{ textAlign: "end" }}>{participant.numPersons} {t("persons")}</IonLabel>
                         </IonItem>
                     ))}
                 </IonList>
-            </Modal>
+            </Modal >
         </>
     )
 }

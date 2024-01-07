@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    font-size: x-large;
+    font-size: 1.5vw;
     align-items: center;
     color: var(--ion-color-primary);
     margin-right: -20px;
@@ -36,9 +36,13 @@
         flex-direction: column;
     }
 
+    #event-list ion-card-content ion-card {
+        font-size: 130%;        
+    }
+
     #event-list img {
-        width: 70%;
-        max-width: 70%;
+        width: 80%;
+        max-width: 80%;
     }
 
     #event-list h1 {
