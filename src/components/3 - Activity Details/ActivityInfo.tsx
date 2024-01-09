@@ -33,12 +33,18 @@ export const ActivityInfo: React.FC<{
         <IonCardSubtitle>{activityData?.location}</IonCardSubtitle>
       </IonRow>
       <div style={{ width: "100%" }}>
-        {browsingWeb && !isMobile && <section hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
-          <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-            {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
-            <IonIcon slot="end" icon={calendarOutline}/>
-          </IonButton>
-        </section>}
+        {browsingWeb && !isMobile && <>
+          <section hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
+            <IonButton {...soldOutProps} expand="block" id="Availability-modal">
+              {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
+              <IonIcon slot="end" icon={calendarOutline} />
+            </IonButton>
+          </section>
+          <section hidden={isMobile || !auth.user || auth.user?.role !== Role.administrador}>
+            <IonButton routerLink={`/admin/activity/${activityData._id}/events`} expand="block">
+              {t('show.events')}
+            </IonButton>
+          </section></>}
         {browsingWeb &&
           <IonButton class='outlined' onClick={share}>
             {t('share')}
@@ -53,7 +59,7 @@ export const ActivityInfo: React.FC<{
               </IonLabel>
             </IonRow>
             {t('from')}{' '}
-            {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString()+"€" : ''}
+            {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString() + "€" : ''}
           </IonRow>
         )}
         <IonRow>
@@ -87,11 +93,6 @@ export const ActivityInfo: React.FC<{
         </IonLabel>
       </IonRow>
       <IonRow class='ion-margin-bottom' style={{ whiteSpace: "pre-line" }}>{activityData?.accesibility}</IonRow>
-      <section hidden={isMobile || !auth.user || auth.user?.role !== Role.administrador}>
-        <IonButton routerLink={`/admin/activity/${activityData._id}/events`} expand="block" mode="ios">
-          {t('show.events')}
-        </IonButton>
-      </section>
       {isMobile && <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
         <IonButton {...soldOutProps} expand="block" id="Availability-modal">
           {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}

@@ -42,7 +42,7 @@ import PrivateRoute from '@shared/PrivateRoute';
 import { useTheme } from '@hooks/useTheme';
 import UserSearchPage from '@search-user/UserSearchpage';
 import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
-import EventsPage from '@components/Events/EventsPage';
+import EventsPage from '@components/10- See Events/EventsPage';
 import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';
 
 setupIonicReact();

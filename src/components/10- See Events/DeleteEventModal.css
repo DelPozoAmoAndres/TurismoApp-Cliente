@@ -1,0 +1,13 @@
+.small-datetime {
+    --padding-start: -10px;
+    --padding-end: -10px;
+    min-width: 0;
+    padding: -20px;
+    background: var(--ion-color-light-shade);
+}
+
+.vertical-divider {
+    border-left: 1px solid var(--ion-color-primary);
+    height: 100%;
+    position: relative;
+}
