@@ -49,7 +49,7 @@ const EventsPage: React.FC<EventsProps> = ({ match }) => {
                                 </IonCardContent>
                                 <IonRow class='ion-justify-content-between ion-margin-horizontal' style={{ marginBottom: "5px" }}>
                                     <IonButton id={event._id} color={'primary'} style={{ width: "45%" }} expand="block" ><IonIcon icon={pencilOutline} />Editar</IonButton>
-                                    <DeleteEventModal onDelete={()=>{console.log("hola")}} eventId={event._id} />
+                                    <DeleteEventModal eventId={event._id} />
                                 </IonRow>
                             </IonCard>
                             <EventModal activityId={match.params.id} event={event} action="edit" />

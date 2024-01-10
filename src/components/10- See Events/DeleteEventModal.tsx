@@ -4,35 +4,46 @@ import { Modal } from '@shared/Modal'; // Importa tu modal
 import { useTranslation } from 'react-i18next';
 import { trashOutline } from 'ionicons/icons';
 import './DeleteEventModal.css';
+import { deleteEvents } from '@apis/eventsApi';
+import { RecurrenceEventParams } from '@models/RecurrenceEventParams';
 
-const DeleteEventModal: React.FC<{ eventId: string | undefined, onDelete: (selectedDays: string[]) => void }> = ({ eventId, onDelete }) => {
+const DeleteEventModal: React.FC<{ eventId: string | undefined}> = ({ eventId}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [deleteRepeated, setDeleteRepeated] = useState(false);
-    const [selectedDays, setSelectedDays] = useState<string[]>([]);
     const modalRef = useRef<HTMLIonModalElement>(null);
     const { t } = useTranslation();
     const daysOfWeek = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+    const [recurrentParams, setRecurrentParams] = useState<RecurrenceEventParams>({recurrenceDays:[],startDate:new Date(),endDate:new Date()}); 
 
-    const toggleDay = (day: string) => {
-        setSelectedDays(selectedDays.includes(day) ? selectedDays.filter(d => d !== day) : [...selectedDays, day]);
+    const toggleDay = (day: number) => {
+        const recurrenceDays =recurrentParams.recurrenceDays.includes(day) 
+                                ? recurrentParams.recurrenceDays.filter(d => d !== day) 
+                                : [...recurrentParams.recurrenceDays, day]
+        const newRecurrentParams = { ...recurrentParams, recurrenceDays };
+        setRecurrentParams(newRecurrentParams);
     };
 
     const handleDelete = () => {
         setIsOpen(false);
-        onDelete(deleteRepeated ? selectedDays : []);
+        eventId && deleteEvents(eventId, recurrentParams)
     };
 
     const daySelectionButtons = () => (
-        deleteRepeated && daysOfWeek.map(day => (
+        deleteRepeated && daysOfWeek.map((day,index) => (
             <IonButton
                 key={day}
                 style={{ padding: 0 }}
-                fill={selectedDays.includes(day) ? 'solid' : 'outline'}
-                onClick={() => toggleDay(day)}>
+                fill={recurrentParams?.recurrenceDays.includes(index) ? 'solid' : 'outline'}
+                onClick={() => toggleDay(index)}>
                 {day}
             </IonButton>
         ))
     );
+
+    const setDayRange = (value:string,property:"startDate"|"endDate") => {
+        const newRecurrentParams = { ...recurrentParams, [property]: new Date(value) };
+        setRecurrentParams(newRecurrentParams);
+    }
 
     return (
         <>
@@ -66,10 +77,10 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined, onDelete: (selec
                         </IonRow>
                         <IonRow >
                             <IonCol size="6">
-                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' size="fixed" min={new Date().toISOString()}/>
+                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' size="fixed" min={new Date().toISOString()} value={recurrentParams.startDate.toISOString()} onIonChange={(e)=>e.detail.value && setDayRange(String(e.detail.value),"startDate")}/>
                             </IonCol>
                             <IonCol size="6">
-                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' min={new Date().toISOString()}/>
+                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' min={recurrentParams.startDate.toISOString()} value={recurrentParams.endDate.toISOString()} onIonChange={(e)=>e.detail.value && setDayRange(String(e.detail.value),"endDate")}/>
                             </IonCol>
                         </IonRow>
                     </div>

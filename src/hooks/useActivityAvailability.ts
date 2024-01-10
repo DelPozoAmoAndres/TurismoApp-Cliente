@@ -14,6 +14,7 @@ export const useActivityAvailability = (activityId: string) => {
     //Method to handle when de date selected in the calendar change
     setSelectedDate(date);
     setSelectedEvent(null);
+    console.log(events);
     const selectedEvents = events?.filter((event) => formatDate(event.date) === formatDate(date));
     if (selectedEvents) {
       setSelectedEvents(selectedEvents);
@@ -23,7 +24,7 @@ export const useActivityAvailability = (activityId: string) => {
   useEffect(() => {
     getEvents(activityId).then((events: Event[]) => {
       if(!events) return;
-      setEvents([...events,...events,...events]);
+      setEvents(events);
       const days: {
         date: string;
         textColor: string;
