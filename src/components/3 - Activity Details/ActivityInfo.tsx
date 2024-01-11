@@ -14,6 +14,7 @@ import { useSoldOut } from '@hooks/useSoldOut';
 /* Contexts */
 import { useAuth } from '@contexts/AuthContexts';
 import { calendarOutline, shareSocialOutline } from 'ionicons/icons';
+import { formatDateToTime } from '@utils/Utils';
 
 export const ActivityInfo: React.FC<{
   activityData: Activity;
@@ -23,6 +24,9 @@ export const ActivityInfo: React.FC<{
   const { browsingWeb, isMobile } = useScreen(); //Hook to have data of screen dimensions
   const auth = useAuth();
   const { soldOutProps } = useSoldOut(activityData?.events);
+  const date: Date = new Date();
+  date.setHours(0, 0, 0, 0);
+  date.setMinutes(activityData.duration);
 
   return (
     <div id="activity-info" className="ion-margin-top">
@@ -68,7 +72,7 @@ export const ActivityInfo: React.FC<{
               <strong>{t('duration')}</strong>
             </IonLabel>
           </IonRow>
-          {activityData?.duration} {t('hours')}
+          {formatDateToTime(date)} {t('hours')}
         </IonRow>
         <IonRow>
           <IonRow class="ion-margin-top">

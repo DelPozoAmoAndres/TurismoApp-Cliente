@@ -8,9 +8,10 @@ import { useLanguage } from '@hooks/useLanguage';
 
 type LanguageSelectorProps = {
   hidden: boolean,
+  color?: string
 };
 
-const LanguageSelector: React.FC<LanguageSelectorProps> = ({hidden}) => {
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({hidden,color}) => {
   const { languages, defaultLanguage } = useLanguage();
   const [selectedLanguage, setSelectedLanguage] = useState(defaultLanguage);
   const handleLanguageChange = async (lang: Language) => {
@@ -21,7 +22,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({hidden}) => {
 
   return (
     <IonNavLink hidden={hidden} >
-      <IonButton expand="block" disabled={getItem('i18nextLng') === null}>
+      <IonButton expand="block" disabled={getItem('i18nextLng') === null} color={color}>
         <IonIcon slot="start" icon={globeOutline} />
         <IonSelect
           style={{ width: 'auto' }}

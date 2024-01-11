@@ -18,16 +18,16 @@ import { useTranslation } from 'react-i18next';
 
 export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit" }> = ({ activity, action }) => {
     const { t } = useTranslation();
-    const { formData, setFormData, guardarCambios, setShowAlert, showAlert, edited } = useEdit(activity,action=="edit"?editActivity:createActivity);
+    const { formData, setFormData, guardarCambios, setShowAlert, showAlert, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity);
     const modal = useRef<HTMLIonModalElement>(null);
     return (
-        <Modal id='modal-activity-edit' trigger={activity?._id || "add"}  tittle={t("activity."+action+".title")} modal={modal} >
+        <Modal id='modal-activity-edit' trigger={activity?._id || "add"} tittle={t("activity." + action + ".title")} modal={modal} >
             <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
                 <section className='ion-margin-end '>
                     <IonRow class="ion-justify-content-center" >
                         {(formData?.images)?.map((image, index) =>
                             <div key={"image" + index} >
-                                <img src={String(image) || ""}/>
+                                <img src={String(image) || ""} />
                             </div>
                         )}
                         <input type="file" id="file-input" accept="image/*"
@@ -35,7 +35,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                                 const fr = new FileReader();
                                 uploadImage(fr, e,
                                     async () => {
-                                        formData && setFormData({ ...formData, images:  [fr.result] })
+                                        formData && setFormData({ ...formData, images: [...formData.images,fr.result] })
                                     })
                             }} />
                     </IonRow>
@@ -54,6 +54,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                     </IonItem>
                     <IonItem>
                         <IonTextarea
+                            class='resize'
                             value={formData?.description}
                             rows={5}
                             label="Descripción"
@@ -63,8 +64,9 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                     </IonItem>
                     <IonItem >
                         <IonTextarea
+                            class='resize'
                             value={formData?.accesibility}
-                            rows={3}
+                            rows={5}
                             label="Accesibilidad"
                             labelPlacement="stacked"
                             onIonInput={(e) => formData && setFormData({ ...formData, accesibility: e.detail.value || '' })}
@@ -103,9 +105,9 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                         </IonCheckbox>
                     </IonItem>
                     <IonItem lines='none'>
-                        <IonSegment mode="ios" value={ActivityState.available}>
-                            {Object.keys(ActivityState).map((value,index) =>
-                                <IonSegmentButton key={"activityStates"+index} value={value} onChange={()=> formData && setFormData({...formData,state:ActivityState.available})}>
+                        <IonSegment mode="ios" value={formData?.state} onIonChange={e => e.detail.value && formData && setFormData({ ...formData, state: ActivityState[e.detail.value as keyof typeof ActivityState] })}>
+                            {Object.keys(ActivityState).map((value, index) =>
+                                <IonSegmentButton key={"activityStates" + index} value={value}>
                                     <IonLabel>{t(value)}</IonLabel>
                                 </IonSegmentButton>)}
                         </IonSegment>

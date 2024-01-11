@@ -15,7 +15,7 @@ export const getUser = async (id: string): Promise<User> => {
 };
 
 export const editUser = async (user: User): Promise<User> => {
-    const response = await axios.put(`${baseUrl}/edit`, user);
+    const response = await axios.put(`${baseUrl}/${user._id}`,user);
     return response.data;
 };
 
@@ -24,5 +24,9 @@ export const deleteUser = async (id: string): Promise<User> => {
 };
 
 export const registerUser = async (user: User) => {
-    return axios.post(`${process.env.REACT_APP_API_URL}/admin/register`, user).then((res) => res.data);
+    return axios.post(`${baseUrl}`, user).then((res) => res.data);
 }
+
+export const getAllReservations = async (text:string,filters:Record<string,unknown>): Promise<[]> => {
+    return axios.get(`${baseUrl}/reservation/list`).then((res) => res.data);
+};

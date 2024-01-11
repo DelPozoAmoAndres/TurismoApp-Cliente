@@ -23,5 +23,11 @@ export const createEvent = async (activityId: string, event: Event, repeatInfo: 
   });
 };
 
+export const getEvents = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
+  const response = await axios.get(`${baseUrl}/event/list`);
+  return response.data;
+}
+
+
 
 

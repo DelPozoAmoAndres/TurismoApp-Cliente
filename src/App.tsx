@@ -44,6 +44,11 @@ import UserSearchPage from '@search-user/UserSearchpage';
 import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
 import EventsPage from '@components/10- See Events/EventsPage';
 import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';
+import {DashboardPage} from '@components/Admin/DashboardPage';
+import { AdminActivityList } from '@components/Admin/List/AdminActivityList';
+import { AdminReservationList } from '@components/Admin/List/AdminReservationList';
+import { AdminUserList } from '@components/Admin/List/AdminUserList';
+import { AdminEventList } from '@components/Admin/List/AdminEventList';
 
 setupIonicReact();
 
@@ -75,7 +80,7 @@ const AppIndex: React.FC = () => {
     <I18nextProvider i18n={i18n}>
       <IonApp>
         <IonReactRouter>
-            <IonRouterOutlet>
+            <IonRouterOutlet id="ion-router-outlet">
             <Route path={"/*"} component={NotFound} />
               <Route exact path="/">
                 {Capacitor.isNativePlatform() ? <Redirect to="/movil" /> : <Redirect to="/home" />}
@@ -93,11 +98,13 @@ const AppIndex: React.FC = () => {
               {/* <Route path="/payment/status" component={ReservationStatusPage} /> */}
               {/* <PrivateRoute exact path="/saved" component={SavedPage} alternativePath='/' /> */}
               <PrivateRoute exact path="/reservation/:id" component={ReservationDetailsPage} alternativePath="/" />
-              <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
-              <AdminRoute exact path="/admin/users" component={UserSearchPage} />
-              <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
+              <AdminRoute exact path="/admin/dashboard" component={DashboardPage} />
+              <AdminRoute exact path="/admin/activities" component={AdminActivityList} />
+              <AdminRoute exact path="/admin/reservations" component={AdminReservationList} />
+              <AdminRoute exact path="/admin/users" component={AdminUserList} />
               <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
               <AdminRoute exact path="/admin/activity/:id/events/" component={EventsPage}/>
+              <AdminRoute exact path="/admin/events/" component={AdminEventList}/>
               <PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />
             </IonRouterOutlet>
         </IonReactRouter>
