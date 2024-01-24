@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import { IonPage, IonContent, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonIcon, IonLabel } from '@ionic/react';
+import React from 'react';
+import { IonPage, IonContent, IonSplitPane, IonMenu, IonHeader, IonToolbar, IonList, IonItem, IonIcon, IonLabel } from '@ionic/react';
 import Logo from '../Logo';
-import { createOutline, homeOutline, listOutline, peopleOutline } from 'ionicons/icons';
+import { homeOutline, listOutline, peopleOutline } from 'ionicons/icons';
 import './DashboardLayout.css';
-import { useNavButtonProps } from '@hooks/useNavButtonProps';
+
 import LanguageSelector from '@shared/LanguageSelector';
 import DarkModeToggle from '@shared/DarkModeToggle';
 
@@ -12,11 +12,8 @@ interface Props {
 }
 
 export const DashboardLayout: React.FC<Props> = ({ children }) => {
-    const menuController = useRef<HTMLIonMenuElement>(null);
-
     return (
         <IonPage id="pageWeb">
-            <IonContent>
                 <IonSplitPane contentId="main" when="xs">
                     <IonMenu contentId="main" menuId="main-menu" >
                         <IonHeader>
@@ -27,23 +24,23 @@ export const DashboardLayout: React.FC<Props> = ({ children }) => {
                         <IonContent className="ion-padding" color="primary" class='primaryColor'>
                             <section id='dashboard-content'>
                                 <IonList color='primary' class="ion-no-padding">
-                                    <IonItem routerLink="/home" routerDirection="none" >
+                                    <IonItem routerLink="/home" routerDirection="root" >
                                         <IonIcon slot="start" icon={homeOutline} />
                                         <IonLabel>Home</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/users" routerDirection="none">
+                                    <IonItem routerLink="/admin/users" routerDirection="root">
                                         <IonIcon slot="start" icon={peopleOutline} />
                                         <IonLabel>List Users</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/activities" routerDirection="none">
+                                    <IonItem routerLink="/admin/activities" routerDirection="root">
                                         <IonIcon slot="start" icon={listOutline} />
                                         <IonLabel>List Activities</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/reservations" routerDirection="none">
+                                    <IonItem routerLink="/admin/reservations" routerDirection="root">
                                         <IonIcon slot="start" icon={listOutline} />
                                         <IonLabel>List Reservations</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/events" routerDirection="none">
+                                    <IonItem routerLink="/admin/events" routerDirection="root">
                                         <IonIcon slot="start" icon={listOutline} />
                                         <IonLabel>List Events</IonLabel>
                                     </IonItem>
@@ -64,7 +61,6 @@ export const DashboardLayout: React.FC<Props> = ({ children }) => {
                         </IonContent>
                     </div>
                 </IonSplitPane>
-            </IonContent>
         </IonPage>
     );
 };
