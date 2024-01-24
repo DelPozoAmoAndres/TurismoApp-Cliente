@@ -13,8 +13,9 @@ export const Modal: React.FC<{
   trigger?: string;
   tittle: string;
   isOpen?: boolean;
+  height?: string;
   setOpen?: (isOpen: boolean) => void;
-}> = ({ id, tittle, children, modal, trigger, minWidthAndroid, minWidthIos, isOpen = false, setOpen = null }) => {
+}> = ({ id, tittle, children, modal, trigger, minWidthAndroid, minWidthIos, isOpen = false, setOpen = null,height }) => {
   let initialBreakpoint = 0;
   let props = {};
   if (Capacitor.isNativePlatform()) {
@@ -26,7 +27,7 @@ export const Modal: React.FC<{
       initialBreakpoint = minWidthAndroid / window.innerHeight;
     }
     const breakpoints = [0, initialBreakpoint, 1];
-    props = { initialBreakpoint, breakpoints };
+    props = { initialBreakpoint, breakpoints};
   }
 
   function dismiss() {
@@ -35,7 +36,7 @@ export const Modal: React.FC<{
 
   const { t } = useTranslation();
   return (
-    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen}  onDidDismiss={()=> setOpen && setOpen(!isOpen)}>
+    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{"--height":height?height:""}}   onDidDismiss={()=> setOpen && setOpen(!isOpen)}>
       <IonHeader mode="ios" collapse="fade" class="ion-margin-top">
         <IonToolbar>
           <IonButtons slot="end">
