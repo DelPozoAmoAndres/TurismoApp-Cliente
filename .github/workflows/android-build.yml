@@ -2,15 +2,13 @@ name: Build and Release Android App
 
 on:
   push:
-    branches:
-      - main
-      - develop
     tags:
       - 'v*' 
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
     - name: Check out code
       uses: actions/checkout@v2
@@ -43,6 +41,7 @@ jobs:
       run: cd android && chmod +x ./gradlew && ./gradlew assembleRelease
       env:
         KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
 
     - name: Rename APK
       run: mv ./android/app/build/outputs/apk/release/app-release.apk ./android/app/build/outputs/apk/release/${GITHUB_REF#refs/tags/}-release.apk

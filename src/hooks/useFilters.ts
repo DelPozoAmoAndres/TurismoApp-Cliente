@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { UserFilter } from '../models/User';
 import { ActivityFilter } from '../models/Activity';
 
-export const useFilters = (applyFilters: (arg0: UserFilter|ActivityFilter) => void, filters?: Record<string,unknown>) => {
+export const useFilters = (applyFilters: (arg0: UserFilter | ActivityFilter) => void, filters?: Record<string, unknown>) => {
   const defaultFilters = {};
-  const [filtersToApply, setFilters] = useState<Record<string,unknown>>(filters ? filters : defaultFilters);
+  const [filtersToApply, setFilters] = useState<Record<string, unknown>>(filters ? filters : defaultFilters);
   const [newFilters, setNewFilters] = useState<boolean>(false);
 
   useEffect(() => {
@@ -23,7 +23,12 @@ export const useFilters = (applyFilters: (arg0: UserFilter|ActivityFilter) => vo
   };
 
   const handleFilters = (value: unknown, filterName: string) => {
-    const filtersCopy = { ...filtersToApply, [filterName]: value };
+    const filterNames = filterName.split(" ");
+    let filtersCopy = { ...filtersToApply };
+    filterNames.forEach((name) => {
+      filtersCopy = { ...filtersCopy, [name]: value };
+    })
+    console.log(filtersCopy);
     setFilters(filtersCopy);
   };
 

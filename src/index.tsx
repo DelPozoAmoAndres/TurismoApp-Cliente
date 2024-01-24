@@ -4,13 +4,16 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './contexts/AuthContexts';
 import React from 'react';
+import ActivityListProvider from '@contexts/ActivityListContext';
 
 const container = document.getElementById('root');
 const root = container && createRoot(container);
 root?.render(
   // <React.StrictMode>
   <AuthProvider>
-    <AppIndex />
+    <ActivityListProvider>
+      <AppIndex />
+    </ActivityListProvider>
   </AuthProvider>
   // </React.StrictMode>
 );

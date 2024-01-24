@@ -4,8 +4,8 @@ import { AuthContextType } from '@models/AuthContextType';
 import { User } from '@models/User';
 import { RegisterFormData } from '@models/User';
 import { getItem, removeItem, setItem } from '@utils/Utils';
-import { useIonRouter } from '@ionic/react';
 import Login from '@components/4 - Personal Area/Login/Login';
+import { deleteUser } from '@apis/userApi';
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
@@ -18,6 +18,9 @@ export const AuthContext = createContext<AuthContextType>({
   },
   register: (arg0) => {
     console.log(arg0);
+  },
+  deleteAccount: () => {
+    console.log('deleteAccount');
   },
   setShowLoginModal: (arg0) => {
     console.log(arg0);
@@ -80,6 +83,11 @@ const AuthProvider: React.FC<Props> = (props) => {
     removeItem('token');
   };
 
+  const deleteAccount = async () => {
+    await deleteUser();
+    logout();
+  }
+
   useEffect(() => {
     const handleToken = () => {
       const token = getItem('token');
@@ -112,7 +120,7 @@ const AuthProvider: React.FC<Props> = (props) => {
   }, [token]);
 
   return ( 
-    <AuthContext.Provider value={{ user, token, login, logout, register, setShowLoginModal, showLoginModal }}>
+    <AuthContext.Provider value={{ user, token, login, logout, register,deleteAccount, setShowLoginModal, showLoginModal }}>
       <Login />
       {props.children}
     </AuthContext.Provider>

@@ -79,7 +79,7 @@
   margin-bottom: 4%;
 }
 
-ion-card-header img {
+#cards-home ion-card-header img {
   object-fit: cover;
   aspect-ratio: 4/3;
 }

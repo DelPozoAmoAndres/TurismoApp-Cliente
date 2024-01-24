@@ -24,6 +24,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
   const { defaultLanguage } = useLanguage(); //Hook to know the language selected
   const auth = useAuth(); //Context of the user
   const history = useHistory(); //Hook to navigate to another page of the app
+  const {setShowLoginModal} = useAuth();
 
   const handleReserva = () => {
     //Method to go to the reservation page
@@ -46,7 +47,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
             locale={defaultLanguage.code}
             presentation={'date'}
             onIonChange={(e) => handleDateChange(new Date(String(e.detail.value) || ''))}
-            value={selectedDate?.toString()}
+            value={selectedDate?.toISOString()}
             highlightedDates={highlightedDates}
           />
 
@@ -72,13 +73,10 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
         <div>
           <IonButton
             expand="block"
-            id={auth.user?'reservar':'login-modal' }
             onClick={() => {
               auth.user 
               ? handleReserva()  
-              : 
-                modal.current?.dismiss();
-                document.getElementById('login-modal')?.click();
+              : (modal.current?.dismiss() && setShowLoginModal(true));
             }}
             disabled={selectedEvent === null}
           >

@@ -22,3 +22,7 @@ export const getUserReservationList = async (userId:string): Promise<Reservation
     return res.data;
   });
 };
+
+export const deleteUser = async ()=>{
+  return axios.delete(`${baseUrl}/`).then((res) => res.data)
+}

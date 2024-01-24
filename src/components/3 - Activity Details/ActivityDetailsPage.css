@@ -1,6 +1,7 @@
 #activity-image-card {
-  max-width: 600px;
+  /* max-width: 600px; */
   max-height: 450px;
+  width: fit-content;
 }
 
 @media only screen and (width <= 1052px) {
@@ -19,8 +20,7 @@
   margin-bottom: -10px;
 }
 
-ion-header.sticky {
-  position:sticky;
-  top: 0;
-  background-color: var(--background);
+.swiper-slide {
+  width: fit-content !important;
+  height: fit-content;
 }

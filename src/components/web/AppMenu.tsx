@@ -14,7 +14,7 @@ import {
   IonButton,
   IonItemDivider,
 } from '@ionic/react';
-import { logOutOutline, personOutline, homeOutline, briefcaseOutline } from 'ionicons/icons';
+import { logOutOutline, personOutline, homeOutline, briefcaseOutline, searchOutline } from 'ionicons/icons';
 /* Contexts*/
 import { useAuth } from '@contexts/AuthContexts';
 /* Components */
@@ -23,6 +23,7 @@ import DarkModeToggle from '@shared/DarkModeToggle';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { Role } from '@models/User';
+import Logo from './Logo';
 
 const AppMenu: React.FC = () => {
   const auth = useAuth();
@@ -30,8 +31,7 @@ const AppMenu: React.FC = () => {
 
   const menuController = useRef<HTMLIonMenuElement>(null);
 
-  const handleLoginClick = () => {
-    auth.setShowLoginModal(true);
+  const handleClick = () => {
     if (menuController.current?.isOpen())
       menuController.current?.close();
   };
@@ -41,41 +41,43 @@ const AppMenu: React.FC = () => {
       <IonHeader>
         <IonToolbar style={{ '--background': 'var(--ion-color-primary)' }}>
           <IonRow className="ion-margin ion-align-items-center">
-            <IonLabel class="ion-margin-start" style={{ fontSize: '40px', color: 'white' }}>
-              As
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cruz_de_Asturias.svg/1200px-Cruz_de_Asturias.svg.png"
-                width={30} />
-              our
-            </IonLabel>
+            <Logo color="white" />
           </IonRow>
         </IonToolbar>
       </IonHeader>
       <IonContent>
         <IonList>
-          <IonMenuToggle>
+          <IonMenuToggle onClick={handleClick}>
             <IonItem button routerLink="/home">
               <IonIcon slot="start" icon={homeOutline} />
               <IonLabel>{t('home.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonItem hidden={auth.user !== null} button onClick={handleLoginClick}>
-            <IonIcon slot="start" icon={personOutline} />
-            <IonLabel>{t('account.title')}</IonLabel>
-          </IonItem>
-          <IonMenuToggle hidden={auth.user === null}>
+          <IonMenuToggle onClick={handleClick}>
+            <IonItem button routerLink="/buscar">
+              <IonIcon slot="start" icon={searchOutline} />
+              <IonLabel>{t('search.title')}</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle hidden={auth.user !== null} onClick={()=>auth.setShowLoginModal(true)}>
+            <IonItem button>
+              <IonIcon slot="start" icon={personOutline} />
+              <IonLabel>{t('account.title')}</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle hidden={auth.user === null} onClick={handleClick}>
             <IonItem button routerLink="/perfil">
               <IonIcon slot="start" icon={personOutline} />
               <IonLabel>{t('profile.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista}>
+          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick}>
             <IonItem button routerLink="/reservas">
               <IonIcon slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('reservations.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía}>
+          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía} >
             <IonItem button routerLink="/nextEvents">
               <IonIcon slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('nextEvents.title')}</IonLabel>
@@ -85,13 +87,15 @@ const AppMenu: React.FC = () => {
         <IonList class="ion-margin" style={{ position: 'fixed', bottom: 0, width: '90%' }}>
           <LanguageSelector hidden={false} />
           <DarkModeToggle hidden={false} />
-          <IonItemDivider />
-          <IonMenuToggle>
-            <IonButton class="ion-margin-top" color={'danger'} expand="block" onClick={auth.logout}>
-              <IonIcon slot="start" icon={logOutOutline} />
-              <IonLabel>{t('log.out')}</IonLabel>
-            </IonButton>
-          </IonMenuToggle>
+          {auth.user && <>
+            <IonItemDivider />
+            <IonMenuToggle onClick={handleClick}>
+              <IonButton class="ion-margin-top" color={'danger'} expand="block" onClick={auth.logout}>
+                <IonIcon slot="start" icon={logOutOutline} />
+                <IonLabel>{t('log.out')}</IonLabel>
+              </IonButton>
+            </IonMenuToggle>
+          </>}
         </IonList>
       </IonContent>
     </IonMenu>

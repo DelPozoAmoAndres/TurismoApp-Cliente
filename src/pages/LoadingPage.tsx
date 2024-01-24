@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IonContent, IonSpinner } from '@ionic/react';
 import { useScreen } from '../hooks/useScreen';
-import { AppPage } from './AppPage';
+import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 
 const LoadingPage: React.FC = () => {
   const [showSpinner, setShowSpinner] = useState(false);
@@ -32,7 +32,7 @@ const LoadingPage: React.FC = () => {
       ) : null}
     </IonContent>
   );
-  return !browsingWeb ? <AppPage>{content}</AppPage> : <>{content}</>;
+  return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <>{content}</>;
 };
 
 export default LoadingPage;

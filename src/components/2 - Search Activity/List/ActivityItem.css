@@ -33,9 +33,6 @@
 }
 
 #card-search ion-card ion-card-subtitle {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   line-height: 1;
@@ -72,12 +69,16 @@
   }
 
   #card-search {
-    height: 120px;
+    height: 150px;
+    min-height: 150px;
     margin-bottom: 10px;
   }
 
   #card-search ion-card {
-    height: 120px;
+    height: 150px;
+    min-height: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   #card-search ion-card ion-card-content {

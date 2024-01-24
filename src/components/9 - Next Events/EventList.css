@@ -1,0 +1,84 @@
+#event-list ion-card-content {
+    display: flex;
+}
+
+#event-list ion-card-content ion-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#event-list ion-card-content ion-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 1.5vw;
+    align-items: center;
+    color: var(--ion-color-primary);
+    margin-right: -20px;
+    box-shadow: none;
+    border: 1px solid var(--ion-color-primary);
+}
+
+#event-list section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+#event-list section ion-col {
+    padding: 0;
+}
+
+@media screen and (max-width: 900px) {
+    #event-list ion-card-content {
+        flex-direction: column;
+    }
+
+    #event-list ion-card-content ion-card {
+        font-size: 130%;        
+    }
+
+    #event-list img {
+        width: 80%;
+        max-width: 80%;
+    }
+
+    #event-list h1 {
+        margin: 0;
+        margin-left: 5px;
+        text-align: left;
+    }
+
+    #event-list .grid{
+        position: sticky;
+        position: -webkit-sticky;
+        top:40px;
+        right: 0;
+        z-index: 1000;
+        background: var(--ion-background-color,#ffff);
+    }
+
+    #event-list .grid {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr auto;    }
+}
+
+#event-list .img {
+    margin-bottom: 0;
+}
+
+#participantsModal ion-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#participantsModal ion-list ion-item {
+    margin-right: 5%;
+}
+
+#participantsModal ion-list ion-item ion-label {
+    flex: auto;
+}

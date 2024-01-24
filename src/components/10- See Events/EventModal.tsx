@@ -56,7 +56,7 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
 
 
     return (
-        <Modal id='modal-event-edit' trigger={event?._id || "add"} minWidthAndroid={0} minWidthIos={0} tittle={t("event." + action + ".title")} modal={modal} >
+        <Modal id='modal-event-edit' trigger={event?._id || "add"}  tittle={t("event." + action + ".title")} modal={modal} >
             <IonList class='ion-no-padding ion-margin'>
                 <IonItem>
                     <IonLabel position="stacked">Precio</IonLabel>

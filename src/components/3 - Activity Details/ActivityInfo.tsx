@@ -13,8 +13,7 @@ import { useScreen } from '@hooks/useScreen';
 import { useSoldOut } from '@hooks/useSoldOut';
 /* Contexts */
 import { useAuth } from '@contexts/AuthContexts';
-import { shareSocialOutline } from 'ionicons/icons';
-import Login from '@components/4 - Personal Area/Login/Login';
+import { calendarOutline, shareSocialOutline } from 'ionicons/icons';
 
 export const ActivityInfo: React.FC<{
   activityData: Activity;
@@ -33,11 +32,53 @@ export const ActivityInfo: React.FC<{
         </IonCardTitle>
         <IonCardSubtitle>{activityData?.location}</IonCardSubtitle>
       </IonRow>
-      <div>{browsingWeb &&
-        <IonButton onClick={share}>
-          {t('share')}
-          <IonIcon slot="end" icon={shareSocialOutline} />
-        </IonButton>}</div>
+      <div style={{ width: "100%" }}>
+        {browsingWeb && !isMobile && <>
+          <section hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
+            <IonButton {...soldOutProps} expand="block" id="Availability-modal">
+              {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
+              <IonIcon slot="end" icon={calendarOutline} />
+            </IonButton>
+          </section>
+          <section hidden={isMobile || !auth.user || auth.user?.role !== Role.administrador}>
+            <IonButton routerLink={`/admin/activity/${activityData._id}/events`} expand="block">
+              {t('show.events')}
+            </IonButton>
+          </section></>}
+        {browsingWeb &&
+          <IonButton class='outlined' onClick={share}>
+            {t('share')}
+            <IonIcon slot="end" icon={shareSocialOutline} />
+          </IonButton>}</div>
+      <div>
+        {activityData?.events && activityData?.events?.length > 0 && (
+          <IonRow>
+            <IonRow class="ion-margin-top">
+              <IonLabel>
+                <strong>{t('price')}</strong>
+              </IonLabel>
+            </IonRow>
+            {t('from')}{' '}
+            {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString() + "€" : ''}
+          </IonRow>
+        )}
+        <IonRow>
+          <IonRow class="ion-margin-top">
+            <IonLabel>
+              <strong>{t('duration')}</strong>
+            </IonLabel>
+          </IonRow>
+          {activityData?.duration} {t('hours')}
+        </IonRow>
+        <IonRow>
+          <IonRow class="ion-margin-top">
+            <IonLabel>
+              <strong>{t('notes')}</strong>
+            </IonLabel>
+          </IonRow>
+          {activityData?.petsPermited ? t('pet.allowed') : t('pet.not.allowed')}
+        </IonRow>
+      </div>
       <IonRow class="ion-margin-top">
         <IonLabel>
           <strong>{t('description')}</strong>
@@ -51,40 +92,13 @@ export const ActivityInfo: React.FC<{
           <strong>{t('accesibility')}</strong>
         </IonLabel>
       </IonRow>
-      <IonRow style={{ whiteSpace: "pre-line" }}>{activityData?.accesibility}</IonRow>
-      <IonRow class="ion-margin-top">
-        <IonLabel>
-          <strong>{t('duration')}</strong>
-        </IonLabel>
-      </IonRow>
-      <IonRow>{activityData?.duration + ' ' + t('minutes')}</IonRow>
-      <IonRow>
-        <IonLabel class="ion-margin-top">
-          <strong>{t('info.extra')}</strong>
-        </IonLabel>
-      </IonRow>
-      {activityData?.petsPermited ? t('pet.allowed') : t('pet.not.allowed')}
-      {activityData?.events && activityData?.events?.length > 0 && (
-        <IonRow>
-          <IonRow class="ion-margin-top">
-            <IonLabel>
-              <strong>{t('price')}</strong>
-            </IonLabel>
-          </IonRow>
-          {t('from')}{' '}
-          {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString() : ''}
-        </IonRow>
-      )}
-      <section hidden={isMobile || !auth.user || auth.user?.role !== Role.administrador}>
-        <IonButton routerLink={`/admin/activity/${activityData._id}/events`} expand="block" mode="ios">
-          {t('show.events')}
-        </IonButton>
-      </section>
-      <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
-        <IonButton {...soldOutProps} expand="block" id="login-modal">
+      <IonRow class='ion-margin-bottom' style={{ whiteSpace: "pre-line" }}>{activityData?.accesibility}</IonRow>
+      {isMobile && <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
+        <IonButton {...soldOutProps} expand="block" id="Availability-modal">
           {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
         </IonButton>
       </section>
+      }
     </div>
   );
 };

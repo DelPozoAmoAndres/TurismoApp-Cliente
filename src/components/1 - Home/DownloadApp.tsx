@@ -8,7 +8,7 @@ const DownloadApp: React.FC = () => {
     return (
         <div className="download-section">
             <IonText>
-                <h2>Descarga Nuestra App</h2>
+                <h3>Descarga Nuestra App</h3>
                 <p>¡Lleva a Asturias en tu bolsillo! Descarga la aplicación para tener acceso a todas nuestras actividades estés donde estés.</p>
             </IonText>
             <div className="download-buttons">

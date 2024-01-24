@@ -1,16 +1,14 @@
-import React from 'react';
-import { Header } from './Header';
-import Footer from './Footer';
-import { IonContent, IonPage } from '@ionic/react';
-import './PageTemplate.css';
-import AppMenu from '@components/web/AppMenu';
+import React from "react";
+import {IonContent, IonPage} from "@ionic/react";
+import AppMenu from "../AppMenu";
+import { Header } from "../Header";
+import Footer from "../Footer";
 
-interface PageTemplateProps {
+interface Props {
     children: React.ReactNode;
 }
 
-const PageTemplate: React.FC<PageTemplateProps> = ({ children }) => {
-
+const GenericWebLayout : React.FC<Props> = ({ children }) => {
     return (
         <>
             <AppMenu />
@@ -27,6 +25,6 @@ const PageTemplate: React.FC<PageTemplateProps> = ({ children }) => {
             </IonPage>
         </>
     );
-};
+}
 
-export default PageTemplate;
+export default GenericWebLayout;
