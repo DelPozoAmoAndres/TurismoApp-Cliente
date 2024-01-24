@@ -5,7 +5,6 @@ import { shieldOutline, trashOutline } from 'ionicons/icons';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { ChangePasswordModal } from '../Change Password/ChangePasswordModal';
-import { deleteUser } from '@apis/adminUserApi';
 import { useAuth } from '@contexts/AuthContexts';
 
 export const Account: React.FC = () => {
