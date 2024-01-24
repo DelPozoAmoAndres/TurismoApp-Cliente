@@ -28,7 +28,14 @@ jobs:
       run: |
         npm install 
         npm install -g @ionic/cli native-run cordova-res
-
+        
+    - name: Create .env file
+      run: |
+        echo 'REACT_APP_STRIPE_PUBLISHABLE_KEY: ${{ secrets.REACT_APP_STRIPE_PUBLISHABLE_KEY }}' >> .env
+        echo 'NODE_PATH: ${{ secrets.NODE_PATH }}' >> .env
+        echo 'REACT_APP_URL: ${{ secrets.REACT_APP_URL }}' >> .env
+        echo 'REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}' >> .env
+        
     - name: Build Ionic App
       run: npm run ionic:build 
 
