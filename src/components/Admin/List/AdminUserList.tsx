@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonIcon} from "@ionic/react";
+import { IonAlert, IonButton, IonIcon } from "@ionic/react";
 
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
-import { arrowDown, arrowUp, eyeOutline, pencilOutline,trashOutline } from "ionicons/icons";
+import { arrowDown, arrowUp, eyeOutline, pencilOutline, trashOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
 
 import { deleteUser, getUserList } from "@apis/adminUserApi";
@@ -12,12 +12,12 @@ import { UserModal } from "@components/8 - Search User/Edit Modal/UserModal";
 import { formatDate, formatTime } from "@utils/Utils";
 import { useTranslation } from "react-i18next";
 
-export const AdminUserList : React.FC = () => {
-    const defaultFilters = { name: "", email:"", telephone:"", birthday:"", country:"", role:""};
+export const AdminUserList: React.FC = () => {
+    const defaultFilters = { name: "", email: "", telephone: "", birthday: "", country: "", role: "" };
     const { setSearchText, handleSort, sortConfig, items } = useSearch(getUserList, defaultFilters);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    const getSymbol = (name:string) => {
+    const getSymbol = (name: string) => {
         if (sortConfig?.key !== name) return <></>
         switch (sortConfig?.direction) {
             case "ascending":
@@ -31,7 +31,7 @@ export const AdminUserList : React.FC = () => {
 
     const th = (name: string) => {
         return (
-            <th onClick={()=>handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
+            <th onClick={() => handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
     }
 
     const columns = () =>
@@ -51,7 +51,7 @@ export const AdminUserList : React.FC = () => {
     const deleteAlert = (id: string) =>
         <>
             <IonAlert
-                trigger={"delete-alert-"+id}
+                trigger={"delete-alert-" + id}
                 header="Eliminar usuario"
                 message="¿Estás seguro de que quieres eliminar este usuario?"
                 buttons={[
@@ -80,11 +80,17 @@ export const AdminUserList : React.FC = () => {
             <td>{data.role}</td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a href={`/admin/user/${data._id}`} target="_blank" rel="noreferrer"><IonIcon icon={eyeOutline} size="large" /></a></td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={data._id}><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
-            <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={"delete-alert-"+data._id}><IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
+            <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={"delete-alert-" + data._id}><IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
             <UserModal user={data} action="edit" />
             {data._id && deleteAlert(data._id)}
         </tr>
 
+    const addButton = () =>
+        <>
+            <IonButton id="modal-user-add">Create</IonButton>
+            <UserModal user={new User()} action="add"/>
+        </>
+
     const getItems = () => items.map((value) => item(value))
-    return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} /><UserModal user={new User()} action="add" /></DashboardLayout>
+    return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems}>{addButton()}</ListWebLayout></DashboardLayout>
 }

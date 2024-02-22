@@ -21,7 +21,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
     const { formData, setFormData, guardarCambios, setShowAlert, showAlert, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity);
     const modal = useRef<HTMLIonModalElement>(null);
     return (
-        <Modal id='modal-activity-edit' trigger={activity?._id || "add"} tittle={t("activity." + action + ".title")} modal={modal} >
+        <Modal id={'modal-activity-'+action} trigger={activity?._id || "modal-activity-add"} tittle={t("activity." + action + ".title")} modal={modal} >
             <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
                 <section className='ion-margin-end '>
                     <IonRow class="ion-justify-content-center" >

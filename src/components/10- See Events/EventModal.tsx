@@ -2,18 +2,22 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from '@shared/Modal';
 import { useTranslation } from 'react-i18next';
 import { IonAlert, IonButton, IonDatetime, IonInput, IonItem, IonLabel, IonList, IonSelect, IonSelectOption } from '@ionic/react';
-import { Event } from '@models/Activity';
+import { Activity, Event } from '@models/Activity';
 import { useEdit } from '@hooks/useEdit';
-import { filterPropertiesNotNull, formatDate } from '@utils/Utils';
+import { filterPropertiesNotNull, formatDate, formatTime } from '@utils/Utils';
 import { Role, User } from '@models/User';
-import { getUserList } from '@apis/adminUserApi';
+import { checkWorkers, getUserList } from '@apis/adminUserApi';
 import { createEvent } from '@apis/adminActivityApi';
 import { useLanguage } from '@hooks/useLanguage';
 import "./EventModal.css";
+import { getActivityFromEvent, getActivityList } from '@apis/activityApi';
 
-export const EventModal: React.FC<{ activityId: string, event: Event, action: "add" | "edit" }> = ({ activityId, event, action }) => {
+export const EventModal: React.FC<{ activity?: string, event: Event, action: "add" | "edit" }> = ({ activity, event, action }) => {
     const { t } = useTranslation();
-    const { formData, setFormData, setShowAlert, showAlert} = useEdit(event, (event: Event) => { console.log(event) });
+    const { formData, setFormData, setShowAlert, showAlert } = useEdit(event, (event: Event) => { console.log(event) });
+    const [activityId, setActivityId] = useState<string | undefined>(activity);
+    const [activityName, setActivityName] = useState<string>("");
+    const [activityList, setActivityList] = useState<Activity[]>([]);
     const [repeatType, setRepeatType] = useState<string>('none');
     const [repeatDays, setRepeatDays] = useState<string | string[]>([]);
     const [repeatStartDate, setRepeatStartDate] = useState<string | null>(null);
@@ -24,11 +28,19 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
 
     const [guias, setGuias] = useState<User[]>([]);
     useEffect(() => {
-        getUserList('', { role: Role.guía }).then((guias) => setGuias(guias));
-    }, []);
+        if(action === "edit" && event._id) {
+            getActivityFromEvent(event._id).then((activity) => {
+                setActivityId(activity ? activity._id : undefined);
+                setActivityName(activity ? activity.name : "");
+            })
+        }
+        else if(action=="add") {
+            getActivityList("", {}).then((activities) => {setActivityList(activities);console.log("hola")});
+        }
+    }, [modal]);
 
     const handleAddEvent = () => {
-        formData && createEvent(
+        formData && activityId && createEvent(
             activityId,
             formData,
             filterPropertiesNotNull({
@@ -40,6 +52,22 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
             })
         );
     };
+
+    useEffect(() => {
+        console.log(time)
+       !event._id && checkWorkers({
+            repeatType: repeatType.toString() ,
+            repeatDays: repeatDays ? repeatDays.toString() : null,
+            repeatStartDate: repeatStartDate ? formatDate(new Date( repeatStartDate)):null ,
+            repeatEndDate: repeatEndDate ? formatDate(new Date(repeatEndDate)):null ,
+            time: time ,
+            date: formData?.date ? formatDate(formData?.date,true):null ,
+        }).then((workers: User[]) => {
+            if(workers == guias) return; 
+            setGuias(workers); 
+            formData && setFormData({ ...formData, guide: (workers?.length > 0 ? workers[0]._id : "") || "" }); 
+        });
+    }, [repeatType, repeatDays, repeatStartDate, repeatEndDate, time]);
 
     const handleRepeatTypeChange = (e: CustomEvent) => {
         const type = e.detail.value;
@@ -56,8 +84,20 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
 
 
     return (
-        <Modal id='modal-event-edit' trigger={event?._id || "add"}  tittle={t("event." + action + ".title")} modal={modal} >
+        <Modal id={'modal-event-' + action} trigger={event?._id || "modal-event-add"} tittle={t("event." + action + ".title")} modal={modal} >
             <IonList class='ion-no-padding ion-margin'>
+                {activityList.length > 0
+                    ? <IonSelect onIonChange={(e) => e.detail && setActivityId(e.detail.value)}>
+                        {activityList.map((activity) => (
+                            <IonSelectOption key={activity._id} value={activity._id}>
+                                {activity.name}
+                            </IonSelectOption>
+                        ))}
+                    </IonSelect>
+                    : <IonItem>
+                        <IonLabel>{activityName} - {activityId}</IonLabel>
+                    </IonItem>
+                }
                 <IonItem>
                     <IonLabel position="stacked">Precio</IonLabel>
                     <IonInput
@@ -72,17 +112,7 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
                         onIonChange={(e) => formData && setFormData({ ...formData, seats: Number(e.detail.value) })}
                     ></IonInput>
                 </IonItem>
-                <IonItem>
-                    <IonLabel position="stacked">Guía asignado</IonLabel>
-                    <IonSelect value={formData?.guide} onIonChange={(e) => formData && setFormData({ ...formData, guide: e.detail.value })}>
-                        {guias?.map((guia) => (
-                            <IonSelectOption key={guia._id} value={guia._id}>
-                                {guia.name}
-                            </IonSelectOption>
-                        ))}
-                    </IonSelect>
-                </IonItem>
-                <IonItem>
+                {action == "add" && <IonItem>
                     <IonLabel position="stacked">Repetir evento</IonLabel>
                     <IonSelect value={repeatType} onIonChange={handleRepeatTypeChange}>
                         <IonSelectOption value="none">No repetir</IonSelectOption>
@@ -90,6 +120,7 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
                         <IonSelectOption value="range">Rango de fechas</IonSelectOption>
                     </IonSelect>
                 </IonItem>
+                }
                 {repeatType === 'days' && (
                     <>
                         <IonItem>
@@ -151,16 +182,26 @@ export const EventModal: React.FC<{ activityId: string, event: Event, action: "a
                             value={formData && formatDate(formData?.date, true)}
                             onIonChange={(e) => {
                                 formData &&
-                                setFormData({
-                                    ...formData,
-                                    date: new Date(e.detail.value || ''),
-                                });
+                                    setFormData({
+                                        ...formData,
+                                        date: new Date(e.detail.value || ''),
+                                    });
                             }}
                         ></IonInput>
                     </IonItem>
                 )}
-                <IonButton expand="block" onClick={handleAddEvent}>
-                    Añadir Evento
+                <IonItem>
+                    <IonLabel position="stacked">Guía asignado</IonLabel>
+                    <IonSelect value={formData?.guide} onIonChange={(e) => formData && setFormData({ ...formData, guide: e.detail.value })}>
+                        {guias?.map((guia) => (
+                            <IonSelectOption key={guia._id} value={guia._id}>
+                                {guia.name}
+                            </IonSelectOption>
+                        ))}
+                    </IonSelect>
+                </IonItem>
+                <IonButton expand="block" onClick={handleAddEvent} disabled={formData?.guide==="" || formData?.guide===undefined} aria-label={formData?.guide}>
+                    {action}.event
                 </IonButton>
             </IonList>
             <IonAlert

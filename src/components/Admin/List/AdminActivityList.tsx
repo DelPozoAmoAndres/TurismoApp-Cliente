@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { getActivityList } from "@apis/activityApi";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
 import { IonAlert, IonButton, IonCheckbox, IonCol, IonIcon, IonItem, IonModal, IonRow } from "@ionic/react";
@@ -12,7 +12,6 @@ import { ActivityModal } from "@components/2 - Search Activity/Modal/ActivityMod
 
 import { deleteActivity } from "@apis/adminActivityApi";
 import { formatDateToTime } from "@utils/Utils";
-import { sort } from "d3";
 import { useTranslation } from "react-i18next";
 
 export const AdminActivityList: React.FC = () => {
@@ -98,6 +97,12 @@ export const AdminActivityList: React.FC = () => {
         )
     }
 
+    const addButton = () => 
+    <>
+        <IonButton id="modal-activity-add">Create</IonButton>
+        <ActivityModal activity={new Activity()} action="add"/>
+    </>
+
     const getItems = () => items.map((value) => item(value))
-    return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} /><ActivityModal activity={new Activity()} action="add" /></DashboardLayout>
+    return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems}>{addButton()}</ListWebLayout></DashboardLayout>
 }

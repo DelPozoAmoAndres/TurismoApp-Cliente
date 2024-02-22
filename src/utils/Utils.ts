@@ -5,7 +5,7 @@ const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_KB * 1024;
 const filterPropertiesNotNull = (data: any) => {
   const filteredData: any = {};
   Object.entries(data).forEach(([key, value]) => {
-    if (value !== null) {
+    if (value && value !== null && value !== '') {
       filteredData[key] = value;
     }
   });

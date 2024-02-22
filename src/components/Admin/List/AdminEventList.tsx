@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonIcon} from "@ionic/react";
+import { IonAlert, IonButton, IonIcon} from "@ionic/react";
 
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
 import { arrowDown, arrowUp, eyeOutline, pencilOutline,trashOutline } from "ionicons/icons";
@@ -13,9 +13,11 @@ import { formatDate, formatDateToTime, formatTime } from "@utils/Utils";
 import { getEvents } from "@apis/adminActivityApi";
 import { Event } from "@models/Activity";
 import CreateEvent from "../Activities/Events/CreateEvent";
-import { deleteEvents } from "@apis/eventsApi";
+import { deleteEvents, getOneEvent } from "@apis/eventsApi";
 import DeleteEventModal from "@components/10- See Events/DeleteEventModal";
 import { useTranslation } from "react-i18next";
+import { EventModal } from "@components/10- See Events/EventModal";
+import { getActivityFromEvent } from "@apis/activityApi";
 
 export const AdminEventList : React.FC = () => {
     const defaultFilters = { name: "", email:"", telephone:"", birthday:"", country:"", role:""};
@@ -64,10 +66,16 @@ export const AdminEventList : React.FC = () => {
             <td>{data.seats}</td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={data._id} ><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><DeleteEventModal eventId={data._id}/></td>
-            
-
+            <EventModal action="edit" event={data}/>
         </tr>
+    
+    const addButton = (event:Event) => 
+    <>
+        <IonButton id="modal-event-add">Create</IonButton>
+        <EventModal event={event} action="add"/>
+    </>
+        
 
     const getItems = () => items.map((value) => item(value))
-    return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} /></DashboardLayout>
+    return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} >{addButton(new Event())}</ListWebLayout></DashboardLayout>
 }

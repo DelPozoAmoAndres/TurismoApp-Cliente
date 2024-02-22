@@ -14,6 +14,10 @@ export const getActivity = async (id: string): Promise<Activity> => {
   return axios.get(`${baseUrl}/${id}`).then((res) => res.data);
 };
 
+export const getActivityFromEvent = async (eventId: string): Promise<Activity> => {
+  return axios.get(`${baseUrl}/event/${eventId}`).then((res) => res.data);
+};
+
 export const getEvents = async (activityId: string): Promise<Event[]> => {
   return axios.get(`${baseUrl}/${activityId}/events`).then((res) => res.data).catch(()=>null);
 };

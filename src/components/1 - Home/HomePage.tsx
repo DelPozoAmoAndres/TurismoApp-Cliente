@@ -48,7 +48,7 @@ const HomePage: React.FC<RouteComponentProps> = () => {
   );
 
   return !browsingWeb 
-    ? <LogoHeaderAppLayout>{content}</LogoHeaderAppLayout> 
+    ? <>{content}</> 
     : <GenericWebLayout>{content}</GenericWebLayout>;
 };
 

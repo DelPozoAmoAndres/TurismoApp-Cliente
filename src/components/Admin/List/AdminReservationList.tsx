@@ -6,22 +6,22 @@ import { Activity, ActivityFilter } from "@models/Activity";
 import { get } from "http";
 import { useEffect, useState } from "react";
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
-import { arrowDown, arrowUp, banOutline, caretDownCircleOutline, eyeOutline, pencilOutline,trashOutline } from "ionicons/icons";
+import { arrowDown, arrowUp, banOutline, caretDownCircleOutline, eyeOutline, pencilOutline, trashOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
 import { ActivityModal } from "@components/2 - Search Activity/Modal/ActivityModal";
 
 import { deleteActivity } from "@apis/adminActivityApi";
-import { getReservationList } from "@apis/reservationApi";
+import { cancelReservation, getReservationList } from "@apis/reservationApi";
 import { Reservation } from "@models/Reservation";
 import { getAllReservations } from "@apis/adminUserApi";
 import { useTranslation } from "react-i18next";
 
 export const AdminReservationList: React.FC = () => {
-    const defaultFilters = { name: "", email: "", telephone: "", numPersons: "", price: "", paymentId: "", state: "", eventId: ""};
+    const defaultFilters = { name: "", email: "", telephone: "", numPersons: "", price: "", paymentId: "", state: "", eventId: "" };
     const { setSearchText, handleSort, sortConfig, items } = useSearch(getAllReservations, defaultFilters);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    const getSymbol = (name:string) => {
+    const getSymbol = (name: string) => {
         if (sortConfig?.key !== name) return <></>
         switch (sortConfig?.direction) {
             case "ascending":
@@ -33,11 +33,33 @@ export const AdminReservationList: React.FC = () => {
         }
     }
 
+    const cancelAlert = (id: string) =>
+        <>
+            <IonAlert
+                trigger={"cancel-alert-" + id}
+                header="Cancelar reserva"
+                message="¿Estás seguro de que quieres cancelar esta reserva?"
+                buttons={[
+                    {
+                        text: 'Atras',
+                        role: 'cancel',
+                    },
+                    {
+                        text: 'Continuar',
+                        role: 'confirm',
+                        handler: () => {
+                            cancelReservation(id);
+                        },
+                    },
+                ]}
+            ></IonAlert>
+        </>
+
     const th = (name: string) => {
         return (
-            <th onClick={()=>handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
+            <th onClick={() => handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
     }
-    
+
     const columns = () =>
         <tr>
             <th>#</th>
@@ -49,24 +71,31 @@ export const AdminReservationList: React.FC = () => {
             <th>PaymentId</th>
             <th>EventId</th>
             {th("state")}
-            <th>Edit</th>
-            <th>Cancell</th>
+            <th>Cancel</th>
         </tr>
 
     const item = (data: Reservation) =>
         <tr key={data._id}>
-            <td className="ion-no-padding" style={{ maxWidth: "none",width: 240 }}>{data._id}</td>
+            <td className="ion-no-padding" style={{ maxWidth: "none", width: 240 }}>{data._id}</td>
             <td>{data.name}</td>
             <td>{data.email}</td>
             <td>{data.telephone}</td>
             <td>{data.numPersons}</td>
             <td>{data.price}</td>
-            <td className="ion-no-padding" style={{ maxWidth: "none",width: 240 }}>{data.paymentId}</td>
-            <td className="ion-no-padding" style={{ maxWidth: "none",width: 240 }}>{data.eventId}</td>
+            <td className="ion-no-padding" style={{ maxWidth: "none", width: 240 }}>{data.paymentId}</td>
+            <td className="ion-no-padding" style={{ maxWidth: "none", width: 240 }}>{data.eventId}</td>
             <td>{data.state}</td>
-            <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }}/></a></td>
-            <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a><IonIcon icon={banOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
+            <td className="ion-no-padding" style={{ verticalAlign: "middle" }}>
+                {data.state != 'canceled' && <a id={"cancel-alert-" + data._id}><IonIcon icon={banOutline} size="large" style={{ cursor: "pointer" }} /></a>}
+            </td>
+            {data._id && cancelAlert(data._id)}
         </tr>
+
+    const addButton = () =>
+        <>
+            <IonButton id="add">Create</IonButton>
+            {/* <ReservationModal reservation={new Reservation()} action="add"/> */}
+        </>
 
     const getItems = () => items.map((value) => item(value))
     return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} /></DashboardLayout>

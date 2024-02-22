@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { IonButton, IonGrid, IonSearchbar } from "@ionic/react";
 import "./ListWebLayout.css";
 import CreateActivity from "@components/Admin/Activities/CreateActivity";
@@ -10,14 +10,15 @@ interface Props {
     columns: () => React.ReactNode;
     items: () => React.ReactNode;
     search: (arg:string) => void;
+    children?: React.ReactNode;
 }
 
-const ListWebLayout: React.FC<Props> = ({ columns, items,search }) => {
+const ListWebLayout: React.FC<Props> = ({ columns, items,search,children }) => {
     return (
         <div>
             <header>
                 <IonSearchbar onIonInput={async e=> search(e.detail.value || "")}/>
-                <IonButton id="add">Create</IonButton>
+                {children}
             </header>
             <main style={{width:"100%"}}>
                 <IonGrid class="ion-no-padding">

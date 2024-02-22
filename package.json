@@ -60,6 +60,7 @@
     "ionic:build": "craco build",
     "test": "craco test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
+    "clean:build" : "rimraf build && npx ionic build",
     "android": "rimraf build && npx ionic build && npx cap run android",
     "ios": "rimraf build && npx ionic build && npx cap run ios",
     "lint:css": "stylelint \"src/**/*.css\"",
