@@ -1,10 +1,8 @@
 import React from "react";
 import { getActivityList } from "@apis/activityApi";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonButton, IonCheckbox, IonCol, IonIcon, IonItem, IonModal, IonRow } from "@ionic/react";
-import { Activity, ActivityFilter } from "@models/Activity";
-import { get } from "http";
-import { useEffect, useState } from "react";
+import { IonAlert, IonButton, IonCheckbox, IonIcon } from "@ionic/react";
+import { Activity } from "@models/Activity";
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
 import { arrowDown, arrowUp, eyeOutline, pencilOutline, trashOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";

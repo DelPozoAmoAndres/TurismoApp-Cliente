@@ -50,7 +50,7 @@ export const useSearch = (getList: (arg0: string, arg1: any) => Promise<[]>, fil
     };
 
     cargarServicios();
-  }, [searchText, filters, getList, sortConfig.direction]);
+  }, [searchText, filters, getList, sortConfig.direction,sortConfig.key]);
 
   const handleFilter = (filters: any) => {
     setFilters(filters);

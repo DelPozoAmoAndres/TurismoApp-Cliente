@@ -1,6 +1,5 @@
 import LogoHeaderAppLayout from '@components/app/layouts/LogoHeaderAppLayout';
 import { useScreen } from '@hooks/useScreen';
-import { IonList } from '@ionic/react';
 import { Activity } from '@models/Activity';
 import { formatDate } from '@utils/Utils';
 import React, { useEffect, useState } from 'react';

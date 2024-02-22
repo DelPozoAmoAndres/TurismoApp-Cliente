@@ -22,6 +22,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, height, width }) => 
         if (data.length) {
             drawLineChart();
         }
+        //eslint-disable-next-line
     }, [data]);
 
 
@@ -66,7 +67,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, height, width }) => 
         legend.append("rect")
             .attr("x", widthPref - 19)
             .attr("width", 19)
-            .attr("fill", y => "red"); // Asegúrate de definir colorScale
+            .attr("fill", () => "red"); // Asegúrate de definir colorScale
 
         // Añadir texto a la leyenda
         legend.append("text")

@@ -1,17 +1,10 @@
-import React, { useRef } from "react";
-import { getActivityList } from "@apis/activityApi";
+import React from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonButton, IonCheckbox, IonCol, IonIcon, IonItem, IonModal, IonRow } from "@ionic/react";
-import { Activity, ActivityFilter } from "@models/Activity";
-import { get } from "http";
-import { useEffect, useState } from "react";
+import { IonAlert, IonIcon  } from "@ionic/react";
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
-import { arrowDown, arrowUp, banOutline, caretDownCircleOutline, eyeOutline, pencilOutline, trashOutline } from "ionicons/icons";
+import { arrowDown, arrowUp, banOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
-import { ActivityModal } from "@components/2 - Search Activity/Modal/ActivityModal";
-
-import { deleteActivity } from "@apis/adminActivityApi";
-import { cancelReservation, getReservationList } from "@apis/reservationApi";
+import { cancelReservation } from "@apis/reservationApi";
 import { Reservation } from "@models/Reservation";
 import { getAllReservations } from "@apis/adminUserApi";
 import { useTranslation } from "react-i18next";
@@ -91,11 +84,11 @@ export const AdminReservationList: React.FC = () => {
             {data._id && cancelAlert(data._id)}
         </tr>
 
-    const addButton = () =>
-        <>
-            <IonButton id="add">Create</IonButton>
-            {/* <ReservationModal reservation={new Reservation()} action="add"/> */}
-        </>
+    // const addButton = () =>
+    //     <>
+    //         <IonButton id="add">Create</IonButton>
+    //         {/* <ReservationModal reservation={new Reservation()} action="add"/> */}
+    //     </>
 
     const getItems = () => items.map((value) => item(value))
     return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} /></DashboardLayout>

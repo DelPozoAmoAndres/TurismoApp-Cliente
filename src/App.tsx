@@ -8,7 +8,6 @@ import { App, URLOpenListenerEvent } from '@capacitor/app';
 /* Pages */
 import HomePage from '@home/HomePage';
 import NotFound from '@pages/NotFoundPage';
-import AdminDashboard from '@components/Admin/AdminDashboard';
 import ReservationDetailsPage from '@reservation-details/ReservationDetailsPage';
 import SearchActivityPage from '@search-activity/ActivitySearchPage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
@@ -40,7 +39,6 @@ import TabBar from '@components/app/TabBar/TabBar';
 import PrivateRoute from '@shared/PrivateRoute';
 /* Hooks */
 import { useTheme } from '@hooks/useTheme';
-import UserSearchPage from '@search-user/UserSearchpage';
 import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
 import EventsPage from '@components/10- See Events/EventsPage';
 import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';

@@ -8,7 +8,7 @@ import { useScreen } from '@hooks/useScreen';
 import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import ScheduleWebLayout from '@components/web/layouts/ScheduleWebLayout';
 import { formatDateToTime } from '@utils/Utils';
-import { calendarOutline, cashOutline, languageOutline, pencilOutline, personCircleOutline, ticketOutline, trashOutline } from 'ionicons/icons';
+import { calendarOutline, cashOutline, languageOutline, pencilOutline, personCircleOutline, ticketOutline } from 'ionicons/icons';
 import { EventModal } from './EventModal';
 import DeleteEventModal from './DeleteEventModal';
 

@@ -24,6 +24,7 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
         if (data.length) {
             drawBarChart();
         }
+        //eslint-disable-next-line
     }, [data]);
 
     const drawBarChart = () => {
@@ -53,7 +54,7 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", d => xScale(d.period.toString())!)
+            .attr("x", d => xScale(d.period.toString())??0)
             .attr("y", d => yScale(d.cancellations/d.reservations*100))
             .attr("width", xScale.bandwidth())
             .attr("height", d => heightPref - yScale(d.cancellations/d.reservations*100))

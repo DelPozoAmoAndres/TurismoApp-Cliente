@@ -17,6 +17,7 @@ const BarChart: React.FC<BarChartProps> = ({ data,height,width }) => {
         if (data.length) {
             drawBarChart();
         }
+        // eslint-disable-next-line
     }, [data]);
 
     const drawBarChart = () => {
@@ -46,7 +47,7 @@ const BarChart: React.FC<BarChartProps> = ({ data,height,width }) => {
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", d => xScale(d.day.toString())!)
+            .attr("x", d => xScale(d.day.toString())??0)
             .attr("y", d => yScale(d.sales))
             .attr("width", xScale.bandwidth())
             .attr("height", d => heightPref - yScale(d.sales))

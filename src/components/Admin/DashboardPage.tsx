@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonSelect, IonSelectOption, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonList, IonItem, IonLabel } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonList, IonItem, IonLabel } from '@ionic/react';
 import '@ionic/react/css/core.css';
 import { DashboardLayout } from '@components/web/layouts/DashboardLayout';
 import RadialGraph from './RadialGraph';

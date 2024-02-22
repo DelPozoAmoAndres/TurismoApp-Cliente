@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { IonAlert, IonButton, IonDatetime, IonInput, IonItem, IonLabel, IonList, IonSelect, IonSelectOption } from '@ionic/react';
 import { Activity, Event } from '@models/Activity';
 import { useEdit } from '@hooks/useEdit';
-import { filterPropertiesNotNull, formatDate, formatTime } from '@utils/Utils';
-import { Role, User } from '@models/User';
-import { checkWorkers, getUserList } from '@apis/adminUserApi';
+import { filterPropertiesNotNull, formatDate } from '@utils/Utils';
+import { User } from '@models/User';
+import { checkWorkers } from '@apis/adminUserApi';
 import { createEvent } from '@apis/adminActivityApi';
 import { useLanguage } from '@hooks/useLanguage';
 import "./EventModal.css";
@@ -37,6 +37,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
         else if(action=="add") {
             getActivityList("", {}).then((activities) => {setActivityList(activities);console.log("hola")});
         }
+        // eslint-disable-next-line
     }, [modal]);
 
     const handleAddEvent = () => {
@@ -67,6 +68,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
             setGuias(workers); 
             formData && setFormData({ ...formData, guide: (workers?.length > 0 ? workers[0]._id : "") || "" }); 
         });
+        // eslint-disable-next-line
     }, [repeatType, repeatDays, repeatStartDate, repeatEndDate, time]);
 
     const handleRepeatTypeChange = (e: CustomEvent) => {

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
 import { IonAlert, IonButton, IonIcon } from "@ionic/react";
 
@@ -9,7 +9,7 @@ import { useSearch } from "@hooks/useSearch";
 import { deleteUser, getUserList } from "@apis/adminUserApi";
 import { User } from "@models/User";
 import { UserModal } from "@components/8 - Search User/Edit Modal/UserModal";
-import { formatDate, formatTime } from "@utils/Utils";
+import { formatDate } from "@utils/Utils";
 import { useTranslation } from "react-i18next";
 
 export const AdminUserList: React.FC = () => {

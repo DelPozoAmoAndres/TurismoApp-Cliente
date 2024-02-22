@@ -28,7 +28,9 @@ export const registerUser = async (user: User) => {
 }
 
 export const getAllReservations = async (text:string,filters:Record<string,unknown>): Promise<[]> => {
-    return axios.get(`${baseUrl}/reservation/list`).then((res) => res.data);
+    filters = filterPropertiesNotNull(filters);
+    const params = new URLSearchParams({ text, ...filters }).toString();
+    return axios.get(`${baseUrl}/reservation/list?${params}`).then((res) => res.data);
 };
 
 export const checkWorkers = async (properties:Record<string,unknown>): Promise<User[]> => {

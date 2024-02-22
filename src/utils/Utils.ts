@@ -1,5 +1,5 @@
-const MAX_FILE_SIZE_KB = 100;
-const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_KB * 1024; 
+// const MAX_FILE_SIZE_KB = 100;
+// const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_KB * 1024; 
 
 // Filtrar las propiedades que no sean null
 const filterPropertiesNotNull = (data: any) => {

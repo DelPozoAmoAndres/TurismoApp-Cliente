@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { useScreen } from '@hooks/useScreen';
 /* Layouts */
 import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
-import LogoHeaderAppLayout from '@components/app/layouts/LogoHeaderAppLayout';
 
 const HomePage: React.FC<RouteComponentProps> = () => {
   const { showAlert, handleAlertCancel, handleAlertConfirm } = useExitAlert(); // Hook to handle the alert of exit when its pressed back button on native apps

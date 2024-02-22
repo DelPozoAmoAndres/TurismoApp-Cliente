@@ -1,9 +1,7 @@
-import React, { Children } from "react";
-import { IonButton, IonGrid, IonSearchbar } from "@ionic/react";
+import React from "react";
+import { IonGrid, IonSearchbar } from "@ionic/react";
 import "./ListWebLayout.css";
-import CreateActivity from "@components/Admin/Activities/CreateActivity";
-import { ActivityModal } from "@components/2 - Search Activity/Modal/ActivityModal";
-import { Activity } from "@models/Activity";
+
 
 
 interface Props {

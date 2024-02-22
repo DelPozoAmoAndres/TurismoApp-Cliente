@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Activity, Event } from '@models/Activity';
+import { filterPropertiesNotNull } from '@utils/Utils';
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/admin/activity`;
 
@@ -24,7 +25,9 @@ export const createEvent = async (activityId: string, event: Event, repeatInfo: 
 };
 
 export const getEvents = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
-  const response = await axios.get(`${baseUrl}/event/list`);
+  filters = filterPropertiesNotNull(filters);
+  const params = new URLSearchParams({ search, ...filters }).toString();
+  const response = await axios.get(`${baseUrl}/event/list?${params}`);
   return response.data;
 }
 

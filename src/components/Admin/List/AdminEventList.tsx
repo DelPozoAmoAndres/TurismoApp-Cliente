@@ -1,23 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonButton, IonIcon} from "@ionic/react";
+import { IonButton, IonIcon} from "@ionic/react";
 
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
-import { arrowDown, arrowUp, eyeOutline, pencilOutline,trashOutline } from "ionicons/icons";
+import { arrowDown, arrowUp, pencilOutline} from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
 
-import { deleteUser, getUserList } from "@apis/adminUserApi";
-import { User } from "@models/User";
-import { UserModal } from "@components/8 - Search User/Edit Modal/UserModal";
-import { formatDate, formatDateToTime, formatTime } from "@utils/Utils";
+import { formatDate, formatDateToTime } from "@utils/Utils";
 import { getEvents } from "@apis/adminActivityApi";
 import { Event } from "@models/Activity";
-import CreateEvent from "../Activities/Events/CreateEvent";
-import { deleteEvents, getOneEvent } from "@apis/eventsApi";
 import DeleteEventModal from "@components/10- See Events/DeleteEventModal";
 import { useTranslation } from "react-i18next";
 import { EventModal } from "@components/10- See Events/EventModal";
-import { getActivityFromEvent } from "@apis/activityApi";
 
 export const AdminEventList : React.FC = () => {
     const defaultFilters = { name: "", email:"", telephone:"", birthday:"", country:"", role:""};

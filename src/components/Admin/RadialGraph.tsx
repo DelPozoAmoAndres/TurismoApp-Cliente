@@ -12,6 +12,7 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ data }) => {
         if (data.length) {
             drawRadialGraph();
         }
+        // eslint-disable-next-line
     }, [data]);
 
     const svg = d3.select(ref.current);
@@ -30,8 +31,6 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ data }) => {
 
         const colorArray = ['var(--ion-color-primary)', 'var(--ion-color-secondary)', 'var(--ion-color-tertiary)'];
 
-        // Acceder a las variables CSS para los colores
-        const computedStyle = getComputedStyle(document.documentElement);
         const colorScale = (index: number) => {
             return colorArray[index];
         };
