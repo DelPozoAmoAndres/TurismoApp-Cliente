@@ -15,10 +15,12 @@ import "./ReviewItem.css"
 import { deleteReview, reportReview } from '@apis/reviewApi';
 /* i18n */
 import { useTranslation } from 'react-i18next';
+import { ReviewModal } from '@components/7 - Reservation Details/Add Review/ReviewModal';
 
 export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
     const { t } = useTranslation();
     const auth = useAuth();
+    console.log(comment);
     return (
         <IonCard id="activity-review" class="ion-no-margin" style={{width:"100%"}}>
             <section className="ion-margin-bottom">
@@ -42,14 +44,15 @@ export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
                         {t('report')}
                     </IonButton>
                 }
-                {auth.user?._id === comment.author &&
+                {auth.user?._id === comment.author && comment.activityId &&
                     <>
                         <IonButton color={'danger'} onClick={()=>comment._id && deleteReview(comment._id)}>
                             {t('delete')}
                         </IonButton>
-                        <IonButton >
+                        <IonButton id={comment._id}>
                             {t('edit')}
                         </IonButton>
+                        <ReviewModal action={"edit"} activityId={comment.activityId} reviewData={comment} reservationId={comment.reservationId} />
                     </>
                 }
             </IonRow>

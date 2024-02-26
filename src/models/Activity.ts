@@ -58,13 +58,15 @@ export class Review {
   authorName?:string;
   date:Date;
   _id?:string;
+  reservationId:string;
 
 
-  constructor(activityId:string){
+  constructor(activityId:string, reservationId:string){
     this.score=0;
     this.author="";
     this.activityId=activityId
     this.date=new Date();
+    this.reservationId=reservationId;
   }
 }
 
