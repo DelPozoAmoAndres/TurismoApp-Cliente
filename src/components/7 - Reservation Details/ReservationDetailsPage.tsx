@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 /* Ionic Components */
 import { IonButton, IonCard, IonRow } from '@ionic/react';
-import { cancelReservation, getReservation } from '@apis/reservationApi';
+import { cancelReservation } from '@apis/reservationApi';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 /* Hooks */
@@ -34,6 +34,7 @@ const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) =>
 
   useEffect(() => {
     getReview();
+    // eslint-disable-next-line
   }, [reservation]);
   
   const content = reservation ? (
