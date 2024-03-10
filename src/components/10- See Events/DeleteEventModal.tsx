@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { IonButton,IonCol, IonDatetime, IonIcon,IonItemDivider, IonLabel, IonList, IonRow, IonToggle } from '@ionic/react';
+import { IonButton, IonCol, IonDatetime, IonIcon, IonItemDivider, IonLabel, IonList, IonRow, IonToggle } from '@ionic/react';
 import { Modal } from '@shared/Modal'; // Importa tu modal
 import { useTranslation } from 'react-i18next';
 import { trashOutline } from 'ionicons/icons';
