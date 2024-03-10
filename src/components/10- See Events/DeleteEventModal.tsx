@@ -7,18 +7,18 @@ import './DeleteEventModal.css';
 import { deleteEvents } from '@apis/eventsApi';
 import { RecurrenceEventParams } from '@models/RecurrenceEventParams';
 
-const DeleteEventModal: React.FC<{ eventId: string | undefined}> = ({ eventId}) => {
+const DeleteEventModal: React.FC<{ eventId: string | undefined }> = ({ eventId }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [deleteRepeated, setDeleteRepeated] = useState(false);
     const modalRef = useRef<HTMLIonModalElement>(null);
     const { t } = useTranslation();
     const daysOfWeek = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-    const [recurrentParams, setRecurrentParams] = useState<RecurrenceEventParams>({recurrenceDays:[],startDate:new Date(),endDate:new Date()}); 
+    const [recurrentParams, setRecurrentParams] = useState<RecurrenceEventParams>({ recurrenceDays: [], startDate: new Date(), endDate: new Date() });
 
     const toggleDay = (day: number) => {
-        const recurrenceDays =recurrentParams.recurrenceDays.includes(day) 
-                                ? recurrentParams.recurrenceDays.filter(d => d !== day) 
-                                : [...recurrentParams.recurrenceDays, day]
+        const recurrenceDays = recurrentParams.recurrenceDays.includes(day)
+            ? recurrentParams.recurrenceDays.filter(d => d !== day)
+            : [...recurrentParams.recurrenceDays, day]
         const newRecurrentParams = { ...recurrentParams, recurrenceDays };
         setRecurrentParams(newRecurrentParams);
     };
@@ -29,7 +29,7 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined}> = ({ eventId}) 
     };
 
     const daySelectionButtons = () => (
-        deleteRepeated && daysOfWeek.map((day,index) => (
+        deleteRepeated && daysOfWeek.map((day, index) => (
             <IonButton
                 key={day}
                 style={{ padding: 0 }}
@@ -40,24 +40,23 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined}> = ({ eventId}) 
         ))
     );
 
-    const setDayRange = (value:string,property:"startDate"|"endDate") => {
+    const setDayRange = (value: string, property: "startDate" | "endDate") => {
         const newRecurrentParams = { ...recurrentParams, [property]: new Date(value) };
         setRecurrentParams(newRecurrentParams);
     }
 
     return (
         <>
-            <IonButton color={'danger'} expand="block" onClick={() => setIsOpen(true)}>
-                <IonIcon icon={trashOutline} />
-                {t('Borrar')}
-            </IonButton>
+            <a >
+                <IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} onClick={() => setIsOpen(true)} />
+            </a>
             <Modal
                 id="delete-event-modal"
                 tittle={t('Eliminar Evento')}
                 modal={modalRef}
                 isOpen={isOpen}
                 setOpen={setIsOpen}
-                height={deleteRepeated?"560px":"150px"}>
+                height={deleteRepeated ? "560px" : "150px"}>
                 <IonList style={{ marginInline: "5px" }}>
                     <IonRow class="ion-no-margin ion-margin-horizontal ion-justify-content-between ion-align-center">
                         <IonLabel>{t('Eliminar evento periódico')}</IonLabel>
@@ -77,10 +76,10 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined}> = ({ eventId}) 
                         </IonRow>
                         <IonRow >
                             <IonCol size="6">
-                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' size="fixed" min={new Date().toISOString()} value={recurrentParams.startDate.toISOString()} onIonChange={(e)=>e.detail.value && setDayRange(String(e.detail.value),"startDate")}/>
+                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' size="fixed" min={new Date().toISOString()} value={recurrentParams.startDate.toISOString()} onIonChange={(e) => e.detail.value && setDayRange(String(e.detail.value), "startDate")} />
                             </IonCol>
                             <IonCol size="6">
-                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' min={recurrentParams.startDate.toISOString()} value={recurrentParams.endDate.toISOString()} onIonChange={(e)=>e.detail.value && setDayRange(String(e.detail.value),"endDate")}/>
+                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' min={recurrentParams.startDate.toISOString()} value={recurrentParams.endDate.toISOString()} onIonChange={(e) => e.detail.value && setDayRange(String(e.detail.value), "endDate")} />
                             </IonCol>
                         </IonRow>
                     </div>

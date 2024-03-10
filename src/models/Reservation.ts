@@ -11,6 +11,8 @@ export interface Reservation {
   telephone?: number;
   state: ReservationState;
   _id?: string;
+  paymentId?: string;
+  date:Date;
 }
 
 export interface ReservationGroup {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Event } from '../models/Activity';
+import { Activity, ActivityState } from '../models/Activity';
 
-export const useSoldOut = (events: Event[]| undefined) => {
+export const useSoldOut = (activity: Activity | undefined) => {
   /* Internal states */
   const [soldOutProps, setSoldOut] = useState({}); //Variable to change the state of the availability button
 
@@ -11,8 +11,8 @@ export const useSoldOut = (events: Event[]| undefined) => {
     const color = 'medium';
     const props = { style, disabled, color }; //Props with disabled state for the availability button
 
-    setSoldOut(!events || (events && events.length == 0) ? props : {});
-  }, [events]);
+    setSoldOut(!activity || activity && activity.state==ActivityState['temporaly-closed'] || (activity.events && activity.events.length == 0) ? props : {});
+  }, [activity]);
 
   return { soldOutProps };
 };
