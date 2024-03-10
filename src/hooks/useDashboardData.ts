@@ -1,8 +1,6 @@
 import { getReservations, getResume } from "@apis/dashboardApi";
 import { AreaProps } from "@components/Admin/LineChart";
-import { Reservation } from "@models/Reservation";
 import { User } from "@models/User";
-import { use } from "i18next";
 import { useEffect, useState } from "react";
 import io from 'socket.io-client';
 
@@ -45,14 +43,14 @@ export const useDashboardData = () => {
             fetchData();
         });
         fetchData();
-    }, []);
+    }, [socket]);
 
     useEffect(() => {
         socket.on('reservation', () => {
             fetchReservationsData();
         });
         fetchReservationsData();
-    },[]);
+    },[socket]);
 
     return { totalReservations, totalIncome, occupationData, totalUsers, cancelationData, categoryReservations,reservations };
 }

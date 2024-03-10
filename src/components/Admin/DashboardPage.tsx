@@ -1,54 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonList, IonItem, IonLabel } from '@ionic/react';
 import '@ionic/react/css/core.css';
 import { DashboardLayout } from '@components/web/layouts/DashboardLayout';
 import RadialGraph from './RadialGraph';
-import BarChart from './BarChart';
 import { useTranslation } from 'react-i18next';
-import { AreaProps, LineChart } from './LineChart';
 import CancellationRateChart from './CancellationRateChart';
 import { formatDate } from '@utils/Utils';
-import { getCancelationRate, getDailySales, getOccupation, getTotalIncome, getTotalReservations, getTotalUsers } from '@apis/dashboardApi';
 import { useDashboardData } from '@hooks/useDashboardData';
+import { LineChart } from './LineChart';
 
 export const DashboardPage: React.FC = () => {
 
     const { t } = useTranslation();
     const { totalReservations, totalIncome, occupationData, totalUsers, cancelationData, categoryReservations,reservations } = useDashboardData();
-
-    const userDays = [
-        { day: 1, sales: 435 },
-        { day: 2, sales: 111 },
-        { day: 3, sales: 421 },
-        { day: 4, sales: 216 },
-        { day: 5, sales: 255 },
-        { day: 6, sales: 257 },
-        { day: 7, sales: 307 },
-        { day: 8, sales: 486 },
-        { day: 9, sales: 327 },
-        { day: 10, sales: 107 },
-        { day: 11, sales: 303 },
-        { day: 12, sales: 447 },
-        { day: 13, sales: 479 },
-        { day: 14, sales: 329 },
-        { day: 15, sales: 321 },
-        { day: 16, sales: 108 },
-        { day: 17, sales: 359 },
-        { day: 18, sales: 322 },
-        { day: 19, sales: 362 },
-        { day: 20, sales: 183 },
-        { day: 21, sales: 342 },
-        { day: 22, sales: 343 },
-        { day: 23, sales: 243 },
-        { day: 24, sales: 135 },
-        { day: 25, sales: 352 },
-        { day: 26, sales: 176 },
-        { day: 27, sales: 181 },
-        { day: 28, sales: 312 },
-        { day: 29, sales: 205 },
-        { day: 30, sales: 386 },
-        { day: 31, sales: 154 }
-    ];
 
     const content =
         <IonGrid class='ion-no-margin'>

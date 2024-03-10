@@ -77,9 +77,9 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             .attr("y", 10)
             .text((d, i) => values[i].category);
 
-        const arc = d3.arc()
-            .innerRadius(0)
-            .outerRadius(radius);
+        // const arc = d3.arc()
+        //     .innerRadius(0)
+        //     .outerRadius(radius);
 
         group.selectAll("path")
             .data(data)

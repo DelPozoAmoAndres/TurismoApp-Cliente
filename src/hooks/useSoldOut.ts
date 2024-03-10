@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Activity, ActivityState, Event } from '../models/Activity';
+import { Activity, ActivityState } from '../models/Activity';
 
 export const useSoldOut = (activity: Activity | undefined) => {
   /* Internal states */
