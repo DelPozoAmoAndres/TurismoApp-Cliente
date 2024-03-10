@@ -2,7 +2,7 @@ import React from 'react';
 /* Ionic components */
 import { IonButton, IonCardSubtitle, IonCardTitle, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
 /* Models */
-import { Activity } from '@models/Activity';
+import { Activity, ActivityState } from '@models/Activity';
 import { Role } from '@models/User';
 /* Styles */
 import './ActivityInfo.css';
@@ -14,6 +14,7 @@ import { useSoldOut } from '@hooks/useSoldOut';
 /* Contexts */
 import { useAuth } from '@contexts/AuthContexts';
 import { calendarOutline, shareSocialOutline } from 'ionicons/icons';
+import { formatDateToTime } from '@utils/Utils';
 
 export const ActivityInfo: React.FC<{
   activityData: Activity;
@@ -22,7 +23,10 @@ export const ActivityInfo: React.FC<{
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { browsingWeb, isMobile } = useScreen(); //Hook to have data of screen dimensions
   const auth = useAuth();
-  const { soldOutProps } = useSoldOut(activityData?.events);
+  const { soldOutProps } = useSoldOut(activityData);
+  const date: Date = new Date();
+  date.setHours(0, 0, 0, 0);
+  date.setMinutes(activityData.duration);
 
   return (
     <div id="activity-info" className="ion-margin-top">
@@ -36,7 +40,7 @@ export const ActivityInfo: React.FC<{
         {browsingWeb && !isMobile && <>
           <section hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
             <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-              {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
+              {activityData?.events && activityData.events.length > 0 && activityData.state!=ActivityState['temporaly-closed'] ? t('show.availability') : t('sold.out')}
               <IonIcon slot="end" icon={calendarOutline} />
             </IonButton>
           </section>
@@ -68,7 +72,7 @@ export const ActivityInfo: React.FC<{
               <strong>{t('duration')}</strong>
             </IonLabel>
           </IonRow>
-          {activityData?.duration} {t('hours')}
+          {formatDateToTime(date)} {t('hours')}
         </IonRow>
         <IonRow>
           <IonRow class="ion-margin-top">

@@ -22,6 +22,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 /* Styles */
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css';
+import 'swiper/css/keyboard';
 import './ActivityDetailsPage.css';
 import LoadingPage from '@pages/LoadingPage';
 import BackShareAppLayout from '@components/app/layouts/BackShareAppLayout';
@@ -40,7 +42,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
       <IonRow class="ion-justify-content-center ion-margin-top">
         <section id="activity-section-info" className="ion-margin-horizontal">
           <IonCard id="activity-image-card" class="ion-no-margin" mode="ios">
-            <Swiper
+            <Swiper style={{position:"inherit"}}
               pagination={{ type: 'fraction' }}
               keyboard={{ enabled: true }}
               navigation={true}

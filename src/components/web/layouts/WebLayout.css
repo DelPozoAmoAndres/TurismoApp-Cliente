@@ -34,3 +34,8 @@ h2{
   grid-template-columns: 1fr;
 }
 
+.resize label div textarea{
+  resize: vertical !important;
+  width: 100% !important;
+  outline: none !important;
+}

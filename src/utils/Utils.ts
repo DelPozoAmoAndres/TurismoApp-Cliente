@@ -1,11 +1,11 @@
-const MAX_FILE_SIZE_KB = 100;
-const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_KB * 1024; 
+// const MAX_FILE_SIZE_KB = 100;
+// const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_KB * 1024; 
 
 // Filtrar las propiedades que no sean null
 const filterPropertiesNotNull = (data: any) => {
   const filteredData: any = {};
   Object.entries(data).forEach(([key, value]) => {
-    if (value !== null) {
+    if (value && value !== null && value !== '') {
       filteredData[key] = value;
     }
   });
@@ -70,11 +70,11 @@ async function uploadImage(fr: FileReader, event: React.ChangeEvent<HTMLInputEle
     const process = async () => {
       fr.removeEventListener("load", process);
       const file = files[0]
-      if (file && file.size > MAX_FILE_SIZE_BYTES) {
-        //FIXME: Mostrar mensaje de error
-        alert(`El archivo es demasiado grande. El tamaño máximo permitido es de ${MAX_FILE_SIZE_KB}MB.`);
-        return;
-      }
+      // if (file && file.size > MAX_FILE_SIZE_BYTES) {
+      //   //FIXME: Mostrar mensaje de error
+      //   alert(`El archivo es demasiado grande. El tamaño máximo permitido es de ${MAX_FILE_SIZE_KB}MB.`);
+      //   return;
+      // }
       await optimizeImage(fr, file)
       getImage()
     }

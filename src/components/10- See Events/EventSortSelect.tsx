@@ -35,7 +35,7 @@ export const EventSortSelect: React.FC<{activityId:string}> = ({activityId}) => 
           {t('event.add')}
         </IonButton>
       )}
-      <EventModal activityId={activityId} event={new Event()} action="add" />
+      <EventModal activity={activityId} event={new Event()} action="add" />
     </IonRow>
   );
 };

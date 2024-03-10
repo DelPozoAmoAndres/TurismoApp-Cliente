@@ -1,14 +1,17 @@
-#modal-activity-edit  section {
+#modal-activity-edit section, 
+#modal-activity-add section {
     width: 350px;
 }
 
-#modal-activity-edit ion-list,#modal-activity-edit ion-list + #modal-activity-edit+div {
+#modal-activity-edit ion-list, #modal-activity-edit ion-list + #modal-activity-edit+div,
+#modal-activity-add ion-list, #modal-activity-add ion-list + #modal-activity-add+div {
     max-width: 480px;
     width: 100%;
 }
 
 
-#modal-activity-edit  ion-img {
+#modal-activity-edit  ion-img,
+#modal-activity-add  ion-img  {
     max-width: 160px;
 }
 
@@ -20,7 +23,8 @@
 
 
 @media only screen and (width >= 900px) {
-    #modal-activity-edit {
+    #modal-activity-edit,
+    #modal-activity-add {
       --width: 900px;
       --height: 600px;
       --border-radius: 6px;

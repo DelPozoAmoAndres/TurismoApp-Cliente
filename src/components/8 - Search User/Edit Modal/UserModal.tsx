@@ -22,7 +22,7 @@ export const UserModal: React.FC<{ user: User, action: "add" | "edit" }> = ({ us
   }
 
   return (
-    <Modal id='modal-user-edit' trigger={user?._id || "add"} minWidthAndroid={500} minWidthIos={500} tittle={t("user." + action + ".title")} modal={modal} >
+    <Modal id={'modal-user-'+action} trigger={user?._id || "modal-user-add"} minWidthAndroid={500} minWidthIos={500} tittle={t("user." + action + ".title")} modal={modal} >
       <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
         <IonGrid class='ion-no-padding ion-margin-end'>
           <IonRow class='ion-justify-content-center'>
