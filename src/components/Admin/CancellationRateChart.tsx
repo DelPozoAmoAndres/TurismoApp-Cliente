@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 interface CancellationData {
-    period: string; // podría ser una fecha como '2021-01', '2021-02', etc.
-    reservations: number;
+    period: string; 
     cancellations: number;
 }
 
@@ -20,8 +19,10 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
     const widthPref = width - margin.left - margin.right;
     const heightPref = height - margin.top - margin.bottom;
 
+    
+
     useEffect(() => {
-        if (data.length) {
+        if (data) {
             drawBarChart();
         }
         //eslint-disable-next-line
@@ -40,7 +41,7 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
 
         const yScale = d3.scaleLinear()
             .rangeRound([heightPref, 0])
-            .domain([0, Number(d3.max(data, d => d.cancellations/d.reservations*100))]);
+            .domain([0, Number(d3.max(data, d => d.cancellations))]);
 
         g.append("g")
             .attr("transform", `translate(0, ${heightPref})`)
@@ -55,12 +56,12 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
             .append("rect")
             .attr("class", "bar")
             .attr("x", d => xScale(d.period.toString())??0)
-            .attr("y", d => yScale(d.cancellations/d.reservations*100))
+            .attr("y", d => yScale(d.cancellations))
             .attr("width", xScale.bandwidth())
-            .attr("height", d => heightPref - yScale(d.cancellations/d.reservations*100))
+            .attr("height", d => heightPref - yScale(d.cancellations))
             .attr("fill", "#ff6361");
     };
-        return <svg ref={ref} width={widthPref + margin.left + margin.right} height={heightPref + margin.top + margin.bottom}></svg>;
+        return <svg preserveAspectRatio="xMidYMid meet" ref={ref} width={widthPref + margin.left + margin.right} height={heightPref + margin.top + margin.bottom}></svg>;
 
 };
 

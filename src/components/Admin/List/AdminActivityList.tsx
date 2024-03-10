@@ -1,5 +1,5 @@
 import React from "react";
-import { getActivityList } from "@apis/activityApi";
+import { getAllActivities } from "@apis/adminActivityApi";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
 import { IonAlert, IonButton, IonCheckbox, IonIcon } from "@ionic/react";
 import { Activity } from "@models/Activity";
@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 
 export const AdminActivityList: React.FC = () => {
     const defaultFilters = { name: "", location: "", description: "", accesibility: "", duration: "", petsPermited: "", state: "" };
-    const { setSearchText, handleSort, sortConfig, items } = useSearch(getActivityList, defaultFilters);
+    const { setSearchText, handleSort, sortConfig, items } = useSearch(getAllActivities, defaultFilters);
     const {t} = useTranslation();
 
     const getSymbol = (name:string) => {

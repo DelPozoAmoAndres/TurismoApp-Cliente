@@ -20,6 +20,7 @@ export const ReservationContext = createContext<ReservationContextType>({
     state: 'pending',
     telephone: 0,
     price: 0,
+    date: new Date(),
   },
   setStep: (arg) => {
     console.log(arg);
@@ -55,6 +56,7 @@ const ReservationProvider: React.FC<Props> = (props) => {
     state: 'pending',
     telephone: 0,
     price: event?.price,
+    date: new Date(),
   });
 
   useEffect(() => {

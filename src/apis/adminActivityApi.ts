@@ -31,6 +31,13 @@ export const getEvents = async (search: string, filters : Record <string,unknown
   return response.data;
 }
 
+export const getAllActivities = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
+  filters = filterPropertiesNotNull(filters);
+  const params = new URLSearchParams({ search, ...filters }).toString();
+  const response = await axios.get(`${baseUrl}/list?${params}`);
+  return response.data;
+}
+
 
 
 

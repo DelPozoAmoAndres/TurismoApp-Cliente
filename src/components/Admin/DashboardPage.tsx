@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonList, IonItem, IonLabel } from '@ionic/react';
 import '@ionic/react/css/core.css';
 import { DashboardLayout } from '@components/web/layouts/DashboardLayout';
 import RadialGraph from './RadialGraph';
 import BarChart from './BarChart';
 import { useTranslation } from 'react-i18next';
-import { LineChart } from './LineChart';
+import { AreaProps, LineChart } from './LineChart';
 import CancellationRateChart from './CancellationRateChart';
 import { formatDate } from '@utils/Utils';
+import { getCancelationRate, getDailySales, getOccupation, getTotalIncome, getTotalReservations, getTotalUsers } from '@apis/dashboardApi';
+import { useDashboardData } from '@hooks/useDashboardData';
 
 export const DashboardPage: React.FC = () => {
 
     const { t } = useTranslation();
+    const { totalReservations, totalIncome, occupationData, totalUsers, cancelationData, categoryReservations,reservations } = useDashboardData();
+
     const userDays = [
         { day: 1, sales: 435 },
         { day: 2, sales: 111 },
@@ -46,40 +50,6 @@ export const DashboardPage: React.FC = () => {
         { day: 31, sales: 154 }
     ];
 
-    const ocupation = [
-        { "day": 1, "value": 22 },
-        { "day": 2, "value": 97 },
-        { "day": 3, "value": 95 },
-        { "day": 4, "value": 46 },
-        { "day": 5, "value": 54 },
-        { "day": 6, "value": 9 },
-        { "day": 7, "value": 79 },
-        { "day": 8, "value": 23 },
-        { "day": 9, "value": 15 },
-        { "day": 10, "value": 8 },
-        { "day": 11, "value": 98 },
-        { "day": 12, "value": 65 },
-        { "day": 13, "value": 33 },
-        { "day": 14, "value": 82 },
-        { "day": 15, "value": 79 },
-        { "day": 16, "value": 3 },
-        { "day": 17, "value": 8 },
-        { "day": 18, "value": 38 },
-        { "day": 19, "value": 70 },
-        { "day": 20, "value": 30 },
-        { "day": 21, "value": 75 },
-        { "day": 22, "value": 31 },
-        { "day": 23, "value": 95 },
-        { "day": 24, "value": 54 },
-        { "day": 25, "value": 85 },
-        { "day": 26, "value": 76 },
-        { "day": 27, "value": 72 },
-        { "day": 28, "value": 33 },
-        { "day": 29, "value": 89 },
-        { "day": 30, "value": 69 },
-        { "day": 31, "value": 75 }
-    ]
-        ;
     const content =
         <IonGrid class='ion-no-margin'>
             <IonRow>
@@ -93,7 +63,7 @@ export const DashboardPage: React.FC = () => {
                     <IonCard>
                         <IonCardHeader>
                             <IonCardSubtitle>{t('total.reservations')}</IonCardSubtitle>
-                            <IonCardTitle>34578</IonCardTitle>
+                            <IonCardTitle>{totalReservations}</IonCardTitle>
                             <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
                         </IonCardHeader>
                     </IonCard>
@@ -101,61 +71,33 @@ export const DashboardPage: React.FC = () => {
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>{t('total.incomings')}</IonCardSubtitle>
-                            <IonCardTitle>34578</IonCardTitle>
+                            <IonCardSubtitle>{t('total.income')}</IonCardSubtitle>
+                            <IonCardTitle>{totalIncome}€</IonCardTitle>
                             <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
                         </IonCardHeader>
-                    </IonCard>
-                </IonCol>
-                <IonCol>
-                    <IonCard>
-                        <IonGrid>
-                            <IonRow>
-                                <IonCol size='2'>
-                                    <IonCardHeader class='ion-no-padding ion-padding-left' >
-                                        <IonCardSubtitle>{t('ocupation.porcentage')}</IonCardSubtitle>
-                                        <IonCardTitle>80%</IonCardTitle>
-                                    </IonCardHeader>
-                                </IonCol>
-                                <IonCol size='10'>
-                                    <LineChart data={ocupation} height={85} width={600} />
-                                </IonCol>
-                            </IonRow>
-                        </IonGrid>
-
-
                     </IonCard>
                 </IonCol>
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
                             <IonCardSubtitle>{t('total.users')}</IonCardSubtitle>
-                            <IonCardTitle>34578</IonCardTitle>
+                            <IonCardTitle>{totalUsers}</IonCardTitle>
                             <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
-                <IonCol>
-                    <IonCard>
-                        <IonCardHeader>
-                            <IonCardSubtitle>{t('increment.users')}</IonCardSubtitle>
-                            <IonCardTitle>34578</IonCardTitle>
-                            <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
-                        </IonCardHeader>
-                    </IonCard>
-                </IonCol>
-                {/* Repeat for other cards */}
+            </IonRow>
+            <IonRow >
             </IonRow>
             <IonRow>
-                {/* Statistics Cards */}
-                <IonCol >
+                <IonCol>
                     <IonCard>
-                        <IonCardHeader>
-                            <IonCardSubtitle>{t('cancelation.rate')}</IonCardSubtitle>
-                            <IonCardTitle>80%</IonCardTitle>
+                        <IonCardHeader  >
+                            <IonCardSubtitle>{t('ocupation.porcentage')}</IonCardSubtitle>
+                            <IonCardTitle>{occupationData.occupationRate}%</IonCardTitle>
                         </IonCardHeader>
                         <IonCardContent>
-                            <CancellationRateChart width={500} height={270} data={[{ period: "1", cancellations: 1, reservations: 100 }, { period: "2", cancellations: 1, reservations: 30 }, { period: "3", cancellations: 1, reservations: 70 }, { period: "4", cancellations: 1, reservations: 45 }]} />
+                            <LineChart data={occupationData.occupationPoints} height={270} width={500} />
                         </IonCardContent>
                     </IonCard>
                 </IonCol>
@@ -164,22 +106,22 @@ export const DashboardPage: React.FC = () => {
                         <IonCardHeader>
                             <IonCardSubtitle>Daily Sales</IonCardSubtitle>
                         </IonCardHeader>
-                        <IonCardContent>
-                            <RadialGraph data={[50, 50]} />
+                        <IonCardContent class="ion-no-margin">
+                            <RadialGraph values={categoryReservations} />
                         </IonCardContent>
                     </IonCard>
                 </IonCol>
                 <IonCol >
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>Total users</IonCardSubtitle>
+                            <IonCardSubtitle>{t('cancelation.rate')}</IonCardSubtitle>
+                            <IonCardTitle>{cancelationData.cancelRate}%</IonCardTitle>
                         </IonCardHeader>
-                        <IonCardContent>
-                            <BarChart data={userDays} height={300} width={500} />
+                        <IonCardContent class="ion-no-margin">
+                            <CancellationRateChart width={500} height={270} data={cancelationData.cancelationsByDayOfMonth} />
                         </IonCardContent>
                     </IonCard>
                 </IonCol>
-
             </IonRow>
             <IonRow>
                 {/* Charts and Recent Users */}
@@ -189,21 +131,25 @@ export const DashboardPage: React.FC = () => {
                         <strong>Actividad reciente</strong>
                     </IonLabel>
                     <IonList>
-                        {userDays.map((i) => (
-                            <IonItem key={i.day}>
+                        {reservations.map((i,index) => (
+                            <IonItem key={index}>
                                 <IonAvatar slot="start">
                                     <img src="https://placehold.co/40x40.png" alt="User Avatar" />
                                 </IonAvatar>
                                 <IonLabel>
-                                    <h2>Louis Hansen</h2>
-                                    <p>Web designer</p>
+                                    <h2>{i.reservations?.at(0)?.name}</h2>
+                                    <p>{i.reservations?.at(0)?.email}</p>
                                 </IonLabel>
                                 <IonLabel>
-                                    <h2>Reserva</h2>
-                                    <p>20€</p>
+                                    <h2>{i.reservations?.at(0)?.activity?.name}</h2>
+                                    <p>{i.reservations?.at(0)?.activity?.category}</p>
+                                </IonLabel>
+                                <IonLabel>
+                                    <h2>{i.reservations?.at(0)?.state}</h2>
+                                    <p>{i.reservations?.at(0)?.price}€</p>
                                 </IonLabel>
                                 <IonLabel slot='end'>
-                                    <h2>{formatDate(new Date())}</h2>
+                                    <h2>{formatDate(i.reservations?.at(0)?.date || null)}</h2>
                                 </IonLabel>
                             </IonItem>
                         ))}

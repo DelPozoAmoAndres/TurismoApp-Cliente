@@ -12,6 +12,7 @@ export interface Reservation {
   state: ReservationState;
   _id?: string;
   paymentId?: string;
+  date:Date;
 }
 
 export interface ReservationGroup {

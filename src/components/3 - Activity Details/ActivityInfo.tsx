@@ -2,7 +2,7 @@ import React from 'react';
 /* Ionic components */
 import { IonButton, IonCardSubtitle, IonCardTitle, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
 /* Models */
-import { Activity } from '@models/Activity';
+import { Activity, ActivityState } from '@models/Activity';
 import { Role } from '@models/User';
 /* Styles */
 import './ActivityInfo.css';
@@ -23,7 +23,7 @@ export const ActivityInfo: React.FC<{
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { browsingWeb, isMobile } = useScreen(); //Hook to have data of screen dimensions
   const auth = useAuth();
-  const { soldOutProps } = useSoldOut(activityData?.events);
+  const { soldOutProps } = useSoldOut(activityData);
   const date: Date = new Date();
   date.setHours(0, 0, 0, 0);
   date.setMinutes(activityData.duration);
@@ -40,7 +40,7 @@ export const ActivityInfo: React.FC<{
         {browsingWeb && !isMobile && <>
           <section hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
             <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-              {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
+              {activityData?.events && activityData.events.length > 0 && activityData.state!=ActivityState['temporaly-closed'] ? t('show.availability') : t('sold.out')}
               <IonIcon slot="end" icon={calendarOutline} />
             </IonButton>
           </section>
