@@ -9,6 +9,7 @@ export class Activity {
   accesibility: string;
   petsPermited: boolean;
   state: ActivityState;
+  category: ActivityCategory;
   _id?: string;
 
   constructor(){
@@ -21,6 +22,7 @@ export class Activity {
     this.accesibility=""
     this.petsPermited=false
     this.state=ActivityState.available
+    this.category=ActivityCategory.cultural
   }
 }
 
@@ -29,6 +31,8 @@ export enum ActivityState {
   'temporaly-closed' = 'temporaly-closed',
   'canceled' = 'canceled',
 }
+
+export enum ActivityCategory { "cultural", "deportiva", "gastronómica", "naturaleza", "nocturna", "religiosa", "social"}
 
 export class Event {
   seats: number;
@@ -58,13 +62,15 @@ export class Review {
   authorName?:string;
   date:Date;
   _id?:string;
+  reservationId:string;
 
 
-  constructor(activityId:string){
+  constructor(activityId:string, reservationId:string){
     this.score=0;
     this.author="";
     this.activityId=activityId
     this.date=new Date();
+    this.reservationId=reservationId;
   }
 }
 

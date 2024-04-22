@@ -9,16 +9,7 @@ import { createActivity } from '@apis/adminActivityApi';
 import { AxiosError } from 'axios';
 
 const CreateActivity: React.FC<RouteComponentProps> = ({ history }) => {
-  const [formData, setFormData] = useState<Activity>({
-    name: '',
-    description: '',
-    duration: 0,
-    location: '',
-    petsPermited: false,
-    accesibility: '',
-    state: ActivityState.available,
-    images: [''],
-  });
+  const [formData, setFormData] = useState<Activity>(new Activity());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showAlert, setShowAlert] = useState<boolean>(false);

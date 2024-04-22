@@ -52,7 +52,7 @@ const EventsPage: React.FC<EventsProps> = ({ match }) => {
                                     <DeleteEventModal eventId={event._id} />
                                 </IonRow>
                             </IonCard>
-                            <EventModal activityId={match.params.id} event={event} action="edit" />
+                            <EventModal activity={match.params.id} event={event} action="edit" />
                             
                         </IonCol>
                     ))}

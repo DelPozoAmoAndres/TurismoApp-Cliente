@@ -32,10 +32,10 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
         <IonCardSubtitle>
           <IonText className="ion-margin-left">{activity.location}</IonText>
         </IonCardSubtitle>
-        <IonText class="ion-no-margin ion-align-items-center">
+        {(activity?.reviews?.length || 0 ) > 0 && <IonText class="ion-no-margin ion-align-items-center">
           <IonIcon icon={star} color="primary" />
-          3/5 (323)
-        </IonText>
+          {activity?.reviews?.reduce((acc, review) => acc + review.score, 0)}/5 ({activity?.reviews?.length})
+        </IonText>}
         {<IonText>
           <p>{activity.description}</p>
         </IonText>}
