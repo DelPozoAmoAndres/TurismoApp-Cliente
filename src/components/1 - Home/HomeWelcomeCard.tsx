@@ -17,7 +17,7 @@ export const HomeWelcomeCard = () => {
         <IonText class="multi-line-container text-white">
           <p>{t('welcome.message')}</p>
         </IonText>
-        <IonButton color={'secondary'} routerLink="/buscar" routerDirection='root'>
+        <IonButton routerLink="/buscar" routerDirection='root'>
           {t('welcome.search')}
         </IonButton>
       </IonCardContent>

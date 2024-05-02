@@ -8,7 +8,7 @@ import { useSearch } from "@hooks/useSearch";
 
 import { deleteUser, getUserList } from "@apis/adminUserApi";
 import { User } from "@models/User";
-import { UserModal } from "@components/8 - Search User/Edit Modal/UserModal";
+import { UserModal } from "@components/Admin/Users/Modal/UserModal";
 import { formatDate } from "@utils/Utils";
 import { useTranslation } from "react-i18next";
 

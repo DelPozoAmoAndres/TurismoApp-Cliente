@@ -42,11 +42,12 @@ import { useTheme } from '@hooks/useTheme';
 import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
 import EventsPage from '@components/10- See Events/EventsPage';
 import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';
-import {DashboardPage} from '@components/Admin/DashboardPage';
-import { AdminActivityList } from '@components/Admin/List/AdminActivityList';
-import { AdminReservationList } from '@components/Admin/List/AdminReservationList';
-import { AdminUserList } from '@components/Admin/List/AdminUserList';
-import { AdminEventList } from '@components/Admin/List/AdminEventList';
+import {DashboardPage} from '@components/Admin/Dashboard/DashboardPage';
+import { AdminActivityList } from '@components/Admin/Activities/AdminActivityList';
+import { AdminReservationList } from '@components/Admin/Reservations/AdminReservationList';
+import { AdminUserList } from '@components/Admin/Users/AdminUserList';
+import { AdminEventList } from '@components/Admin/Events/AdminEventList';
+import { NotificationProvider } from '@contexts/NotificationToastContext';
 
 setupIonicReact();
 
@@ -63,17 +64,6 @@ axios.interceptors.request.use(
 
 const AppIndex: React.FC = () => {
   useTheme();
-  const history =useHistory();
-
-  useEffect(() => {
-    App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-      const slug = event.url.split('.online').pop();
-      if (slug) {
-        history.push(slug);
-      }
-    });
-  }, [history]);
-
   return (
     <I18nextProvider i18n={i18n}>
       <IonApp>

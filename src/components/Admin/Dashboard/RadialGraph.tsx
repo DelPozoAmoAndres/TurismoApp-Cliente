@@ -19,6 +19,7 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
     }, [data]);
 
     const svg = d3.select(ref.current);
+
     const width = 300;
     const height = 295;
 
@@ -35,17 +36,17 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             .range([0, 2 * Math.PI]);
 
         const colorArray = [
-            'var(--ion-color-primary)', 
-            'var(--ion-color-secondary)', 
-            'var(--ion-color-tertiary)',
-            '#046960',
-            '#04867A',
-            '#022D30',
-            '#369687',
-            '#0B3B3F',
-            '#6AAFAE',
-            '#033D41',
-            '#2C787A',
+            '#2B9E63',
+            '#2B9E9D', 
+            '#2B669E', 
+            '#2B2D9E',
+            '#632B9E',
+            '#9D2B9E',
+            '#9E2B66',
+            '#9E9D2B',
+            '#9E642B',
+            '#9E2B2C',
+            '#9E9D2B',
             '#123D40',
             '#5C9A9D',
         ];
@@ -65,7 +66,8 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             .enter()
             .append("g")
             .attr("class", "legend")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+            .attr("transform", (d, i) => `translate(0, ${i * 20})`)
+            .style("fill", "var(--ion-color-dark)");
 
         legend.append("rect")
             .attr("width", 10)

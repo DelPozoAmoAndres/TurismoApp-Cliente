@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react';
+import { NotificationContext } from '@contexts/NotificationToastContext';
+import { useContext, useEffect, useState } from 'react';
 
-export const useEdit = <T>(item: T, editFunc: (arg0: T) => void) => {
+export const useEdit = <T>(item: T, editFunc: (arg0: T) => Promise<any>, callback?:()=>void) => {
     const [formData, setFormData] = useState<T | null>(item);
     const [edited, setEdited] = useState(false);
     const [originalData, setOriginalData] = useState<T | null>(null);
-    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const {showNotification} = useContext(NotificationContext);
   
     const guardarCambios = () => {
       if (formData) {
-        editFunc(formData);
-        setShowAlert(true);
+        editFunc(formData)
+        .then(()=>{
+          callback && callback();
+          showNotification("Cambios guardados correctamente");
+        })
+        .catch((error:any) => console.error(error));
       }
     };
   
@@ -25,5 +30,5 @@ export const useEdit = <T>(item: T, editFunc: (arg0: T) => void) => {
         setEdited(false);
     }, [formData,originalData]);
   
-    return { formData, setFormData, showAlert, setShowAlert, guardarCambios, edited };
+    return { formData, setFormData, guardarCambios, edited };
   };

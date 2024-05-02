@@ -12,13 +12,13 @@ export const ActivityCardList: React.FC = () => {
 
   return (
     <IonGrid class="limits-content ion-no-padding" >
-      <IonRow class="grid-container ion-margin-bottom ion-margin-top">
+      <IonRow class="grid-container ion-margin-bottom ion-margin-top ion-no-padding" >
         {/* <strong className="ion-no-margin">{t('welcome.categories.title')}</strong> */}
-        <h2> <strong className="chosen-title">Los <span className="plus">+</span><span className="highlight">Elegidos</span></strong></h2>
+        {/* <h2> <strong className="chosen-title">Los <span className="plus">+</span><span className="highlight">Elegidos</span></strong></h2> */}
         {categories[filtro].map((activity, index) => (
           <>
           <ActivityItem key={index} activity={activity} />
-          {index == 0 && <ActivityItem key={index+100} activity={activity} />}
+          {(index == 0 || index==1 || index==2 )&& <ActivityItem key={index+100} activity={activity} />}
           </>
         ))}
       </IonRow>

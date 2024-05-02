@@ -6,7 +6,7 @@ import { Activity } from "@models/Activity";
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
 import { arrowDown, arrowUp, eyeOutline, pencilOutline, trashOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
-import { ActivityModal } from "@components/2 - Search Activity/Modal/ActivityModal";
+import { ActivityModal } from "./Modal/ActivityModal";
 
 import { deleteActivity } from "@apis/adminActivityApi";
 import { formatDateToTime } from "@utils/Utils";
@@ -38,11 +38,9 @@ export const AdminActivityList: React.FC = () => {
         <tr>
             <th>#</th>
             {th("name")}
+            {th("category")}
             {th("location")}
-            {/* {th("Description")}
-            {th("Accesibility")} */}
             {th("duration")}
-            {th("petsPermited")}
             {th("state")}
             <th>Details</th>
             <th>Edit</th>
@@ -80,12 +78,10 @@ export const AdminActivityList: React.FC = () => {
             <tr key={data._id}>
                 <td className="ion-no-padding" style={{ maxWidth: "none", verticalAlign: "middle", width: 240 }}>{data._id}</td>
                 <td>{data.name}</td>
+                <td>{t(data.category)}</td>
                 <td>{data.location}</td>
-                {/* <td>{data.description}</td>
-            <td>{data.accesibility}</td> */}
                 <td>{formatDateToTime(date)}h</td>
-                <td><IonCheckbox checked={data.petsPermited} value={data.petsPermited} /></td>
-                <td>{data.state}</td>
+                <td>{t(data.state)}</td>
                 <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a href={`/activity/${data._id}`} target="_blank" rel="noreferrer"><IonIcon icon={eyeOutline} size="large" /></a></td>
                 <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={data._id}><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
                 <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={"delete-alert-" + data._id}><IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} /></a></td>

@@ -6,7 +6,7 @@ const Logo : React.FC<{color?:string}> = ({color})=>{
     return(
     <div className="ion-text-center">
       <strong>
-        <IonLabel class="ion-margin-start ion-text-start" id="title-app" color={"primary"} style={{color}}>
+        <IonLabel class="ion-margin-start ion-text-start" id="title-app" color={"dark"} style={{color}}>
           As
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cruz_de_Asturias.svg/1200px-Cruz_de_Asturias.svg.png"

@@ -1,38 +1,31 @@
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
 import { AxiosError } from 'axios';
+import { NotificationContext } from '@contexts/NotificationToastContext';
 
-export const useLogin = () => {
+export const useLogin = (modal: React.RefObject<HTMLIonModalElement>) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-
+  const { showNotification } = useContext(NotificationContext);
   const auth = useAuth();
 
   const handleLogin = async () => {
-    setError(null);
     setLoading(true);
-    try {
-      await auth.login(email, password);
-    } catch (error: unknown) {
-      console.error(error);
-      if (error instanceof Error || error instanceof AxiosError) setError(error?.message ?? 'Ha habido un error en el servidor.');
-    }
-    setShowAlert(true);
+    auth.login(email, password).then(() => {
+      showNotification('Inicio de sesión correcto.')
+      modal.current?.dismiss();
+    }).catch(error =>
+      showNotification(error?.message ?? 'Ha habido un error en el servidor.'));
     setLoading(false);
   };
 
   return {
     handleLogin,
-    setShowAlert,
     setEmail,
     setPassword,
     email,
     password,
     loading,
-    showAlert,
-    error,
   };
 };

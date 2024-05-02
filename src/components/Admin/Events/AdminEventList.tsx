@@ -9,9 +9,9 @@ import { useSearch } from "@hooks/useSearch";
 import { formatDate, formatDateToTime } from "@utils/Utils";
 import { getEvents } from "@apis/adminActivityApi";
 import { Event } from "@models/Activity";
-import DeleteEventModal from "@components/10- See Events/DeleteEventModal";
+import DeleteEventModal from "@components/Admin/Events/Modal/DeleteEventModal";
 import { useTranslation } from "react-i18next";
-import { EventModal } from "@components/10- See Events/EventModal";
+import { EventModal } from "./Modal/EventModal";
 
 export const AdminEventList : React.FC = () => {
     const defaultFilters = { name: "", email:"", telephone:"", birthday:"", country:"", role:""};

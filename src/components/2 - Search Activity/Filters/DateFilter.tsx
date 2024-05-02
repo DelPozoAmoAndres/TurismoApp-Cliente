@@ -1,5 +1,5 @@
 import { useScreen } from '@hooks/useScreen';
-import { IonButton, IonDatetime, IonIcon, IonLabel, IonRow } from '@ionic/react';
+import { IonButton, IonDatetime, IonIcon, IonLabel, IonRow, IonText, IonToast } from '@ionic/react';
 import { Modal } from '@shared/Modal';
 import { formatDate } from '@utils/Utils';
 import { trashBinOutline } from 'ionicons/icons';
@@ -22,7 +22,6 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
 
     const getDate = (date: string): string | undefined => {
         if (filtersToApply && filtersToApply[date] !== null && filtersToApply[date] !== undefined) {
-            console.log(date, filtersToApply[date])
             return String(filtersToApply[date])
         }
         return undefined
@@ -48,6 +47,7 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
     useEffect(() => {
         if (filtersToApply && filtersToApply.originDate != null && filtersToApply.endDate != null && !showDate) {
             setShowDate(true)
+
         }
         //eslint-disable-next-line
     }, [filtersToApply]);
@@ -69,19 +69,17 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
                     <IonLabel>
                         <strong>{t('filters.date')}:</strong>
                     </IonLabel>
-                    {!showDate && <IonButton color="primary" onClick={() => setShowDate(true)}>Añadir dates</IonButton>}
                 </IonRow>
             </IonRow>
-            {showDate &&
-                <IonRow class="ion-margin-bottom ion-align-items-center ion-margin-top" style={{ backgroundColor: "var(--ion-color-step-300, #edeef0)", minHeight: "45px", width: "clamp(20px,100%,350px)", borderRadius: 20, fontSize: "clamp(12px, 5vw, 1em)", textAlign: "center" }}>
-                    <IonLabel style={{ width: "clamp(90px,38%,133px)", marginLeft: isMobile && "5px" }} onClick={() => setShowOrigin(true)}>{filtersToApply?.originDate ? getDate("originDate") : "Desde"}</IonLabel>
+                <IonRow class="ion-margin-bottom ion-align-items-center ion-margin-top" style={{ backgroundColor: "var(--ion--color--background)", minHeight: "45px", width: "clamp(20px,100%,350px)", borderRadius: 10, fontSize: "clamp(12px, 5vw, 1em)", textAlign: "center" }}>
+                    <IonLabel style={{ width: showDate?"clamp(90px,40%,133px)":"clamp(90px,45%,153px)", marginLeft: isMobile && "5px" }} onClick={() => setShowOrigin(true)}>{filtersToApply?.originDate ? getDate("originDate") : "Desde"}</IonLabel>
                     <span> - </span>
-                    <IonLabel style={{ width: "clamp(90px,38%,133px)", marginLeft: isMobile && "5px" }} onClick={() => setShowEnd(true)}>{filtersToApply?.endDate ? getDate("endDate") : "Hasta"}</IonLabel>
-                    <IonButton color="danger" onClick={() => { handleFilters(null, 'originDate endDate'); setShowDate(false) }} style={{ padding: "0", margin: "0", width: "clamp(40px,5vw,15%)" }}>
-                        <IonIcon icon={trashBinOutline} style={{ fontSize: "64px" }} />
-                    </IonButton>
+                    <IonLabel style={{ width: showDate?"clamp(90px,40%,133px)":"clamp(90px,45%,153px)", marginLeft: isMobile && "5px" }} onClick={() => setShowEnd(true)}>{filtersToApply?.endDate ? getDate("endDate") : "Hasta"}</IonLabel>
+                    { showDate &&
+                    <IonText color="danger" onClick={() => { handleFilters(null, 'originDate endDate'); setShowDate(false) }} style={{ padding: "0", margin: "0", width:'auto' }}>
+                        <IonIcon icon={trashBinOutline} style={{ fontSize: "20px" }} />
+                    </IonText>}
                 </IonRow>
-            }
         </>
     );
 }

@@ -1,5 +1,6 @@
 #activity-list section ion-searchbar {
   padding: 0;
+  --background: var(--ion--color--background);
 }
 
 #activity-list section {
@@ -18,6 +19,8 @@
   flex-direction: column;
   gap:10px;
   margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 ion-button.sticky {

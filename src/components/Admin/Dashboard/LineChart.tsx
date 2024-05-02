@@ -50,7 +50,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, height, width }) => 
 
         // Limpia cualquier gráfico previo
         svg.selectAll("*").remove();
-
+        
         const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
         // // Crear grupo para leyenda

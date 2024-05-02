@@ -9,8 +9,6 @@ import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import ScheduleWebLayout from '@components/web/layouts/ScheduleWebLayout';
 import { formatDateToTime } from '@utils/Utils';
 import { calendarOutline, cashOutline, languageOutline, pencilOutline, personCircleOutline, ticketOutline} from 'ionicons/icons';
-import { EventModal } from './EventModal';
-import DeleteEventModal from './DeleteEventModal';
 
 type EventsProps = RouteComponentProps<{ id: string }>;
 
@@ -49,11 +47,8 @@ const EventsPage: React.FC<EventsProps> = ({ match }) => {
                                 </IonCardContent>
                                 <IonRow class='ion-justify-content-between ion-margin-horizontal' style={{ marginBottom: "5px" }}>
                                     <IonButton id={event._id} color={'primary'} style={{ width: "45%" }} expand="block" ><IonIcon icon={pencilOutline} />Editar</IonButton>
-                                    <DeleteEventModal eventId={event._id} />
                                 </IonRow>
                             </IonCard>
-                            <EventModal activity={match.params.id} event={event} action="edit" />
-                            
                         </IonCol>
                     ))}
                 </IonRow>

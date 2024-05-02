@@ -36,7 +36,7 @@ export const Modal: React.FC<{
 
   const { t } = useTranslation();
   return (
-    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{"--height":height?height:""}}   onDidDismiss={()=> setOpen && setOpen(!isOpen)}>
+    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{"--height":height?height:"","--max-width":"900px"}}   onDidDismiss={()=> setOpen && setOpen(!isOpen)}>
       <IonHeader mode="ios" collapse="fade" class="ion-margin-top">
         <IonToolbar>
           <IonButtons slot="end">

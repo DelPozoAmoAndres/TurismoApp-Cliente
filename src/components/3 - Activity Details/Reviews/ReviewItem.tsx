@@ -20,7 +20,6 @@ import { ReviewModal } from '@components/7 - Reservation Details/Add Review/Revi
 export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
     const { t } = useTranslation();
     const auth = useAuth();
-    console.log(comment);
     return (
         <IonCard id="activity-review" class="ion-no-margin" style={{width:"100%"}}>
             <section className="ion-margin-bottom">

@@ -5,12 +5,11 @@ import { filterPropertiesNotNull } from '@utils/Utils';
 const baseUrl = `${process.env.REACT_APP_API_URL}/admin/activity`;
 
 export const createActivity = async (activity: Activity) => {
-  return axios.post(baseUrl, activity);
+  return axios.post(baseUrl,activity);
 };
 
 export const editActivity = async (activity: Activity): Promise<Activity> => {
-  const response = await axios.put(`${baseUrl}/${activity._id}`, activity);
-  return response.data;
+  return axios.put(`${baseUrl}/${activity._id}`, activity);
 };
 
 export const deleteActivity = async (id: string): Promise<Activity> => {

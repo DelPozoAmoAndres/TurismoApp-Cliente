@@ -65,7 +65,7 @@ export const ActivityFiltersView: React.FC<{
             class='ion-margin-left ion-margin-right'
           ></IonRange>
         </IonRow>
-        <IonRow class="ion-margin-bottom">
+        {/* <IonRow class="ion-margin-bottom">
           <IonCheckbox
             checked={filtersToApply.petsPermited ? Boolean(filtersToApply.petsPermited) : false}
             onIonChange={(e) => handleFilters(e.detail.checked ? true : null, 'petsPermited')}
@@ -73,17 +73,18 @@ export const ActivityFiltersView: React.FC<{
           >
             <span><strong>{t('filters.pets.friendly')}</strong></span>
           </IonCheckbox>
-        </IonRow>
+        </IonRow> */}
         <IonRow class="ion-margin-bottom">
           <IonLabel>
             <strong>{t('filters.language')}</strong>
           </IonLabel>
         </IonRow>
-        <IonRow style={{gap:"7px", flexDirection:isMobile?"column":"row"}}>
+        <IonRow class="ion-margin-bottom" style={{gap:"7px", flexDirection:isMobile?"column":"row", justifyContent:"space-between"}}>
         {Object.values(languages).map((language, index) => (
             <IonCheckbox key={'Filter' + index}
               checked={filtersToApply.language === language.name}
               onIonChange={(e) => handleFilters(e.detail.checked ? language.name : null, 'language')}
+              color={'primary'}
             >
               <span style={{ textTransform: 'capitalize' }}>{language.name}</span>
             </IonCheckbox>  
@@ -102,6 +103,7 @@ export const ActivityFiltersView: React.FC<{
                 <IonCheckbox
                   checked={filtersToApply.state === state}
                   onIonChange={(e) => handleFilters(e.detail.checked ? state : null, 'state')}
+                  color={'primary'}
                 >
                   {t('filters.state.' + state)}
                 </IonCheckbox>

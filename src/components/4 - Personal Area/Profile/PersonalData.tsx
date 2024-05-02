@@ -5,7 +5,7 @@ import { logOutOutline, pencilOutline } from 'ionicons/icons';
 /* Contexts */
 import { useAuth } from '@contexts/AuthContexts';
 /* Components */
-import { UserModal } from '@search-user/Edit Modal/UserModal';
+import { UserModal } from '@components/Admin/Users/Modal/UserModal';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 

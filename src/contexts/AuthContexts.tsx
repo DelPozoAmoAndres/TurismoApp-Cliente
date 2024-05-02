@@ -6,20 +6,21 @@ import { RegisterFormData } from '@models/User';
 import { getItem, removeItem, setItem } from '@utils/Utils';
 import Login from '@components/4 - Personal Area/Login/Login';
 import { deleteUser } from '@apis/userApi';
+import { NotificationContext } from './NotificationToastContext';
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   token: null,
-  login: (arg0, arg1) => {
+  login: async (arg0, arg1) => {
     console.log(arg0, arg1);
   },
   logout: () => {
     console.log('logout');
   },
-  register: (arg0) => {
+  register: async (arg0) => {
     console.log(arg0);
   },
-  deleteAccount: () => {
+  deleteAccount: async () => {
     console.log('deleteAccount');
   },
   setShowLoginModal: (arg0) => {
@@ -38,6 +39,7 @@ const AuthProvider: React.FC<Props> = (props) => {
   const [token, setToken] = useState<string | null>(getItem('token'));
   const [user, setUser] = useState<User | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const {showNotification} = useContext(NotificationContext);
 
   const register = async (formData: RegisterFormData) => {
     // Validar que las contraseñas coincidan
@@ -55,6 +57,7 @@ const AuthProvider: React.FC<Props> = (props) => {
       .catch((error) => {
         // Manejar errores de registro
         error = error?.response?.data?.message || error.message;
+        showNotification(error?? 'Error desconocido en el registro');
         throw new Error(error ?? 'Error desconocido en el registro');
       });
   };
@@ -81,11 +84,13 @@ const AuthProvider: React.FC<Props> = (props) => {
     setUser(null);
     setToken(null);
     removeItem('token');
+    showNotification('Has cerrado sesión correctamente');
   };
 
   const deleteAccount = async () => {
     await deleteUser();
     logout();
+    showNotification('Cuenta eliminada correctamente');
   }
 
   useEffect(() => {

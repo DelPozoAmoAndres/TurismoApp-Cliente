@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef,useState } from 'react';
 /* Ionic components */
 import { IonAlert, IonButton, IonCheckbox, IonInput, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonTextarea } from '@ionic/react';
 /* Components */
@@ -18,10 +18,13 @@ import { useTranslation } from 'react-i18next';
 
 export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit" }> = ({ activity, action }) => {
     const { t } = useTranslation();
-    const { formData, setFormData, guardarCambios, setShowAlert, showAlert, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity);
     const modal = useRef<HTMLIonModalElement>(null);
+    const closeModal = () => { modal.current?.dismiss() }
+    const { formData, setFormData, guardarCambios, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity,closeModal);
+    const [language, setLanguage] = useState("es");
+    
     return (
-        <Modal id={'modal-activity-'+action} trigger={activity?._id || "modal-activity-add"} tittle={t("activity." + action + ".title")} modal={modal} >
+        <Modal id={'modal-activity-' + action} trigger={activity?._id || "modal-activity-add"} tittle={t("activity." + action + ".title")} modal={modal} >
             <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
                 <section className='ion-margin-end '>
                     <IonRow class="ion-justify-content-center" >
@@ -35,7 +38,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                                 const fr = new FileReader();
                                 uploadImage(fr, e,
                                     async () => {
-                                        formData && setFormData({ ...formData, images: [...formData.images,fr.result] })
+                                        formData && setFormData({ ...formData, images: [...formData.images, fr.result] })
                                     })
                             }} />
                     </IonRow>
@@ -53,24 +56,28 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                         ></IonInput>
                     </IonItem>
                     <IonItem>
-                        <IonTextarea
-                            class='resize'
-                            value={formData?.description}
-                            rows={5}
-                            label="Descripción"
-                            labelPlacement="stacked"
-                            onIonInput={(e) => formData && setFormData({ ...formData, description: e.detail.value || '' })}
-                        ></IonTextarea>
+                        <IonSegment mode="ios" value={language} onIonChange={e => e.detail.value && setLanguage(e.detail.value)}>
+                            <IonSegmentButton value="es">
+                                <IonLabel>Español</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value="en">
+                                <IonLabel>English</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value="fr">
+                                <IonLabel>Français</IonLabel>
+                            </IonSegmentButton>
+                        </IonSegment>
                     </IonItem>
-                    <IonItem >
+                    <IonItem>
                         <IonTextarea
                             class='resize'
-                            value={formData?.accesibility}
+                            value={formData?.description[language]}
                             rows={5}
-                            label="Accesibilidad"
+                            label="Description1"
                             labelPlacement="stacked"
-                            onIonInput={(e) => formData && setFormData({ ...formData, accesibility: e.detail.value || '' })}
-                        ></IonTextarea>
+                            onIonInput={(e) => formData && setFormData({ ...formData, description: { ...formData.description, [language]: e.detail.value || '' } })}>
+                                
+                            </IonTextarea>
                     </IonItem>
                     <IonItem >
                         <IonInput
@@ -88,21 +95,6 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                             type='number'
                             onIonInput={(e) => formData && setFormData({ ...formData, duration: Number(e.detail.value) })}
                         ></IonInput>
-                        <IonCheckbox
-                            class="ion-margin-start ion-margin-top"
-                            checked={formData?.petsPermited}
-                            value={formData?.petsPermited === false}
-                            labelPlacement="start"
-                            onIonChange={(e) =>
-                                formData &&
-                                setFormData({
-                                    ...formData,
-                                    petsPermited: Boolean(e.detail.value),
-                                })
-                            }
-                        >
-                            Mascotas permitidas
-                        </IonCheckbox>
                     </IonItem>
                     <IonItem lines='none'>
                         <IonSegment mode="ios" value={formData?.state} onIonChange={e => e.detail.value && formData && setFormData({ ...formData, state: ActivityState[e.detail.value as keyof typeof ActivityState] })}>
@@ -118,13 +110,6 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                     </IonButton>
                 </IonList>
             </IonRow>
-            <IonAlert
-                isOpen={showAlert}
-                onDidDismiss={() => setShowAlert(false)}
-                header="Actividad actualizada"
-                message="Los cambios se han guardado correctamente."
-                buttons={['OK']}
-            />
         </Modal>
     )
 }

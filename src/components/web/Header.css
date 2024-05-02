@@ -3,7 +3,7 @@
 }
 
 ion-toolbar {
-  --background: white;
+  --background: var(--ion-color-light);
 }
 
 header {

@@ -12,14 +12,9 @@ import { useAuth } from '@contexts/AuthContexts';
 export const UserModal: React.FC<{ user: User, action: "add" | "edit" }> = ({ user, action }) => {
   const { t } = useTranslation();  
   const auth= useAuth();
-  const { formData, setFormData, guardarCambios, setShowAlert, showAlert, edited } = useEdit(user, action == "add" ? registerUser : (auth.user?.role == Role.administrador? editUser:editProfile));
   const modal = useRef<HTMLIonModalElement>(null);
-
-
-  const closeModal = () => {
-    setShowAlert(false);
-    window.location.reload();
-  }
+  const closeModal = () => { modal.current?.dismiss() }
+  const { formData, setFormData, guardarCambios, edited } = useEdit(user, action == "add" ? registerUser : (auth.user?.role == Role.administrador? editUser:editProfile),closeModal);
 
   return (
     <Modal id={'modal-user-'+action} trigger={user?._id || "modal-user-add"} minWidthAndroid={500} minWidthIos={500} tittle={t("user." + action + ".title")} modal={modal} >
@@ -102,13 +97,6 @@ export const UserModal: React.FC<{ user: User, action: "add" | "edit" }> = ({ us
           </div>
         </IonGrid>
       </IonRow>
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => closeModal()}
-        header="Perfil actualizado"
-        message="Los cambios se han guardado correctamente."
-        buttons={['OK']}
-      />
     </Modal>
   )
 }

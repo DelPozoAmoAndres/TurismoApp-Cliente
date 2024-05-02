@@ -28,7 +28,7 @@ export const useSearch = (getList: (arg0: string, arg1: any) => Promise<[]>, fil
           // Determinar el tipo de los valores (numérico, booleano o de texto)
           const isNumeric = typeof aValue === 'number' && typeof bValue === 'number';
           const isBoolean = typeof aValue === 'boolean' && typeof bValue === 'boolean';
-          console.log(a, b, aValue, bValue, isNumeric, isBoolean);
+          
           if (isBoolean) {
             return sortConfig.direction === 'ascending'
               ? (aValue === bValue ? 0 : aValue ? 1 : -1)
@@ -42,7 +42,6 @@ export const useSearch = (getList: (arg0: string, arg1: any) => Promise<[]>, fil
           return sortConfig.direction === 'ascending' ? aValue - bValue : bValue - aValue;
 
         });
-        console.log(list);
         setItems(list);
       } catch (error) {
         console.error(error);

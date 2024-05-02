@@ -7,7 +7,7 @@ import { ReservationItemList } from '@reservation-list/ReservationItemList'
 import { RouteComponentProps } from 'react-router'
 import { useUserReservationList } from '@hooks/useUserReservationList'
 import { useUserData } from '@hooks/useUserData'
-import { UserModal } from '@search-user/Edit Modal/UserModal'
+import { UserModal } from '@components/Admin/Users/Modal/UserModal'
 
 type UserDetailsProps = RouteComponentProps<{ id: string }>;
 

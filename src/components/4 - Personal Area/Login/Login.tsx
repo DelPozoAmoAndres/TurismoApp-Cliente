@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 /* Ionic Components */
-import { IonInput, IonButton, IonText, IonItem, IonAlert, IonList, IonGrid, IonRow } from '@ionic/react';
+import { IonInput, IonButton, IonText, IonItem, IonList, IonGrid, IonRow } from '@ionic/react';
 /* Styles */
 import './Login.css';
 /* Components */
@@ -14,10 +14,11 @@ import Register from '../Register/Register';
 import { useAuth } from '@contexts/AuthContexts';
 
 const Login: React.FC= () => {
-  const { handleLogin, setShowAlert, setEmail, setPassword, email, password, loading, showAlert, error } = useLogin();
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
+  const { handleLogin, setEmail, setPassword, email, password, loading} = useLogin(modal);
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const {showLoginModal, setShowLoginModal} = useAuth();
+
   return (
     <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} tittle={t('log.in')} modal={modal} minWidthAndroid={330} minWidthIos={492}>
       <IonGrid id="login-grid" class="ion-no-padding">
@@ -63,18 +64,6 @@ const Login: React.FC= () => {
         </IonRow>
       </IonGrid>
       <Register loginModal={modal}/>
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => {
-          setShowAlert(false);
-          if (!error) {
-            modal.current?.dismiss();
-          }
-        }}
-        header={error ? t('alert.title.error') || 'Error' : t('log.in') || ''}
-        message={error ?? (t('alert.login.success') || '')}
-        buttons={['OK']}
-      ></IonAlert>
     </Modal>
   );
 };

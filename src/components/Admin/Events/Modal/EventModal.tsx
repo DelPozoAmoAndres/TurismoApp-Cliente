@@ -14,7 +14,7 @@ import { getActivityFromEvent, getActivityList } from '@apis/activityApi';
 
 export const EventModal: React.FC<{ activity?: string, event: Event, action: "add" | "edit" }> = ({ activity, event, action }) => {
     const { t } = useTranslation();
-    const { formData, setFormData, setShowAlert, showAlert } = useEdit(event, (event: Event) => { console.log(event) });
+    const { formData, setFormData } = useEdit(event,  (event: Event) => new Promise(()=>console.log(event)));
     const [activityId, setActivityId] = useState<string | undefined>(activity);
     const [activityName, setActivityName] = useState<string>("");
     const [activityList, setActivityList] = useState<Activity[]>([]);
@@ -206,13 +206,6 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                     {action}.event
                 </IonButton>
             </IonList>
-            <IonAlert
-                isOpen={showAlert}
-                onDidDismiss={() => setShowAlert(false)}
-                header="Actividad actualizada"
-                message="Los cambios se han guardado correctamente."
-                buttons={['OK']}
-            />
         </Modal >
     )
 }

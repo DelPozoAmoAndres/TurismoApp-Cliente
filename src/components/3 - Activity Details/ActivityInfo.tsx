@@ -15,6 +15,7 @@ import { useSoldOut } from '@hooks/useSoldOut';
 import { useAuth } from '@contexts/AuthContexts';
 import { calendarOutline, shareSocialOutline } from 'ionicons/icons';
 import { formatDateToTime } from '@utils/Utils';
+import { useLanguage } from '@hooks/useLanguage';
 
 export const ActivityInfo: React.FC<{
   activityData: Activity;
@@ -25,6 +26,8 @@ export const ActivityInfo: React.FC<{
   const auth = useAuth();
   const { soldOutProps } = useSoldOut(activityData);
   const date: Date = new Date();
+  const {defaultLanguage} = useLanguage();
+
   date.setHours(0, 0, 0, 0);
   date.setMinutes(activityData.duration);
 
@@ -73,15 +76,7 @@ export const ActivityInfo: React.FC<{
             </IonLabel>
           </IonRow>
           {formatDateToTime(date)} {t('hours')}
-        </IonRow>
-        <IonRow>
-          <IonRow class="ion-margin-top">
-            <IonLabel>
-              <strong>{t('notes')}</strong>
-            </IonLabel>
-          </IonRow>
-          {activityData?.petsPermited ? t('pet.allowed') : t('pet.not.allowed')}
-        </IonRow>
+        </IonRow>   
       </div>
       <IonRow class="ion-margin-top">
         <IonLabel>
@@ -89,14 +84,9 @@ export const ActivityInfo: React.FC<{
         </IonLabel>
       </IonRow>
       <IonRow>
-        <IonText style={{ whiteSpace: "pre-line" }}>{activityData?.description}</IonText>
+        <IonText style={{ whiteSpace: "pre-line" }}>{activityData?.description[defaultLanguage.code]}</IonText>
       </IonRow>
-      <IonRow class="ion-margin-top">
-        <IonLabel>
-          <strong>{t('accesibility')}</strong>
-        </IonLabel>
-      </IonRow>
-      <IonRow class='ion-margin-bottom' style={{ whiteSpace: "pre-line" }}>{activityData?.accesibility}</IonRow>
+
       {isMobile && <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
         <IonButton {...soldOutProps} expand="block" id="Availability-modal">
           {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}

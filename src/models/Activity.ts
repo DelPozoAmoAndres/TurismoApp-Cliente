@@ -3,11 +3,9 @@ export class Activity {
   images: any[];
   location: string;
   duration: number;
-  description: string;
+  description: Record<string, string>;
   events?: Event[] ;
   reviews?: Review[] 
-  accesibility: string;
-  petsPermited: boolean;
   state: ActivityState;
   category: ActivityCategory;
   _id?: string;
@@ -17,10 +15,8 @@ export class Activity {
     this.images=[]
     this.location=""
     this.duration=0
-    this.description=""
+    this.description={}; 
     this.events=[]
-    this.accesibility=""
-    this.petsPermited=false
     this.state=ActivityState.available
     this.category=ActivityCategory.cultural
   }
@@ -32,7 +28,7 @@ export enum ActivityState {
   'canceled' = 'canceled',
 }
 
-export enum ActivityCategory { "cultural", "deportiva", "gastronómica", "naturaleza", "nocturna", "religiosa", "social"}
+export enum ActivityCategory { "cultural"="cultural", "deportiva"="deportiva", "gastronómica"="gastronómica", "naturaleza"="naturaleza", "nocturna"="nocturna", "religiosa"="religiosa", "social"="social"}
 
 export class Event {
   seats: number;
@@ -77,7 +73,6 @@ export class Review {
 export interface ActivityFilter extends Record<string, unknown>{
   precio?: number;
   duration?: number ;
-  petsPermited?: boolean ;
   state?: ActivityState ;
   language?: string ;
   originDate?: string ;

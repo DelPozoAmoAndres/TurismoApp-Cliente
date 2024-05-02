@@ -13,9 +13,9 @@ interface Props {
 
 const ListWebLayout: React.FC<Props> = ({ columns, items,search,children }) => {
     return (
-        <div>
+        <div id="listLayout">
             <header>
-                <IonSearchbar onIonInput={async e=> search(e.detail.value || "")}/>
+                <IonSearchbar  onIonInput={async e=> search(e.detail.value || "")}/>
                 {children}
             </header>
             <main style={{width:"100%"}}>

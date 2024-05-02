@@ -1,5 +1,5 @@
 import { getReservations, getResume } from "@apis/dashboardApi";
-import { AreaProps } from "@components/Admin/LineChart";
+import { AreaProps } from "@components/Admin/Dashboard/LineChart";
 import { User } from "@models/User";
 import { useEffect, useState } from "react";
 import io from 'socket.io-client';
@@ -16,7 +16,6 @@ export const useDashboardData = () => {
 
     const fetchData = async () => {
         getResume().then((res) => {
-            console.log(res);
             setTotalReservations(res.totalReservations);
             setTotalIncome(res.totalIncome);
             setOccupationData(res.occupationData);
@@ -28,7 +27,6 @@ export const useDashboardData = () => {
 
     const fetchReservationsData = async () => {
         getReservations().then((res) => {
-            console.log(res);
             setReservations(res);
         });
     }
@@ -42,15 +40,12 @@ export const useDashboardData = () => {
         socket.on('update', () => {
             fetchData();
         });
-        fetchData();
-    }, [socket]);
-
-    useEffect(() => {
         socket.on('reservation', () => {
             fetchReservationsData();
         });
         fetchReservationsData();
-    },[socket]);
+        fetchData();
+    },[socket.active]);
 
     return { totalReservations, totalIncome, occupationData, totalUsers, cancelationData, categoryReservations,reservations };
 }

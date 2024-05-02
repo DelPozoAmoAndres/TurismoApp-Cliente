@@ -1,6 +1,7 @@
 import React from 'react';
 import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonAvatar, IonList, IonItem, IonLabel } from '@ionic/react';
 import '@ionic/react/css/core.css';
+import './DashboardPage.css';
 import { DashboardLayout } from '@components/web/layouts/DashboardLayout';
 import RadialGraph from './RadialGraph';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +9,7 @@ import CancellationRateChart from './CancellationRateChart';
 import { formatDate } from '@utils/Utils';
 import { useDashboardData } from '@hooks/useDashboardData';
 import { LineChart } from './LineChart';
+import { Tabs } from '@components/app/TabBar/Tabs';
 
 export const DashboardPage: React.FC = () => {
 
@@ -21,8 +23,7 @@ export const DashboardPage: React.FC = () => {
                         <IonSearchbar placeholder="Search..." />
                     </IonCol> */}
             </IonRow>
-            <IonRow>
-                {/* Statistics Cards */}
+            <IonRow class="statistic-cards">
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
@@ -51,14 +52,12 @@ export const DashboardPage: React.FC = () => {
                     </IonCard>
                 </IonCol>
             </IonRow>
-            <IonRow >
-            </IonRow>
-            <IonRow>
+            <IonRow class="statistic-cards">
                 <IonCol>
                     <IonCard>
                         <IonCardHeader  >
                             <IonCardSubtitle>{t('ocupation.porcentage')}</IonCardSubtitle>
-                            <IonCardTitle>{occupationData.occupationRate}%</IonCardTitle>
+                            <IonCardTitle>{Number.isNaN(Number(occupationData.occupationRate))?"0.00":occupationData.occupationRate }%</IonCardTitle>
                         </IonCardHeader>
                         <IonCardContent>
                             <LineChart data={occupationData.occupationPoints} height={270} width={500} />
@@ -79,7 +78,7 @@ export const DashboardPage: React.FC = () => {
                     <IonCard>
                         <IonCardHeader>
                             <IonCardSubtitle>{t('cancelation.rate')}</IonCardSubtitle>
-                            <IonCardTitle>{cancelationData.cancelRate}%</IonCardTitle>
+                            <IonCardTitle>{Number.isNaN(Number(cancelationData.cancelRate))?"0.00":cancelationData.cancelRate}%</IonCardTitle>
                         </IonCardHeader>
                         <IonCardContent class="ion-no-margin">
                             <CancellationRateChart width={500} height={270} data={cancelationData.cancelationsByDayOfMonth} />
@@ -87,16 +86,17 @@ export const DashboardPage: React.FC = () => {
                     </IonCard>
                 </IonCol>
             </IonRow>
-            <IonRow>
+            <IonRow class="recent-activity">
                 {/* Charts and Recent Users */}
                 <IonCol size="12">
                     {/* Charts */}
                     <IonLabel class='ion-margin-start'>
                         <strong>Actividad reciente</strong>
                     </IonLabel>
-                    <IonList>
+                    <table>
                         {reservations.map((i,index) => (
-                            <IonItem key={index}>
+                            <tr key={index} >
+                                <td>
                                 <IonAvatar slot="start">
                                     <img src="https://placehold.co/40x40.png" alt="User Avatar" />
                                 </IonAvatar>
@@ -104,21 +104,28 @@ export const DashboardPage: React.FC = () => {
                                     <h2>{i.reservations?.at(0)?.name}</h2>
                                     <p>{i.reservations?.at(0)?.email}</p>
                                 </IonLabel>
+                                </td>
+                                <td>
                                 <IonLabel>
                                     <h2>{i.reservations?.at(0)?.activity?.name}</h2>
                                     <p>{i.reservations?.at(0)?.activity?.category}</p>
                                 </IonLabel>
+                                </td>
+                                <td>
                                 <IonLabel>
                                     <h2>{i.reservations?.at(0)?.state}</h2>
                                     <p>{i.reservations?.at(0)?.price}€</p>
                                 </IonLabel>
+                                </td>
+                                <td>
                                 <IonLabel slot='end'>
                                     <h2>{formatDate(i.reservations?.at(0)?.date || null)}</h2>
                                 </IonLabel>
-                            </IonItem>
+                                </td>
+                            </tr>
                         ))}
 
-                    </IonList>
+                    </table>
                 </IonCol>
             </IonRow>
         </IonGrid>

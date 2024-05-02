@@ -16,7 +16,7 @@ const DownloadApp: React.FC = () => {
                     <IonIcon icon={logoAppleAppstore} />
                     App para IOS
                 </IonButton>
-                <IonButton href="https://play.google.com/store" target="_blank" rel="noopener noreferrer">
+                <IonButton href="https://play.google.com/store" target="_blank" rel="noopener noreferrer" >
                     <IonIcon icon={logoGooglePlaystore} />
                     App para Android
                 </IonButton>

@@ -48,37 +48,37 @@ const AppMenu: React.FC = () => {
       <IonContent>
         <IonList>
           <IonMenuToggle onClick={handleClick}>
-            <IonItem button routerLink="/home">
-              <IonIcon slot="start" icon={homeOutline} />
+            <IonItem button routerLink="/home" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+              <IonIcon color={'tertiary'} slot="start" icon={homeOutline} />
               <IonLabel>{t('home.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle onClick={handleClick}>
-            <IonItem button routerLink="/buscar">
-              <IonIcon slot="start" icon={searchOutline} />
+          <IonMenuToggle onClick={handleClick} >
+            <IonItem button routerLink="/buscar" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+              <IonIcon color={'tertiary'} slot="start" icon={searchOutline} />
               <IonLabel>{t('search.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user !== null} onClick={()=>auth.setShowLoginModal(true)}>
-            <IonItem button>
-              <IonIcon slot="start" icon={personOutline} />
+          <IonMenuToggle hidden={auth.user !== null} onClick={()=>auth.setShowLoginModal(true)} >
+            <IonItem button style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+              <IonIcon color={'tertiary'} slot="start" icon={personOutline} />
               <IonLabel>{t('account.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null} onClick={handleClick}>
-            <IonItem button routerLink="/perfil">
+          <IonMenuToggle hidden={auth.user === null} onClick={handleClick} >
+            <IonItem button routerLink="/perfil" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
               <IonIcon slot="start" icon={personOutline} />
               <IonLabel>{t('profile.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick}>
-            <IonItem button routerLink="/reservas">
+          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick} >
+            <IonItem button routerLink="/reservas" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
               <IonIcon slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('reservations.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía} >
-            <IonItem button routerLink="/nextEvents">
+          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía}>
+            <IonItem button routerLink="/nextEvents" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
               <IonIcon slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('nextEvents.title')}</IonLabel>
             </IonItem>

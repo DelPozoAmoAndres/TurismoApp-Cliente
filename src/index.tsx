@@ -5,16 +5,19 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from './contexts/AuthContexts';
 import React from 'react';
 import ActivityListProvider from '@contexts/ActivityListContext';
+import { NotificationProvider } from '@contexts/NotificationToastContext';
 
 const container = document.getElementById('root');
 const root = container && createRoot(container);
 root?.render(
   // <React.StrictMode>
+  <NotificationProvider >
   <AuthProvider>
     <ActivityListProvider>
       <AppIndex />
     </ActivityListProvider>
   </AuthProvider>
+  </NotificationProvider>
   // </React.StrictMode>
 );
 

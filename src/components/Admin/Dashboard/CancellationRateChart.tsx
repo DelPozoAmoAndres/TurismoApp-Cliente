@@ -59,7 +59,7 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
             .attr("y", d => yScale(d.cancellations))
             .attr("width", xScale.bandwidth())
             .attr("height", d => heightPref - yScale(d.cancellations))
-            .attr("fill", "#ff6361");
+            .attr("fill", "var(--ion-color-primary)");
     };
         return <svg preserveAspectRatio="xMidYMid meet" ref={ref} width={widthPref + margin.left + margin.right} height={heightPref + margin.top + margin.bottom}></svg>;
 

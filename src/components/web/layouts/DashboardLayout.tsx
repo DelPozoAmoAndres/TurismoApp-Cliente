@@ -6,6 +6,7 @@ import './DashboardLayout.css';
 
 import LanguageSelector from '@shared/LanguageSelector';
 import DarkModeToggle from '@shared/DarkModeToggle';
+import { Header } from '../Header';
 
 interface Props {
     children: React.ReactNode;
@@ -16,39 +17,40 @@ export const DashboardLayout: React.FC<Props> = ({ children }) => {
         <IonPage id="pageWeb">
                 <IonSplitPane contentId="main" when="xs">
                     <IonMenu contentId="main" menuId="main-menu" >
-                        <IonHeader>
-                            <IonToolbar color="secondary">
-                                <Logo color='white' />
-                            </IonToolbar>
+                        <IonHeader class='ion-margin-top ion-no-border' mode="ios" >
+                                <Logo/>
                         </IonHeader>
-                        <IonContent className="ion-padding" color="primary" class='primaryColor'>
+                        <IonContent className="ion-padding" style={{background:"var(--ion-background-color)"}}>
                             <section id='dashboard-content'>
                                 <IonList color='primary' class="ion-no-padding">
-                                    <IonItem routerLink="/home" routerDirection="root" >
+                                    <IonItem routerLink="/admin/dashboard" routerDirection="root" lines="none">
                                         <IonIcon slot="start" icon={homeOutline} />
                                         <IonLabel>Home</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/users" routerDirection="root">
+                                    <IonItem routerLink="/admin/users" routerDirection="root" lines="none">
                                         <IonIcon slot="start" icon={peopleOutline} />
                                         <IonLabel>List Users</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/activities" routerDirection="root">
+                                    <IonItem routerLink="/admin/activities" routerDirection="root" lines="none">
                                         <IonIcon slot="start" icon={listOutline} />
                                         <IonLabel>List Activities</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/reservations" routerDirection="root">
+                                    <IonItem routerLink="/admin/reservations" routerDirection="root" lines="none">
                                         <IonIcon slot="start" icon={listOutline} />
                                         <IonLabel>List Reservations</IonLabel>
                                     </IonItem>
-                                    <IonItem routerLink="/admin/events" routerDirection="root">
+                                    <IonItem routerLink="/admin/events" routerDirection="root" lines="none">
                                         <IonIcon slot="start" icon={listOutline} />
                                         <IonLabel>List Events</IonLabel>
                                     </IonItem>
-                                    {/* Add more menu entries here */}
                                 </IonList>
                                 <section>
-                                    <LanguageSelector hidden={false} color="secondary" />
-                                    <DarkModeToggle hidden={false} color="secondary" />
+                                    <IonItem routerLink="/home" routerDirection="root" lines="none">
+                                        <IonIcon slot="start" icon={listOutline} />
+                                        <IonLabel>Exit</IonLabel>
+                                    </IonItem>
+                                    <LanguageSelector hidden={false} color="primary" />
+                                    <DarkModeToggle hidden={false} color="primary" />
                                 </section>
                             </section>
                         </IonContent>
