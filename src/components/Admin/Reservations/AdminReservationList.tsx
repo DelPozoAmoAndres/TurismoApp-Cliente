@@ -1,6 +1,6 @@
 import React from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonIcon  } from "@ionic/react";
+import { IonAlert, IonIcon } from "@ionic/react";
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
 import { arrowDown, arrowUp, banOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 
 export const AdminReservationList: React.FC = () => {
     const defaultFilters = { name: "", email: "", telephone: "", numPersons: "", price: "", paymentId: "", state: "", eventId: "" };
-    const { setSearchText, handleSort, sortConfig, items } = useSearch(getAllReservations, defaultFilters);
+    const { setSearchText, handleSort, sortConfig, items, setForceUpdate } = useSearch(getAllReservations, defaultFilters);
     const { t } = useTranslation();
 
     const getSymbol = (name: string) => {
@@ -41,7 +41,7 @@ export const AdminReservationList: React.FC = () => {
                         text: 'Continuar',
                         role: 'confirm',
                         handler: () => {
-                            cancelReservation(id);
+                            cancelReservation(id).then(() => setForceUpdate(true));
                         },
                     },
                 ]}

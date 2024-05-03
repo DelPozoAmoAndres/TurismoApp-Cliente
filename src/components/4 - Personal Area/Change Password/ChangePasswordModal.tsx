@@ -16,7 +16,7 @@ export const ChangePasswordModal: React.FC = () => {
     const { check, confirmPassword, oldPassword, password, setConfirmPassword, setOldPassword, setPassword } = useChangePassword();
     const { t } = useTranslation();
     return (
-        <Modal id="modal-change-password" tittle={t("change.password.title")} trigger='password-change-modal' minWidthAndroid={550} minWidthIos={492} modal={modal} >
+        <Modal id="modal-change-password" title={t("change.password.title")} trigger='password-change-modal' minHeightAndroid={550} minHeightIos={492} modal={modal} >
             <IonRow class='ion-justify-content-center'>
                 <IonIcon icon={shieldOutline} style={{ fontSize: "128px" }} />
             </IonRow>

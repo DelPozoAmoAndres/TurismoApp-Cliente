@@ -27,7 +27,7 @@ import 'swiper/css/keyboard';
 import './ActivityDetailsPage.css';
 import LoadingPage from '@pages/LoadingPage';
 import BackShareAppLayout from '@components/app/layouts/BackShareAppLayout';
-import TwoColumnWebLayout from '@components/web/layouts/TwoColumnWebLayout';
+import TwoColumnTwoRowsWebLayout from '@components/web/layouts/TwoColumnTwoRowsWebLayout';
 
 type ActivityDetailsProps = RouteComponentProps<{ id: string }>;
 
@@ -37,12 +37,12 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
   const { activityData } = useActivityData(match.params.id); //Hook to have all the data of an activity
   const { shareActivity, showAlert, setShowAlert } = useShare(match.params.id); //Hook to share a link to the activity
 
-  const leftContent = ()=> activityData && (
+  const leftContent = () => activityData && activityData._id && (
     <>
       <IonRow class="ion-justify-content-center ion-margin-top">
         <section id="activity-section-info" className="ion-margin-horizontal">
-          <IonCard id="activity-image-card" class="ion-no-margin" mode="ios">
-            <Swiper style={{position:"inherit"}}
+          <IonCard id="activity-image-card" mode="ios">
+            <Swiper
               pagination={{ type: 'fraction' }}
               keyboard={{ enabled: true }}
               navigation={true}
@@ -50,22 +50,22 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
               loop
             >
               {activityData.images?.map((imgUrl, index) => (
-                <SwiperSlide key={'image' + index}>
+                <SwiperSlide key={'image' + index} style={{ "minWidth": "100%" }}>
                   <img src={imgUrl || "https://imagenes.elpais.com/resizer/2kZjFxiNoG3Pvq9dbeHPTe7aiXc=/1960x1470/cloudfront-eu-central-1.images.arcpublishing.com/prisa/RWF77A5EQGZX4QA2ABH76KQAZE.jpg"} className='img' />
                 </SwiperSlide>
               ))}
             </Swiper>
           </IonCard>
-          <ActivityInfo activityData={activityData} share={shareActivity} />
         </section>
       </IonRow>
+      <IonRow>{content()}</IonRow>
       <ActivityAvailability activityId={match.params.id} />
     </>
   )
 
-  const content = activityData && activityData._id ? (
+  const content = () => activityData ? (
     <>
-      <ActivityReviews activityId={activityData._id} />
+      <ActivityInfo activityData={activityData} share={shareActivity} />
       <IonAlert
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
@@ -84,7 +84,11 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
     <LoadingPage />
   );
 
-  return !browsingWeb ? <BackShareAppLayout onShareClick={shareActivity}> {content} </BackShareAppLayout> : <TwoColumnWebLayout leftContent={leftContent}>{content}</TwoColumnWebLayout>;
+  const bottomContent = activityData && activityData._id && (
+    <ActivityReviews activityId={activityData._id} />
+  );
+
+  return !browsingWeb ? <BackShareAppLayout onShareClick={shareActivity}> {bottomContent} </BackShareAppLayout> : <TwoColumnTwoRowsWebLayout leftContent={leftContent}>{bottomContent}</TwoColumnTwoRowsWebLayout>;
 };
 
 export default ActivityDetailsPage;

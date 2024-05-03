@@ -13,14 +13,14 @@ import { useTranslation } from 'react-i18next';
 import Register from '../Register/Register';
 import { useAuth } from '@contexts/AuthContexts';
 
-const Login: React.FC= () => {
+const Login: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
-  const { handleLogin, setEmail, setPassword, email, password, loading} = useLogin(modal);
+  const { handleLogin, setEmail, setPassword, email, password, loading } = useLogin(modal);
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-  const {showLoginModal, setShowLoginModal} = useAuth();
+  const { showLoginModal, setShowLoginModal } = useAuth();
 
   return (
-    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} tittle={t('log.in')} modal={modal} minWidthAndroid={330} minWidthIos={492}>
+    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} title={t('log.in')} modal={modal} minHeightAndroid={330} minHeightIos={300}>
       <IonGrid id="login-grid" class="ion-no-padding">
         <IonRow>
           <IonList class="ion-margin-bottom">
@@ -63,7 +63,7 @@ const Login: React.FC= () => {
           </IonItem>
         </IonRow>
       </IonGrid>
-      <Register loginModal={modal}/>
+      <Register loginModal={modal} />
     </Modal>
   );
 };

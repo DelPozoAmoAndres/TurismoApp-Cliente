@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 /* Ionic Components*/
 import { IonButton, IonDatetime, IonGrid, IonList, IonRow } from '@ionic/react';
@@ -15,6 +15,7 @@ import { useLanguage } from '@hooks/useLanguage';
 import { useActivityAvailability } from '@hooks/useActivityAvailability';
 /* Styles */
 import './ActivityAvailability.css';
+import { Role } from '@models/User';
 
 export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activityId }) => {
   const { selectedEvent, selectedEvents, selectedDate, highlightedDates, handleDateChange, setSelectedEvent } =
@@ -24,7 +25,8 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
   const { defaultLanguage } = useLanguage(); //Hook to know the language selected
   const auth = useAuth(); //Context of the user
   const history = useHistory(); //Hook to navigate to another page of the app
-  const {setShowLoginModal} = useAuth();
+  const { setShowLoginModal } = useAuth();
+
 
   const handleReserva = () => {
     //Method to go to the reservation page
@@ -32,21 +34,26 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
     modal.current?.dismiss(); //Close the modal
   };
 
+  useEffect(() => {
+    if (selectedEvents && selectedEvents.length > 0) modal.current?.setCurrentBreakpoint(1)
+    else modal.current?.setCurrentBreakpoint(modal.current?.breakpoints && modal.current?.breakpoints[1] || 1)
+  }, [selectedEvents]);
+
   return (
     <Modal
       id="availability-modal-card"
-      tittle={t('availability')}
+      title={t('availability')}
       trigger={'Availability-modal'}
       modal={modal}
-      minWidthAndroid={640}
-      minWidthIos={570}
+      minHeightAndroid={selectedEvents.length ? window.innerHeight : 640}
+      minHeightIos={selectedEvents.length ? window.innerHeight : 670}
     >
       <IonGrid>
         <IonRow>
           <IonDatetime
             locale={defaultLanguage.code}
             presentation={'date'}
-            onIonChange={(e) => handleDateChange(new Date(String(e.detail.value) || ''))}
+            onIonChange={(e) => { handleDateChange(new Date(String(e.detail.value) || '')); }}
             value={selectedDate?.toISOString()}
             highlightedDates={highlightedDates}
           />
@@ -56,7 +63,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
               <>
                 <IonButton
                   key={index}
-                  color={selectedEvent?.date !== e.date ? 'primary' : 'secondary'}
+                  color={selectedEvent !== e ? 'primary' : 'secondary'}
                   onClick={() => {
                     if (selectedEvent !== e) setSelectedEvent(e);
                     else setSelectedEvent(null);
@@ -70,19 +77,20 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
             ))}
           </IonList>
         </IonRow>
-        <div>
+        {(!auth.user || auth.user.role === Role.turista) && <div>
           <IonButton
             expand="block"
             onClick={() => {
-              auth.user 
-              ? handleReserva()  
-              : (modal.current?.dismiss() && setShowLoginModal(true));
+              auth.user
+                ? handleReserva()
+                : (modal.current?.dismiss() && setShowLoginModal(true));
             }}
             disabled={selectedEvent === null}
           >
             {auth.user ? 'Reservar' : 'Iniciar sesión para reservar'}
           </IonButton>
         </div>
+        }
       </IonGrid>
     </Modal>
   );

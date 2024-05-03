@@ -13,8 +13,8 @@ interface Props {
     highlightedDates: { date: string; textColor: string; backgroundColor: string }[];
     children: React.ReactNode;
     header: React.ReactNode;
-    getItemList?: (arg:Date)=>void;
-    setDate?: (arg:Date)=>void;
+    getItemList?: (arg: Date) => void;
+    setDate?: (arg: Date) => void;
 }
 
 const ScheduleWebLayout: React.FC<Props> = ({ highlightedDates, children, header, getItemList, setDate }) => {
@@ -24,18 +24,18 @@ const ScheduleWebLayout: React.FC<Props> = ({ highlightedDates, children, header
     const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
-        setDate!=undefined && setDate(selectedDate);
+        setDate != undefined && setDate(selectedDate);
         //eslint-disable-next-line
     }, [selectedDate]);
 
     useEffect(() => {
-        getItemList!==undefined && getItemList(selectedDate);
+        getItemList !== undefined && getItemList(selectedDate);
         //eslint-disable-next-line
     }, [selectedDate]);
 
     const leftContent = () => (
         <IonDatetime
-            style={{ margin: isMobile ? "auto" : "", marginTop: isMobile ? "0" : '85px', height: isMobile ? "100%" : "", width: isMobile ? "100%" : "", }}
+            style={{ margin: isMobile ? "auto" : "", marginTop: isMobile ? "auto" : '85px', marginLeft: isMobile ? "auto" : "20px", marginRight: isMobile ? "auto" : "20px", width: isMobile ? "100%" : "", "--background": "var(--ion--color--background)", borderRadius: 20 }}
             class='sticky'
             // min={new Date().toISOString()}
             highlightedDates={highlightedDates}
@@ -47,7 +47,7 @@ const ScheduleWebLayout: React.FC<Props> = ({ highlightedDates, children, header
 
     const mobileContent = () => (
         <>
-            <Modal id="dateTimeOrigin" modal={modal} tittle='OriginDate' isOpen={showModal} setOpen={setShowModal}>
+            <Modal id="dateTimeOrigin" modal={modal} title='OriginDate' isOpen={showModal} setOpen={setShowModal} minHeightAndroid={100} minHeightIos={780}>
                 {leftContent()}
             </Modal>
             <IonButton class="outlined" onClick={() => setShowModal(true)}><IonIcon icon={calendarOutline} class='ion-margin-end' />{formatDate(selectedDate)}</IonButton>

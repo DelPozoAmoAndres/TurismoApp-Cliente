@@ -1,7 +1,7 @@
 import React from "react";
 import { getAllActivities } from "@apis/adminActivityApi";
-import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonAlert, IonButton, IonCheckbox, IonIcon } from "@ionic/react";
+import ListWebLayout from "@components/web/layouts/ListWebLayout";
+import { IonAlert, IonButton, IonIcon } from "@ionic/react";
 import { Activity } from "@models/Activity";
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
 import { arrowDown, arrowUp, eyeOutline, pencilOutline, trashOutline } from "ionicons/icons";
@@ -14,10 +14,10 @@ import { useTranslation } from "react-i18next";
 
 export const AdminActivityList: React.FC = () => {
     const defaultFilters = { name: "", location: "", description: "", accesibility: "", duration: "", petsPermited: "", state: "" };
-    const { setSearchText, handleSort, sortConfig, items } = useSearch(getAllActivities, defaultFilters);
-    const {t} = useTranslation();
+    const { setSearchText, handleSort, sortConfig, items, setForceUpdate } = useSearch(getAllActivities, defaultFilters);
+    const { t } = useTranslation();
 
-    const getSymbol = (name:string) => {
+    const getSymbol = (name: string) => {
         if (sortConfig?.key !== name) return <></>
         switch (sortConfig?.direction) {
             case "ascending":
@@ -31,7 +31,7 @@ export const AdminActivityList: React.FC = () => {
 
     const th = (name: string) => {
         return (
-            <th onClick={()=>handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
+            <th onClick={() => handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
     }
 
     const columns = () =>
@@ -62,7 +62,7 @@ export const AdminActivityList: React.FC = () => {
                         text: 'Delete',
                         role: 'confirm',
                         handler: () => {
-                            deleteActivity(id);
+                            deleteActivity(id).then(() => setForceUpdate(true));
                         },
                     },
                 ]}
@@ -85,17 +85,17 @@ export const AdminActivityList: React.FC = () => {
                 <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a href={`/activity/${data._id}`} target="_blank" rel="noreferrer"><IonIcon icon={eyeOutline} size="large" /></a></td>
                 <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={data._id}><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
                 <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={"delete-alert-" + data._id}><IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
-                <ActivityModal activity={data} action="edit" />
+                <ActivityModal activity={data} action="edit" update={() => setForceUpdate(true)} />
                 {data._id && deleteAlert(data._id)}
             </tr>
         )
     }
 
-    const addButton = () => 
-    <>
-        <IonButton id="modal-activity-add">Create</IonButton>
-        <ActivityModal activity={new Activity()} action="add"/>
-    </>
+    const addButton = () =>
+        <>
+            <IonButton id="modal-activity-add">Create</IonButton>
+            <ActivityModal activity={new Activity()} action="add" update={() => setForceUpdate(true)} />
+        </>
 
     const getItems = () => items.map((value) => item(value))
     return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems}>{addButton()}</ListWebLayout></DashboardLayout>

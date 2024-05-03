@@ -10,11 +10,11 @@ export const useActivityAvailability = (activityId: string) => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null); //Event selected for the reservation
   const [events, setEvents] = useState<Event[] | null>(null); //List of all the events of the activity
 
-  const handleDateChange = (date: Date) => {
+  const handleDateChange = (date: Date | null) => {
     //Method to handle when de date selected in the calendar change
     setSelectedDate(date);
     setSelectedEvent(null);
-    console.log(events);
+    if (!date) setSelectedEvents([]);
     const selectedEvents = events?.filter((event) => formatDate(event.date) === formatDate(date));
     if (selectedEvents) {
       setSelectedEvents(selectedEvents);
@@ -23,7 +23,7 @@ export const useActivityAvailability = (activityId: string) => {
 
   useEffect(() => {
     getEvents(activityId).then((events: Event[]) => {
-      if(!events) return;
+      if (!events) return;
       setEvents(events);
       const days: {
         date: string;

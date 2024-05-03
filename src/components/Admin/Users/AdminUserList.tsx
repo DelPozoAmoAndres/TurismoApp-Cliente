@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 
 export const AdminUserList: React.FC = () => {
     const defaultFilters = { name: "", email: "", telephone: "", birthday: "", country: "", role: "" };
-    const { setSearchText, handleSort, sortConfig, items } = useSearch(getUserList, defaultFilters);
+    const { setSearchText, handleSort, sortConfig, items, setForceUpdate } = useSearch(getUserList, defaultFilters);
     const { t } = useTranslation();
 
     const getSymbol = (name: string) => {
@@ -63,7 +63,7 @@ export const AdminUserList: React.FC = () => {
                         text: 'Delete',
                         role: 'confirm',
                         handler: () => {
-                            deleteUser(id);
+                            deleteUser(id).then(() => setForceUpdate(true));
                         },
                     },
                 ]}
@@ -81,14 +81,14 @@ export const AdminUserList: React.FC = () => {
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a href={`/admin/user/${data._id}`} target="_blank" rel="noreferrer"><IonIcon icon={eyeOutline} size="large" /></a></td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={data._id}><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={"delete-alert-" + data._id}><IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
-            <UserModal user={data} action="edit" />
+            <UserModal user={data} action="edit" updateInfo={() => setForceUpdate(true)} />
             {data._id && deleteAlert(data._id)}
         </tr>
 
     const addButton = () =>
         <>
             <IonButton id="modal-user-add">Create</IonButton>
-            <UserModal user={new User()} action="add"/>
+            <UserModal user={new User()} action="add" updateInfo={() => setForceUpdate(true)} />
         </>
 
     const getItems = () => items.map((value) => item(value))

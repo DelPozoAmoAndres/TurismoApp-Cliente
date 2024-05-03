@@ -26,6 +26,9 @@ export const AuthContext = createContext<AuthContextType>({
   setShowLoginModal: (arg0) => {
     console.log(arg0);
   },
+  setForcedUpdate: () => {
+    console.log('setForcedUpdate');
+  },
   showLoginModal: false,
 });
 
@@ -39,7 +42,8 @@ const AuthProvider: React.FC<Props> = (props) => {
   const [token, setToken] = useState<string | null>(getItem('token'));
   const [user, setUser] = useState<User | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const {showNotification} = useContext(NotificationContext);
+  const { showNotification } = useContext(NotificationContext);
+  const [forcedUpdate, setForcedUpdate] = useState(false);
 
   const register = async (formData: RegisterFormData) => {
     // Validar que las contraseñas coincidan
@@ -52,12 +56,11 @@ const AuthProvider: React.FC<Props> = (props) => {
       .then((response) => {
         //Si se ha creado correctamente iniciar sesión automaticamente
         if (response.status !== HttpStatusCode.Ok) throw new Error(response.data.message);
-        else login(formData.email, formData.password);
+        else login(formData.email, formData.password)
       })
       .catch((error) => {
         // Manejar errores de registro
         error = error?.response?.data?.message || error.message;
-        showNotification(error?? 'Error desconocido en el registro');
         throw new Error(error ?? 'Error desconocido en el registro');
       });
   };
@@ -94,6 +97,8 @@ const AuthProvider: React.FC<Props> = (props) => {
   }
 
   useEffect(() => {
+    if (forcedUpdate) setForcedUpdate(false);
+
     const handleToken = () => {
       const token = getItem('token');
       setToken(token);
@@ -122,10 +127,11 @@ const AuthProvider: React.FC<Props> = (props) => {
     return () => {
       window.removeEventListener('storage', handleToken);
     };
-  }, [token]);
+    // eslint-disable-next-line
+  }, [token, forcedUpdate,]);
 
-  return ( 
-    <AuthContext.Provider value={{ user, token, login, logout, register,deleteAccount, setShowLoginModal, showLoginModal }}>
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout, register, deleteAccount, setShowLoginModal, showLoginModal, setForcedUpdate }}>
       <Login />
       {props.children}
     </AuthContext.Provider>

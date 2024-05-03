@@ -3,21 +3,21 @@ import { Role, User } from '@models/User';
 import { useTranslation } from 'react-i18next';
 import { useEdit } from '@hooks/useEdit';
 import { Modal } from '@shared/Modal';
-import { IonAlert, IonButton, IonGrid, IonInput, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton } from '@ionic/react';
+import { IonButton, IonGrid, IonInput, IonItem, IonLabel, IonRow, IonSegment, IonSegmentButton } from '@ionic/react';
 import { formatDate } from '@utils/Utils';
 import { editProfile } from '@apis/userApi';
 import { editUser, registerUser } from '@apis/adminUserApi';
 import { useAuth } from '@contexts/AuthContexts';
 
-export const UserModal: React.FC<{ user: User, action: "add" | "edit" }> = ({ user, action }) => {
-  const { t } = useTranslation();  
-  const auth= useAuth();
+export const UserModal: React.FC<{ user: User, action: "add" | "edit", updateInfo: () => void }> = ({ user, action, updateInfo }) => {
+  const { t } = useTranslation();
+  const auth = useAuth();
   const modal = useRef<HTMLIonModalElement>(null);
-  const closeModal = () => { modal.current?.dismiss() }
-  const { formData, setFormData, guardarCambios, edited } = useEdit(user, action == "add" ? registerUser : (auth.user?.role == Role.administrador? editUser:editProfile),closeModal);
+  const closeModal = () => { modal.current?.dismiss(); updateInfo(); }
+  const { formData, setFormData, guardarCambios, edited } = useEdit(user, action == "add" ? registerUser : (auth.user?.role == Role.administrador ? editUser : editProfile), closeModal);
 
   return (
-    <Modal id={'modal-user-'+action} trigger={user?._id || "modal-user-add"} minWidthAndroid={500} minWidthIos={500} tittle={t("user." + action + ".title")} modal={modal} >
+    <Modal id={'modal-user-' + action} trigger={user?._id || "modal-user-add"} minHeightAndroid={500} minHeightIos={500} title={t("user." + action + ".title")} modal={modal} >
       <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
         <IonGrid class='ion-no-padding ion-margin-end'>
           <IonRow class='ion-justify-content-center'>

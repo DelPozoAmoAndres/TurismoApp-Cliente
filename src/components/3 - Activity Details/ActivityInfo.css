@@ -1,7 +1,10 @@
 #activity-info {
-  /* max-width: 600px; */
-  width: 100%;
   height: fit-content;
+  background: var(--ion--color--background);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px;
+  width: 100%;
 }
 
 #activity-info ion-row {
@@ -11,7 +14,6 @@
 
 #activity-info div {
   display: flex;
-  flex-flow: row wrap;
   gap: 20px;
 }
 
@@ -20,7 +22,7 @@
   min-width: 150px;
 }
 
-#activity-info section > ion-button {
+#activity-info section>ion-button {
   width: 100%;
 }
 
@@ -28,17 +30,21 @@
   width: 100%;
 }
 
-@media only screen and (width <= 440px) {
+@media only screen and (width <=900px) {
   #activity-info section.sticky {
     position: -webkit-sticky;
     position: sticky;
     bottom: 0;
-    left: 0; 
+    left: 0;
     width: 100%;
+    padding: 10px;
     padding-bottom: 2dvh;
-    /* background-color: var(--background); */
+    background-color: var(--background);
   }
+
   #activity-info {
     min-width: auto;
+    width: 100%;
+    max-width: none;
   }
 }

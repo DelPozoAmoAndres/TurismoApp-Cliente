@@ -32,8 +32,8 @@ const AppMenu: React.FC = () => {
   const menuController = useRef<HTMLIonMenuElement>(null);
 
   const handleClick = () => {
-    if (menuController.current?.isOpen())
-      menuController.current?.close();
+    // if (menuController.current?.isOpen())
+    //   menuController.current?.close();
   };
 
   return (
@@ -48,37 +48,37 @@ const AppMenu: React.FC = () => {
       <IonContent>
         <IonList>
           <IonMenuToggle onClick={handleClick}>
-            <IonItem button routerLink="/home" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+            <IonItem button routerLink="/home" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={homeOutline} />
               <IonLabel>{t('home.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle onClick={handleClick} >
-            <IonItem button routerLink="/buscar" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+            <IonItem button routerLink="/buscar" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={searchOutline} />
               <IonLabel>{t('search.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user !== null} onClick={()=>auth.setShowLoginModal(true)} >
-            <IonItem button style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+          <IonMenuToggle hidden={auth.user !== null} onClick={() => auth.setShowLoginModal(true)} >
+            <IonItem button style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={personOutline} />
               <IonLabel>{t('account.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null} onClick={handleClick} >
-            <IonItem button routerLink="/perfil" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+            <IonItem button routerLink="/perfil" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon slot="start" icon={personOutline} />
               <IonLabel>{t('profile.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick} >
-            <IonItem button routerLink="/reservas" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+            <IonItem button routerLink="/reservas" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('reservations.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía}>
-            <IonItem button routerLink="/nextEvents" style={{"--background":"var(--ion--color--background)",borderRadius:10, width:"90%", margin:"auto", marginBottom:10}}  lines='none'>
+            <IonItem button routerLink="/nextEvents" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('nextEvents.title')}</IonLabel>
             </IonItem>

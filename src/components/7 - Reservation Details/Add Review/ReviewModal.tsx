@@ -8,13 +8,13 @@ import { useEdit } from '@hooks/useEdit';
 import "./ReviewModal.css";
 import { starOutline } from 'ionicons/icons';
 
-export const ReviewModal: React.FC<{ activityId: string, reviewData?:Review, action: "add" | "edit", reservationId:string }> = ({ activityId,reviewData,reservationId,action }) => {
+export const ReviewModal: React.FC<{ activityId: string, reviewData?: Review, action: "add" | "edit", reservationId: string }> = ({ activityId, reviewData, reservationId, action }) => {
     const { t } = useTranslation();
     const modal = useRef<HTMLIonModalElement>(null);
-    const [review] = useState<Review>(reviewData || new Review(activityId,reservationId));
-    const { formData, setFormData, guardarCambios} = useEdit(review, action=="add"?createReview:editReview);
+    const [review] = useState<Review>(reviewData || new Review(activityId, reservationId));
+    const { formData, setFormData, guardarCambios } = useEdit(review, action == "add" ? createReview : editReview);
     return (
-        <Modal id="modal-review" trigger={review._id || "add"}  tittle={t("valoration.add.title")} modal={modal} >
+        <Modal id="modal-review" trigger={review._id || "add"} title={t("valoration.add.title")} modal={modal} >
             <IonRow class=' ion-padding-horizontal ion-align-items-center ion-justify-content-center'>
                 <IonIcon icon={starOutline} />
                 <IonList>
@@ -32,7 +32,7 @@ export const ReviewModal: React.FC<{ activityId: string, reviewData?:Review, act
                                 snaps={true}
                                 pin={true}
                                 ticks={true}
-                                onIonChange={(e)=> formData && setFormData({...formData, score:Number(e.detail.value)})}
+                                onIonChange={(e) => formData && setFormData({ ...formData, score: Number(e.detail.value) })}
                             ></IonRange>
                         </IonRow>
                     </div>
@@ -42,10 +42,10 @@ export const ReviewModal: React.FC<{ activityId: string, reviewData?:Review, act
                             rows={5}
                             label="Comentario (opcional)"
                             labelPlacement="stacked"
-                            onIonInput={(e)=> formData && setFormData({...formData, comment:String(e.detail.value)})}
+                            onIonInput={(e) => formData && setFormData({ ...formData, comment: String(e.detail.value) })}
                         ></IonTextarea>
                     </IonItem>
-                    <IonButton  expand="block" onClick={guardarCambios}>
+                    <IonButton expand="block" onClick={guardarCambios}>
                         Guardar cambios
                     </IonButton>
                 </IonList>

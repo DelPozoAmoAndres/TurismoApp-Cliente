@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 /* Ionic Components */
-import { IonItem, IonButton, IonAlert, IonGrid } from '@ionic/react';
+import { IonItem, IonButton, IonGrid } from '@ionic/react';
 /* Components */
 import Spinner from '@shared/Spinner';
 import { Field } from '@shared/Field';
@@ -19,13 +19,12 @@ interface RegisterProps {
   loginModal: React.MutableRefObject<HTMLIonModalElement | null>;
 }
 
-const Register: React.FC<RegisterProps> = ({loginModal}) => {
-  const { formData, showAlert, loading, error, setShowAlert, setFormData, handleRegister } = useRegister();
+const Register: React.FC<RegisterProps> = ({ loginModal }) => {
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
+  const { formData, loading, setFormData, handleRegister } = useRegister(modal, loginModal);
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-
   return (
-    <Modal id={'register-modal-card'} tittle={t('sign.up')} trigger={'register-modal'} modal={modal} minWidthAndroid={550} minWidthIos={492}>
+    <Modal id={'register-modal-card'} title={t('sign.up')} trigger={'register-modal'} modal={modal} minHeightAndroid={570} minHeightIos={590}>
       <form onSubmit={handleRegister}>
         <IonGrid class="ion-no-padding ion-margin-horizontal">
           <IonItem lines="none">
@@ -119,18 +118,6 @@ const Register: React.FC<RegisterProps> = ({loginModal}) => {
           </IonButton>
         </IonGrid>
       </form>
-
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => {
-          setShowAlert(false);
-          error ?? (modal.current?.dismiss() && loginModal.current?.dismiss());
-        }}
-        header={error ? t('alert.title.error') || 'Error' : t('alert.title.confirmation') || ''}
-        message={error ?? (t('alert.account.created.message') || '')}
-        buttons={['OK']}
-      />
-
     </Modal>
   )
 };

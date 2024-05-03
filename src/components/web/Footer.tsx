@@ -1,6 +1,5 @@
 import React from 'react';
 import { IonFooter, IonToolbar, IonGrid, IonRow, IonCol, IonText } from '@ionic/react';
-import DownloadApp from '@components/1 - Home/DownloadApp';
 
 const Footer: React.FC = () => {
   return (
@@ -22,7 +21,7 @@ const Footer: React.FC = () => {
             </IonRow>
             <IonRow>
               <IonCol size="12">
-                <IonText  className="ion-text-center">
+                <IonText className="ion-text-center">
                   <small>&copy; {new Date().getFullYear()} Turismo Asturias. Todos los derechos reservados.</small>
                 </IonText>
               </IonCol>

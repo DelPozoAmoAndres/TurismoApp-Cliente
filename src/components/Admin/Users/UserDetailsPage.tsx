@@ -14,8 +14,9 @@ type UserDetailsProps = RouteComponentProps<{ id: string }>;
 const UserDetailsPage: React.FC<UserDetailsProps> = ({ match }) => {
     const { width } = useScreen();
     const { t } = useTranslation();
-    const user = useUserData(match.params.id);
+    const { user, setForceUpdate } = useUserData(match.params.id);
     const reservationsGroup = useUserReservationList(match.params.id); //Hooks to have all the reservation data
+
     return (
         <>
             <IonGrid>
@@ -65,28 +66,28 @@ const UserDetailsPage: React.FC<UserDetailsProps> = ({ match }) => {
                         </div>
                     </section>
                     {reservationsGroup && reservationsGroup.length > 0 &&
-                    <section style={{width:"30%"}}>
-                        <IonLabel class='ion-text-center'>{t("reservations.history.title")}</IonLabel>
-                        {reservationsGroup.map((reservationGroup, index) => (
-                            <div key={'reservationsGroup' + index} className="ion-margin-bottom">
-                                <IonRow class="ion-padding-start ion-padding-vertical">
-                                    <IonLabel>
-                                        <strong>{formatDate(reservationGroup.dateFrom) + '-----' + formatDate(reservationGroup.dateTo)}</strong>
-                                    </IonLabel>
-                                </IonRow>
-                                <IonCard>
-                                    {reservationGroup.reservations.map((reservation, index, array) => (
-                                        <div key={'reservation' + index}>
-                                            <ReservationItemList reservation={reservation} last={index === array.length - 1} />
-                                        </div>
-                                    ))}
-                                </IonCard>
-                            </div>
-                        ))}
-                    </section>
+                        <section style={{ width: "30%" }}>
+                            <IonLabel class='ion-text-center'>{t("reservations.history.title")}</IonLabel>
+                            {reservationsGroup.map((reservationGroup, index) => (
+                                <div key={'reservationsGroup' + index} className="ion-margin-bottom">
+                                    <IonRow class="ion-padding-start ion-padding-vertical">
+                                        <IonLabel>
+                                            <strong>{formatDate(reservationGroup.dateFrom) + '-----' + formatDate(reservationGroup.dateTo)}</strong>
+                                        </IonLabel>
+                                    </IonRow>
+                                    <IonCard>
+                                        {reservationGroup.reservations.map((reservation, index, array) => (
+                                            <div key={'reservation' + index}>
+                                                <ReservationItemList reservation={reservation} last={index === array.length - 1} />
+                                            </div>
+                                        ))}
+                                    </IonCard>
+                                </div>
+                            ))}
+                        </section>
                     }
                 </IonRow>
-                <UserModal action='edit' user={user} />
+                <UserModal action='edit' user={user} updateInfo={() => setForceUpdate(true)} />
             </IonGrid>
         </>
 

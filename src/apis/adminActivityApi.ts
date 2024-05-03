@@ -5,7 +5,7 @@ import { filterPropertiesNotNull } from '@utils/Utils';
 const baseUrl = `${process.env.REACT_APP_API_URL}/admin/activity`;
 
 export const createActivity = async (activity: Activity) => {
-  return axios.post(baseUrl,activity);
+  return axios.post(baseUrl, activity);
 };
 
 export const editActivity = async (activity: Activity): Promise<Activity> => {
@@ -23,14 +23,15 @@ export const createEvent = async (activityId: string, event: Event, repeatInfo: 
   });
 };
 
-export const getEvents = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
+export const getEvents = async (search: string, filters: Record<string, unknown>): Promise<[]> => {
   filters = filterPropertiesNotNull(filters);
   const params = new URLSearchParams({ search, ...filters }).toString();
   const response = await axios.get(`${baseUrl}/event/list?${params}`);
+  console.log(response.data);
   return response.data;
 }
 
-export const getAllActivities = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
+export const getAllActivities = async (search: string, filters: Record<string, unknown>): Promise<[]> => {
   filters = filterPropertiesNotNull(filters);
   const params = new URLSearchParams({ search, ...filters }).toString();
   const response = await axios.get(`${baseUrl}/list?${params}`);

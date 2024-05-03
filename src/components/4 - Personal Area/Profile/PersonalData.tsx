@@ -42,14 +42,14 @@ export const PersonalData = () => {
             </IonButton>
           </IonRow>
           <IonRow>
-            <IonButton color={'danger'} style={{ width: '100%' }} expand="block" onClick={()=>auth.logout()}>
+            <IonButton color={'danger'} style={{ width: '100%' }} expand="block" onClick={() => auth.logout()}>
               <IonIcon slot="start" icon={logOutOutline} />
               {t('log.out')}
             </IonButton>
           </IonRow>
         </section>
       </IonRow>
-        {auth.user && <UserModal user={auth.user} action='edit' />}
+      {auth.user && <UserModal user={auth.user} action='edit' updateInfo={() => auth.setForcedUpdate(true)} />}
     </IonGrid>
   );
 };

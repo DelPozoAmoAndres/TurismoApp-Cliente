@@ -93,7 +93,7 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
                     </section>
                 </IonCol>
             </IonCardContent>
-            <Modal tittle={t('participant.list')} trigger={"participants-" + event?._id} id='participantsModal' modal={modal}>
+            <Modal title={t('participant.list')} trigger={"participants-" + event?._id} id='participantsModal' modal={modal}>
                 <IonList>
                     {participants?.map((participant) => (
                         <IonItem key={participant._id} >

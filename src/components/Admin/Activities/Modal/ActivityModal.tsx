@@ -1,6 +1,6 @@
-import React, { useRef,useState } from 'react';
+import React, { useRef, useState } from 'react';
 /* Ionic components */
-import { IonAlert, IonButton, IonCheckbox, IonInput, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonTextarea } from '@ionic/react';
+import { IonButton, IonInput, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonTextarea } from '@ionic/react';
 /* Components */
 import { Modal } from '@shared/Modal';
 /* Hooks */
@@ -16,15 +16,15 @@ import { createActivity, editActivity } from '@apis/adminActivityApi';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 
-export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit" }> = ({ activity, action }) => {
+export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit", update?: () => void }> = ({ activity, action, update }) => {
     const { t } = useTranslation();
     const modal = useRef<HTMLIonModalElement>(null);
-    const closeModal = () => { modal.current?.dismiss() }
-    const { formData, setFormData, guardarCambios, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity,closeModal);
+    const closeModal = () => { modal.current?.dismiss(); update && update(); }
+    const { formData, setFormData, guardarCambios, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity, closeModal);
     const [language, setLanguage] = useState("es");
-    
+
     return (
-        <Modal id={'modal-activity-' + action} trigger={activity?._id || "modal-activity-add"} tittle={t("activity." + action + ".title")} modal={modal} >
+        <Modal id={'modal-activity-' + action} trigger={activity?._id || "modal-activity-add"} title={t("activity." + action + ".title")} modal={modal} >
             <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
                 <section className='ion-margin-end '>
                     <IonRow class="ion-justify-content-center" >
@@ -76,8 +76,8 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                             label="Description1"
                             labelPlacement="stacked"
                             onIonInput={(e) => formData && setFormData({ ...formData, description: { ...formData.description, [language]: e.detail.value || '' } })}>
-                                
-                            </IonTextarea>
+
+                        </IonTextarea>
                     </IonItem>
                     <IonItem >
                         <IonInput

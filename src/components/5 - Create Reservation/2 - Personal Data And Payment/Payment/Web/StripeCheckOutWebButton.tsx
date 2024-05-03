@@ -44,7 +44,7 @@ export const StripeCheckOutWebButton: React.FC = () => {
       <IonButton expand="block" id="payment-modal" style={{ width: '100%' }} onClick={createIntent}>
         {t('continue')}
       </IonButton>
-      <Modal id="modal-payment"  modal={modal} trigger="payment-modal" tittle={t('payment.title')}>
+      <Modal id="modal-payment" modal={modal} trigger="payment-modal" title={t('payment.title')}>
         {options.clientSecret && (
           <div className="ion-margin">
             <Elements stripe={stripePromise} options={options}>

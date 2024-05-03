@@ -16,13 +16,13 @@ import { useActivityList } from '@contexts/ActivityListContext';
 export const ActivityList: React.FC<{
   setSearchText: (arg0: string) => void;
   numFilters: number;
-  leftMenu: (arg0: React.RefObject<HTMLIonModalElement>)=>React.ReactNode;
-}> = ({  setSearchText, numFilters, leftMenu }) => {
+  leftMenu: (arg0: React.RefObject<HTMLIonModalElement>) => React.ReactNode;
+}> = ({ setSearchText, numFilters, leftMenu }) => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { isMobile } = useScreen(); //Hook to have data of screen dimensions
   const searchBar = React.useRef<HTMLIonSearchbarElement>(null);
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
-  const {activities} = useActivityList();
+  const { activities } = useActivityList();
   useEffect(() => {
     searchBar.current?.setFocus();
   }, [searchBar]);
@@ -41,19 +41,21 @@ export const ActivityList: React.FC<{
       </section>
       <IonList class='ion-no-padding'>
         {activities?.map((activity) => (
-            <ActivityItem key={activity._id} activity={activity} />
+          <ActivityItem key={activity._id} activity={activity} />
         ))}
         {isMobile && (
           <>
-            <IonButton class='sticky' id="filters-modal" style={{ width: '100%' }} expand="block" size="default">
-              {numFilters > 0 ? t('filters.applied') + ` (${numFilters})` : t('filters.add')}
-            </IonButton>
+            <div className='sticky' >
+              <IonButton id="filters-modal" style={{ width: '100%' }} expand="block" size="default">
+                {numFilters > 0 ? t('filters.applied') + ` (${numFilters})` : t('filters.add')}
+              </IonButton>
+            </div>
             <Modal id="modal-filters"
-              minWidthAndroid={Infinity}
-              minWidthIos={Infinity}
               modal={modal}
               trigger="filters-modal"
-              tittle={t('filters.title')}>
+              title={t('filters.title')}
+              minHeightIos={850}
+              minHeightAndroid={800}>
               {leftMenu(modal)}
             </Modal>
           </>

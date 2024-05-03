@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
-import { AxiosError } from 'axios';
 import { NotificationContext } from '@contexts/NotificationToastContext';
 
 export const useLogin = (modal: React.RefObject<HTMLIonModalElement>) => {

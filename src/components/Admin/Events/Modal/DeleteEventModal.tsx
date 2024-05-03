@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import { IonButton, IonCol, IonDatetime, IonIcon, IonItemDivider, IonLabel, IonList, IonRow, IonToggle } from '@ionic/react';
 import { Modal } from '@shared/Modal'; // Importa tu modal
 import { useTranslation } from 'react-i18next';
-import { trashOutline } from 'ionicons/icons';
+import { banOutline } from 'ionicons/icons';
 import './DeleteEventModal.css';
 import { deleteEvents } from '@apis/eventsApi';
 import { RecurrenceEventParams } from '@models/RecurrenceEventParams';
 
-const DeleteEventModal: React.FC<{ eventId: string | undefined }> = ({ eventId }) => {
+const DeleteEventModal: React.FC<{ eventId: string | undefined, update?: () => void }> = ({ eventId, update }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [deleteRepeated, setDeleteRepeated] = useState(false);
     const modalRef = useRef<HTMLIonModalElement>(null);
@@ -24,8 +24,8 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined }> = ({ eventId }
     };
 
     const handleDelete = () => {
-        setIsOpen(false);
-        eventId && deleteEvents(eventId, recurrentParams)
+        modalRef.current?.dismiss();
+        eventId && deleteEvents(eventId, recurrentParams).then(() => update && update());
     };
 
     const daySelectionButtons = () => (
@@ -48,11 +48,11 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined }> = ({ eventId }
     return (
         <>
             <a >
-                <IonIcon icon={trashOutline} size="large" style={{ cursor: "pointer" }} onClick={() => setIsOpen(true)} />
+                <IonIcon icon={banOutline} size="large" style={{ cursor: "pointer" }} onClick={() => setIsOpen(true)} />
             </a>
             <Modal
                 id="delete-event-modal"
-                tittle={t('Eliminar Evento')}
+                title={t('Eliminar Evento')}
                 modal={modalRef}
                 isOpen={isOpen}
                 setOpen={setIsOpen}

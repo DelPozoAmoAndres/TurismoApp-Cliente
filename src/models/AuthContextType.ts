@@ -5,8 +5,9 @@ export interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  deleteAccount: () =>  Promise<void>;
-  register: (formData: RegisterFormData) =>  Promise<void>;
+  deleteAccount: () => Promise<void>;
+  register: (formData: RegisterFormData) => Promise<void>;
   setShowLoginModal: (show: boolean) => void;
+  setForcedUpdate: (value: boolean) => void;
   showLoginModal: boolean;
 }

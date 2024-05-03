@@ -1,9 +1,9 @@
 import React from "react";
 import ListWebLayout from "@components/web/layouts/ListWebLayout"
-import { IonButton, IonIcon} from "@ionic/react";
+import { IonButton, IonIcon } from "@ionic/react";
 
 import { DashboardLayout } from "@components/web/layouts/DashboardLayout";
-import { arrowDown, arrowUp, pencilOutline} from "ionicons/icons";
+import { arrowDown, arrowUp, pencilOutline } from "ionicons/icons";
 import { useSearch } from "@hooks/useSearch";
 
 import { formatDate, formatDateToTime } from "@utils/Utils";
@@ -13,12 +13,12 @@ import DeleteEventModal from "@components/Admin/Events/Modal/DeleteEventModal";
 import { useTranslation } from "react-i18next";
 import { EventModal } from "./Modal/EventModal";
 
-export const AdminEventList : React.FC = () => {
-    const defaultFilters = { name: "", email:"", telephone:"", birthday:"", country:"", role:""};
-    const { setSearchText, handleSort, sortConfig, items } = useSearch(getEvents, defaultFilters);
-    const {t} = useTranslation();
+export const AdminEventList: React.FC = () => {
+    const defaultFilters = { name: "", email: "", telephone: "", birthday: "", country: "", role: "" };
+    const { setSearchText, handleSort, sortConfig, items, setForceUpdate } = useSearch(getEvents, defaultFilters);
+    const { t } = useTranslation();
 
-    const getSymbol = (name:string) => {
+    const getSymbol = (name: string) => {
         if (sortConfig?.key !== name) return <></>
         switch (sortConfig?.direction) {
             case "ascending":
@@ -32,7 +32,7 @@ export const AdminEventList : React.FC = () => {
 
     const th = (name: string) => {
         return (
-            <th onClick={()=>handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
+            <th onClick={() => handleSort(name)}> {t(name)} {getSymbol(name)} </th>)
     }
 
     const columns = () =>
@@ -45,7 +45,7 @@ export const AdminEventList : React.FC = () => {
             {th("bookedSeats")}
             {th("seats")}
             <th>Edit</th>
-            <th>Delete</th>
+            <th>Cancel</th>
         </tr>
 
 
@@ -59,16 +59,16 @@ export const AdminEventList : React.FC = () => {
             <td>{data.bookedSeats}</td>
             <td>{data.seats}</td>
             <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><a id={data._id} ><IonIcon icon={pencilOutline} size="large" style={{ cursor: "pointer" }} /></a></td>
-            <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><DeleteEventModal eventId={data._id}/></td>
-            <EventModal action="edit" event={data}/>
+            {data.state !== "cancelled" && <td className="ion-no-padding" style={{ verticalAlign: "middle" }}><DeleteEventModal eventId={data._id} update={() => setForceUpdate(true)} /></td>}
+            <EventModal action="edit" event={data} update={() => setForceUpdate(true)} />
         </tr>
-    
-    const addButton = (event:Event) => 
-    <>
-        <IonButton id="modal-event-add">Create</IonButton>
-        <EventModal event={event} action="add"/>
-    </>
-        
+
+    const addButton = (event: Event) =>
+        <>
+            <IonButton id="modal-event-add">Create</IonButton>
+            <EventModal event={event} action="add" update={() => setForceUpdate(true)} />
+        </>
+
 
     const getItems = () => items.map((value) => item(value))
     return <DashboardLayout><ListWebLayout search={setSearchText} columns={columns} items={getItems} >{addButton(new Event())}</ListWebLayout></DashboardLayout>
