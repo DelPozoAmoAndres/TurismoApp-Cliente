@@ -5,7 +5,7 @@ import { Account } from '@personal-area/Profile/Account';
 import { useAuth } from '@contexts/AuthContexts';
 import { useTranslation } from 'react-i18next';
 import { formatDate } from '@utils/Utils';
-import { bookOutline, shieldOutline } from 'ionicons/icons';
+import { bookOutline, settingsOutline, shieldOutline } from 'ionicons/icons';
 import { useScreen } from '@hooks/useScreen';
 import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import React from 'react';
@@ -19,43 +19,46 @@ const ProfilePage: React.FC = () => {
 
   const maxWidth = 755;
   const content = (
-      <IonGrid>
-        <IonRow class="ion-justify-content-center">
-          <section className='ion-margin-bottom ion-padding-bottom'>
-            <img
-              src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_person_people_avatar_white_tone_icon_159365.png"
-              width={width < 1000 ? 200 : 250}
-            />
-            <IonRow>
-              <h1>
-                <strong>{auth.user?.name}</strong>
-              </h1>
-            </IonRow>
-            <IonRow>
-              <IonLabel>{t('account.created.date')}:</IonLabel>
-            </IonRow>
-            <IonRow class='ion-margin-bottom ion-padding-bottom'>
-              <IonLabel>{formatDate(auth.user?.createdAt || null)}</IonLabel>
-            </IonRow>
-          </section >
-          {width < maxWidth && (
-            <IonSegment mode='ios' value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
-              <IonSegmentButton value="personalData">
-                <IonLabel>{t('personal.data.title.sort')}</IonLabel>
-                <IonIcon icon={bookOutline} />
-              </IonSegmentButton>
-              <IonSegmentButton value="account">
-                <IonLabel>{t('account.title')}</IonLabel>
-                <IonIcon icon={shieldOutline} />
-              </IonSegmentButton>
-            </IonSegment>
-          )}
-          <section className="ion-margin-horizontal" style={{ width: width < maxWidth ? '100%' : 500 }}>
-            {(selectedTab == 'personalData' || width >= maxWidth) && <PersonalData />}
-            {(selectedTab == 'account' || width >= maxWidth) && <Account />}
-          </section>
-        </IonRow>
-      </IonGrid>
+    <IonGrid>
+      <IonRow class="ion-justify-content-center">
+        <section className='ion-margin-bottom ion-padding-bottom'>
+          <img
+            src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_person_people_avatar_white_tone_icon_159365.png"
+            width={width < 1000 ? 200 : 250}
+          />
+          <IonRow>
+            <h1>
+              <strong>{auth.user?.name}</strong>
+            </h1>
+          </IonRow>
+          <IonRow>
+            <IonLabel>{t('account.created.date')}:</IonLabel>
+          </IonRow>
+          <IonRow class='ion-margin-bottom ion-padding-bottom'>
+            <IonLabel>{formatDate(auth.user?.createdAt || null)}</IonLabel>
+          </IonRow>
+        </section >
+        {width < maxWidth && (
+          <IonSegment mode='ios' value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
+            <IonSegmentButton value="personalData">
+              <IonLabel>{t('personal.data.title.sort')}</IonLabel>
+              <IonIcon icon={bookOutline} />
+            </IonSegmentButton>
+            {browsingWeb ? <IonSegmentButton value="account">
+              <IonLabel>{t('account.title')}</IonLabel>
+              <IonIcon icon={shieldOutline} />
+            </IonSegmentButton> : <IonSegmentButton value="account">
+              <IonLabel>{t('settings.title')}</IonLabel>
+              <IonIcon icon={settingsOutline} />
+            </IonSegmentButton>}
+          </IonSegment>
+        )}
+        <section className="ion-margin-horizontal" style={{ width: width < maxWidth ? '100%' : 500 }}>
+          {(selectedTab == 'personalData' || width >= maxWidth) && <PersonalData />}
+          {(selectedTab == 'account' || width >= maxWidth) && <Account />}
+        </section>
+      </IonRow>
+    </IonGrid>
   );
   return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <GenericWebLayout>{content}</GenericWebLayout>;
 };

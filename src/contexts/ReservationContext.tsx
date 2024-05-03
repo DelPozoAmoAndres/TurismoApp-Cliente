@@ -52,7 +52,7 @@ const ReservationProvider: React.FC<Props> = (props) => {
     email: '',
     eventId: event?._id || '',
     name: '',
-    numPersons: 0,
+    numPersons: 1,
     state: 'pending',
     telephone: 0,
     price: event?.price,
@@ -60,10 +60,6 @@ const ReservationProvider: React.FC<Props> = (props) => {
   });
 
   useEffect(() => {
-    // if (location.pathname.includes(""))
-    // if (location.state === undefined) {
-    //     window.location.replace("/")
-    // }
     getActivity(props.activityId).then((a: Activity) => setActivity(a));
   }, [props.activityId]);
 
@@ -72,8 +68,9 @@ const ReservationProvider: React.FC<Props> = (props) => {
     let reservationCopy = { ...reservation };
     keyList.forEach((key: string) => {
       reservationCopy = { ...reservationCopy, [key]: data[key] };
-      if (key === 'numPersons') reservationCopy.price = Number(event?.price) * reservationCopy.numPersons;
+      if (key === 'numPersons' && reservationCopy.numPersons >= 1) reservationCopy.price = Number(event?.price) * reservationCopy.numPersons;
     });
+    console.log(reservationCopy);
     setReservation(reservationCopy);
   };
 

@@ -25,13 +25,13 @@ export const ReservationItemList: React.FC<{
           src={reservation.activity?.images[0]}
         />
         <IonList class="ion-no-margin">
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>{reservation.activity?.name.toString()}</strong>
           </IonLabel>
           <IonText>{formatDate(reservation.event?.date || null, true)}</IonText>
           <IonText>{reservation.numPersons.toString()} personas</IonText>
-          <IonRow class="ion-justify-content-between ion-align-items-center">
-            <IonText>Total: {Number(reservation.event?.price) * Number(reservation.numPersons)}€</IonText>
+          <IonRow style={{ background: "var(--ion--color-background)" }} class="ion-justify-content-between ion-align-items-center">
+            <IonText>Total: {Number(reservation.price)}</IonText>
             <IonCardSubtitle>{reservation.state}</IonCardSubtitle>
           </IonRow>
         </IonList>

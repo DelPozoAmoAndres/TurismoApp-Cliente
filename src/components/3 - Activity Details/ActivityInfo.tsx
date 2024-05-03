@@ -22,7 +22,7 @@ export const ActivityInfo: React.FC<{
   share: () => void;
 }> = ({ activityData, share }) => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-  const { isMobile } = useScreen(); //Hook to have data of screen dimensions
+  const { isMobile, browsingWeb } = useScreen(); //Hook to have data of screen dimensions
   const auth = useAuth();
   const { soldOutProps } = useSoldOut(activityData);
   const date: Date = new Date();
@@ -40,19 +40,23 @@ export const ActivityInfo: React.FC<{
         <IonCardSubtitle>{activityData?.location}</IonCardSubtitle>
       </IonRow>
       <div style={{ width: "100%" }}>
-        <section>
-          <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-            {auth.user?.role === Role.administrador
-              ? t('show.events')
-              : activityData?.events && activityData.events.length > 0 && activityData.state != ActivityState['temporaly-closed'] ? t('show.availability') : t('sold.out')}
-            <IonIcon slot="end" icon={calendarOutline} />
-          </IonButton>
-        </section>
+        {!isMobile &&
+          <section>
+            <IonButton {...soldOutProps} expand="block" id="Availability-modal">
+              {auth.user?.role === Role.administrador
+                ? t('show.events')
+                : activityData?.events && activityData.events.length > 0 && activityData.state != ActivityState['temporaly-closed'] ? t('show.availability') : t('sold.out')}
+              <IonIcon slot="end" icon={calendarOutline} />
+            </IonButton>
+          </section>
+        }
+        {browsingWeb &&
+          <IonButton class='outlined' onClick={share}>
+            {t('share')}
+            <IonIcon slot="end" icon={shareSocialOutline} />
+          </IonButton>}
+      </div>
 
-        <IonButton class='outlined' onClick={share}>
-          {t('share')}
-          <IonIcon slot="end" icon={shareSocialOutline} />
-        </IonButton></div>
       <div>
         {activityData?.events && activityData?.events?.length > 0 && (
           <IonRow>

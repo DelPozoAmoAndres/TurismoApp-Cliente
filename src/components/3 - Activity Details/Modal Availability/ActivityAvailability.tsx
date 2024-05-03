@@ -45,8 +45,8 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
       title={t('availability')}
       trigger={'Availability-modal'}
       modal={modal}
-      minHeightAndroid={selectedEvents.length ? window.innerHeight : 640}
-      minHeightIos={selectedEvents.length ? window.innerHeight : 670}
+      minHeightAndroid={selectedEvents.length ? window.innerHeight : 450}
+      minHeightIos={selectedEvents.length ? window.innerHeight : 450}
     >
       <IonGrid>
         <IonRow>

@@ -14,11 +14,11 @@ export const ReservationActivityData: React.FC<{
   const { isMobile } = useScreen(); //Hook to have data of screen dimensions
 
   return (
-    <div className={isMobile ? 'ion-margin-horizontal' : ''} style={{maxWidth:"500px"}}>
+    <div className={isMobile ? 'ion-margin-horizontal' : ''} style={{ maxWidth: "500px" }}>
       <IonCard>
         <IonImg
           src={reservation?.activity?.images[0]}
-          style={{ maxWidth: isMobile ? 'none' : 500,"object-fit": "cover", "aspect-ratio": 4/3,"margin-bottom": "-10px"}}
+          style={{ maxWidth: isMobile ? 'none' : 500, "object-fit": "cover", "aspect-ratio": 4 / 3, "margin-bottom": "-10px" }}
         />
       </IonCard>
       <section hidden={isMobile}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 /* Ionic Components */
 import { IonCheckbox, IonLabel, IonRow, IonTitle } from '@ionic/react';
 import { Capacitor } from '@capacitor/core';
@@ -9,14 +9,15 @@ import { Field } from '@shared/Field';
 import StripeCheckoutMobileButton from '@create-reservation/2 - Personal Data And Payment/Payment/Mobile/StripeCheckOutMobileButton';
 import { StripeCheckOutWebButton } from '@create-reservation/2 - Personal Data And Payment/Payment/Web/StripeCheckOutWebButton';
 /* Contexts */
-import { ReservationContext, useReservation } from '@contexts/ReservationContext'; 
+import { ReservationContext, useReservation } from '@contexts/ReservationContext';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 
 export const PersonalDataStep: React.FC = () => {
   const { t } = useTranslation();
   const { setPersonalData } = useReservation();
-  const { name, email, telephone, numPersons, onChange } = useForm(
+  const [privacyPolicy, setPrivacyPolicy] = React.useState(false);
+  const { name, email, telephone, numPersons, onChange, validateEmail, validateName, validateNumPersons, validateTelephone } = useForm(
     {
       name: '',
       email: '',
@@ -25,7 +26,12 @@ export const PersonalDataStep: React.FC = () => {
     },
     setPersonalData
   );
+  const [isFormValid, setIsFormValid] = React.useState(false);
 
+  useEffect(() => {
+    setIsFormValid(validateName(name) && validateEmail(email) && validateTelephone(telephone) && validateNumPersons(String(numPersons)));
+    //eslint-disable-next-line
+  }, [name, email, telephone, numPersons]);
   return (
     <ReservationContext.Consumer>
       {({ reservation }) => (
@@ -42,7 +48,7 @@ export const PersonalDataStep: React.FC = () => {
               placeholder={t('personal.data.name.placeholder')}
               type={'text'}
               errorText={t('personal.data.name.error')}
-              validationFn={() => true}
+              validationFn={validateName}
               value={name}
             />
           </IonRow>
@@ -52,7 +58,7 @@ export const PersonalDataStep: React.FC = () => {
             placeholder={t('personal.data.email.placeholder')}
             type={'email'}
             errorText={t('personal.data.email.error')}
-            validationFn={() => true}
+            validationFn={validateEmail}
             value={email}
           />
           <Field
@@ -61,24 +67,24 @@ export const PersonalDataStep: React.FC = () => {
             placeholder={t('personal.data.telephone.placeholder')}
             type={'text'}
             errorText={t('personal.data.telephone.error')}
-            validationFn={() => true}
+            validationFn={validateTelephone}
             value={telephone}
           />
           <Field
             label={t('number.of.seats')}
-            onIonInput={(e) => onChange(e.detail.value, 'numPersons')}
+            onIonInput={(e) => onChange(Number(e.detail.value), 'numPersons')}
             placeholder={t('number.of.seats.placeholder')}
             type={'number'}
             errorText={t('number.of.seats.error')}
-            validationFn={() => true}
+            validationFn={validateTelephone}
             value={String(numPersons)}
           />
-          <IonCheckbox labelPlacement="end">{t('privacy.policy')}</IonCheckbox>
-          <IonRow class="ion-margin-top ion-padding-top">
+          <IonCheckbox onIonChange={(e) => setPrivacyPolicy(e.detail.checked)} labelPlacement="end" checked={privacyPolicy}>{t('privacy.policy')}</IonCheckbox>
+          {reservation.numPersons > 0 && <IonRow class="ion-margin-top ion-padding-top">
             <IonLabel>{t('total.price')}:</IonLabel>
             <IonLabel>{reservation.price + '€'}</IonLabel>
-          </IonRow>
-          <IonRow>{Capacitor.isNativePlatform() ? <StripeCheckoutMobileButton /> : <StripeCheckOutWebButton />}</IonRow>
+          </IonRow>}
+          <IonRow>{Capacitor.isNativePlatform() ? <StripeCheckoutMobileButton disabled={!privacyPolicy || !isFormValid} /> : <StripeCheckOutWebButton disabled={!privacyPolicy || !isFormValid} />}</IonRow>
         </>
       )}
     </ReservationContext.Consumer>

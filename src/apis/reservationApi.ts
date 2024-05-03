@@ -29,7 +29,7 @@ export const intentPayment = async (price: number) => {
   return response.data.paymentIntent;
 };
 
-export const confrimPayment = async (paymentId: string) => {
+export const confirmPayment = async (paymentId: string) => {
   return await axios
     .post(`${process.env.REACT_APP_API_URL}/payment/confirm/`, {
       paymentId,

@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 type Props = {
   children: ReactNode;
-  onShareClick:()=>void;
+  onShareClick: () => void;
 };
 
 const BackShareAppLayout: React.FC<Props> = ({ children, onShareClick }) => {

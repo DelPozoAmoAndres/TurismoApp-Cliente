@@ -32,5 +32,5 @@ div.sticky {
   width: 100%;
   padding-right: 3px;
   z-index: 100;
-  background: var(--background);
+  /* background: var(--background); */
 }

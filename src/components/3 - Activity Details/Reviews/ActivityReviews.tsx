@@ -11,6 +11,7 @@ import './ActivityReviews.css';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { useScreen } from '@hooks/useScreen';
+import { Capacitor } from '@capacitor/core';
 
 export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }) => {
   const listOfComments = useReviewsData(activityId);
@@ -18,7 +19,7 @@ export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }
   const { t } = useTranslation();
   return (
     listOfComments && listOfComments.length > 0 ?
-      <div className={isMobile ? "ion-margin-start ion-margin-end ion-margin-bottom" : "ion-margin"} style={{ minWidth: isMobile ? "" : 300 }}>
+      <div className={isMobile ? "ion-margin-start ion-margin-end ion-margin-bottom" : "ion-margin"} style={{ minWidth: isMobile ? "" : 300, width: Capacitor.isNativePlatform() ? "100%" : "" }}>
         {!isMobile &&
           <>
             <IonLabel>

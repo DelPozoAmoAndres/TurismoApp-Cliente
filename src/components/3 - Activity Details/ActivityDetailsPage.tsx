@@ -63,9 +63,10 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
     </>
   )
 
-  const content = () => activityData ? (
+  const content = () => activityData && activityData._id ? (
     <>
       <ActivityInfo activityData={activityData} share={shareActivity} />
+      {!browsingWeb && <ActivityReviews activityId={activityData._id} />}
       <IonAlert
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
@@ -88,7 +89,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
     <ActivityReviews activityId={activityData._id} />
   );
 
-  return !browsingWeb ? <BackShareAppLayout onShareClick={shareActivity}> {bottomContent} </BackShareAppLayout> : <TwoColumnTwoRowsWebLayout leftContent={leftContent}>{bottomContent}</TwoColumnTwoRowsWebLayout>;
+  return !browsingWeb ? <BackShareAppLayout onShareClick={shareActivity}> {leftContent()} </BackShareAppLayout> : <TwoColumnTwoRowsWebLayout leftContent={leftContent}>{bottomContent}</TwoColumnTwoRowsWebLayout>;
 };
 
 export default ActivityDetailsPage;

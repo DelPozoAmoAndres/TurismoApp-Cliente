@@ -22,35 +22,35 @@ const ReservationListPage: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
   const content = (
-      <IonList mode="ios" id="reservation-list">
-        <IonRow class="ion-justify-content-center ion-margin-top">
-          <IonLabel class="ion-text-center">
-            <h1><strong>Reservas</strong></h1>
+    <IonList mode="ios" id="reservation-list">
+      <IonRow class="ion-justify-content-center ion-margin-top">
+        <IonLabel class="ion-text-center">
+          <h1><strong>Reservas</strong></h1>
+        </IonLabel>
+      </IonRow>
+      {reservationsGroup.length === 0 &&
+        <p className='ion-text-center ion-margin-top'>
+          <IonLabel>
+            {t('reservations.empty')}
           </IonLabel>
-        </IonRow>
-        {reservationsGroup.length === 0 &&
-          <p className='ion-text-center ion-margin-top'>
+        </p>}
+      {reservationsGroup.map((reservationGroup, index) => (
+        <div key={'reservationsGroup' + index} className="ion-margin-bottom">
+          <IonRow class="ion-padding-start ion-padding-vertical">
             <IonLabel>
-              {t('reservations.empty')}
+              <strong>{formatDate(reservationGroup.dateFrom)}</strong> {reservationGroup.dateFrom !== reservationGroup.dateTo && <strong><IonIcon icon={ellipsisHorizontal} style={{ "opacity": 0.5, "margin-bottom": "-2.5px" }} /> {formatDate(reservationGroup.dateTo)}</strong>}
             </IonLabel>
-          </p>}
-        {reservationsGroup.map((reservationGroup, index) => (
-            <div key={'reservationsGroup' + index} className="ion-margin-bottom">
-              <IonRow class="ion-padding-start ion-padding-vertical">
-                <IonLabel>
-                  <strong>{formatDate(reservationGroup.dateFrom)} <IonIcon icon={ellipsisHorizontal} style={{"opacity":0.5, "margin-bottom":"-2.5px"}}/> {formatDate(reservationGroup.dateTo)}</strong>
-                </IonLabel>
-              </IonRow>
-              <IonCard>
-                {reservationGroup.reservations.map((reservation, index, array) => (
-                  <div key={'reservation' + index}>
-                    <ReservationItemList reservation={reservation} last={index === array.length - 1} />
-                  </div>
-                ))}
-              </IonCard>
-            </div>
-          ))}
-      </IonList>
+          </IonRow>
+          <IonCard>
+            {reservationGroup.reservations.map((reservation, index, array) => (
+              <div key={'reservation' + index}>
+                <ReservationItemList reservation={reservation} last={index === array.length - 1} />
+              </div>
+            ))}
+          </IonCard>
+        </div>
+      ))}
+    </IonList>
   );
 
   return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <GenericWebLayout>{content}</GenericWebLayout>;

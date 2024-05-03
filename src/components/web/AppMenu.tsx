@@ -46,7 +46,7 @@ const AppMenu: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonList>
+        <IonList class='ion-margin-top'>
           <IonMenuToggle onClick={handleClick}>
             <IonItem button routerLink="/home" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={homeOutline} />
@@ -67,19 +67,19 @@ const AppMenu: React.FC = () => {
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null} onClick={handleClick} >
             <IonItem button routerLink="/perfil" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
-              <IonIcon slot="start" icon={personOutline} />
+              <IonIcon color={'tertiary'} slot="start" icon={personOutline} />
               <IonLabel>{t('profile.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick} >
             <IonItem button routerLink="/reservas" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
-              <IonIcon slot="start" icon={briefcaseOutline} />
+              <IonIcon color={'tertiary'} slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('reservations.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía}>
             <IonItem button routerLink="/nextEvents" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
-              <IonIcon slot="start" icon={briefcaseOutline} />
+              <IonIcon color={'tertiary'} slot="start" icon={briefcaseOutline} />
               <IonLabel>{t('nextEvents.title')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
@@ -88,7 +88,7 @@ const AppMenu: React.FC = () => {
           <LanguageSelector hidden={false} />
           <DarkModeToggle hidden={false} />
           {auth.user && <>
-            <IonItemDivider />
+            <IonItemDivider style={{ background: "var(--ion-background-color)" }} />
             <IonMenuToggle onClick={handleClick}>
               <IonButton class="ion-margin-top" color={'danger'} expand="block" onClick={auth.logout}>
                 <IonIcon slot="start" icon={logOutOutline} />

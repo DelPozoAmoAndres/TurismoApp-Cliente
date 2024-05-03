@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonButton, IonContent, IonRouterOutlet, IonTabs } from '@ionic/react';
+import { IonContent, IonRouterOutlet, IonTabs } from '@ionic/react';
 import HomePage from '@home/HomePage';
 import PrivateRoute from '@shared/PrivateRoute';
 import { useAuth } from '@contexts/AuthContexts';
@@ -22,7 +22,6 @@ const TabBar: React.FC = () => {
         </IonRouterOutlet>
         {auth.user?.role ? rolesTabs[auth.user?.role] : rolesTabs['none']}
       </IonTabs>
-      <IonButton id="login-modal" hidden={true} />
     </IonContent>
   );
 };

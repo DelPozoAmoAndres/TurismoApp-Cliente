@@ -1,0 +1,16 @@
+#reservation-detail section ion-card {
+    background: var(--ion--color--background);
+    padding: 20px;
+    font-size: 16px;
+}
+
+#reservation-detail section ion-card ion-card-content {
+    flex-direction: column;
+}
+
+#reservation-detail section ion-card ion-card-content ion-list {
+    display: flex;
+    flex-direction: column;
+    background: var(--ion--color--background);
+    margin-top: 5px;
+}

@@ -55,7 +55,7 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
     return (
         <>
             <IonRow>
-                <Modal id="dateTimeOrigin" modal={originModal} title='OriginDate' isOpen={showOrigin} setOpen={setShowOrigin} minHeightAndroid={500} minHeightIos={480} height={'500px'}>
+                <Modal id="dateTimeOrigin" modal={originModal} title='OriginDate' isOpen={showOrigin} setOpen={setShowOrigin} height={'500px'}>
                     <div style={{ width: "100%", height: isMobile ? "auto" : "90%", display: "flex", justifyContent: "center", marginTop: "10px" }}>
                         <IonDatetime
                             presentation='date'
@@ -68,7 +68,7 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
                         ></IonDatetime>
                     </div>
                 </Modal >
-                <Modal id="dateTimeEnd" modal={endModal} title='EndDate' isOpen={showEnd} setOpen={setShowEnd} minHeightAndroid={500} minHeightIos={500} height={'500px'}>
+                <Modal id="dateTimeEnd" modal={endModal} title='EndDate' isOpen={showEnd} setOpen={setShowEnd} height={'500px'}>
                     <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "10px" }}>
                         <IonDatetime
                             presentation='date'

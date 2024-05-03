@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 /* Hooks */
 import { useReservationData } from '@hooks/useReservationData';
 import { useScreen } from '@hooks/useScreen';
+/* Styles */
+import './ReservationDetailsPage.css';
 /* Components */
 import { ReservationActivityData } from './ReservationActivityData';
 import { ReservationData } from './ReservationData';
@@ -23,34 +25,34 @@ type ReservationDetailsProps = RouteComponentProps<{ id: string }>;
 
 const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) => {
   const reservation = useReservationData(match.params.id); //Hook to have reservation data
-  const [review,setReview] = useState<Review|null>(null);
+  const [review, setReview] = useState<Review | null>(null);
   const { isMobile, browsingWeb } = useScreen(); //Hook to have data of screen dimensions
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
   const getReview = async () => {
     const review = await getReviewFromReservation(match.params.id);
-    if(review) setReview(review);
+    if (review) setReview(review);
   }
 
   useEffect(() => {
     getReview();
     // eslint-disable-next-line
   }, [reservation]);
-  
+
   const content = reservation ? (
-    <IonRow class="ion-justify-content-center ion-margin-top">
+    <IonRow id="reservation-detail" class="ion-justify-content-center ion-margin-top">
       <ReservationActivityData reservation={reservation} />
       <section className={isMobile ? 'ion-margin-horizontal' : ''} style={{ width: isMobile ? '100%' : 'auto' }}>
         <IonCard>
           <ReservationData reservation={reservation} />
-          <div className="ion-margin">
+          <div className='ion-margin-top'>
             <IonButton routerLink={'/activity/' + reservation?.activity?._id} expand="block">
               Ver información de la actividad
             </IonButton>
-            {reservation?.state === 'completed' && review===null &&  reservation.activity?._id &&
+            {reservation?.state === 'completed' && review === null && reservation.activity?._id &&
               <>
-              <IonButton id="add" expand="block">Añadir valoración</IonButton>
-              <ReviewModal action={"add"} activityId={reservation.activity?._id} reservationId={match.params.id} />
+                <IonButton id="add" expand="block">Añadir valoración</IonButton>
+                <ReviewModal action={"add"} activityId={reservation.activity?._id} reservationId={match.params.id} />
               </>}
             {reservation?.state === 'success' &&
               (<IonButton color={'danger'} onClick={async () => await cancelReservation(match.params.id)} expand="block">
@@ -58,8 +60,8 @@ const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) =>
               </IonButton>)}
           </div>
         </IonCard>
-        {reservation?.state === 'completed' && review!==null && 
-          <section style={{"marginInline": 10}}>
+        {reservation?.state === 'completed' && review !== null &&
+          <section style={{ "marginInline": 10 }}>
             <h3>Valoración</h3>
             <ReviewItem comment={review} />
           </section>}

@@ -1,14 +1,14 @@
-body{
-  scrollbar-color: var(--ion-color-primary) var(--ion--color--background);
+body {
+  scrollbar-color: var(--ion--background-color) var(--ion--color--background);
 }
 
 .limits-content {
-    max-width: 1300px; 
-    margin: auto;
+  max-width: 1300px;
+  margin: auto;
 }
 
 .toolBar-content {
-  max-width: 1300px; 
+  max-width: 1300px;
   margin: auto;
 
   align-items: center;
@@ -18,15 +18,15 @@ body{
 
 ion-footer ion-toolbar {
   --background: var(--ion--color--footer);
-  color:white
+  color: white
 }
 
 a {
   text-decoration: none;
 }
 
-h2{
-  margin:0
+h2 {
+  margin: 0
 }
 
 /* @media screen and (max-width: 1300px) {
@@ -36,14 +36,14 @@ h2{
   
 } */
 
-#pageWeb ion-content > div{
+#pageWeb ion-content>div {
   display: grid;
-  grid-template-rows: auto 1fr auto; 
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   grid-template-columns: 1fr;
 }
 
-.resize label div textarea{
+.resize label div textarea {
   resize: vertical !important;
   width: 100% !important;
   outline: none !important;

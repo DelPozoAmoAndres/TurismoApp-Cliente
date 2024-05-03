@@ -26,6 +26,7 @@
 #reservation-list ion-card {
   margin-top: 5px;
   margin-bottom: 0;
+  background: var(--ion--color--background);
 }
 
 #reservation-list ion-row {

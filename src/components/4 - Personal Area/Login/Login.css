@@ -21,10 +21,10 @@
   #social-buttons ion-list ion-button {
     width: 30%;
   }
-}
 
-#login-modal-card ion-content {
-  --keyboard-offset: none !important;
+  #login-modal-card ion-content {
+    --keyboard-offset: none !important;
+  }
 }
 
 .custom-alert {

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 /* Components */
 import Spinner from '@shared/Spinner';
 
-const StripeCheckoutMobileButton: React.FC = () => {
+const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled }) => {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { reservation, registerReservation, setStep, paymentIntent, setPaymentIntent } = useReservation(); //Context of reservation
@@ -37,7 +37,8 @@ const StripeCheckoutMobileButton: React.FC = () => {
       intent?.client_secret &&
         (await Stripe.createPaymentSheet({
           paymentIntentClientSecret: intent?.client_secret,
-          merchantDisplayName: 'Inclusive Innovation Incubator',
+          merchantDisplayName: 'Astour',
+
         }));
 
       await Stripe.presentPaymentSheet();
@@ -52,7 +53,7 @@ const StripeCheckoutMobileButton: React.FC = () => {
   };
 
   return (
-    <IonButton onClick={handleCheckout} disabled={loading}>
+    <IonButton onClick={handleCheckout} disabled={disabled || loading}>
       {loading ? <Spinner /> : t('continue')}
     </IonButton>
   );

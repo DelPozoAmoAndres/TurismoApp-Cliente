@@ -7,50 +7,50 @@ import { Reservation } from '@models/Reservation';
 export const ReservationData: React.FC<{ reservation: Reservation }> = ({ reservation }) => {
   return (
     <>
-      <IonCardHeader>
+      <IonCardHeader class='ion-no-padding'>
         <IonCardTitle>Datos del reservante:</IonCardTitle>
       </IonCardHeader>
-      <IonCardContent class="ion-margin-start">
+      <IonCardContent class="ion-margin-start ion-no-padding">
         <IonList>
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>Nombre y apellidos: </strong>
           </IonLabel>
-          <IonText>{String(reservation?.name)}</IonText>
+          <IonText color={'dark'}>{String(reservation?.name)}</IonText>
         </IonList>
         <IonList>
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>Email: </strong>
           </IonLabel>
-          <IonText>{String(reservation?.email)}</IonText>
+          <IonText color={'dark'}>{String(reservation?.email)}</IonText>
         </IonList>
         <IonList hidden={!reservation?.telephone}>
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>Teléfono: </strong>
           </IonLabel>
-          <IonText>{String(reservation?.telephone)}</IonText>
+          <IonText color={'dark'}>{String(reservation?.telephone)}</IonText>
         </IonList>
       </IonCardContent>
-      <IonCardHeader>
+      <IonCardHeader class='ion-no-padding'>
         <IonCardTitle>Datos de la reserva: </IonCardTitle>
       </IonCardHeader>
-      <IonCardContent class="ion-margin-start">
+      <IonCardContent class="ion-margin-start ion-no-padding">
         <IonList>
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>Número de personas: </strong>
           </IonLabel>
-          <IonText>{String(reservation?.numPersons)}</IonText>
+          <IonText color={'dark'}>{String(reservation?.numPersons)}</IonText>
         </IonList>
         <IonList>
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>Percio total: </strong>
           </IonLabel>
-          <IonText>{String(reservation?.price)}€</IonText>
+          <IonText color={'dark'}>{String(reservation?.price)}€</IonText>
         </IonList>
         <IonList>
-          <IonLabel>
+          <IonLabel color={'primary'}>
             <strong>Estado: </strong>
           </IonLabel>
-          <IonText>{reservation?.state}</IonText>
+          <IonText color={'dark'}>{reservation?.state}</IonText>
         </IonList>
       </IonCardContent>
     </>
