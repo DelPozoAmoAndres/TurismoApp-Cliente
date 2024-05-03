@@ -16,6 +16,7 @@ export const useReviewsData = (activityId: string) => {
     useEffect(() => {
         getReviews(activityId).then(reviews => setListOfComments(reviews)).catch(err => console.error(err));
         setListOfComments(reviewsDefault);
-    }, [activityId, reviewsDefault])
+        // eslint-disable-next-line
+    }, [activityId])
     return listOfComments;
 }
