@@ -1,92 +1,93 @@
 import React, { useEffect } from 'react';
 /* Ionic Components */
-import { IonCheckbox, IonLabel, IonRow, IonTitle } from '@ionic/react';
-import { Capacitor } from '@capacitor/core';
+import { IonCheckbox, IonRow, IonText, IonTitle } from '@ionic/react';
 /* Hooks */
 import { useForm } from '@hooks/useForm';
 /* Components */
 import { Field } from '@shared/Field';
-import StripeCheckoutMobileButton from '@create-reservation/2 - Personal Data And Payment/Payment/Mobile/StripeCheckOutMobileButton';
 import { StripeCheckOutWebButton } from '@create-reservation/2 - Personal Data And Payment/Payment/Web/StripeCheckOutWebButton';
 /* Contexts */
-import { ReservationContext, useReservation } from '@contexts/ReservationContext';
+import { useReservation } from '@contexts/ReservationContext';
 /* i18n */
 import { useTranslation } from 'react-i18next';
+import { emailValidation, lengthValidation, telephoneValidation } from '@utils/Validations';
+import { useScreen } from '@hooks/useScreen';
+import { useAuth } from '@contexts/AuthContexts';
 
-export const PersonalDataStep: React.FC = () => {
+export const PersonalDataStep: React.FC<{ numPersons: number }> = ({ numPersons }) => {
   const { t } = useTranslation();
-  const { setPersonalData } = useReservation();
-  const [privacyPolicy, setPrivacyPolicy] = React.useState(false);
-  const { name, email, telephone, numPersons, onChange, validateEmail, validateName, validateNumPersons, validateTelephone } = useForm(
+  const { setPersonalData, setPrivacyPolicy, privacyPolicy } = useReservation();
+  const { browsingWeb } = useScreen();
+  const auth = useAuth();
+  const { name, email, telephone, onChange, onChangeMultiple } = useForm(
     {
       name: '',
       email: '',
       telephone: '',
-      numPersons: 1,
+      numPersons
     },
     setPersonalData
   );
-  const [isFormValid, setIsFormValid] = React.useState(false);
 
   useEffect(() => {
-    setIsFormValid(validateName(name) && validateEmail(email) && validateTelephone(telephone) && validateNumPersons(String(numPersons)));
+    if (auth.user) {
+      onChangeMultiple({
+        name: auth.user?.name,
+        email: auth.user?.email,
+        telephone: Number(auth.user?.telephone || 0),
+        numPersons: numPersons
+      });
+    }
     //eslint-disable-next-line
-  }, [name, email, telephone, numPersons]);
+  }, [auth.user]);
+
   return (
-    <ReservationContext.Consumer>
-      {({ reservation }) => (
-        <>
-          <IonRow class="ion-margin-top">
-            <IonTitle>
-              <strong>{t('reservation.data.title')}</strong>
-            </IonTitle>
-          </IonRow>
-          <IonRow class="ion-margin-top">
-            <Field
-              label={t('personal.data.name')}
-              onIonInput={(e) => onChange(e.detail.value, 'name')}
-              placeholder={t('personal.data.name.placeholder')}
-              type={'text'}
-              errorText={t('personal.data.name.error')}
-              validationFn={validateName}
-              value={name}
-            />
-          </IonRow>
+    <>
+      <section className='ion-padding ion-margin-vertical' style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
+        <IonRow class="ion-margin-top">
+          <IonTitle class='ion-no-padding'>
+            <strong>{t('reservation.data.title')}</strong>
+          </IonTitle>
+        </IonRow>
+        <IonRow class="ion-margin-top">
           <Field
-            label={t('personal.data.email')}
-            onIonInput={(e) => onChange(e.detail.value, 'email')}
-            placeholder={t('personal.data.email.placeholder')}
-            type={'email'}
-            errorText={t('personal.data.email.error')}
-            validationFn={validateEmail}
-            value={email}
-          />
-          <Field
-            label={t('personal.data.telephone') + ' (' + t('optional') + ')'}
-            onIonInput={(e) => onChange(e.detail.value, 'telephone')}
-            placeholder={t('personal.data.telephone.placeholder')}
+            label={t('personal.data.name')}
+            onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'name')}
+            placeholder={t('personal.data.name.placeholder')}
             type={'text'}
-            errorText={t('personal.data.telephone.error')}
-            validationFn={validateTelephone}
-            value={telephone}
+            errorText={t('personal.data.name.error')}
+            validationFn={name => lengthValidation(8, name)}
+            value={name}
           />
-          <Field
-            label={t('number.of.seats')}
-            onIonInput={(e) => onChange(Number(e.detail.value), 'numPersons')}
-            placeholder={t('number.of.seats.placeholder')}
-            type={'number'}
-            errorText={t('number.of.seats.error')}
-            validationFn={validateTelephone}
-            value={String(numPersons)}
-          />
-          <IonCheckbox onIonChange={(e) => setPrivacyPolicy(e.detail.checked)} labelPlacement="end" checked={privacyPolicy}>{t('privacy.policy')}</IonCheckbox>
-          {reservation.numPersons > 0 && <IonRow class="ion-margin-top ion-padding-top">
-            <IonLabel>{t('total.price')}:</IonLabel>
-            <IonLabel>{reservation.price + '€'}</IonLabel>
-          </IonRow>}
-          <IonRow>{Capacitor.isNativePlatform() ? <StripeCheckoutMobileButton disabled={!privacyPolicy || !isFormValid} /> : <StripeCheckOutWebButton disabled={!privacyPolicy || !isFormValid} />}</IonRow>
-        </>
-      )}
-    </ReservationContext.Consumer>
+        </IonRow>
+        <Field
+          label={t('personal.data.email')}
+          onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'email')}
+          placeholder={t('personal.data.email.placeholder')}
+          type={'email'}
+          errorText={t('personal.data.email.error')}
+          validationFn={emailValidation}
+          value={email}
+        />
+        <Field
+          label={t('personal.data.telephone') + ' (' + t('optional') + ')'}
+          onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'telephone')}
+          placeholder={t('personal.data.telephone.placeholder')}
+          type={''}
+          errorText={t('personal.data.telephone.error')}
+          validationFn={telephoneValidation}
+          value={telephone}
+        />
+        <IonCheckbox class='ion-margin-vertical' style={{}} onIonChange={(e) => setPrivacyPolicy(e.detail.checked)} labelPlacement="end" checked={privacyPolicy}><IonText style={{ "text-wrap": "pretty" }}>{t('privacy.policy')}</IonText> </IonCheckbox>
+      </section>
+      {browsingWeb && <section style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
+        <IonRow class="ion-padding ion-margin-top">
+          <IonTitle class='ion-no-padding ion-padding-top'>
+            <strong>{t('reservation.card.title')}</strong>
+          </IonTitle>
+        </IonRow>
+        <StripeCheckOutWebButton />
+      </section>}
+    </>
   );
 };

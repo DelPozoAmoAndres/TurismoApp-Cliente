@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 /* Ionic Components */
 import { IonItem, IonButton, IonGrid } from '@ionic/react';
 /* Components */
@@ -23,6 +23,19 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
   const { formData, loading, setFormData, handleRegister } = useRegister(modal, loginModal);
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+  const [isFormValid, setIsFormValid] = React.useState(false);
+
+  useEffect(() => {
+    setIsFormValid(
+      lengthValidation(8, formData.name) &&
+        emailValidation(formData.email) &&
+        formData.telephone ? telephoneValidation(formData.telephone) : true &&
+        dateValidation(formatDate(formData.birthday || null)) &&
+        lengthValidation(8, formData.password) &&
+      formData.password === formData.confirmPassword
+    );
+  }, [formData]);
+
   return (
     <Modal id={'register-modal-card'} title={t('sign.up')} trigger={'register-modal'} modal={modal} minHeightAndroid={570} minHeightIos={590}>
       <form onSubmit={handleRegister}>
@@ -92,7 +105,7 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
               label={t('personal.data.password')}
               errorText={t('personal.data.password.error')}
               placeholder={t('personal.data.password.placeholder')}
-              validationFn={() => true}
+              validationFn={(e) => lengthValidation(8, e)}
               type="password"
               onIonInput={(e) => {
                 setFormData({ ...formData, password: e.detail.value });
@@ -105,7 +118,7 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
               label={t('personal.data.confirm.password')}
               errorText={t('personal.data.confirm.password.error')}
               placeholder={t('personal.data.confirm.password.placeholder')}
-              validationFn={() => true}
+              validationFn={(e) => e === formData.password}
               type="password"
               onIonInput={(e) => {
                 setFormData({ ...formData, confirmPassword: e.detail.value });
@@ -113,7 +126,7 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
               value={formData.confirmPassword}
             />
           </IonItem>
-          <IonButton type="submit" expand="block">
+          <IonButton disabled={!isFormValid} type="submit" expand="block">
             {loading ? <Spinner /> : t('sign.up')}
           </IonButton>
         </IonGrid>

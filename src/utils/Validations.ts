@@ -39,4 +39,15 @@ const telephoneValidation = (value: string) => {
   return phoneRegex.test(cleanedPhoneNumber);
 };
 
-export {lengthValidation, emailValidation, searchValidation, dateValidation, telephoneValidation}
+const numberLessThanValidation = (value: number, limit: number) => {
+  return value < limit;
+};
+
+const numberMoreThanValidation = (value: number, limit: number) => {
+  return value > limit;
+}
+
+
+
+
+export { lengthValidation, emailValidation, searchValidation, dateValidation, telephoneValidation, numberLessThanValidation, numberMoreThanValidation }

@@ -1,8 +1,33 @@
-#availability-modal-card ion-grid ion-row ion-datetime {
-  margin: auto;
+#availability-modal-card ion-grid ion-row section ion-datetime {
   border-radius: 20px;
+  margin: auto;
   --background: var(--ion--color--background);
 }
+
+#availability-modal-card ion-grid ion-row section ion-input {
+  margin: 10px;
+  width: auto;
+}
+
+#availability-modal-card ion-grid ion-row section {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.numPersons {
+  align-items: center;
+  display: flex;
+  margin-top: 10px;
+}
+
+.numPersons ion-icon {
+  border-radius: 10px;
+  padding: 5px;
+  margin: auto;
+  cursor: pointer;
+  color: white;
+}
+
 
 #availability-modal-card ion-grid ion-list ion-button {
   height: 60px;
@@ -17,7 +42,7 @@
   margin-top: 10px;
 }
 
-#availability-modal-card ion-grid div {
+#availability-modal-card ion-grid .availability-button {
   position: sticky;
   position: -webkit-sticky;
   bottom: 0;
@@ -29,8 +54,8 @@
 
 @media only screen and (width >=650px) {
 
-  #availability-modal-card ion-grid ion-row ion-datetime {
-    margin: 10px;
+  #availability-modal-card ion-grid ion-row {
+    /* margin: 10px; */
     height: fit-content;
     position: sticky;
     position: -webkit-sticky;
@@ -39,13 +64,13 @@
 
   #availability-modal-card {
     --width: 620px;
-    --height: 493px;
+    --height: 510px;
     --border-radius: 6px;
 
     background-color: rgba(0 0 0 60%);
   }
 
-  #availability-modal-card ion-grid div {
+  #availability-modal-card ion-grid .availability-button {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -69,7 +94,7 @@
 }
 
 @media only screen and (width < 650px) {
-  #availability-modal-card ion-grid div {
+  #availability-modal-card ion-grid .availability-button {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -83,6 +108,10 @@
 
   #availability-modal-card ion-grid {
     height: 100%;
+  }
+
+  #availability-modal-card ion-grid ion-row ion-list {
+    width: 100%;
   }
 
 }

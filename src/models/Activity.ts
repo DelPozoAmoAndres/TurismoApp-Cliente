@@ -78,4 +78,6 @@ export interface ActivityFilter extends Record<string, unknown> {
   originDate?: string;
   endDate?: string;
   score?: number;
+  numPersons?: number;
+  hideSoldOuts?: boolean;
 }

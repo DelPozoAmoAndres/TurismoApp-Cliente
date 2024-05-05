@@ -1,6 +1,6 @@
 import React from 'react';
 /* Ionic components */
-import { IonCheckbox, IonCol, IonLabel, IonRange, IonRow } from '@ionic/react';
+import { IonCheckbox, IonCol, IonIcon, IonLabel, IonRange, IonRow } from '@ionic/react';
 /* Hooks */
 import { useFilters } from '@hooks/useFilters';
 /* Models */
@@ -13,13 +13,14 @@ import { Role } from '@models/User';
 import { useLanguage } from '@hooks/useLanguage';
 import DateFilter from './DateFilter';
 import { useScreen } from '@hooks/useScreen';
+import { addOutline, removeOutline } from 'ionicons/icons';
 
 export const ActivityFiltersView: React.FC<{
   applyFilters: (arg0: ActivityFilter) => void;
   filters?: ActivityFilter;
 }> = ({ applyFilters, filters }) => {
   const { filtersToApply, newFilters, confirmFilters, handleFilters, clearFilters } = useFilters(applyFilters, filters); // Hook to handle the filters
-  const {isMobile} = useScreen(); //Hook to have data of screen dimensions
+  const { isMobile } = useScreen(); //Hook to have data of screen dimensions
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { languages } = useLanguage();
   const auth = useAuth();
@@ -28,6 +29,16 @@ export const ActivityFiltersView: React.FC<{
     <FilterList onConfirm={confirmFilters} onClear={clearFilters} newFilters={newFilters}>
       <IonCol>
         <DateFilter handleFilters={handleFilters} filtersToApply={filtersToApply} />
+        <IonRow class='ion-align-items-center ion-margin-vertical ion-justify-content-between' style={{ gap: 10 }}>
+          <IonLabel>
+            <strong>{t('filters.participants')}:</strong>
+          </IonLabel>
+          <div className='numPersons' >
+            <IonIcon icon={removeOutline} style={{ background: filtersToApply.numPersons == 1 ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => Number(filtersToApply.numPersons) > 1 && handleFilters(Number(filtersToApply.numPersons) - 1, 'numPersons')} />
+            <IonLabel style={{ margin: '0 20px' }}>{filtersToApply.numPersons ? Number(filtersToApply.numPersons) : 1}</IonLabel>
+            <IonIcon icon={addOutline} style={{ background: "var(--ion-color-primary)" }} onClick={() => handleFilters(Number(filtersToApply.numPersons) + 1, 'numPersons')} />
+          </div>
+        </IonRow>
         <IonRow>
           <IonLabel>
             <strong>{t('filters.max.price')}:</strong> {filtersToApply.precio ? Number(filtersToApply.precio) + "€" : "∞"}
@@ -43,7 +54,7 @@ export const ActivityFiltersView: React.FC<{
             onIonChange={(e) => (e.detail.value == 0 ? handleFilters(null, 'precio') : handleFilters(e.detail.value, 'precio'))}
           ></IonRange>
         </IonRow>
-        <IonRow>
+        {/* <IonRow>
           <IonLabel>
             <strong>{t('filters.max.duration')}:</strong> {filtersToApply.duration ? Number(filtersToApply.duration) + " " + t('hours') : "∞"}
           </IonLabel>
@@ -53,18 +64,23 @@ export const ActivityFiltersView: React.FC<{
             onIonChange={(e) => (e.detail.value == 0 ? handleFilters(null, 'duration') : handleFilters(e.detail.value, 'duration'))}
             class='ion-margin-left ion-margin-right'
           ></IonRange>
-        </IonRow>
-        <IonRow>
+        </IonRow> */}
+        <IonRow class='ion-align-items-center ion-margin-vertical ion-justify-content-between' style={{ gap: 10 }}>
           <IonLabel>
-            <strong>{t('filters.min.score')}:</strong> {filtersToApply.score ? Number(filtersToApply.score) : "0"}
+            <strong>{t('filters.min.score')}:</strong>
           </IonLabel>
+          <div className='numPersons' >
+            <IonIcon icon={removeOutline} style={{ background: Number(filtersToApply.score) == 0 || Number.isNaN(Number(filtersToApply.score)) ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => Number(filtersToApply.score) > 0 && handleFilters(Number(filtersToApply.score) == 1 ? null : Number(filtersToApply.score) - 1, 'score')} />
+            <IonLabel style={{ margin: '0 20px' }}>{filtersToApply.score ? Number(filtersToApply.score) : 0}</IonLabel>
+            <IonIcon icon={addOutline} style={{ background: "var(--ion-color-primary)" }} onClick={() => handleFilters(Number.isNaN(Number(filtersToApply.score)) ? 1 : Number(filtersToApply.score) + 1, 'score')} />
+          </div>
         </IonRow>
-        <IonRow class='ion-margin-left'>
+        {/* <IonRow class='ion-margin-left'>
           <IonRange min={0} max={5} pin={true} snaps value={filtersToApply.score ? Number(filtersToApply.score) : 0} ticks={true}
             onIonChange={(e) => (e.detail.value == 0 ? handleFilters(null, 'score') : handleFilters(e.detail.value, 'score'))}
             class='ion-margin-left ion-margin-right'
           ></IonRange>
-        </IonRow>
+        </IonRow> */}
         {/* <IonRow class="ion-margin-bottom">
           <IonCheckbox
             checked={filtersToApply.petsPermited ? Boolean(filtersToApply.petsPermited) : false}
@@ -79,18 +95,18 @@ export const ActivityFiltersView: React.FC<{
             <strong>{t('filters.language')}</strong>
           </IonLabel>
         </IonRow>
-        <IonRow class="ion-margin-bottom" style={{gap:"7px", flexDirection:isMobile?"column":"row", justifyContent:"space-between"}}>
-        {Object.values(languages).map((language, index) => (
+        <IonRow class="ion-margin-bottom" style={{ gap: "7px", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between" }}>
+          {Object.values(languages).map((language, index) => (
             <IonCheckbox key={'Filter' + index}
-              checked={filtersToApply.language === language.name}
-              onIonChange={(e) => handleFilters(e.detail.checked ? language.name : null, 'language')}
+              checked={filtersToApply.language && (filtersToApply.language as Set<string>).has(language.name) ? true : false}
+              onIonChange={() => handleFilters(language.name, 'language', 'multiple')}
               color={'primary'}
             >
               <span style={{ textTransform: 'capitalize' }}>{language.name}</span>
-            </IonCheckbox>  
-        ))}
+            </IonCheckbox>
+          ))}
         </IonRow>
-        {auth.user?.role === Role.administrador &&
+        {auth.user?.role === Role.administrador ?
           <>
             <IonRow class="ion-margin-bottom">
               <IonLabel>
@@ -110,7 +126,16 @@ export const ActivityFiltersView: React.FC<{
               </IonRow>
             ))}
           </>
-        }
+          :
+          <IonRow class="ion-margin-vertical">
+            <IonCheckbox
+              checked={filtersToApply.hideSoldOuts ? Boolean(filtersToApply.hideSoldOuts) : false}
+              onIonChange={(e) => handleFilters(e.detail.checked ? true : null, 'hideSoldOuts')}
+              style={{ width: "100%" }}
+            >
+              <span><strong>{t('filters.hideSoldOuts')}</strong></span>
+            </IonCheckbox>
+          </IonRow>}
       </IonCol>
     </FilterList >
   );

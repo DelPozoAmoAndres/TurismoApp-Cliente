@@ -17,7 +17,7 @@ import BackHeaderAppLayout from '@components/app/layouts/BackHeaderAppLayout';
 import { useActivityList } from '@contexts/ActivityListContext';
 
 const ActivitySearchPage: React.FC<RouteComponentProps> = () => {
-  const defaultFilters: ActivityFilter = {}
+  const defaultFilters: ActivityFilter = { numPersons: 1, hideSoldOuts: true }
   const { setSearchText, handleFilter, filters, items } = useSearch(getActivityList, defaultFilters);
   const { updateActivities } = useActivityList(); //Context of the activities
   const { browsingWeb } = useScreen(); //Hook to have data of screen dimensions
@@ -25,10 +25,10 @@ const ActivitySearchPage: React.FC<RouteComponentProps> = () => {
   useEffect(() => {
     updateActivities(items);
     // eslint-disable-next-line
-}, [items]);
+  }, [items]);
 
   const leftMenu = (modal?: React.RefObject<HTMLIonModalElement>) => <ActivityFiltersView filters={filters} applyFilters={(filters: ActivityFilter) => { handleFilter(filters); modal?.current?.dismiss(); }} />
-  const content = <ActivityList setSearchText={setSearchText} leftMenu={leftMenu} numFilters={Object.values(filters).filter((v) => v !== null).length} />;
+  const content = <ActivityList setSearchText={setSearchText} leftMenu={leftMenu} numFilters={Object.entries(filters).filter(([key, value]) => defaultFilters[key as keyof typeof defaultFilters] !== value && value !== null).length} />;
 
   return !browsingWeb ? <BackHeaderAppLayout> {content} </BackHeaderAppLayout> : <SearchWebLayout leftMenu={leftMenu}> {content} </SearchWebLayout>;
 };

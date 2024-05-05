@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useLocation } from 'react-router';
 /* Ionic components */
 import { IonGrid } from '@ionic/react';
 /* Hooks */
@@ -8,7 +8,6 @@ import { useScreen } from '@hooks/useScreen';
 import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import { OrderStep } from '@create-reservation/1 - Activity Data/OrderStep';
 import { PersonalDataStep } from './2 - Personal Data And Payment/PersonalDataStep';
-import { DiagramSteps } from '@create-reservation/0 - Steps bar/DiagramSteps';
 /* Contexts */
 import ReservationProvider, { ReservationContext } from '@contexts/ReservationContext';
 import { ReservationStatusPage } from '@create-reservation/3 - Confirmation/ReservationStatusPage';
@@ -19,22 +18,26 @@ type ReservationProps = RouteComponentProps<{
 }>;
 
 const ReservationPage: React.FC<ReservationProps> = ({ match }) => {
-  const { browsingWeb } = useScreen();
+  const { browsingWeb, isMobile } = useScreen();
+
+  const location = useLocation<{ numPersons: number }>();
+
   const content = (
     <ReservationProvider activityId={match.params.id}>
       <ReservationContext.Consumer>
-        {({ step }) => (
-            <IonGrid class="ion-padding-horizontal" style={{ maxWidth: '500px' }}>
-              <DiagramSteps />
-              <section hidden={step !== 1} className="ion-text-center">
-                <OrderStep />
+        {({ step }) => {
+          return (
+            <IonGrid class="limits-content ion-margin-vertical ion-padding-horizontal" style={{ "display": "grid", "grid-template-columns": isMobile ? "1fr" : "1fr auto", "grid-template-rows": isMobile ? "auto 1fr" : "" }}>
+              <section hidden={step !== 2} >
+                <PersonalDataStep numPersons={location.state?.numPersons} />
               </section>
-              <section hidden={step !== 2}>
-                <PersonalDataStep />
+              <section>
+                <OrderStep />
               </section>
               {step === 3 && <ReservationStatusPage />}
             </IonGrid>
-        )}
+          )
+        }}
       </ReservationContext.Consumer>
     </ReservationProvider>
   );

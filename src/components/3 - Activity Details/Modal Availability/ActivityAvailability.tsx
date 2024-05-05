@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 /* Ionic Components*/
-import { IonButton, IonDatetime, IonGrid, IonList, IonRow } from '@ionic/react';
+import { IonButton, IonDatetime, IonGrid, IonIcon, IonLabel, IonList, IonRow } from '@ionic/react';
 /*Components */
 import { Modal } from '@shared/Modal';
 /* i18n */
@@ -16,9 +16,10 @@ import { useActivityAvailability } from '@hooks/useActivityAvailability';
 /* Styles */
 import './ActivityAvailability.css';
 import { Role } from '@models/User';
+import { addOutline, removeOutline } from 'ionicons/icons';
 
 export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activityId }) => {
-  const { selectedEvent, selectedEvents, selectedDate, highlightedDates, handleDateChange, setSelectedEvent } =
+  const { selectedEvent, selectedEvents, selectedDate, highlightedDates, handleDateChange, setSelectedEvent, numPersons, setNumPersons } =
     useActivityAvailability(activityId);
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
@@ -30,7 +31,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
 
   const handleReserva = () => {
     //Method to go to the reservation page
-    history.push('/activity/' + activityId + '/reservar', selectedEvent);
+    history.push('/activity/' + activityId + '/reservar', { event: selectedEvent, numPersons });
     modal.current?.dismiss(); //Close the modal
   };
 
@@ -45,18 +46,26 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
       title={t('availability')}
       trigger={'Availability-modal'}
       modal={modal}
-      minHeightAndroid={selectedEvents.length ? window.innerHeight : 450}
-      minHeightIos={selectedEvents.length ? window.innerHeight : 450}
+      minHeightAndroid={selectedEvents.length ? window.innerHeight : 500}
+      minHeightIos={selectedEvents.length ? window.innerHeight : 500}
     >
       <IonGrid>
         <IonRow>
-          <IonDatetime
-            locale={defaultLanguage.code}
-            presentation={'date'}
-            onIonChange={(e) => { handleDateChange(new Date(String(e.detail.value) || '')); }}
-            value={selectedDate?.toISOString()}
-            highlightedDates={highlightedDates}
-          />
+          <section>
+            <IonDatetime
+              locale={defaultLanguage.code}
+              presentation={'date'}
+              onIonChange={(e) => { handleDateChange(new Date(String(e.detail.value) || '')); }}
+              value={selectedDate?.toISOString()}
+              highlightedDates={highlightedDates}
+            />
+            <div className="numPersons">
+              <IonLabel style={{ margin: '0 20px' }}>Personas:</IonLabel>
+              <IonIcon icon={removeOutline} style={{ background: numPersons == 1 ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => numPersons > 1 && setNumPersons(numPersons - 1)} />
+              <IonLabel style={{ margin: '0 20px' }}>{numPersons}</IonLabel>
+              <IonIcon icon={addOutline} style={{ background: "var(--ion-color-primary)" }} onClick={() => setNumPersons(numPersons + 1)} />
+            </div>
+          </section>
 
           <IonList class="ion-no-padding ion-no-margin">
             {selectedEvents?.map((e, index) => (
@@ -77,7 +86,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
             ))}
           </IonList>
         </IonRow>
-        {(!auth.user || auth.user.role === Role.turista) && <div>
+        {(!auth.user || auth.user.role === Role.turista) && <div className=" availability-button">
           <IonButton
             expand="block"
             onClick={() => {

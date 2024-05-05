@@ -44,7 +44,7 @@ const Login: React.FC = () => {
                 }}
               />
             </IonItem>
-            <IonButton type="submit" expand="block" onClick={() => handleLogin()}>
+            <IonButton disabled={!email || !password} type="submit" expand="block" onClick={() => handleLogin()}>
               {' '}
               {loading ? <Spinner /> : t('log.in')}
             </IonButton>

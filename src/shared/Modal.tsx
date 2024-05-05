@@ -24,7 +24,6 @@ export const Modal: React.FC<{
   if (isMobile) {
     if ((Capacitor.getPlatform() == 'ios' || /iPhone|iPad|iPod/i.test(navigator.userAgent)) && minHeightIos !== undefined && window.innerHeight > minHeightIos) {
       //const minWidth = 492;
-      console.log("minHeightIos", minHeightIos);
       initialBreakpoint = minHeightIos / window.innerHeight;
     } else if ((Capacitor.getPlatform() == 'android' || /Android/i.test(navigator.userAgent)) && minHeightAndroid !== undefined && window.innerHeight > minHeightAndroid) {
       //const minWidth = 550;
@@ -40,7 +39,7 @@ export const Modal: React.FC<{
 
   const { t } = useTranslation();
   return (
-    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{ "--height": height ? height : "", "--max-width": "900px" }} onDidDismiss={() => setOpen && setOpen(!isOpen)}>
+    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{ "--height": height && !minHeightAndroid ? height : "", "--max-width": "900px" }} onDidDismiss={() => setOpen && setOpen(!isOpen)}>
       <IonHeader mode="ios" collapse="fade" class="ion-margin-top">
         <IonToolbar>
           <IonButtons slot="end">

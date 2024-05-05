@@ -1,6 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 /* Ionic components */
-import { IonButton, IonGrid, IonIcon, IonInput, IonItem, IonRow } from '@ionic/react'
+import { IonButton, IonGrid, IonIcon, IonItem, IonRow } from '@ionic/react'
 import { shieldOutline } from 'ionicons/icons'
 /* Components */
 import { Modal } from '@shared/Modal'
@@ -10,43 +10,71 @@ import { useChangePassword } from '@hooks/useChangePassword'
 import { useTranslation } from 'react-i18next'
 
 import "./ChangePasswordModal.css"
+import { Field } from '@shared/Field'
+import { lengthValidation } from '@utils/Validations'
 
 export const ChangePasswordModal: React.FC = () => {
     const modal = useRef<HTMLIonModalElement>(null)
     const { check, confirmPassword, oldPassword, password, setConfirmPassword, setOldPassword, setPassword } = useChangePassword();
     const { t } = useTranslation();
+
+    const [isFormValid, setIsFormValid] = React.useState(false);
+
+    useEffect(() => {
+        setIsFormValid(
+            lengthValidation(1, oldPassword) &&
+            lengthValidation(8, password) &&
+            password === confirmPassword
+        );
+    }, [oldPassword, password, confirmPassword]);
+
     return (
         <Modal id="modal-change-password" title={t("change.password.title")} trigger='password-change-modal' minHeightAndroid={550} minHeightIos={492} modal={modal} >
             <IonRow class='ion-justify-content-center'>
                 <IonIcon icon={shieldOutline} style={{ fontSize: "128px" }} />
             </IonRow>
             <IonGrid class='ion-no-padding ion-margin-end'>
-                <IonItem>
-                    <IonInput
+                <IonItem lines='none'>
+                    <Field
+                        label={t('personal.data.password')}
+                        errorText={t('personal.data.password.error')}
+                        placeholder={t('personal.data.password.placeholder')}
+                        validationFn={(e) => lengthValidation(1, e)}
+                        type="password"
+                        onIonInput={(e) => {
+                            setOldPassword(e.detail.value);
+                        }}
                         value={oldPassword}
-                        label="Contraseña actual"
-                        labelPlacement="stacked"
-                        onIonInput={(e) => e.detail.value && setOldPassword(e.detail.value)}
-                    ></IonInput>
+                    />
                 </IonItem>
-                <IonItem>
-                    <IonInput
+                <IonItem lines='none'>
+                    <Field
+                        label={t('personal.data.password')}
+                        errorText={t('personal.data.password.error')}
+                        placeholder={t('personal.data.password.placeholder')}
+                        validationFn={(e) => lengthValidation(8, e)}
+                        type="password"
+                        onIonInput={(e) => {
+                            setPassword(e.detail.value);
+                        }}
                         value={password}
-                        label="Nueva contraseña"
-                        labelPlacement="stacked"
-                        onIonInput={(e) => e.detail.value && setPassword(e.detail.value)}
-                    ></IonInput>
+                    />
                 </IonItem>
-                <IonItem>
-                    <IonInput
+                <IonItem lines='none'>
+                    <Field
+                        label={t('personal.data.confirm.password')}
+                        errorText={t('personal.data.confirm.password.error')}
+                        placeholder={t('personal.data.confirm.password.placeholder')}
+                        validationFn={(e) => e === password}
+                        type="password"
+                        onIonInput={(e) => {
+                            setConfirmPassword(e.detail.value);
+                        }}
                         value={confirmPassword}
-                        label="Confirmacion de nueva contraseña"
-                        labelPlacement="stacked"
-                        onIonInput={(e) => e.detail.value && setConfirmPassword(e.detail.value)}
-                    ></IonInput>
+                    />
                 </IonItem>
                 <div className='ion-margin-start'>
-                    <IonButton expand="block" onClick={check}>
+                    <IonButton expand="block" disabled={!isFormValid} onClick={check}>
                         Cambiar
                     </IonButton>
                 </div>

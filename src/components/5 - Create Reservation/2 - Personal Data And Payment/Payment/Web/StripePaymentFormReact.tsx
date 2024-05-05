@@ -41,16 +41,18 @@ const CheckoutFormReact: React.FC<{
       modal.current?.dismiss();
       paymentIntent?.id && (await registerReservation(paymentIntent.id)); //Register the new reservation
     }
-    setStep(3);
+    if (error?.type != "validation_error") {
+      setStep(3);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="ion-margin ion-align-items-center">
+    <form onSubmit={handleSubmit} className="ion-align-items-center">
       <PaymentElement />
-      <IonButton type="submit" expand="block" disabled={!stripe}>
+      {errorMessage && <div>{errorMessage}</div>}
+      <IonButton id="paymentButton" type="submit" expand="block" style={{ "display": "none" }} disabled={!stripe}>
         {t('pay') + ' ' + price + '€'}
       </IonButton>
-      {errorMessage && <div>{errorMessage}</div>}
     </form>
   );
 };

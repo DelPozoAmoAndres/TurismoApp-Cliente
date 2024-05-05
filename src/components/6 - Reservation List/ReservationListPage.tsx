@@ -21,6 +21,8 @@ const ReservationListPage: React.FC = () => {
   const reservationsGroup = useReservationList(); //Hooks to have all the reservation data
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
+  console.log(reservationsGroup);
+
   const content = (
     <IonList mode="ios" id="reservation-list">
       <IonRow class="ion-justify-content-center ion-margin-top">
@@ -38,7 +40,7 @@ const ReservationListPage: React.FC = () => {
         <div key={'reservationsGroup' + index} className="ion-margin-bottom">
           <IonRow class="ion-padding-start ion-padding-vertical">
             <IonLabel>
-              <strong>{formatDate(reservationGroup.dateFrom)}</strong> {reservationGroup.dateFrom !== reservationGroup.dateTo && <strong><IonIcon icon={ellipsisHorizontal} style={{ "opacity": 0.5, "margin-bottom": "-2.5px" }} /> {formatDate(reservationGroup.dateTo)}</strong>}
+              <strong>{formatDate(reservationGroup.dateFrom)}</strong> {reservationGroup.dateFrom.toString().split("T")[0] !== reservationGroup.dateTo.toString().split("T")[0] && <strong><IonIcon icon={ellipsisHorizontal} style={{ "opacity": 0.5, "margin-bottom": "-2.5px" }} /> {formatDate(reservationGroup.dateTo)}</strong>}
             </IonLabel>
           </IonRow>
           <IonCard>

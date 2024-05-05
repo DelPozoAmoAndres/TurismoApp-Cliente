@@ -45,7 +45,7 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
     }, [filtersToApply]);
 
     useEffect(() => {
-        if (filtersToApply && filtersToApply.originDate != null && filtersToApply.endDate != null && !showDate) {
+        if ((filtersToApply && (filtersToApply.originDate != null || filtersToApply.endDate != null)) && !showDate) {
             setShowDate(true)
 
         }

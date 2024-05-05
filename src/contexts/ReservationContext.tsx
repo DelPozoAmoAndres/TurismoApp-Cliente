@@ -4,14 +4,16 @@ import { Activity, Event } from '@models/Activity';
 import { Reservation } from '@models/Reservation';
 import { getActivity } from '@apis/activityApi';
 import { useLocation } from 'react-router';
-import { createReservation } from '@apis/reservationApi';
+import { createReservation, intentPayment } from '@apis/reservationApi';
 import { PaymentIntent } from '@stripe/stripe-js';
+import { emailValidation, lengthValidation, numberMoreThanValidation, telephoneValidation } from '@utils/Validations';
 
 export const ReservationContext = createContext<ReservationContextType>({
   step: 1,
   activity: null,
   event: null,
   paymentIntent: null,
+  isFormValid: false,
   reservation: {
     email: '',
     eventId: '',
@@ -21,6 +23,14 @@ export const ReservationContext = createContext<ReservationContextType>({
     telephone: 0,
     price: 0,
     date: new Date(),
+  },
+  clientSecret: '',
+  privacyPolicy: false,
+  setClientSecret: (arg) => {
+    console.log(arg);
+  },
+  setPrivacyPolicy: (arg) => {
+    console.log(arg);
   },
   setStep: (arg) => {
     console.log(arg);
@@ -43,11 +53,13 @@ interface Props {
   activityId: string;
 }
 const ReservationProvider: React.FC<Props> = (props) => {
-  const location = useLocation();
+  const location = useLocation<{ event: Event }>();
   const [paymentIntent, setPaymentIntent] = useState<PaymentIntent | null>(null);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const [activity, setActivity] = useState<Activity | null>(null);
-  const event = location.state as Event;
+  const event = location.state && location.state.event ? location.state.event : null;
+  const [isFormValid, setIsFormValid] = React.useState(false);
+  const [privacyPolicy, setPrivacyPolicy] = React.useState(false);
   const [reservation, setReservation] = useState<Reservation>({
     email: '',
     eventId: event?._id || '',
@@ -55,13 +67,36 @@ const ReservationProvider: React.FC<Props> = (props) => {
     numPersons: 1,
     state: 'pending',
     telephone: 0,
-    price: event?.price,
+    price: event?.price || 0,
     date: new Date(),
   });
+  const [clientSecret, setClientSecret] = useState('');
+
+  const createIntent = async () => {
+    await intentPayment(reservation.price).then((data) => {
+      setClientSecret(data.client_secret);
+      setPaymentIntent(data);
+    });
+  };
+
+  useEffect(() => {
+    createIntent();
+    //eslint-disable-next-line
+  }, [reservation.numPersons]);
 
   useEffect(() => {
     getActivity(props.activityId).then((a: Activity) => setActivity(a));
+    //eslint-disable-next-line
   }, [props.activityId]);
+
+
+  useEffect(() => {
+    setIsFormValid(lengthValidation(8, reservation.name)
+      && emailValidation(reservation.email)
+      && (reservation.telephone ? telephoneValidation(String(reservation.telephone)) : true)
+      && numberMoreThanValidation(reservation.numPersons, 0));
+    //eslint-disable-next-line
+  }, [reservation]);
 
   const setPersonalData = (data: Record<string, unknown>) => {
     const keyList = Object.keys(data);
@@ -69,6 +104,7 @@ const ReservationProvider: React.FC<Props> = (props) => {
     keyList.forEach((key: string) => {
       reservationCopy = { ...reservationCopy, [key]: data[key] };
       if (key === 'numPersons' && reservationCopy.numPersons >= 1) reservationCopy.price = Number(event?.price) * reservationCopy.numPersons;
+      if (key === 'telephone' && String(reservationCopy.telephone) === '') reservationCopy.telephone = 0;
     });
     console.log(reservationCopy);
     setReservation(reservationCopy);
@@ -78,6 +114,7 @@ const ReservationProvider: React.FC<Props> = (props) => {
     return await createReservation(reservation, intentId);
   };
 
+
   return (
     <ReservationContext.Provider
       value={{
@@ -86,7 +123,12 @@ const ReservationProvider: React.FC<Props> = (props) => {
         setPersonalData,
         setPaymentIntent,
         registerReservation,
+        isFormValid,
+        privacyPolicy,
+        setPrivacyPolicy,
         activity,
+        clientSecret,
+        setClientSecret,
         event,
         reservation,
         paymentIntent,
