@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 /* Ionic components */
 import { IonGrid, IonRow } from '@ionic/react';
 /* Hooks */
-import { useCategory } from '@hooks/useCategory';
+import { usePopular } from '@hooks/usePopular';
 /* Components */
 import { ActivityItem } from '@components/2 - Search Activity/List/ActivityItem';
 
 export const ActivityCardList: React.FC = () => {
-  const { categories } = useCategory(); //List of activities grouped by category
-  const [filtro] = useState<'populares' | 'montaña' | 'playa'>('populares'); // Variable to change between the 3 lists of activities
+  const { actividades } = usePopular(); //List of activities grouped by category
 
   return (
     <IonGrid class="limits-content ion-no-padding" >
       <IonRow class="grid-container ion-margin-bottom ion-margin-top ion-no-padding" >
-        {/* <strong className="ion-no-margin">{t('welcome.categories.title')}</strong> */}
-        {/* <h2> <strong className="chosen-title">Los <span className="plus">+</span><span className="highlight">Elegidos</span></strong></h2> */}
-        {categories[filtro].map((activity, index) => (
-          <>
+        {actividades.map((activity, index) => (
           <ActivityItem key={index} activity={activity} />
-          {(index == 0 || index==1 || index==2 )&& <ActivityItem key={index+100} activity={activity} />}
-          </>
         ))}
       </IonRow>
     </IonGrid>

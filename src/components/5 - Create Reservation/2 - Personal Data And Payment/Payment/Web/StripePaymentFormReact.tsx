@@ -7,17 +7,18 @@ import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js'
 import { useTranslation } from 'react-i18next';
 /* Contexts */
 import { useReservation } from '@contexts/ReservationContext';
+import { useHistory } from 'react-router';
 
 const CheckoutFormReact: React.FC<{
   price: number;
-  modal: React.RefObject<HTMLIonModalElement>;
   registerReservation: (arg0: string) => void;
-}> = ({ price, modal, registerReservation }) => {
+}> = ({ price, registerReservation }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { activity, setStep, paymentIntent } = useReservation(); //Context of reservation
+  const { activity } = useReservation(); //Context of reservation
   const stripe = useStripe(); // Hook that returns a reference to the Stripe instance passed to the Elements provider
   const elements = useElements(); //Hook to pass the payment information collected by the Payment Element to the Stripe API
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+  const history = useHistory();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     //Pressing the submit button try to confirm the payment
@@ -27,7 +28,7 @@ const CheckoutFormReact: React.FC<{
       return;
     }
 
-    const { error } = await stripe.confirmPayment({
+    const result = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: process.env.REACT_APP_URL + '/activity/' + activity?._id + '/reservar',
@@ -35,14 +36,14 @@ const CheckoutFormReact: React.FC<{
       redirect: 'if_required',
     });
 
-    if (error) {
-      setErrorMessage(error.message || 'Error');
-    } else {
-      modal.current?.dismiss();
-      paymentIntent?.id && (await registerReservation(paymentIntent.id)); //Register the new reservation
-    }
-    if (error?.type != "validation_error") {
-      setStep(3);
+    switch (result.paymentIntent?.status) {
+      case 'succeeded':
+        await registerReservation(result.paymentIntent.id);
+        history.replace('/thank-you')
+        break;
+      default:
+        setErrorMessage(result.error?.message || 'An unknown error occurred');
+        break;
     }
   };
 

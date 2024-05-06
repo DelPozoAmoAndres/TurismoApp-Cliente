@@ -3,8 +3,7 @@ import { UserFilter } from '../models/User';
 import { ActivityFilter } from '../models/Activity';
 import { NotificationContext } from '@contexts/NotificationToastContext';
 
-export const useFilters = (applyFilters: (arg0: UserFilter | ActivityFilter) => void, filters?: Record<string, unknown>) => {
-  const defaultFilters = { numPersons: 1, hideSoldOuts: true };
+export const useFilters = (applyFilters: (arg0: UserFilter | ActivityFilter) => void, defaultFilters: Record<string, unknown>, filters?: Record<string, unknown>) => {
   const [filtersToApply, setFilters] = useState<Record<string, unknown>>(filters ? filters : defaultFilters);
   const [newFilters, setNewFilters] = useState<boolean>(false);
   const { showNotification } = useContext(NotificationContext);

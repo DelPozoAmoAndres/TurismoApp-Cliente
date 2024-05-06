@@ -41,7 +41,7 @@ export const ReservationContext = createContext<ReservationContextType>({
   setPersonalData: (arg) => {
     console.log(arg);
   },
-  registerReservation: (arg) => {
+  registerReservation: async (arg) => {
     console.log(arg);
   },
 });

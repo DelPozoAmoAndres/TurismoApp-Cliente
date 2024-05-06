@@ -6,11 +6,10 @@ import { IonGrid } from '@ionic/react';
 import { useScreen } from '@hooks/useScreen';
 /* Components */
 import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
-import { OrderStep } from '@create-reservation/1 - Activity Data/OrderStep';
+import { Summary } from '@components/5 - Create Reservation/Summary';
 import { PersonalDataStep } from './2 - Personal Data And Payment/PersonalDataStep';
 /* Contexts */
-import ReservationProvider, { ReservationContext } from '@contexts/ReservationContext';
-import { ReservationStatusPage } from '@create-reservation/3 - Confirmation/ReservationStatusPage';
+import ReservationProvider from '@contexts/ReservationContext';
 import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
 
 type ReservationProps = RouteComponentProps<{
@@ -24,21 +23,14 @@ const ReservationPage: React.FC<ReservationProps> = ({ match }) => {
 
   const content = (
     <ReservationProvider activityId={match.params.id}>
-      <ReservationContext.Consumer>
-        {({ step }) => {
-          return (
-            <IonGrid class="limits-content ion-margin-vertical ion-padding-horizontal" style={{ "display": "grid", "grid-template-columns": isMobile ? "1fr" : "1fr auto", "grid-template-rows": isMobile ? "auto 1fr" : "" }}>
-              <section hidden={step !== 2} >
-                <PersonalDataStep numPersons={location.state?.numPersons} />
-              </section>
-              <section>
-                <OrderStep />
-              </section>
-              {step === 3 && <ReservationStatusPage />}
-            </IonGrid>
-          )
-        }}
-      </ReservationContext.Consumer>
+      <IonGrid class="limits-content ion-margin-vertical ion-padding-horizontal" style={{ "display": "grid", "grid-template-columns": isMobile ? "1fr" : "1fr auto", "grid-template-rows": isMobile ? "auto 1fr" : "", "column-gap": "20px" }}>
+        <section>
+          <PersonalDataStep numPersons={location.state?.numPersons} />
+        </section>
+        <section >
+          <Summary />
+        </section>
+      </IonGrid>
     </ReservationProvider>
   );
 

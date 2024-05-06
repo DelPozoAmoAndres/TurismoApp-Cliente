@@ -47,7 +47,8 @@ export const useDashboardData = () => {
         });
         fetchReservationsData();
         fetchData();
-    }, [socket.active, socket]);
+        //eslint-disable-next-line
+    }, []);
 
     return { totalReservations, totalIncome, occupationData, totalUsers, cancelationData, categoryReservations, reservations };
 }

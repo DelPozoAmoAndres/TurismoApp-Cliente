@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 /* Ionic Components */
 import { IonButton } from '@ionic/react';
 import { Capacitor } from '@capacitor/core';
-import { Stripe } from '@capacitor-community/stripe';
+import { PaymentSheetEventsEnum, Stripe } from '@capacitor-community/stripe';
 /* Apis */
 import { intentPayment } from '@apis/reservationApi';
 /* Contexts */
@@ -11,15 +11,18 @@ import { useReservation } from '@contexts/ReservationContext';
 import { useTranslation } from 'react-i18next';
 /* Components */
 import Spinner from '@shared/Spinner';
+import { useHistory } from 'react-router';
 
 const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled }) => {
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-  const { reservation, registerReservation, setStep, paymentIntent, setPaymentIntent } = useReservation(); //Context of reservation
+  const { reservation, registerReservation, paymentIntent, setPaymentIntent } = useReservation(); //Context of reservation
 
   if (Capacitor.isPluginAvailable('Stripe')) {
     Stripe.initialize({
       publishableKey: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY + '',
+
     });
   }
 
@@ -38,13 +41,19 @@ const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled 
         (await Stripe.createPaymentSheet({
           paymentIntentClientSecret: intent?.client_secret,
           merchantDisplayName: 'Astour',
-
         }));
 
-      await Stripe.presentPaymentSheet();
-      intent?.id && intent?.client_secret && (await registerReservation(intent?.id));
+      const result = await Stripe.presentPaymentSheet();
+      switch (result.paymentResult) {
+        case PaymentSheetEventsEnum.Completed:
+          intent?.id && await registerReservation(intent?.id);
+          history.replace('/thank-you')
+          break;
+        case PaymentSheetEventsEnum.Canceled:
+          console.log('PaymentSheet canceled');
+          break
+      }
 
-      setStep(3);
     } catch (error) {
       console.error('Payment failed:', error);
     } finally {
@@ -53,7 +62,7 @@ const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled 
   };
 
   return (
-    <IonButton onClick={handleCheckout} disabled={disabled || loading}>
+    <IonButton onClick={handleCheckout} disabled={disabled || loading} style={{ width: "100%" }}>
       {loading ? <Spinner /> : t('continue')}
     </IonButton>
   );

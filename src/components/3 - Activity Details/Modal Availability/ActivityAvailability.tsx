@@ -80,7 +80,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
                 >
                   {`${formatDateToTime(e.date)}`}
                   <br />
-                  {e.language ? e.language : 'Español'} <br /> {e.price + '€'}
+                  {e.language} <br /> {e.price + '€'}
                 </IonButton>
               </>
             ))}

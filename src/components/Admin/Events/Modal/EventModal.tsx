@@ -7,10 +7,10 @@ import { useEdit } from '@hooks/useEdit';
 import { filterPropertiesNotNull, formatDate } from '@utils/Utils';
 import { User } from '@models/User';
 import { checkWorkers } from '@apis/adminUserApi';
-import { createEvent } from '@apis/adminActivityApi';
+import { createEvent, getAllActivities } from '@apis/adminActivityApi';
 import { useLanguage } from '@hooks/useLanguage';
 import "./EventModal.css";
-import { getActivityFromEvent, getActivityList } from '@apis/activityApi';
+import { getActivityFromEvent } from '@apis/activityApi';
 import { editEvent } from '@apis/eventsApi';
 
 export const EventModal: React.FC<{ activity?: string, event: Event, action: "add" | "edit", update?: () => void }> = ({ activity, event, action, update }) => {
@@ -25,7 +25,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
     const [repeatEndDate, setRepeatEndDate] = useState<string | null>(null);
     const [time, setTime] = useState<string | null>(null);
     const modal = useRef<HTMLIonModalElement>(null);
-    const { defaultLanguage } = useLanguage();
+    const { defaultLanguage, languages } = useLanguage();
 
     const [guias, setGuias] = useState<User[]>([]);
     useEffect(() => {
@@ -36,7 +36,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
             })
         }
         else if (action == "add") {
-            getActivityList("", {}).then((activities) => { setActivityList(activities); console.log("hola") });
+            getAllActivities("", {}).then((activities) => { setActivityList(activities); console.log("hola") });
         }
         // eslint-disable-next-line
     }, [modal]);
@@ -115,13 +115,24 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                         <IonLabel>{activityName} - {activityId}</IonLabel>
                     </IonItem>
                 }
-                {action == "add" && <IonItem>
-                    <IonLabel position="stacked">Precio</IonLabel>
-                    <IonInput
-                        value={formData?.price.toString()}
-                        onIonInput={(e) => formData && setFormData({ ...formData, price: Number(e.detail.value) })}
-                    ></IonInput>
-                </IonItem>}
+                {action == "add" && <>
+                    <IonItem>
+                        <IonLabel position="stacked">Precio</IonLabel>
+                        <IonInput
+                            value={formData?.price.toString()}
+                            onIonInput={(e) => formData && setFormData({ ...formData, price: Number(e.detail.value) })}
+                        ></IonInput>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel position="stacked">Idioma</IonLabel>
+                        <IonSelect value={formData.language} onIonChange={(e) => setFormData({ ...formData, language: e.detail.value })}>
+                            {Object.values(languages).map((language) => (
+                                <IonSelectOption key={language.code} value={language.code}>
+                                    {language.name}
+                                </IonSelectOption>
+                            ))}
+                        </IonSelect>
+                    </IonItem></>}
                 <IonItem>
                     <IonLabel position="stacked">Número de plazas</IonLabel>
                     <IonInput

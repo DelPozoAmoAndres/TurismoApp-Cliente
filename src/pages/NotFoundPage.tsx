@@ -1,4 +1,3 @@
-// NotFound.tsx
 import React from 'react';
 import { IonContent, IonHeader, IonToolbar, IonTitle, IonText } from '@ionic/react';
 import { useScreen } from '../hooks/useScreen';

@@ -45,6 +45,7 @@ import { AdminActivityList } from '@components/Admin/Activities/AdminActivityLis
 import { AdminReservationList } from '@components/Admin/Reservations/AdminReservationList';
 import { AdminUserList } from '@components/Admin/Users/AdminUserList';
 import { AdminEventList } from '@components/Admin/Events/AdminEventList';
+import ThankYouPage from '@pages/ThankYouPage';
 
 setupIonicReact();
 
@@ -80,6 +81,7 @@ const AppIndex: React.FC = () => {
             <PrivateRoute path="/activity/:id/reservar/" component={ReservationPage} alternativePath="/" />
             <PrivateRoute exact path="/perfil" component={ProfilePage} alternativePath="/" />
             <PrivateRoute exact path="/reservas" component={ReservationListPage} alternativePath="/" />
+            <PrivateRoute exact path="/thank-you" component={ThankYouPage} alternativePath="/" />
             {/* <Route path="/payment/status" component={ReservationStatusPage} /> */}
             {/* <PrivateRoute exact path="/saved" component={SavedPage} alternativePath='/' /> */}
             <PrivateRoute exact path="/reservation/:id" component={ReservationDetailsPage} alternativePath="/" />

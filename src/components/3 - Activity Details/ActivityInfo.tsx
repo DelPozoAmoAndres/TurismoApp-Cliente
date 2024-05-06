@@ -31,6 +31,8 @@ export const ActivityInfo: React.FC<{
   date.setHours(0, 0, 0, 0);
   date.setMinutes(activityData.duration);
 
+  console.log(activityData.events)
+
   return (
     <div id="activity-info">
       <IonRow class="ion-margin-bottom">
@@ -45,7 +47,11 @@ export const ActivityInfo: React.FC<{
             <IonButton {...soldOutProps} expand="block" id="Availability-modal">
               {auth.user?.role === Role.administrador
                 ? t('show.events')
-                : activityData?.events && activityData.events.length > 0 && activityData.state != ActivityState['temporaly-closed'] ? t('show.availability') : t('sold.out')}
+                : activityData?.events
+                  && activityData.events.filter(e => e.bookedSeats == undefined || e.seats > e.bookedSeats).length > 0
+                  && activityData.state != ActivityState['temporaly-closed']
+                  ? t('show.availability')
+                  : t('sold.out')}
               <IonIcon slot="end" icon={calendarOutline} />
             </IonButton>
           </section>

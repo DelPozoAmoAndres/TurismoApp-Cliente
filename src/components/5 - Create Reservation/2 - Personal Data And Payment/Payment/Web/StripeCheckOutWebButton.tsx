@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 /* Ionic Components */
 import StripePaymentFormReact from './StripePaymentFormReact';
 /* Stripe */
@@ -27,7 +27,7 @@ export const StripeCheckOutWebButton: React.FC = () => {
       colorPrimary: '#209059',
     },
   };
-  const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
+
 
   return (
     <>
@@ -40,7 +40,7 @@ export const StripeCheckOutWebButton: React.FC = () => {
         <Elements stripe={stripePromise} options={{
           clientSecret: clientSecret, appearance: { ...appearance, theme: 'flat' }
         }}>
-          <StripePaymentFormReact registerReservation={registerReservation} price={reservation.price} modal={modal} />
+          <StripePaymentFormReact registerReservation={registerReservation} price={reservation.price} />
         </Elements>
       </div>}
       {/* )}

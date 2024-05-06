@@ -43,7 +43,7 @@ export class Event {
     this.seats = 0;
     this.date = new Date();
     this.price = 0;
-    this.language = "español";
+    this.language = "es";
     this.guide = ""
     this.bookedSeats = 0;
   }
@@ -71,13 +71,12 @@ export class Review {
 }
 
 export interface ActivityFilter extends Record<string, unknown> {
-  precio?: number;
+  price?: number;
   duration?: number;
   state?: ActivityState;
-  language?: string;
+  language?: Set<string>;
   originDate?: string;
   endDate?: string;
-  score?: number;
+  minScore?: number;
   numPersons?: number;
-  hideSoldOuts?: boolean;
 }

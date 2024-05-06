@@ -16,5 +16,5 @@ export interface ReservationContextType {
   setStep: (arg0: number) => void;
   setPersonalData: (arg0: NonNullable<unknown>) => void;
   setPaymentIntent: (arg0: PaymentIntent) => void;
-  registerReservation: (arg0: string) => void;
+  registerReservation: (arg0: string) => Promise<any>;
 }

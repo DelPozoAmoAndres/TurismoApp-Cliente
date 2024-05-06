@@ -6,9 +6,10 @@ const filterPropertiesNotNull = (data: any) => {
   const filteredData: any = {};
   Object.entries(data).forEach(([key, value]) => {
     if (value && value !== null && value !== '') {
-      filteredData[key] = value;
+      filteredData[key] = value instanceof Set ? Array.from(value) : value;
     }
   });
+  console.log(filteredData);
   return filteredData;
 };
 
@@ -119,4 +120,4 @@ async function optimizeImage(fr: FileReader, file: File) {
   });
 }
 
-export { filterPropertiesNotNull, formatDate, formatDateToTime, getItem, setItem, removeItem, uploadImage,formatTime };
+export { filterPropertiesNotNull, formatDate, formatDateToTime, getItem, setItem, removeItem, uploadImage, formatTime };

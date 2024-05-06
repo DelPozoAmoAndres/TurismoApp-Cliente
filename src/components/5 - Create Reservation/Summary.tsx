@@ -7,11 +7,11 @@ import { formatDate } from '@utils/Utils';
 import { useReservation } from '@contexts/ReservationContext';
 /* i18n */
 import { useTranslation } from 'react-i18next';
-import StripeCheckoutMobileButton from '../2 - Personal Data And Payment/Payment/Mobile/StripeCheckOutMobileButton';
+import StripeCheckoutMobileButton from './2 - Personal Data And Payment/Payment/Mobile/StripeCheckOutMobileButton';
 import { Capacitor } from '@capacitor/core';
 import { useScreen } from '@hooks/useScreen';
 
-export const OrderStep: React.FC = () => {
+export const Summary: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { activity, event, reservation, isFormValid, privacyPolicy } = useReservation(); //Context of reservation
   const { isMobile } = useScreen();
