@@ -16,7 +16,6 @@ import { createActivity, editActivity } from '@apis/adminActivityApi';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { trashBinOutline } from 'ionicons/icons';
-import { relative } from 'path';
 
 export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit", update?: () => void }> = ({ activity, action, update }) => {
     const { t } = useTranslation();
@@ -91,6 +90,17 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                             ))}
                         </IonSelect>
                     </IonItem>
+                    <IonSegment mode="ios" value={language} onIonChange={(e) => { e.detail.value && setLanguage(e.detail.value); }}>
+                        <IonSegmentButton value="es">
+                            <IonLabel>Español</IonLabel>
+                        </IonSegmentButton>
+                        <IonSegmentButton value="en">
+                            <IonLabel>English</IonLabel>
+                        </IonSegmentButton>
+                        <IonSegmentButton value="fr">
+                            <IonLabel>Français</IonLabel>
+                        </IonSegmentButton>
+                    </IonSegment>
                     <IonItem>
                         <IonTextarea
                             class='resize'
