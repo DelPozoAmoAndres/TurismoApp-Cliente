@@ -45,7 +45,7 @@ export const Modal: React.FC<{
           <IonButtons slot="end">
             <IonButton onClick={() => dismiss()}>
               <IonIcon slot="end" icon={closeOutline} />
-              <IonLabel slot="start">{t('close')}</IonLabel>
+              <IonLabel slot="start">{t('ACTIONS.CLOSE')}</IonLabel>
             </IonButton>
           </IonButtons>
           <IonTitle>{title}</IonTitle>

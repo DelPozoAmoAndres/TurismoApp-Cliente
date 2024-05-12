@@ -36,9 +36,9 @@ export const ChangePasswordModal: React.FC = () => {
             <IonGrid class='ion-no-padding ion-margin-end'>
                 <IonItem lines='none'>
                     <Field
-                        label={t('personal.data.password')}
-                        errorText={t('personal.data.password.error')}
-                        placeholder={t('personal.data.password.placeholder')}
+                        label={t('DATA.PASSWORD.LABEL')}
+                        errorText={t('DATA.PASSWORD.ERROR')}
+                        placeholder={t('DATA.PASSWORD.PLACEHOLDER')}
                         validationFn={(e) => lengthValidation(1, e)}
                         type="password"
                         onIonInput={(e) => {
@@ -49,9 +49,9 @@ export const ChangePasswordModal: React.FC = () => {
                 </IonItem>
                 <IonItem lines='none'>
                     <Field
-                        label={t('personal.data.password')}
-                        errorText={t('personal.data.password.error')}
-                        placeholder={t('personal.data.password.placeholder')}
+                        label={t('DATA.PASSWORD.LABEL')}
+                        errorText={t('DATA.PASSWORD.ERROR')}
+                        placeholder={t('DATA.PASSWORD.PLACEHOLDER')}
                         validationFn={(e) => lengthValidation(8, e)}
                         type="password"
                         onIonInput={(e) => {
@@ -74,7 +74,7 @@ export const ChangePasswordModal: React.FC = () => {
                     />
                 </IonItem>
                 <div className='ion-margin-start'>
-                    <IonButton expand="block" disabled={!isFormValid} onClick={check}>
+                    <IonButton expand="block" disabled={!isFormValid} onClick={async () => { check().then((res: boolean) => { console.log(res, modal); if (res) modal.current?.dismiss() }) }}>
                         Cambiar
                     </IonButton>
                 </div>

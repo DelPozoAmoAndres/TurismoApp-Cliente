@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { useTranslation } from 'react-i18next';
 
 interface CancellationData {
-    period: string; 
+    period: string;
     cancellations: number;
 }
 
@@ -18,8 +19,8 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
     const widthPref = width - margin.left - margin.right;
     const heightPref = height - margin.top - margin.bottom;
+    const { t } = useTranslation();
 
-    
 
     useEffect(() => {
         if (data) {
@@ -45,7 +46,7 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
 
         g.append("g")
             .attr("transform", `translate(0, ${heightPref})`)
-            .call(d3.axisBottom(xScale).tickFormat(i => data.length <= 15 ? `Día ${i}` : i));
+            .call(d3.axisBottom(xScale).tickFormat(i => data.length <= 15 ? t('DAY') + " " + i : i));
 
         g.append("g")
             .call(d3.axisLeft(yScale));
@@ -55,13 +56,13 @@ export const CancellationRateChart: React.FC<CancellationRateChartProps> = ({ da
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", d => xScale(d.period.toString())??0)
+            .attr("x", d => xScale(d.period.toString()) ?? 0)
             .attr("y", d => yScale(d.cancellations))
             .attr("width", xScale.bandwidth())
             .attr("height", d => heightPref - yScale(d.cancellations))
             .attr("fill", "var(--ion-color-primary)");
     };
-        return <svg preserveAspectRatio="xMidYMid meet" ref={ref} width={widthPref + margin.left + margin.right} height={heightPref + margin.top + margin.bottom}></svg>;
+    return <svg preserveAspectRatio="xMidYMid meet" ref={ref} width={widthPref + margin.left + margin.right} height={heightPref + margin.top + margin.bottom}></svg>;
 
 };
 

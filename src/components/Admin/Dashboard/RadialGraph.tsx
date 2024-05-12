@@ -1,13 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { useTranslation } from 'react-i18next';
 
 interface RadialGraphProps {
-    values: {category:string,reservationsRate:number}[];
+    values: { category: string, reservationsRate: number }[];
 }
 
 const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
     const ref = useRef<SVGSVGElement>(null);
     const legend = useRef<SVGSVGElement>(null);
+    const { t } = useTranslation();
 
     const data = values.map((value) => value.reservationsRate);
 
@@ -37,8 +39,8 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
 
         const colorArray = [
             '#2B9E63',
-            '#2B9E9D', 
-            '#2B669E', 
+            '#2B9E9D',
+            '#2B669E',
             '#2B2D9E',
             '#632B9E',
             '#9D2B9E',
@@ -77,7 +79,7 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
         legend.append("text")
             .attr("x", 20)
             .attr("y", 10)
-            .text((d, i) => values[i].category);
+            .text((d, i) => t("CATEGORY." + values[i].category.toUpperCase()));
 
         // const arc = d3.arc()
         //     .innerRadius(0)
@@ -101,12 +103,12 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             .attr("fill", (d, i) => colorScale(i)); // Asigna un color a cada segmento
     };
 
-    return <div style={{minWidth:"425px"}}>
-            <svg ref={legend} width={125} height={"100%"}></svg>
-            <svg  preserveAspectRatio="xMidYMid meet" 
-                ref={ref} width={width} height={height}>
-            </svg>
-        </div>;
+    return <div style={{ minWidth: "425px" }}>
+        <svg ref={legend} width={125} height={"100%"}></svg>
+        <svg preserveAspectRatio="xMidYMid meet"
+            ref={ref} width={width} height={height}>
+        </svg>
+    </div>;
 };
 
 export default RadialGraph;

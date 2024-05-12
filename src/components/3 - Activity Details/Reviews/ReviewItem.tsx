@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 /* Ionic components */
 import { IonButton, IonCard, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
 import { starOutline } from 'ionicons/icons';
@@ -12,13 +12,16 @@ import { useAuth } from '@contexts/AuthContexts';
 /* Styles */
 import "./ReviewItem.css";
 /* Apis */
-import { reportReview } from '@apis/reviewApi';
+import { deleteReview, reportReview } from '@apis/reviewApi';
 /* i18n */
 import { useTranslation } from 'react-i18next';
+import { ReviewModal } from '@components/7 - Reservation Details/Add Review/ReviewModal';
+import { NotificationContext } from '@contexts/NotificationToastContext';
 
-export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
+export const ReviewItem: React.FC<{ comment: Review, setRefresh: (arg: boolean) => void }> = ({ comment, setRefresh }) => {
     const { t } = useTranslation();
     const auth = useAuth();
+    const { showNotification } = useContext(NotificationContext);
     return (
         <IonCard id="activity-review" class="ion-no-margin" style={{ width: "100%" }}>
             <section className="ion-margin-bottom">
@@ -42,17 +45,17 @@ export const ReviewItem: React.FC<{ comment: Review }> = ({ comment }) => {
                         {t('report')}
                     </IonButton>
                 }
-                {/* {auth.user?._id === comment.author && comment.activityId &&
+                {auth.user?._id === comment.author && comment.activityId &&
                     <>
-                        <IonButton color={'danger'} onClick={()=>comment._id && deleteReview(comment._id)}>
+                        <IonButton color={'danger'} onClick={() => comment._id && deleteReview(comment._id).then((res: boolean) => { if (res) { showNotification("Se ha eliminado correctamente"); setRefresh && setRefresh(true) } else showNotification("Ha habido un problema para eliminar la valoración"); })}>
                             {t('delete')}
                         </IonButton>
                         <IonButton id={comment._id}>
                             {t('edit')}
                         </IonButton>
-                        <ReviewModal action={"edit"} activityId={comment.activityId} reviewData={comment} reservationId={comment.reservationId} />
+                        <ReviewModal action={"edit"} activityId={comment.activityId} reviewData={comment} reservationId={comment.reservationId} setRefresh={setRefresh} />
                     </>
-                } */}
+                }
             </IonRow>
         </IonCard >
     )

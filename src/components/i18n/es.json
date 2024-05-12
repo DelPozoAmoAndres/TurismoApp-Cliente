@@ -1,0 +1,136 @@
+{
+  "ACTIONS": {
+    "CLOSE": "Cerrar",
+    "CREATE": "Crear",
+    "SAVE": "Guardar cambios"
+  },
+  "CATEGORY": {
+    "CULTURAL": "Cultural",
+    "DEPORTIVA": "Deportiva",
+    "GASTRONÓMICA": "Gastronómica",
+    "NATURALEZA": "Naturaleza",
+    "NOCTURNA": "Nocturna",
+    "RELIGIOSA": "Religiosa",
+    "SOCIAL": "Social"
+  },
+  "CONTACT": {
+    "FOOTER": "Turismo Asturias. Todos los derechos reservados.",
+    "TITLE": "Contacto"
+  },
+  "DASHBOARD": {
+    "ACTIVITY": {
+      "TITLE": "Actividades"
+    },
+    "LIST": {
+      "BIRTHDAY": "Fecha de nacimiento",
+      "CANCEL": "Cancelar",
+      "COUNTRY": "País",
+      "DELETE": "Eliminar",
+      "DETAILS": "Detalles",
+      "EDIT": "Editar",
+      "EMAIL": "Email",
+      "ID": "Nº de identificación",
+      "NAME": "Nombre",
+      "ROLE": "Permisos",
+      "TELEPHONE": "Teléfono"
+    },
+    "RECENT-ACTIVITY": "Actividad reciente",
+    "STATS": {
+      "CANCELATIONS": "Cancelaciones",
+      "CATEGORY-SALES": "Ventas por categoria",
+      "INCOME": "Ingresos",
+      "LAST-MONTH": "Último mes",
+      "OCCUPATION": "Ocupación",
+      "RESERVATIONS": "Reservas",
+      "USERS": "Usuarios"
+    },
+    "TITLE": "Panel de control",
+    "USER": {
+      "TITLE": "Usuarios"
+    }
+  },
+  "DATA": {
+    "BIRTHDAY": {
+      "ERROR": "Debe introducir una fecha anterior al día de hoy",
+      "LABEL": "Fecha de nacimiento",
+      "PLACEHOLDER": "Introduzca fecha de nacimiento"
+    },
+    "COUNTRY": {
+      "LABEL": "País",
+      "PLACEHOLDER": "Introduzca país"
+    },
+    "EMAIL": {
+      "ERROR": "Debe introducir un correo electrónico válido",
+      "LABEL": "Email",
+      "PLACEHOLDER": "Introduzca email"
+    },
+    "NAME": {
+      "ERROR": "Debe introducir mínimo 8 caracteres",
+      "LABEL": "Nombre y apellidos",
+      "PLACEHOLDER": "Introduzca nombre y apellidos"
+    },
+    "PASSWORD": {
+      "ERROR": "Debe introducir mínimo 8 caracteres",
+      "LABEL": "Contraseña",
+      "PLACEHOLDER": "Introuzca una contraseña"
+    },
+    "TELEPHONE": {
+      "ERROR": "Debe introducir un teléfono válido",
+      "LABEL": "Teléfono",
+      "PLACEHOLDER": "Introduzca teléfono"
+    }
+  },
+  "DAY": "Día",
+  "FROM": "Desde",
+  "HOME": {
+    "TITLE": "Inicio"
+  },
+  "LOG": {
+    "OUT": "Cerrar sesión"
+  },
+  "OPTIONAL": "Opcional",
+  "PROFILE": {
+    "ACCOUNT": {
+      "CREATION": "Miembro desde",
+      "DELETE": "Eliminar cuenta",
+      "PASSWORD": {
+        "CHANGE": "Cambiar contraseña"
+      },
+      "TITLE": "Cuenta"
+    },
+    "DATA": {
+      "MODIFY": "Editar datos",
+      "TITLE": "Datos personales"
+    },
+    "TITLE": "Area personal"
+  },
+  "RESERVATION": {
+    "STATE": {
+      "CANCELED": "Cancelada",
+      "SUCCESS": "Pagada"
+    }
+  },
+  "ROLE": {
+    "ADMIN": "Administrador",
+    "USER": "Turista",
+    "WORKER": "Guía"
+  },
+  "SEARCH": "Buscar",
+  "SHOW": {
+    "INFO": "Ver más"
+  },
+  "THEME": {
+    "CHANGE": "Cambiar tema"
+  },
+  "USER": {
+    "TITLE": {
+      "ADD": "Dar de alta usuario",
+      "EDIT": "Editar usuario"
+    }
+  },
+  "WELCOME": {
+    "MESSAGE": "Descubre los mejores servicios de turismo en Asturias. Desde playas paradisíacas hasta montañas impresionantes, ¡aquí encontrarás todo lo que necesitas para disfrutar de tus vacaciones!",
+    "SEARCH": "Empezar a buscar",
+    "TITLE": "Asturias"
+  }
+}

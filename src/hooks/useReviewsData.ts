@@ -13,10 +13,23 @@ export const useReviewsData = (activityId: string) => {
         createdAt: new Date(),
         updatedAt: new Date(),
     });
+    const [refresh, setRefresh] = useState(false);
+
+
     useEffect(() => {
         getReviews(activityId).then(reviews => setListOfComments(reviews)).catch(err => console.error(err));
         setListOfComments(reviewsDefault);
         // eslint-disable-next-line
     }, [activityId])
-    return listOfComments;
+
+    useEffect(() => {
+        if (refresh) {
+            getReviews(activityId).then(reviews => setListOfComments(reviews)).catch(err => console.error(err));
+            setRefresh(false);
+        }
+        // eslint-disable-next-line
+    }, [refresh, activityId]);
+
+
+    return { listOfComments, setRefresh };
 }

@@ -42,9 +42,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
         <IonGrid class="ion-no-padding ion-margin-horizontal">
           <IonItem lines="none">
             <Field
-              label={t('personal.data.name')}
-              errorText={t('personal.data.name.error')}
-              placeholder={t('personal.data.name.placeholder')}
+              label={t('DATA.NAME.LABEL')}
+              errorText={t('DATA.NAME.ERROR')}
+              placeholder={t('DATA.NAME.PLACEHOLDER')}
               type="text"
               onIonInput={(e) => setFormData({ ...formData, name: e.detail.value })}
               validationFn={(e) => lengthValidation(8, e)}
@@ -53,9 +53,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('personal.data.email')}
-              errorText={t('personal.data.email.error')}
-              placeholder={t('personal.data.email.placeholder')}
+              label={t('DATA.EMAIL.LABEL')}
+              errorText={t('DATA.EMAIL.ERROR')}
+              placeholder={t('DATA.EMAIL.PLACEHOLDER')}
               type="email"
               onIonInput={(e) => setFormData({ ...formData, email: e.detail.value })}
               validationFn={emailValidation}
@@ -64,9 +64,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('personal.data.telephone')}
-              errorText={t('personal.data.telephone.error')}
-              placeholder={t('personal.data.telephone.placeholder')}
+              label={t('DATA.TELEPHONE.LABEL')}
+              errorText={t('DATA.TELEPHONE.ERROR')}
+              placeholder={t('DATA.TELEPHONE.PLACEHOLDER')}
               type="tel"
               onIonInput={(e) => setFormData({ ...formData, telephone: e.detail.value })}
               validationFn={telephoneValidation}
@@ -75,9 +75,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('personal.data.birthday')}
-              errorText={t('personal.data.birthday.error')}
-              placeholder={t('personal.data.birthday.placeholder')}
+              label={t('DATA.BIRTHDAY.LABEL')}
+              errorText={t('DATA.BIRTHDAY.ERROR')}
+              placeholder={t('DATA.BIRTHDAY.PLACEHOLDER')}
               validationFn={dateValidation}
               type="date"
               onIonInput={(e) => {
@@ -88,9 +88,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('personal.data.country') + ' (' + t('optional') + ')'}
-              errorText={t('personal.data.country.error')}
-              placeholder={t('personal.data.country.placeholder')}
+              label={t('DATA.COUNTRY.LABEL') + ' (' + t('OPTIONAL') + ')'}
+              errorText={t('DATA.COUNTRY.error')}
+              placeholder={t('DATA.COUNTRY.PLACEHOLDER')}
               validationFn={() => true}
               type="text"
               onIonInput={(e) => {
@@ -102,9 +102,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
 
           <IonItem lines="none">
             <Field
-              label={t('personal.data.password')}
-              errorText={t('personal.data.password.error')}
-              placeholder={t('personal.data.password.placeholder')}
+              label={t('DATA.PASSWORD.LABEL')}
+              errorText={t('DATA.PASSWORD.ERROR')}
+              placeholder={t('DATA.PASSWORD.PLACEHOLDER')}
               validationFn={(e) => lengthValidation(8, e)}
               type="password"
               onIonInput={(e) => {

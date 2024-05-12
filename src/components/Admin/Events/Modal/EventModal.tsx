@@ -204,7 +204,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                 )}
                 {repeatType !== 'days' && repeatType !== 'range' && (
                     <IonItem>
-                        <IonLabel position="stacked">Día</IonLabel>
+                        <IonLabel position="stacked">{t('DAY')}</IonLabel>
                         <IonInput
                             type="datetime-local"
                             value={formData && formatDate(formData?.date, true)}

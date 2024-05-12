@@ -16,21 +16,21 @@ export const PersonalData = () => {
     <IonGrid style={{ width: '100%' }}>
       <IonRow>
         <h2>
-          <strong>{t('personal.data.title')}</strong>
+          <strong>{t('PROFILE.DATA.MODIFY')}</strong>
         </h2>
       </IonRow>
       <IonRow class="ion-justify-content-between">
         <section style={{ width: '100%' }}>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
-            <IonLabel>{t('personal.data.email') + ':'}</IonLabel>
+            <IonLabel>{t('DATA.EMAIL.LABEL') + ':'}</IonLabel>
             <IonLabel>{auth.user?.email}</IonLabel>
           </IonRow>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
-            <IonLabel>{t('personal.data.telephone') + ':'}</IonLabel>
+            <IonLabel>{t('DATA.TELEPHONE.LABEL') + ':'}</IonLabel>
             <IonLabel>{auth.user?.telephone ? String(auth.user?.telephone) : t('personal.data.unknown')}</IonLabel>
           </IonRow>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
-            <IonLabel>{t('personal.data.country') + ':'}</IonLabel>
+            <IonLabel>{t('DATA.COUNTRY.LABEL') + ':'}</IonLabel>
             <IonLabel>{auth.user?.country ? auth.user?.country : t('personal.data.unknown')}</IonLabel>
           </IonRow>
         </section>
@@ -38,7 +38,7 @@ export const PersonalData = () => {
           <IonRow>
             <IonButton id={auth.user?._id} style={{ width: '100%' }} expand="block">
               <IonIcon slot="start" icon={pencilOutline} />
-              {t('personal.data.modify')}
+              {t('PROFILE.DATA.MODIFY')}
             </IonButton>
           </IonRow>
           <IonRow>

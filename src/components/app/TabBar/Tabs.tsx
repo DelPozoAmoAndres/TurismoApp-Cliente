@@ -6,17 +6,17 @@ import { useAuth } from '@contexts/AuthContexts';
 
 export const Tabs = () => {
   const { t } = useTranslation();
-  const {setShowLoginModal} = useAuth();
+  const { setShowLoginModal } = useAuth();
   const HomeTab = (
     <IonTabButton tab="tab1" href="/movil/home">
       <IonIcon icon={homeOutline} />
-      <IonLabel>{t('home.title')}</IonLabel>
+      <IonLabel>{t('HOME.TITLE')}</IonLabel>
     </IonTabButton>
   );
   const PersonalAreaTab = (
     <IonTabButton tab="tab2" onClick={() => setShowLoginModal(true)}>
       <IonIcon icon={personOutline} />
-      <IonLabel>{t('account.title')}</IonLabel>
+      <IonLabel>{t('PROFILE.ACCOUNT.TITLE')}</IonLabel>
     </IonTabButton>
   );
 
@@ -37,7 +37,7 @@ export const Tabs = () => {
   const ProfileTab = (
     <IonTabButton tab="tab5" href="/movil/perfil">
       <IonIcon icon={personOutline} />
-      <IonLabel>{t('profile.title')}</IonLabel>
+      <IonLabel>{t('PROFILE.TITLE')}</IonLabel>
     </IonTabButton>
   );
 

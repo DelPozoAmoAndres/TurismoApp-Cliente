@@ -18,35 +18,32 @@ export const DashboardPage: React.FC = () => {
     const content =
         <IonGrid class='ion-no-margin'>
             <IonRow>
-                {/* <IonCol size="12" size-lg="8">
-                        <IonSearchbar placeholder="Search..." />
-                    </IonCol> */}
             </IonRow>
             <IonRow class="statistic-cards">
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>{t('total.reservations')}</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.RESERVATIONS')}</IonCardSubtitle>
                             <IonCardTitle>{totalReservations}</IonCardTitle>
-                            <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle>
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>{t('total.income')}</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.INCOME')}</IonCardSubtitle>
                             <IonCardTitle>{totalIncome}€</IonCardTitle>
-                            <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle>
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>{t('total.users')}</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.USERS')}</IonCardSubtitle>
                             <IonCardTitle>{totalUsers}</IonCardTitle>
-                            <IonCardSubtitle>Last: 30.4k</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle>
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
@@ -55,7 +52,7 @@ export const DashboardPage: React.FC = () => {
                 <IonCol>
                     <IonCard>
                         <IonCardHeader  >
-                            <IonCardSubtitle>{t('ocupation.porcentage')}</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.OCCUPATION')}</IonCardSubtitle>
                             <IonCardTitle>{Number.isNaN(Number(occupationData.occupationRate)) ? "0.00" : occupationData.occupationRate}%</IonCardTitle>
                         </IonCardHeader>
                         <IonCardContent>
@@ -66,7 +63,7 @@ export const DashboardPage: React.FC = () => {
                 <IonCol>
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>Daily Sales</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.CATEGORY-SALES')}</IonCardSubtitle>
                         </IonCardHeader>
                         <IonCardContent class="ion-no-margin">
                             <RadialGraph values={categoryReservations} />
@@ -76,7 +73,7 @@ export const DashboardPage: React.FC = () => {
                 <IonCol >
                     <IonCard>
                         <IonCardHeader>
-                            <IonCardSubtitle>{t('cancelation.rate')}</IonCardSubtitle>
+                            <IonCardSubtitle>{t('DASHBOARD.STATS.CANCELATIONS')}</IonCardSubtitle>
                             <IonCardTitle>{Number.isNaN(Number(cancelationData.cancelRate)) ? "0.00" : cancelationData.cancelRate}%</IonCardTitle>
                         </IonCardHeader>
                         <IonCardContent class="ion-no-margin">
@@ -90,7 +87,7 @@ export const DashboardPage: React.FC = () => {
                 <IonCol size="12">
                     {/* Charts */}
                     <IonLabel class='ion-margin-start'>
-                        <strong>Actividad reciente</strong>
+                        <strong>{t('DASHBOARD.RECENT-ACTIVITY')}</strong>
                     </IonLabel>
                     <table>
                         {reservations.map((i, index) => (
@@ -107,12 +104,12 @@ export const DashboardPage: React.FC = () => {
                                 <td>
                                     <IonLabel>
                                         <h2>{i.reservations?.at(0)?.activity?.name}</h2>
-                                        <p>{i.reservations?.at(0)?.activity?.category}</p>
+                                        <p>{t("CATEGORY." + i.reservations?.at(0)?.activity?.category.toUpperCase())}</p>
                                     </IonLabel>
                                 </td>
                                 <td>
                                     <IonLabel>
-                                        <h2>{i.reservations?.at(0)?.state}</h2>
+                                        <h2>{t("RESERVATION.STATE." + i.reservations?.at(0)?.state.toUpperCase())}</h2>
                                         <p>{i.reservations?.at(0)?.price}€</p>
                                     </IonLabel>
                                 </td>

@@ -6,12 +6,14 @@ import './DashboardLayout.css';
 
 import LanguageSelector from '@shared/LanguageSelector';
 import DarkModeToggle from '@shared/DarkModeToggle';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
     children: React.ReactNode;
 }
 
 export const DashboardLayout: React.FC<Props> = ({ children }) => {
+    const { t } = useTranslation();
     return (
         <IonPage id="pageWeb">
             <IonSplitPane contentId="main" when="xs">
@@ -24,15 +26,15 @@ export const DashboardLayout: React.FC<Props> = ({ children }) => {
                             <IonList color='primary' class="ion-no-padding">
                                 <IonItem routerLink="/admin/dashboard" routerDirection="root" lines="none">
                                     <IonIcon slot="start" icon={homeOutline} />
-                                    <IonLabel>Home</IonLabel>
+                                    <IonLabel>{t('DASHBOARD.TITLE')}</IonLabel>
                                 </IonItem>
                                 <IonItem routerLink="/admin/users" routerDirection="root" lines="none">
                                     <IonIcon slot="start" icon={peopleOutline} />
-                                    <IonLabel>List Users</IonLabel>
+                                    <IonLabel>{t('DASHBOARD.USER.TITLE')}</IonLabel>
                                 </IonItem>
                                 <IonItem routerLink="/admin/activities" routerDirection="root" lines="none">
                                     <IonIcon slot="start" icon={listOutline} />
-                                    <IonLabel>List Activities</IonLabel>
+                                    <IonLabel>{t('DASHBOARD.ACTIVITY.TITLE')}</IonLabel>
                                 </IonItem>
                                 <IonItem routerLink="/admin/reservations" routerDirection="root" lines="none">
                                     <IonIcon slot="start" icon={listOutline} />
@@ -46,7 +48,7 @@ export const DashboardLayout: React.FC<Props> = ({ children }) => {
                             <section>
                                 <IonItem routerLink="/home" routerDirection="root" lines="none">
                                     <IonIcon slot="start" icon={listOutline} />
-                                    <IonLabel>Exit</IonLabel>
+                                    <IonLabel>{t('HOME.TITLE')}</IonLabel>
                                 </IonItem>
                                 <LanguageSelector hidden={false} color="primary" />
                                 <DarkModeToggle hidden={false} color="primary" />

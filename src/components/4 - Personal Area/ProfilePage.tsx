@@ -32,7 +32,7 @@ const ProfilePage: React.FC = () => {
             </h1>
           </IonRow>
           <IonRow>
-            <IonLabel>{t('account.created.date')}:</IonLabel>
+            <IonLabel>{t('PROFILE.ACCOUNT.CREATION')}:</IonLabel>
           </IonRow>
           <IonRow class='ion-margin-bottom ion-padding-bottom'>
             <IonLabel>{formatDate(auth.user?.createdAt || null)}</IonLabel>
@@ -41,11 +41,11 @@ const ProfilePage: React.FC = () => {
         {width < maxWidth && (
           <IonSegment mode='ios' value={selectedTab} onIonChange={(e) => setSelectedTab(e.detail.value)}>
             <IonSegmentButton value="personalData">
-              <IonLabel>{t('personal.data.title.sort')}</IonLabel>
+              <IonLabel>{t('PROFILE.DATA.MODIFY.sort')}</IonLabel>
               <IonIcon icon={bookOutline} />
             </IonSegmentButton>
             {browsingWeb ? <IonSegmentButton value="account">
-              <IonLabel>{t('account.title')}</IonLabel>
+              <IonLabel>{t('PROFILE.ACCOUNT.TITLE')}</IonLabel>
               <IonIcon icon={shieldOutline} />
             </IonSegmentButton> : <IonSegmentButton value="account">
               <IonLabel>{t('settings.title')}</IonLabel>

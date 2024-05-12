@@ -36,16 +36,16 @@ export const AdminUserList: React.FC = () => {
 
     const columns = () =>
         <tr>
-            <th>#</th>
-            {th("name")}
-            {th("email")}
-            {th("birthday")}
-            {th("telephone")}
-            {th("country")}
-            {th("role")}
-            <th>Details</th>
-            <th>Edit</th>
-            <th>Cancel</th>
+            <th>{t('DASHBOARD.LIST.ID')}</th>
+            {th(t('DASHBOARD.LIST.NAME'))}
+            {th(t('DASHBOARD.LIST.EMAIL'))}
+            {th(t('DASHBOARD.LIST.BIRTHDAY'))}
+            {th(t('DASHBOARD.LIST.TELEPHONE'))}
+            {th(t('DASHBOARD.LIST.COUNTRY'))}
+            {th(t('DASHBOARD.LIST.ROLE'))}
+            <th>{t('DASHBOARD.LIST.DETAILS')}</th>
+            <th>{t('DASHBOARD.LIST.EDIT')}</th>
+            <th>{t('DASHBOARD.LIST.CANCEL')}</th>
         </tr>
 
     const deleteAlert = (id: string) =>
@@ -87,7 +87,7 @@ export const AdminUserList: React.FC = () => {
 
     const addButton = () =>
         <>
-            <IonButton id="modal-user-add">Create</IonButton>
+            <IonButton id="modal-user-add">{t('ACTIONS.CREATE')}</IonButton>
             <UserModal user={new User()} action="add" updateInfo={() => setForceUpdate(true)} />
         </>
 

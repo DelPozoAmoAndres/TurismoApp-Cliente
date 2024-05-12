@@ -24,14 +24,14 @@ import { ReviewItem } from '@components/3 - Activity Details/Reviews/ReviewItem'
 type ReservationDetailsProps = RouteComponentProps<{ id: string }>;
 
 const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) => {
-  const reservation = useReservationData(match.params.id); //Hook to have reservation data
+  const { reservation, setRefresh } = useReservationData(match.params.id); //Hook to have reservation data
   const [review, setReview] = useState<Review | null>(null);
   const { isMobile, browsingWeb } = useScreen(); //Hook to have data of screen dimensions
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
   const getReview = async () => {
     const review = await getReviewFromReservation(match.params.id);
-    if (review) setReview(review);
+    setReview(review);
   }
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) =>
             {reservation?.state === 'completed' && review === null && reservation.activity?._id &&
               <>
                 <IonButton id="add" expand="block">Añadir valoración</IonButton>
-                <ReviewModal action={"add"} activityId={reservation.activity?._id} reservationId={match.params.id} />
+                <ReviewModal action={"add"} activityId={reservation.activity?._id} reservationId={match.params.id} setRefresh={setRefresh} />
               </>}
             {reservation?.state === 'success' &&
               (<IonButton color={'danger'} onClick={async () => await cancelReservation(match.params.id)} expand="block">
@@ -63,7 +63,7 @@ const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) =>
         {reservation?.state === 'completed' && review !== null &&
           <section style={{ "marginInline": 10 }}>
             <h3>Valoración</h3>
-            <ReviewItem comment={review} />
+            <ReviewItem comment={review} setRefresh={setRefresh} />
           </section>}
       </section>
     </IonRow>

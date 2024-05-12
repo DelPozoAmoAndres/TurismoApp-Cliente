@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { useTranslation } from 'react-i18next';
 
 interface BarChartProps {
     data: { day: number; sales: number; }[];
@@ -7,11 +8,12 @@ interface BarChartProps {
     width?: number;
 }
 
-const BarChart: React.FC<BarChartProps> = ({ data,height,width }) => {
+const BarChart: React.FC<BarChartProps> = ({ data, height, width }) => {
     const ref = useRef<SVGSVGElement>(null);
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-    const widthPref = (width!=undefined ? width :600) - margin.left - margin.right;
-    const heightPref = (height!=undefined ? height : 316 )- margin.top - margin.bottom;
+    const widthPref = (width != undefined ? width : 600) - margin.left - margin.right;
+    const heightPref = (height != undefined ? height : 316) - margin.top - margin.bottom;
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (data.length) {
@@ -37,7 +39,7 @@ const BarChart: React.FC<BarChartProps> = ({ data,height,width }) => {
 
         g.append("g")
             .attr("transform", `translate(0, ${heightPref})`)
-            .call(d3.axisBottom(xScale).tickFormat(i => data.length <= 15 ? `Día ${i}` : i));
+            .call(d3.axisBottom(xScale).tickFormat(i => data.length <= 15 ? t('DAY') + i : i));
 
         g.append("g")
             .call(d3.axisLeft(yScale));
@@ -47,7 +49,7 @@ const BarChart: React.FC<BarChartProps> = ({ data,height,width }) => {
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", d => xScale(d.day.toString())??0)
+            .attr("x", d => xScale(d.day.toString()) ?? 0)
             .attr("y", d => yScale(d.sales))
             .attr("width", xScale.bandwidth())
             .attr("height", d => heightPref - yScale(d.sales))

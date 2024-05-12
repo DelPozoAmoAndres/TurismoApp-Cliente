@@ -1,17 +1,19 @@
-#modal-activity-edit section, 
+#modal-activity-edit section,
 #modal-activity-add section {
     width: 350px;
 }
 
-#modal-activity-edit ion-list, #modal-activity-edit ion-list + #modal-activity-edit+div,
-#modal-activity-add ion-list, #modal-activity-add ion-list + #modal-activity-add+div {
+#modal-activity-edit ion-list,
+#modal-activity-edit ion-list+#modal-activity-edit+div,
+#modal-activity-add ion-list,
+#modal-activity-add ion-list+#modal-activity-add+div {
     max-width: 480px;
     width: 100%;
 }
 
 
-#modal-activity-edit  ion-img,
-#modal-activity-add  ion-img  {
+#modal-activity-edit ion-img,
+#modal-activity-add ion-img {
     max-width: 160px;
 }
 
@@ -21,14 +23,24 @@
     height: 0;
 }
 
+.delete-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: var(--ion-color-danger);
+    font-size: 20px;
+    cursor: pointer;
+}
 
-@media only screen and (width >= 900px) {
+
+@media only screen and (width >=900px) {
+
     #modal-activity-edit,
     #modal-activity-add {
-      --width: 900px;
-      --height: 600px;
-      --border-radius: 6px;
-  
-      background-color: rgba(0 0 0 60%);
+        --width: 900px;
+        --height: 600px;
+        --border-radius: 6px;
+
+        background-color: rgba(0 0 0 60%);
     }
 }

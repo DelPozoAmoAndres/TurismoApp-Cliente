@@ -6,7 +6,7 @@ type NotificationContextType = {
 };
 
 const NotificationContextDefaultValues: NotificationContextType = {
-    showNotification: () => { console.error("showNotification function not yet initialized") },
+    showNotification: () => { console.error("showNotification function not yet initialized") }
 };
 
 export const NotificationContext = createContext(NotificationContextDefaultValues);
@@ -14,13 +14,13 @@ export const NotificationContext = createContext(NotificationContextDefaultValue
 export const NotificationProvider = ({ children }: { children: React.ReactNode }) => {
     const [notification, setNotification] = useState("");
     const [position, setPosition] = useState<'top' | 'bottom' | 'middle'>('top');
-    const [duration, setDuration] = useState(3000);
+    const [duration, setDuration] = useState(500);
     const [active, setActive] = useState(false);
 
     const showNotification = (notification: string, position: 'top' | 'bottom' | 'middle' = "top", duration: number) => {
         setNotification(notification);
         setPosition(position);
-        setDuration(duration ? duration : 3000);
+        setDuration(duration ? duration : 500);
         setActive(true);
     }
 

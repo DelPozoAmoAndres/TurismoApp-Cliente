@@ -8,11 +8,16 @@ import { useEdit } from '@hooks/useEdit';
 import "./ReviewModal.css";
 import { starOutline } from 'ionicons/icons';
 
-export const ReviewModal: React.FC<{ activityId: string, reviewData?: Review, action: "add" | "edit", reservationId: string }> = ({ activityId, reviewData, reservationId, action }) => {
+export const ReviewModal: React.FC<{ activityId: string, reviewData?: Review, action: "add" | "edit", reservationId: string, setRefresh: (arg: boolean) => void }> = ({ activityId, reviewData, reservationId, action, setRefresh }) => {
     const { t } = useTranslation();
     const modal = useRef<HTMLIonModalElement>(null);
     const [review] = useState<Review>(reviewData || new Review(activityId, reservationId));
-    const { formData, setFormData, guardarCambios } = useEdit(review, action == "add" ? createReview : editReview);
+    const callback = (review: Review) => {
+        modal.current?.dismiss();
+        return (action == "add" ? createReview(review) : editReview(review)).then((res) => { setRefresh(true); return res });
+
+    }
+    const { formData, setFormData, guardarCambios } = useEdit(review, callback);
     return (
         <Modal id="modal-review" trigger={review._id || "add"} title={t("valoration.add.title")} modal={modal} >
             <IonRow class=' ion-padding-horizontal ion-align-items-center ion-justify-content-center'>
@@ -46,7 +51,7 @@ export const ReviewModal: React.FC<{ activityId: string, reviewData?: Review, ac
                         ></IonTextarea>
                     </IonItem>
                     <IonButton expand="block" onClick={guardarCambios}>
-                        Guardar cambios
+                        {t('ACTIONS.SAVE')}
                     </IonButton>
                 </IonList>
             </IonRow>

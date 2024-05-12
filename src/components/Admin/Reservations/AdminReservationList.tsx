@@ -55,16 +55,16 @@ export const AdminReservationList: React.FC = () => {
 
     const columns = () =>
         <tr>
-            <th>#</th>
-            {th("name")}
-            {th("email")}
-            {th("telephone")}
-            {th("numPersons")}
-            {th("price")}
-            <th>PaymentId</th>
-            <th>EventId</th>
-            {th("state")}
-            <th>Cancel</th>
+            <th>{t('DASHBOARD.LIST.ID')}</th>
+            {th(t('DASHBOARD.LIST.NAME'))}
+            {th(t('DASHBOARD.LIST.EMAIL'))}
+            {th(t('DASHBOARD.LIST.TELEPHONE'))}
+            {th(t('DASHBOARD.LIST.NUM-PERSONS'))}
+            {th(t('DASHBOARD.LIST.PRICE'))}
+            <th>{t('DASHBOARD.LIST.PAYMENT-ID')}</th>
+            <th>{t('DASHBOARD.LIST.EVENT-ID')}</th>
+            {th(t('DASHBOARD.LIST.STATE'))}
+            <th>{t('DASHBOARD.LIST.CANCEL')}</th>
         </tr>
 
     const item = (data: Reservation) =>
@@ -86,7 +86,7 @@ export const AdminReservationList: React.FC = () => {
 
     // const addButton = () =>
     //     <>
-    //         <IonButton id="add">Create</IonButton>
+    //         <IonButton id="add">{t('ACTIONS.CREATE')}</IonButton>
     //         {/* <ReservationModal reservation={new Reservation()} action="add"/> */}
     //     </>
 

@@ -71,7 +71,7 @@ export const ActivityInfo: React.FC<{
                 <strong>{t('price')}</strong>
               </IonLabel>
             </IonRow>
-            {t('from')}{' '}
+            {t('FROM')}{' '}
             {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString() + "€" : ''}
           </IonRow>
         )}
@@ -93,7 +93,7 @@ export const ActivityInfo: React.FC<{
         <IonText style={{ whiteSpace: "pre-line" }}>{activityData?.description && activityData.description[defaultLanguage.code]}</IonText>
       </IonRow>
 
-      {isMobile && <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
+      {isMobile && <section className='sticky'>
         <IonButton {...soldOutProps} expand="block" id="Availability-modal">
           {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
         </IonButton>

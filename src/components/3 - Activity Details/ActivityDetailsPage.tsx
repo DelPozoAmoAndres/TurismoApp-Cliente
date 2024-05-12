@@ -74,7 +74,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
         message={t('alert.message.share.error') || ''}
         buttons={[
           {
-            text: t('close'),
+            text: t('ACTIONS.CLOSE'),
             role: 'cancel',
             handler: () => setShowAlert(false),
           },

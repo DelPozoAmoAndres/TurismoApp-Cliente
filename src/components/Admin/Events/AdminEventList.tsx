@@ -37,15 +37,15 @@ export const AdminEventList: React.FC = () => {
 
     const columns = () =>
         <tr>
-            <th>#</th>
-            <th>{t("guide")}</th>
-            {th("language")}
-            {th("date")}
-            {th("price")}
-            {th("bookedSeats")}
-            {th("seats")}
-            <th>Edit</th>
-            <th>Cancel</th>
+            <th>{t('DASHBOARD.LIST.ID')}</th>
+            <th>{t('DASHBOARD.LIST.GUIDE')}</th>
+            {th(t('DASHBOARD.LIST.LANGUAGE'))}
+            {th(t('DASHBOARD.LIST.DATE'))}
+            {th(t('DASHBOARD.LIST.PRICE'))}
+            {th(t('DASHBOARD.LIST.BOOKED-SEATS'))}
+            {th(t('DASHBOARD.LIST.SEATS'))}
+            <th>{t('DASHBOARD.LIST.EDIT')}</th>
+            <th>{t('DASHBOARD.LIST.CANCEL')}</th>
         </tr>
 
 
@@ -65,7 +65,7 @@ export const AdminEventList: React.FC = () => {
 
     const addButton = (event: Event) =>
         <>
-            <IonButton id="modal-event-add">Create</IonButton>
+            <IonButton id="modal-event-add">{t('ACTIONS.CREATE')}</IonButton>
             <EventModal event={event} action="add" update={() => setForceUpdate(true)} />
         </>
 

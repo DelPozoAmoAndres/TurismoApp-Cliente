@@ -12,9 +12,10 @@ import './ActivityReviews.css';
 import { useTranslation } from 'react-i18next';
 import { useScreen } from '@hooks/useScreen';
 import { Capacitor } from '@capacitor/core';
+import { Review } from '@models/Activity';
 
 export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }) => {
-  const listOfComments = useReviewsData(activityId);
+  const { listOfComments, setRefresh } = useReviewsData(activityId);
   const { isMobile } = useScreen();
   const { t } = useTranslation();
   return (
@@ -26,9 +27,9 @@ export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }
               <strong>{t('reviews.title')}</strong>
             </IonLabel>
             <div id="list-activity-review" className="ion-margin-vertical">
-              {listOfComments?.slice(-6, listOfComments.length).map((comment, index) => (
+              {listOfComments?.slice(-6, listOfComments.length).map((comment: Review, index: number) => (
                 <div key={"comment" + index} style={{ width: "100%" }}>
-                  <ReviewItem comment={comment} />
+                  <ReviewItem comment={comment} setRefresh={setRefresh} />
                 </div>
               ))}
             </div>
@@ -36,7 +37,7 @@ export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }
         }
         {(listOfComments && listOfComments?.length > 6) && <>
           <IonButton class="outlined ion-no-margin" style={{ width: "100%", height: "40px" }} id="modal-reviews" expand='block'>{isMobile ? "Ver reviews" : "Ver más"}</IonButton>
-          <ReviewsModal listOfComments={listOfComments} />
+          <ReviewsModal listOfComments={listOfComments} setRefresh={setRefresh} />
         </>}
       </div>
       : <></>

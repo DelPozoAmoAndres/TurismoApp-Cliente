@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '@contexts/AuthContexts';
 import Logo from './Logo';
 
-export const Header : React.FC = () => {
+export const Header: React.FC = () => {
   const { isMobile, browsingWeb } = useScreen();
   const { t } = useTranslation();
   const auth = useAuth();
@@ -28,19 +28,19 @@ export const Header : React.FC = () => {
           <IonButtons slot="start">
             {browsingWeb && isMobile
               ? <IonRow class="ion-align-items-center">
-                  <IonMenuButton autoHide={false}/>
-                  <Logo />
-                </IonRow>
+                <IonMenuButton autoHide={false} />
+                <Logo />
+              </IonRow>
               : <Logo />
             }
           </IonButtons>
           <IonButtons slot="end" >
-            <Button routeLink="/home" icon={homeOutline} text={t('home.title')} />
-            <Button onClick={()=>auth.setShowLoginModal(true)} icon={personOutline} text={t('account.title')} />
+            <Button routeLink="/home" icon={homeOutline} text={t('HOME.TITLE')} />
+            <Button onClick={() => auth.setShowLoginModal(true)} icon={personOutline} text={t('PROFILE.ACCOUNT.TITLE')} />
             {/* <Button id="register-modal" icon={personOutline} text={t('sign.up')} /> */}
-            <Button role={null} routeLink="/home" icon={homeOutline} text={t('home.title')} />
-            <Button role={null} routeLink="/perfil" icon={personOutline} text={t('profile.title')} />
-            <Button role={Role.administrador} routeLink="/admin/dashboard" icon={gridOutline} text={t('dashboard.title')} />
+            <Button role={null} routeLink="/home" icon={homeOutline} text={t('HOME.TITLE')} />
+            <Button role={null} routeLink="/perfil" icon={personOutline} text={t('PROFILE.TITLE')} />
+            <Button role={Role.administrador} routeLink="/admin/dashboard" icon={gridOutline} text={t('DASHBOARD.TITLE')} />
             <Button role={Role.guía} routeLink="/nextEvents" icon={briefcaseOutline} text={t('nextEvents.title')} />
             <Button role={Role.turista} routeLink="/reservas" icon={briefcaseOutline} text={t('reservations.title')} />
             <LanguageSelector hidden={isMobile} />

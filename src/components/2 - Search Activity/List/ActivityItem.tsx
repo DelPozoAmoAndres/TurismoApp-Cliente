@@ -38,12 +38,12 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
         <IonCardContent class="ion-no-padding" style={{ position: "absolute", bottom: 0 }}>
           <IonText color="tertiary">
             <strong>
-              {activity?.events && t('from') + activity?.events && activity.events.length > 0
-                ? t('from') + " " + Math.min(...activity.events.map((e) => e.price)).toString() + "€"
+              {activity?.events
+                ? t('FROM') + " " + Math.min(...activity.events.map((e) => e.price)).toString() + "€"
                 : t('sold.out')}
             </strong>
           </IonText>
-          <IonButton class="main-button" routerLink={`/activity/${activity._id}`}>{t('show.info')}</IonButton>
+          <IonButton class="main-button" routerLink={`/activity/${activity._id}`}>{t('SHOW.INFO')}</IonButton>
         </IonCardContent>
       </IonCard>
       <IonAlert

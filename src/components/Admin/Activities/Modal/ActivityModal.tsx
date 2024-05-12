@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react';
 /* Ionic components */
-import { IonButton, IonInput, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonTextarea } from '@ionic/react';
+import { IonButton, IonIcon, IonInput, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonSelect, IonSelectOption, IonTextarea } from '@ionic/react';
 /* Components */
 import { Modal } from '@shared/Modal';
 /* Hooks */
 import { useEdit } from '@hooks/useEdit';
 /* Models */
-import { Activity, ActivityState } from '@models/Activity';
+import { Activity, ActivityCategory, ActivityState } from '@models/Activity';
 /* Styles */
 import "./ActivityModal.css";
 /* Utils */
@@ -15,6 +15,8 @@ import { uploadImage } from '@utils/Utils';
 import { createActivity, editActivity } from '@apis/adminActivityApi';
 /* i18n */
 import { useTranslation } from 'react-i18next';
+import { trashBinOutline } from 'ionicons/icons';
+import { relative } from 'path';
 
 export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit", update?: () => void }> = ({ activity, action, update }) => {
     const { t } = useTranslation();
@@ -23,14 +25,34 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
     const { formData, setFormData, guardarCambios, edited } = useEdit(activity, action == "edit" ? editActivity : createActivity, closeModal);
     const [language, setLanguage] = useState("es");
 
+
+    const gridStyle = {
+        display: 'grid',
+        gridTemplateColumns: `repeat(${Math.ceil(Math.sqrt(formData.images.length))}, 1fr)`,
+        gridTemplateRows: `repeat(${Math.ceil(formData.images.length / Math.ceil(Math.sqrt(formData.images.length)))}, 1fr)`,
+        width: '345px',
+        height: '470px',
+        overflow: 'hidden'
+    }
+
     return (
         <Modal id={'modal-activity-' + action} trigger={activity?._id || "modal-activity-add"} title={t("activity." + action + ".title")} modal={modal} >
             <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
                 <section className='ion-margin-end '>
-                    <IonRow class="ion-justify-content-center" >
-                        {(formData?.images)?.map((image, index) =>
-                            <div key={"image" + index} >
+                    <IonRow class="ion-justify-content-center" style={gridStyle}>
+                        {(formData?.images)?.map((image, imageIndex) =>
+                            <div key={"image" + imageIndex} style={{ position: "relative" }} >
                                 <img src={String(image) || ""} />
+                                <span style={{ position: "absolute", top: 5, left: 5 }}>{imageIndex}</span>
+                                <IonIcon
+                                    onClick={() => {
+                                        const updatedImages = formData?.images.filter((_, index) => index !== imageIndex);
+                                        formData && setFormData({ ...formData, images: updatedImages });
+                                    }}
+                                    icon={trashBinOutline}
+                                    size='large'
+                                    class='delete-icon'
+                                />
                             </div>
                         )}
                         <input type="file" id="file-input" accept="image/*"
@@ -56,17 +78,18 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                         ></IonInput>
                     </IonItem>
                     <IonItem>
-                        <IonSegment mode="ios" value={language} onIonChange={e => e.detail.value && setLanguage(e.detail.value)}>
-                            <IonSegmentButton value="es">
-                                <IonLabel>Español</IonLabel>
-                            </IonSegmentButton>
-                            <IonSegmentButton value="en">
-                                <IonLabel>English</IonLabel>
-                            </IonSegmentButton>
-                            <IonSegmentButton value="fr">
-                                <IonLabel>Français</IonLabel>
-                            </IonSegmentButton>
-                        </IonSegment>
+                        <IonLabel>Categoría</IonLabel>
+                        <IonSelect
+                            value={formData?.category}
+                            placeholder="Seleccionar categoría"
+                            onIonChange={(e) => formData && setFormData({ ...formData, category: e.detail.value })}
+                        >
+                            {Object.keys(ActivityCategory).map((value, index) => (
+                                <IonSelectOption key={`categoryOption${index}`} value={ActivityCategory[value as keyof typeof ActivityCategory]}>
+                                    {ActivityCategory[value as keyof typeof ActivityCategory]}
+                                </IonSelectOption>
+                            ))}
+                        </IonSelect>
                     </IonItem>
                     <IonItem>
                         <IonTextarea
@@ -106,7 +129,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                     </IonItem>
 
                     <IonButton disabled={!edited} expand="block" onClick={guardarCambios}>
-                        Guardar cambios
+                        {t('ACTIONS.SAVE')}
                     </IonButton>
                 </IonList>
             </IonRow>

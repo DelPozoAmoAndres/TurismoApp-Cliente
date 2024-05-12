@@ -36,15 +36,15 @@ export const AdminActivityList: React.FC = () => {
 
     const columns = () =>
         <tr>
-            <th>#</th>
-            {th("name")}
-            {th("category")}
-            {th("location")}
-            {th("duration")}
-            {th("state")}
-            <th>Details</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>{t('DASHBOARD.LIST.ID')}</th>
+            {th(t('DASHBOARD.LIST.NAME'))}
+            {th(t('DASHBOARD.LIST.CATEGORY'))}
+            {th(t('DASHBOARD.LIST.LOCATION'))}
+            {th(t('DASHBOARD.LIST.DURATION'))}
+            {th(t('DASHBOARD.LIST.STATE'))}
+            <th>{t('DASHBOARD.LIST.DETAILS')}</th>
+            <th>{t('DASHBOARD.LIST.EDIT')}</th>
+            <th>{t('DASHBOARD.LIST.DELETE')}</th>
         </tr>
 
     const deleteAlert = (id: string) =>
@@ -93,7 +93,7 @@ export const AdminActivityList: React.FC = () => {
 
     const addButton = () =>
         <>
-            <IonButton id="modal-activity-add">Create</IonButton>
+            <IonButton id="modal-activity-add">{t('ACTIONS.CREATE')}</IonButton>
             <ActivityModal activity={new Activity()} action="add" update={() => setForceUpdate(true)} />
         </>
 

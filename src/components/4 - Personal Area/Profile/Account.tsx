@@ -22,19 +22,19 @@ export const Account: React.FC = () => {
       <ChangePasswordModal />
       <IonRow>
         <h2>
-          <strong>{t('account.title')}</strong>
+          <strong>{t('PROFILE.ACCOUNT.TITLE')}</strong>
         </h2>
       </IonRow>
       <IonRow class="ion-justify-content-between ion-margin-top ">
         <IonButton id="password-change-modal" style={{ width: '100%' }} expand="block">
           <IonIcon slot="start" icon={shieldOutline} />
-          {t('personal.data.change.password')}
+          {t('PROFILE.ACCOUNT.PASSWORD.CHANGE')}
         </IonButton>
       </IonRow>
       <IonRow class="ion-justify-content-between ">
         <IonButton color={'danger'} style={{ width: '100%' }} onClick={() => setShowAlert(true)}>
           <IonIcon slot="start" icon={trashOutline} />
-          {t('account.delete')}
+          {t('PROFILE.ACCOUNT.DELETE')}
         </IonButton>
       </IonRow>
 
@@ -53,8 +53,8 @@ export const Account: React.FC = () => {
       </>}
       <IonAlert
         isOpen={showAlert}
-        title={t('account.delete') || ''}
-        message={t('account.delete.confirmation') || ''}
+        title={t('PROFILE.ACCOUNT.DELETE') || ''}
+        message={t('PROFILE.ACCOUNT.DELETE.confirmation') || ''}
         buttons={[{ text: t('account.cancel'), role: 'cancel' }, { text: t('account.accept'), role: 'accept' }]}
         onDidDismiss={e => {
           if (e.detail.role === 'accept') {

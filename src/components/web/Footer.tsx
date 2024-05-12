@@ -1,7 +1,9 @@
 import React from 'react';
 import { IonFooter, IonToolbar, IonGrid, IonRow, IonCol, IonText } from '@ionic/react';
+import { useTranslation } from 'react-i18next';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
   return (
     <IonFooter>
       <IonToolbar>
@@ -10,9 +12,9 @@ const Footer: React.FC = () => {
             <IonRow>
               <IonCol>
                 <IonText>
-                  <h3>Contacto</h3>
-                  <p>Email: contacto@turismoasturias.com</p>
-                  <p>Teléfono: +34 123 456 789</p>
+                  <h3>{t('CONTACT.TITLE')}</h3>
+                  <p>{t('DATA.EMAIL.LABEL')}: contacto@turismoasturias.com</p>
+                  <p>{t('DATA.TELEPHONE.LABEL')}: +34 123 456 789</p>
                 </IonText>
               </IonCol>
               {/* <IonCol>
@@ -22,7 +24,7 @@ const Footer: React.FC = () => {
             <IonRow>
               <IonCol size="12">
                 <IonText className="ion-text-center">
-                  <small>&copy; {new Date().getFullYear()} Turismo Asturias. Todos los derechos reservados.</small>
+                  <small>&copy; {new Date().getFullYear()} {t('CONTACT.FOOTER')}</small>
                 </IonText>
               </IonCol>
             </IonRow>

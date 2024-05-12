@@ -50,7 +50,7 @@ const AppMenu: React.FC = () => {
           <IonMenuToggle onClick={handleClick}>
             <IonItem button routerLink="/home" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={homeOutline} />
-              <IonLabel>{t('home.title')}</IonLabel>
+              <IonLabel>{t('HOME.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle onClick={handleClick} >
@@ -62,13 +62,13 @@ const AppMenu: React.FC = () => {
           <IonMenuToggle hidden={auth.user !== null} onClick={() => auth.setShowLoginModal(true)} >
             <IonItem button style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={personOutline} />
-              <IonLabel>{t('account.title')}</IonLabel>
+              <IonLabel>{t('PROFILE.ACCOUNT.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null} onClick={handleClick} >
             <IonItem button routerLink="/perfil" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={personOutline} />
-              <IonLabel>{t('profile.title')}</IonLabel>
+              <IonLabel>{t('PROFILE.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick} >

@@ -51,17 +51,17 @@ const UserDetailsPage: React.FC<UserDetailsProps> = ({ match }) => {
                             {user?.country || t("personal.data.unknown")}
                         </IonRow>
                         <IonRow class="ion-margin-top">
-                            <IonLabel><strong>{t('account.created.date')}</strong></IonLabel>
+                            <IonLabel><strong>{t('PROFILE.ACCOUNT.CREATION')}</strong></IonLabel>
                         </IonRow>
                         <IonRow>
                             {formatDate(user?.createdAt || null)}
                         </IonRow>
                         <div className=" ion-no-padding ion-margin-top">
                             <IonButton id={user._id} style={{ width: '100%' }} expand="block">
-                                {t('personal.data.modify')}
+                                {t('PROFILE.DATA.MODIFY')}
                             </IonButton>
                             <IonButton color={"danger"} expand="block" style={{ width: '100%' }}>
-                                {t('account.delete')}
+                                {t('PROFILE.ACCOUNT.DELETE')}
                             </IonButton>
                         </div>
                     </section>

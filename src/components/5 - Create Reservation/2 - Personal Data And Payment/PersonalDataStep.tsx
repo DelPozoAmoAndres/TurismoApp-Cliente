@@ -51,30 +51,30 @@ export const PersonalDataStep: React.FC<{ numPersons: number }> = ({ numPersons 
         </IonRow>
         <IonRow class="ion-margin-top">
           <Field
-            label={t('personal.data.name')}
+            label={t('DATA.NAME.LABEL')}
             onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'name')}
-            placeholder={t('personal.data.name.placeholder')}
+            placeholder={t('DATA.NAME.PLACEHOLDER')}
             type={'text'}
-            errorText={t('personal.data.name.error')}
+            errorText={t('DATA.NAME.ERROR')}
             validationFn={name => lengthValidation(8, name)}
             value={name}
           />
         </IonRow>
         <Field
-          label={t('personal.data.email')}
+          label={t('DATA.EMAIL.LABEL')}
           onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'email')}
-          placeholder={t('personal.data.email.placeholder')}
+          placeholder={t('DATA.EMAIL.PLACEHOLDER')}
           type={'email'}
-          errorText={t('personal.data.email.error')}
+          errorText={t('DATA.EMAIL.ERROR')}
           validationFn={emailValidation}
           value={email}
         />
         <Field
-          label={t('personal.data.telephone') + ' (' + t('optional') + ')'}
+          label={t('DATA.TELEPHONE.LABEL') + ' (' + t('OPTIONAL') + ')'}
           onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'telephone')}
-          placeholder={t('personal.data.telephone.placeholder')}
+          placeholder={t('DATA.TELEPHONE.PLACEHOLDER')}
           type={''}
-          errorText={t('personal.data.telephone.error')}
+          errorText={t('DATA.TELEPHONE.ERROR')}
           validationFn={telephoneValidation}
           value={telephone}
         />

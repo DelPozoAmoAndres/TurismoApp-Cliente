@@ -27,7 +27,7 @@ const Login: React.FC = () => {
             <IonItem lines="none">
               <IonInput
                 type="email"
-                placeholder={t('personal.data.email') || ''}
+                placeholder={t('DATA.EMAIL.LABEL') || ''}
                 value={email}
                 onIonInput={(e) => {
                   setEmail(e.detail.value || '');
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
             <IonItem lines="none">
               <IonInput
                 type="password"
-                placeholder={t('personal.data.password') || ''}
+                placeholder={t('DATA.PASSWORD.LABEL') || ''}
                 value={password}
                 onIonInput={(e) => {
                   setPassword(e.detail.value || '');

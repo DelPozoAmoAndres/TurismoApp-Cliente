@@ -13,16 +13,16 @@ export const editProfile = async (user: User): Promise<User> => {
   return response.data;
 };
 
-export const changePassword = async (oldPass:string,newPass:string)=>{
-  return axios.post(`${baseUrl}/edit/password/`,{newPass,oldPass}).then((res) => res.data)
+export const changePassword = async (oldPass: string, newPass: string) => {
+  return axios.put(`${baseUrl}/edit/password`, { newPass, oldPass }).then((res) => res.data).then(() => true).catch(() => false);
 }
 
-export const getUserReservationList = async (userId:string): Promise<ReservationGroup[]> => {
+export const getUserReservationList = async (userId: string): Promise<ReservationGroup[]> => {
   return axios.get(`${baseUrl}/${userId}/reservation/list`).then((res) => {
     return res.data;
   });
 };
 
-export const deleteUser = async ()=>{
+export const deleteUser = async () => {
   return axios.delete(`${baseUrl}/`).then((res) => res.data)
 }
