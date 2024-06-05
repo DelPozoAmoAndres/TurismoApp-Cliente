@@ -4,26 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { IonButton, IonDatetime, IonInput, IonItem, IonLabel, IonList, IonSelect, IonSelectOption } from '@ionic/react';
 import { Activity, Event } from '@models/Activity';
 import { useEdit } from '@hooks/useEdit';
-import { filterPropertiesNotNull, formatDate } from '@utils/Utils';
+import { filterPropertiesNotNull, formatDate, formatDateToTime } from '@utils/Utils';
 import { User } from '@models/User';
-import { checkWorkers } from '@apis/adminUserApi';
+import { checkWorkers, getUser } from '@apis/adminUserApi';
 import { createEvent, getAllActivities } from '@apis/adminActivityApi';
 import { useLanguage } from '@hooks/useLanguage';
 import "./EventModal.css";
 import { getActivityFromEvent } from '@apis/activityApi';
 import { editEvent } from '@apis/eventsApi';
 
-export const EventModal: React.FC<{ activity?: string, event: Event, action: "add" | "edit", update?: () => void }> = ({ activity, event, action, update }) => {
+export const EventModal: React.FC<{ activity?: string, event: Event, action: "add" | "edit", isOpen?: boolean, setOpen?: (arg: boolean) => void, update?: () => void }> = ({ activity, event, action, isOpen, setOpen, update }) => {
     const { t } = useTranslation();
     const { formData, setFormData } = useEdit(event, (event: Event) => new Promise(() => console.log(event)));
     const [activityId, setActivityId] = useState<string | undefined>(activity);
-    const [activityName, setActivityName] = useState<string>("");
     const [activityList, setActivityList] = useState<Activity[]>([]);
     const [repeatType, setRepeatType] = useState<string>('none');
     const [repeatDays, setRepeatDays] = useState<string | string[]>([]);
     const [repeatStartDate, setRepeatStartDate] = useState<string | null>(null);
     const [repeatEndDate, setRepeatEndDate] = useState<string | null>(null);
     const [time, setTime] = useState<string | null>(null);
+    const [date, setDate] = useState<Date | null>(null);
     const modal = useRef<HTMLIonModalElement>(null);
     const { defaultLanguage, languages } = useLanguage();
 
@@ -32,11 +32,10 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
         if (action === "edit" && event._id) {
             getActivityFromEvent(event._id).then((activity) => {
                 setActivityId(activity ? activity._id : undefined);
-                setActivityName(activity ? activity.name : "");
             })
         }
         else if (action == "add") {
-            getAllActivities("", {}).then((activities) => { setActivityList(activities); console.log("hola") });
+            getAllActivities("", {}).then((activities) => { setActivityList(activities) });
         }
         // eslint-disable-next-line
     }, [modal]);
@@ -66,12 +65,10 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                     update && update();
                 });
         }
-
     };
 
     useEffect(() => {
-        console.log(time)
-        !event._id && checkWorkers({
+        action == "add" && !event._id && checkWorkers({
             repeatType: repeatType.toString(),
             repeatDays: repeatDays ? repeatDays.toString() : null,
             repeatStartDate: repeatStartDate ? formatDate(new Date(repeatStartDate)) : null,
@@ -81,10 +78,30 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
         }).then((workers: User[]) => {
             if (workers == guias) return;
             setGuias(workers);
-            formData && setFormData({ ...formData, guide: (workers?.length > 0 ? workers[0]._id : "") || "" });
-        });
+            (formData && setFormData({ ...formData, guide: (workers?.length > 0 ? workers[0]._id : "") || "" }));
+        })
         // eslint-disable-next-line
-    }, [repeatType, repeatDays, repeatStartDate, repeatEndDate, time]);
+    }, [repeatType, repeatDays, repeatStartDate, repeatEndDate, time, date]);
+
+    useEffect(() => {
+        if (isOpen) {
+            action == "edit" && checkWorkers({
+                time: formatDateToTime(event.date),
+                date: formatDate(event.date, true),
+            }).then((workers: User[]) => {
+                if (workers == guias) return;
+                setGuias(workers);
+                event._id
+                    ? getUser(event.guide).then((user) => {
+                        workers.find((worker) => worker._id === user._id) === undefined && workers.push(user);
+                        setGuias(workers);
+                        formData && user._id && setFormData({ ...formData, guide: user._id });
+                    })
+                    : (formData && setFormData({ ...formData, guide: (workers?.length > 0 ? workers[0]._id : "") || "" }));
+            })
+        }
+        // eslint-disable-next-line
+    }, [event]);
 
     const handleRepeatTypeChange = (e: CustomEvent) => {
         const type = e.detail.value;
@@ -99,21 +116,19 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
         setRepeatDays(days);
     };
 
+    console.log(activityList)
 
     return (
-        <Modal id={'modal-event-' + action} trigger={event?._id || "modal-event-add"} title={t("event." + action + ".title")} modal={modal} >
+        <Modal id={'modal-event-' + action} trigger={event?._id || "modal-event-add"} title={t("ACTIVITY.EVENT." + action.toUpperCase() + ".TITLE")} modal={modal} height={action == "add" ? "" : "250px"} isOpen={isOpen} setOpen={setOpen}>
             <IonList class='ion-no-padding ion-margin'>
                 {activityList.length > 0
-                    ? <IonSelect onIonChange={(e) => e.detail && setActivityId(e.detail.value)}>
+                    && <IonSelect onIonChange={(e) => e.detail && setActivityId(e.detail.value)} placeholder={t('ACTIVITY.SELECT.PLACEHOLDER') || ''}>
                         {activityList.map((activity) => (
                             <IonSelectOption key={activity._id} value={activity._id}>
                                 {activity.name}
                             </IonSelectOption>
                         ))}
                     </IonSelect>
-                    : <IonItem>
-                        <IonLabel>{activityName} - {activityId}</IonLabel>
-                    </IonItem>
                 }
                 {action == "add" && <>
                     <IonItem>
@@ -149,7 +164,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                     </IonSelect>
                 </IonItem>
                 }
-                {repeatType === 'days' && (
+                {action == "add" && repeatType === 'days' && (
                     <>
                         <IonItem>
                             <IonInput value={time} type="time" onIonInput={(e) => setTime(e.detail.value || null)} />
@@ -165,7 +180,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                         </IonItem>
                     </>
                 )}
-                {repeatType === 'range' && (
+                {action == "add" && repeatType === 'range' && (
                     <>
                         <IonItem>
                             <IonInput value={time} type="time" onIonInput={(e) => setTime(e.detail.value || null)} />
@@ -202,18 +217,16 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                         </IonItem>
                     </>
                 )}
-                {repeatType !== 'days' && repeatType !== 'range' && (
+                {action == "add" && repeatType !== 'days' && repeatType !== 'range' && (
                     <IonItem>
                         <IonLabel position="stacked">{t('DAY')}</IonLabel>
                         <IonInput
                             type="datetime-local"
-                            value={formData && formatDate(formData?.date, true)}
+                            value={formatDate(date, true, true)}
+                            min={formatDate(new Date(), true, true)}
                             onIonInput={(e) => {
-                                formData &&
-                                    setFormData({
-                                        ...formData,
-                                        date: new Date(e.detail.value || ''),
-                                    });
+                                setDate(new Date(e.detail.value || ""));
+                                formData && setFormData({ ...formData, date: new Date(e.detail.value || "") });
                             }}
                         ></IonInput>
                     </IonItem>

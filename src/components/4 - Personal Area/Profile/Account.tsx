@@ -8,15 +8,11 @@ import { useTranslation } from 'react-i18next';
 import './Account.css';
 import { ChangePasswordModal } from '../Change Password/ChangePasswordModal';
 import { useAuth } from '@contexts/AuthContexts';
-import LanguageSelector from '@shared/LanguageSelector';
-import DarkModeToggle from '@shared/DarkModeToggle';
-import { useScreen } from '@hooks/useScreen';
 
 export const Account: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { deleteAccount } = useAuth();
   const [showAlert, setShowAlert] = React.useState(false);
-  const { browsingWeb } = useScreen();
   return (
     <IonGrid id="account-settings">
       <ChangePasswordModal />
@@ -37,25 +33,11 @@ export const Account: React.FC = () => {
           {t('PROFILE.ACCOUNT.DELETE')}
         </IonButton>
       </IonRow>
-
-      {!browsingWeb && <>
-        <IonRow>
-          <h2>
-            <strong>{t('ajustes.title')}</strong>
-          </h2>
-        </IonRow>
-        <IonRow class="ion-justify-content-between ion-margin-top ">
-          <LanguageSelector hidden={false} />
-        </IonRow>
-        <IonRow class="ion-justify-content-between" style={{ width: "100%" }}>
-          <DarkModeToggle hidden={false} />
-        </IonRow>
-      </>}
       <IonAlert
         isOpen={showAlert}
-        title={t('PROFILE.ACCOUNT.DELETE') || ''}
-        message={t('PROFILE.ACCOUNT.DELETE.confirmation') || ''}
-        buttons={[{ text: t('account.cancel'), role: 'cancel' }, { text: t('account.accept'), role: 'accept' }]}
+        title={t('USER.DELETE.TITLE') || ''}
+        message={t('USER.DELETE.MESSAGE') || ''}
+        buttons={[{ text: t('ACTIONS.CANCEL'), role: 'cancel' }, { text: t('ACTIONS.CONFIRM'), role: 'accept' }]}
         onDidDismiss={e => {
           if (e.detail.role === 'accept') {
             deleteAccount();

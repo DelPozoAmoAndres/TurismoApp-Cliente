@@ -1,8 +1,103 @@
 {
   "ACTIONS": {
+    "BOOK": "Reservar",
+    "CANCEL": "Cancelar",
     "CLOSE": "Cerrar",
+    "CONFIRM": "Confirmar",
     "CREATE": "Crear",
-    "SAVE": "Guardar cambios"
+    "DELETE": "Eliminar",
+    "EDIT": "Modificar",
+    "FILTERS": {
+      "ADD": "Añadir filtros",
+      "DELETE": "Eliminar filtros"
+    },
+    "INCLUDE_CANCELLED": "Incluir cancelados",
+    "MANAGE": "Gestionar",
+    "PAY": "Pagar",
+    "SAVE": "Guardar cambios",
+    "SEARCH": "Buscar",
+    "SELECT": {
+      "FILES": "Seleccionar archivos"
+    },
+    "SHARE": "Compartir",
+    "SIGN": {
+      "UP": "Registrarse"
+    },
+    "SORT": {
+      "NAME": {
+        "ASC": "Nombre ascendente",
+        "DESC": "Nombre descendente"
+      },
+      "PRICE": {
+        "ASC": "Precio ascendente",
+        "DESC": "Precio descendente"
+      },
+      "TITLE": "Ordernar por"
+    }
+  },
+  "ACTIVITY": {
+    "ADD": {
+      "TITLE": "Crear actividad"
+    },
+    "AVAILABILITY": {
+      "TITLE": "Disponibilidad"
+    },
+    "CATEGORY": "Categoría",
+    "DELETE": {
+      "MESSAGE": "¿Estás seguro de que quieres eliminar esta actividad?",
+      "TITLE": "Eliminar actividad"
+    },
+    "DESCRIPTION": "Descripción",
+    "DURATION": "Duración",
+    "EDIT": {
+      "TITLE": "Editar actividad"
+    },
+    "EVENT": {
+      "ADD": {
+        "TITLE": "Añadir evento"
+      },
+      "CANCELLED": "Cancelado",
+      "EDIT": {
+        "TITLE": "Editar evento"
+      },
+      "LANGUAGE": "Idioma",
+      "PARTICIPANTS": "Participantes",
+      "PRICE": "Precio",
+      "TITLE": "Eventos"
+    },
+    "FILTERS": {
+      "APPLIED": "Filtros aplicados",
+      "DATE_RANGE": "Rango de fechas",
+      "MAX_PRICE": "Precio máximo",
+      "MIN_RATING": "Puntuación mínima",
+      "TITLE": "Filtros"
+    },
+    "LOCATION": "Localización",
+    "NAME": "Nombre",
+    "REVIEWS": {
+      "ADD": "Añadir valoración",
+      "COMMENT": "Comentario",
+      "RATING": "Puntuación",
+      "REPORT": "Denunciar",
+      "TITLE": "Valoraciones"
+    },
+    "SELECT": {
+      "PLACEHOLDER": "Selecciona la actividad"
+    },
+    "SHOW": {
+      "AVAILABILITY": "Ver disponibilidad",
+      "EVENTS": "Ver eventos",
+      "INFO": "Ver información",
+      "REVIEWS": "Ver valoraciones"
+    },
+    "SOLD": {
+      "OUT": "Agotada"
+    },
+    "STATE": {
+      "AVAILABLE": "Disponible",
+      "CANCELED": "Cancelada",
+      "TEMPORALY-CLOSED": "Teporalmente cancelada"
+    }
   },
   "CATEGORY": {
     "CULTURAL": "Cultural",
@@ -11,10 +106,11 @@
     "NATURALEZA": "Naturaleza",
     "NOCTURNA": "Nocturna",
     "RELIGIOSA": "Religiosa",
+    "SIN": "Sin reservas",
     "SOCIAL": "Social"
   },
   "CONTACT": {
-    "FOOTER": "Turismo Asturias. Todos los derechos reservados.",
+    "FOOTER": "Astour. Todos los derechos reservados.",
     "TITLE": "Contacto"
   },
   "DASHBOARD": {
@@ -24,14 +120,22 @@
     "LIST": {
       "BIRTHDAY": "Fecha de nacimiento",
       "CANCEL": "Cancelar",
+      "CATEGORY": "Categoría",
       "COUNTRY": "País",
+      "DATE": "Fecha",
       "DELETE": "Eliminar",
       "DETAILS": "Detalles",
+      "DURATION": "Duración",
       "EDIT": "Editar",
       "EMAIL": "Email",
+      "GUIDE": "Nº de guía",
       "ID": "Nº de identificación",
+      "LOCATION": "Localización",
       "NAME": "Nombre",
+      "RESERVED-SEATS": "Plazas reservadas",
       "ROLE": "Permisos",
+      "SEATS": "Plazas",
+      "STATE": "Estado",
       "TELEPHONE": "Teléfono"
     },
     "RECENT-ACTIVITY": "Actividad reciente",
@@ -70,25 +174,60 @@
       "PLACEHOLDER": "Introduzca nombre y apellidos"
     },
     "PASSWORD": {
+      "CONFIRM": {
+        "ERROR": "Las contraseñas no coinciden",
+        "FAIL": "Cambio de contraseña fallido",
+        "LABEL": "Confirmación de contraseña",
+        "PLACEHOLDER": "Introduzca la nueva contraseña de nuevo",
+        "SUCCESS": "Contraseña cambiada correctamente"
+      },
+      "CURRENT": {
+        "LABEL": "Contraseña actual",
+        "PLACEHOLDER": "Introduzca tu contraseña actual"
+      },
       "ERROR": "Debe introducir mínimo 8 caracteres",
       "LABEL": "Contraseña",
-      "PLACEHOLDER": "Introuzca una contraseña"
+      "PLACEHOLDER": "Introduzca una contraseña"
     },
     "TELEPHONE": {
       "ERROR": "Debe introducir un teléfono válido",
       "LABEL": "Teléfono",
       "PLACEHOLDER": "Introduzca teléfono"
-    }
+    },
+    "UNKNOWN": "Desconocido"
   },
   "DAY": "Día",
   "FROM": "Desde",
+  "GO": {
+    "BACK": "Volver"
+  },
   "HOME": {
     "TITLE": "Inicio"
   },
+  "LANGUAGE": {
+    "EN": "Inglés",
+    "ES": "Español",
+    "FR": "Francés"
+  },
   "LOG": {
+    "IN": "Iniciar sesión",
+    "IN_TO_BOOK": "Iniciar sesión para reservar",
     "OUT": "Cerrar sesión"
   },
+  "MINUTES": "minutos",
+  "NEXTEVENTS": {
+    "TITLE": "Eventos próximos"
+  },
+  "NOT": {
+    "ACCOUNT": "¿No tienes cuenta?"
+  },
   "OPTIONAL": "Opcional",
+  "PEOPLE": "Personas",
+  "PERSON": "Persona",
+  "POLICY": {
+    "CANCEL": "Cancela con 24 horas de antelación sin costes.",
+    "PRIVACY": "He leido y acepto las políticas de privacidad y las políticas de reserva."
+  },
   "PROFILE": {
     "ACCOUNT": {
       "CREATION": "Miembro desde",
@@ -102,30 +241,91 @@
       "MODIFY": "Editar datos",
       "TITLE": "Datos personales"
     },
-    "TITLE": "Area personal"
+    "SETTINGS": {
+      "TITLE": "Ajustes"
+    },
+    "TITLE": "Área personal"
   },
   "RESERVATION": {
+    "ALL-SET": "¡Todo listo!",
+    "CANCEL": {
+      "MESSAGE": "¿Está seguro de que desea cancelar permanentemente esta reserva? Si la reserva empieza en menos de 24 horas no recibirás ningún reembolso. De lo contrario recibirás toda la cantidad integra.",
+      "OPTION": {
+        "NO": "No, mantener la reserva",
+        "YES": "Si, cancelar reserva"
+      },
+      "TITLE": "Cancelar reserva"
+    },
+    "CARD_DATA": {
+      "TITLE": "Método de pago"
+    },
+    "CHECK": "Puedes ver todas tus compras en el apartado de reservas",
+    "CONFIRM": "Tu orden ha sido procesada con éxito",
+    "DATA_CONTACT": {
+      "TITLE": "Datos de contacto"
+    },
+    "DETAILS": {
+      "TITLE": "Detalles de la reserva"
+    },
+    "ID": "Número de confirmación",
+    "INSTRUCTION": {
+      "IMPORTANT": {
+        "FIRST_PARAGRAPH": "Recuerda llegar a nuestra oficina al menos 15 minutos antes de la hora programada para tu actividad. Esto nos permitirá organizar todo adecuadamente y asegurarnos de que tienes todo lo necesario para disfrutar de tu experiencia. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en contactarnos a través del teléfono +34 123 123 123 o enviarnos un correo electrónico a info@astour.online.",
+        "SECOND_PARAGRAPH": "Esperamos verte pronto y deseamos que disfrutes de tu tiempo en Asturias. ¡Gracias por elegir AsTour!",
+        "TITLE": "¡¡Importante!!"
+      },
+      "LOCATION": {
+        "FIRST_PARAGRAPH": "Nuestra oficina se encuentra en la Calle de las Aventuras, 123, Oviedo. Es un lugar céntrico y de fácil acceso, tanto si vienes en coche como en transporte público.",
+        "FOURTH_PARAGRAPH": "Si llegas en tren a la estación de Oviedo, tienes dos opciones: caminar o tomar un taxi. Caminando, nuestra oficina está a unos 15 minutos. Sal de la estación y dirígete hacia la Plaza de la Constitución. Luego, gira a la derecha en la Calle del Progreso y sigue recto hasta llegar a la Calle de las Aventuras. Si prefieres la comodidad de un taxi, encontrarás taxis disponibles justo fuera de la estación. Pide al conductor que te lleve a la Calle de las Aventuras, 123.",
+        "SECOND_PARAGRAPH": "Si llegas desde el Aeropuerto de Asturias, la manera más sencilla es tomar un coche o un taxi. Al salir del aeropuerto, sigue las indicaciones hacia la autopista A-8 en dirección a Oviedo. Continúa por la A-8 y toma la salida 398 para incorporarte a la A-66 hacia Oviedo. Desde allí, sigue las señales hacia el centro de la ciudad y encontrarás nuestra oficina sin problemas. El trayecto en coche suele durar unos 30 minutos.",
+        "THIRD_PARAGRAPH": "Para aquellos que prefieren el transporte público, puedes tomar el autobús ALSA que conecta el aeropuerto con la estación de autobuses de Oviedo. Desde la estación, nuestra oficina está a solo 10 minutos a pie. Simplemente sigue las indicaciones hacia el centro y busca la Calle de las Aventuras.",
+        "TITLE": "¿Cómo llegar a nuestra oficina?"
+      }
+    },
+    "LIST_EMPTY": "No hay ninguna reserva realizada.",
+    "SHOW": "Ver reservas",
     "STATE": {
       "CANCELED": "Cancelada",
+      "COMPLETED": "Completada",
+      "PENDING": "Pendiente",
       "SUCCESS": "Pagada"
-    }
+    },
+    "SUMMARY": {
+      "TITLE": "Resumen de compra"
+    },
+    "TITLE": "Reservas",
+    "TOTAL_PRICE": "Precio total"
+  },
+  "RETURN": {
+    "HOME": "Volver al Inicio"
   },
   "ROLE": {
     "ADMIN": "Administrador",
     "USER": "Turista",
     "WORKER": "Guía"
   },
-  "SEARCH": "Buscar",
   "SHOW": {
-    "INFO": "Ver más"
+    "MORE": "Ver más"
+  },
+  "SIGN": {
+    "UP": {
+      "HERE": "Regístrate aquí"
+    }
   },
   "THEME": {
     "CHANGE": "Cambiar tema"
   },
+  "TO": "Hasta",
   "USER": {
-    "TITLE": {
-      "ADD": "Dar de alta usuario",
-      "EDIT": "Editar usuario"
+    "ADD": {
+      "TITLE": "Dar de alta usuario"
+    },
+    "DELETE": {
+      "MESSAGE": "¿Estás seguro de que quieres eliminar este usuario?",
+      "TITLE": "Eliminar usuario"
+    },
+    "EDIT": {
+      "TITLE": "Editar usuario"
     }
   },
   "WELCOME": {

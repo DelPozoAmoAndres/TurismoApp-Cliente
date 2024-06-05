@@ -17,7 +17,7 @@ const ListWebLayout: React.FC<Props> = ({ columns, items, search, children }) =>
     return (
         <div id="listLayout">
             <header>
-                <IonSearchbar placeholder={t('SEARCH') || ''} onIonInput={async e => search(e.detail.value || "")} />
+                <IonSearchbar placeholder={t('ACTIONS.SEARCH') || ''} onIonInput={async e => search(e.detail.value || "")} />
                 {children}
             </header>
             <main style={{ width: "100%" }}>

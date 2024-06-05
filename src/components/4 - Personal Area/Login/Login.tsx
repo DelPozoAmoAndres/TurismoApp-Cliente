@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 /* Ionic Components */
 import { IonInput, IonButton, IonText, IonItem, IonList, IonGrid, IonRow } from '@ionic/react';
 /* Styles */
@@ -19,8 +19,16 @@ const Login: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { showLoginModal, setShowLoginModal } = useAuth();
 
+  useEffect(() => {
+    modal.current?.onDidDismiss().then(() => {
+      setEmail('');
+      setPassword('');
+    });
+    // eslint-disable-next-line
+  }, [modal]);
+
   return (
-    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} title={t('log.in')} modal={modal} minHeightAndroid={330} minHeightIos={300}>
+    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} title={t('LOG.IN')} modal={modal} minHeightAndroid={330} minHeightIos={300}>
       <IonGrid id="login-grid" class="ion-no-padding">
         <IonRow>
           <IonList class="ion-margin-bottom">
@@ -46,7 +54,7 @@ const Login: React.FC = () => {
             </IonItem>
             <IonButton disabled={!email || !password} type="submit" expand="block" onClick={() => handleLogin()}>
               {' '}
-              {loading ? <Spinner /> : t('log.in')}
+              {loading ? <Spinner /> : t('LOG.IN')}
             </IonButton>
           </IonList>
         </IonRow>
@@ -57,8 +65,8 @@ const Login: React.FC = () => {
             style={{ borderRadius: '5px', width: '100%' }}
           >
             <IonText>
-              {t('not.account') + ' '}
-              <strong>{t('sign.up.here')}</strong>
+              {t('NOT.ACCOUNT') + ' '}
+              <strong style={{ cursor: "pointer" }}>{t('SIGN.UP.HERE')}</strong>
             </IonText>
           </IonItem>
         </IonRow>

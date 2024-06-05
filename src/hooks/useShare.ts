@@ -11,10 +11,10 @@ export const useShare = (activityId: string) => {
 
   const shareOptions = {
     //Options to configurate the text and content to share
-    title: t('share.activity.title'),
-    text: t('share.activity.text'),
+    // title: t('share.activity.title'),
+    // text: t('share.activity.text'),
     url: `${process.env.REACT_APP_URL}/activity/${activityId}`,
-    dialogTitle: t('share.by'),
+    dialogTitle: t('ACTIONS.SHARE'),
   };
 
   const shareActivity = async () => {

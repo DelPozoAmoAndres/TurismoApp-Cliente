@@ -24,10 +24,10 @@ export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }
         {!isMobile &&
           <>
             <IonLabel>
-              <strong>{t('reviews.title')}</strong>
+              <strong>{t('ACTIVITY.REVIEWS.TITLE')}</strong>
             </IonLabel>
             <div id="list-activity-review" className="ion-margin-vertical">
-              {listOfComments?.slice(-6, listOfComments.length).map((comment: Review, index: number) => (
+              {listOfComments?.slice(-5, listOfComments.length).map((comment: Review, index: number) => (
                 <div key={"comment" + index} style={{ width: "100%" }}>
                   <ReviewItem comment={comment} setRefresh={setRefresh} />
                 </div>
@@ -36,7 +36,7 @@ export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }
           </>
         }
         {(listOfComments && listOfComments?.length > 6) && <>
-          <IonButton class="outlined ion-no-margin" style={{ width: "100%", height: "40px" }} id="modal-reviews" expand='block'>{isMobile ? "Ver reviews" : "Ver más"}</IonButton>
+          <IonButton class="outlined ion-no-margin" style={{ width: "100%", height: "40px" }} id="modal-reviews" expand='block'>{t(isMobile ? "ACTIVITY.SHOW.REVIEWS" : "SHOW.MORE")}</IonButton>
           <ReviewsModal listOfComments={listOfComments} setRefresh={setRefresh} />
         </>}
       </div>

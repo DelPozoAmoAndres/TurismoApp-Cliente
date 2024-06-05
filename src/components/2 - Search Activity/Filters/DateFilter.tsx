@@ -1,3 +1,4 @@
+import { useLanguage } from '@hooks/useLanguage';
 import { useScreen } from '@hooks/useScreen';
 import { IonDatetime, IonIcon, IonLabel, IonRow, IonText } from '@ionic/react';
 import { Modal } from '@shared/Modal';
@@ -18,6 +19,7 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
     const [showEnd, setShowEnd] = useState(false);
     const originModal = React.useRef<HTMLIonModalElement>(null);
     const endModal = React.useRef<HTMLIonModalElement>(null);
+    const { defaultLanguage } = useLanguage();
     const { t } = useTranslation();
 
     const getDate = (date: string): string | undefined => {
@@ -55,12 +57,15 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
     return (
         <>
             <IonRow>
-                <Modal id="dateTimeOrigin" modal={originModal} title='OriginDate' isOpen={showOrigin} setOpen={setShowOrigin} height={'500px'}>
+                <Modal id="dateTimeOrigin" modal={originModal} title={t('FROM')} isOpen={showOrigin} setOpen={setShowOrigin} height={'500px'}>
                     <div style={{ width: "100%", height: isMobile ? "auto" : "90%", display: "flex", justifyContent: "center", marginTop: "10px" }}>
                         <IonDatetime
                             presentation='date'
                             id="datetimeOrigin"
+                            locale={defaultLanguage.code}
                             showDefaultButtons
+                            doneText={t('ACTIONS.CONFIRM') || ''}
+                            cancelText={t('ACTIONS.CANCEL') || ''}
                             value={getDate('originDate')}
                             onIonChange={e => handleFilters(formatDate(new Date(String(e.detail.value))), 'originDate')}
                             min={new Date(Date.now()).toISOString()} max={getLimitDate('endDate')}
@@ -68,12 +73,15 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
                         ></IonDatetime>
                     </div>
                 </Modal >
-                <Modal id="dateTimeEnd" modal={endModal} title='EndDate' isOpen={showEnd} setOpen={setShowEnd} height={'500px'}>
+                <Modal id="dateTimeEnd" modal={endModal} title={t('TO')} isOpen={showEnd} setOpen={setShowEnd} height={'500px'}>
                     <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: "10px" }}>
                         <IonDatetime
                             presentation='date'
                             id="datetimeEnd"
+                            locale={defaultLanguage.code}
                             showDefaultButtons
+                            doneText={t('ACTIONS.CONFIRM') || ''}
+                            cancelText={t('ACTIONS.CANCEL') || ''}
                             value={getDate('endDate')}
                             onIonChange={e => handleFilters(formatDate(new Date(String(e.detail.value))), 'endDate')}
                             min={getLimitDate('originDate')}
@@ -83,14 +91,14 @@ const DateFilter: React.FC<Props> = ({ handleFilters, filtersToApply }) => {
                 </Modal>
                 <IonRow class="ion-align-items-center ion-justify-content-between" style={{ width: "100%" }}>
                     <IonLabel>
-                        <strong>{t('filters.date')}:</strong>
+                        <strong>{t('ACTIVITY.FILTERS.DATE_RANGE')}:</strong>
                     </IonLabel>
                 </IonRow>
             </IonRow>
             <IonRow class="ion-margin-bottom ion-align-items-center ion-margin-top" style={{ backgroundColor: "var(--ion--color--background)", minHeight: "45px", width: "clamp(20px,100%,350px)", borderRadius: 10, fontSize: "clamp(12px, 5vw, 1em)", textAlign: "center" }}>
-                <IonLabel style={{ width: showDate ? "clamp(90px,40%,133px)" : "clamp(90px,45%,153px)", marginLeft: isMobile && "5px" }} onClick={() => setShowOrigin(true)}>{filtersToApply?.originDate ? getDate("originDate") : "Desde"}</IonLabel>
+                <IonLabel style={{ width: showDate ? "clamp(90px,40%,133px)" : "clamp(90px,45%,153px)", marginLeft: isMobile && "5px" }} onClick={() => setShowOrigin(true)}>{filtersToApply?.originDate ? getDate("originDate") : t('FROM')}</IonLabel>
                 <span> - </span>
-                <IonLabel style={{ width: showDate ? "clamp(90px,40%,133px)" : "clamp(90px,45%,153px)", marginLeft: isMobile && "5px" }} onClick={() => setShowEnd(true)}>{filtersToApply?.endDate ? getDate("endDate") : "Hasta"}</IonLabel>
+                <IonLabel style={{ width: showDate ? "clamp(90px,40%,133px)" : "clamp(90px,45%,153px)", marginLeft: isMobile && "5px" }} onClick={() => setShowEnd(true)}>{filtersToApply?.endDate ? getDate("endDate") : t('TO')}</IonLabel>
                 {showDate &&
                     <IonText color="danger" onClick={() => { handleFilters(null, 'originDate endDate'); setShowDate(false) }} style={{ padding: "0", margin: "0", width: 'auto' }}>
                         <IonIcon icon={trashBinOutline} style={{ fontSize: "20px" }} />

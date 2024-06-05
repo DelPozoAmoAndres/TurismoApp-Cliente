@@ -7,7 +7,6 @@ export const usePopular = () => {
 
   useEffect(() => {
     getPopular().then((data) => {
-      console.log(data);
       setActividades(data);
     });
   }, []);

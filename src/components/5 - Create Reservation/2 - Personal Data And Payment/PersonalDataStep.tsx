@@ -46,13 +46,13 @@ export const PersonalDataStep: React.FC<{ numPersons: number }> = ({ numPersons 
       <section className='ion-padding ion-margin-vertical' style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
         <IonRow class="ion-margin-top">
           <IonTitle class='ion-no-padding'>
-            <strong>{t('reservation.data.title')}</strong>
+            <strong>{t('RESERVATION.DATA_CONTACT.TITLE')}</strong>
           </IonTitle>
         </IonRow>
         <IonRow class="ion-margin-top">
           <Field
             label={t('DATA.NAME.LABEL')}
-            onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'name')}
+            onIonInput={(e) => e.detail && onChange(e.detail.value, 'name')}
             placeholder={t('DATA.NAME.PLACEHOLDER')}
             type={'text'}
             errorText={t('DATA.NAME.ERROR')}
@@ -62,7 +62,7 @@ export const PersonalDataStep: React.FC<{ numPersons: number }> = ({ numPersons 
         </IonRow>
         <Field
           label={t('DATA.EMAIL.LABEL')}
-          onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'email')}
+          onIonInput={(e) => e.detail && onChange(e.detail.value, 'email')}
           placeholder={t('DATA.EMAIL.PLACEHOLDER')}
           type={'email'}
           errorText={t('DATA.EMAIL.ERROR')}
@@ -71,19 +71,19 @@ export const PersonalDataStep: React.FC<{ numPersons: number }> = ({ numPersons 
         />
         <Field
           label={t('DATA.TELEPHONE.LABEL') + ' (' + t('OPTIONAL') + ')'}
-          onIonInput={(e) => e.detail.value.length && onChange(e.detail.value, 'telephone')}
+          onIonInput={(e) => e.detail && onChange(e.detail.value, 'telephone')}
           placeholder={t('DATA.TELEPHONE.PLACEHOLDER')}
           type={''}
           errorText={t('DATA.TELEPHONE.ERROR')}
           validationFn={telephoneValidation}
           value={telephone}
         />
-        <IonCheckbox class='ion-margin-vertical' style={{}} onIonChange={(e) => setPrivacyPolicy(e.detail.checked)} labelPlacement="end" checked={privacyPolicy}><IonText style={{ "text-wrap": "pretty" }}>{t('privacy.policy')}</IonText> </IonCheckbox>
+        <IonCheckbox class='ion-margin-vertical' style={{}} onIonChange={(e) => setPrivacyPolicy(e.detail.checked)} labelPlacement="end" checked={privacyPolicy}><IonText style={{ "text-wrap": "pretty" }}>{t('POLICY.PRIVACY')}</IonText> </IonCheckbox>
       </section>
-      {browsingWeb && <section style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
+      {browsingWeb && <section className='ion-padding-bottom' style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
         <IonRow class="ion-padding ion-margin-top">
           <IonTitle class='ion-no-padding ion-padding-top'>
-            <strong>{t('reservation.card.title')}</strong>
+            <strong>{t('RESERVATION.CARD_DATA.TITLE')}</strong>
           </IonTitle>
         </IonRow>
         <StripeCheckOutWebButton />

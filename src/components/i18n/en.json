@@ -1,5 +1,336 @@
 {
+  "ACTIONS": {
+    "BOOK": "Book",
+    "CANCEL": "Cancel",
+    "CLOSE": "Close",
+    "CONFIRM": "Confirm",
+    "CREATE": "Create",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "FILTERS": {
+      "ADD": "Add filters",
+      "DELETE": "Clear filters"
+    },
+    "INCLUDE_CANCELLED": "Include canceled",
+    "MANAGE": "Manage",
+    "PAY": "Pay",
+    "SAVE": "Save changes",
+    "SEARCH": "Search",
+    "SELECT": {
+      "FILES": "Select files"
+    },
+    "SHARE": "Share",
+    "SIGN": {
+      "UP": "To sign up"
+    },
+    "SORT": {
+      "NAME": {
+        "ASC": "Name ascending",
+        "DESC": "Name descending"
+      },
+      "PRICE": {
+        "ASC": "Price ascending",
+        "DESC": "Price descending"
+      },
+      "TITLE": "Sort by"
+    }
+  },
+  "ACTIVITY": {
+    "ADD": {
+      "TITLE": "Create activity"
+    },
+    "AVAILABILITY": {
+      "TITLE": "Availability"
+    },
+    "CATEGORY": "Category",
+    "DELETE": {
+      "MESSAGE": "Are you sure you want to delete this activity?",
+      "TITLE": "Delete activity"
+    },
+    "DESCRIPTION": "Description",
+    "DURATION": "Duration",
+    "EDIT": {
+      "TITLE": "Edit activity"
+    },
+    "EVENT": {
+      "ADD": {
+        "TITLE": "Add event"
+      },
+      "CANCELLED": "Cancelled",
+      "EDIT": {
+        "TITLE": "Edit event"
+      },
+      "LANGUAGE": "Language",
+      "PARTICIPANTS": "Participants",
+      "PRICE": "Price",
+      "TITLE": "Events"
+    },
+    "FILTERS": {
+      "APPLIED": "Applied filters",
+      "DATE_RANGE": "Date range",
+      "MAX_PRICE": "Maximum price",
+      "MIN_RATING": "Minimum Rating",
+      "TITLE": "Filters"
+    },
+    "LOCATION": "Location",
+    "NAME": "Name",
+    "REVIEWS": {
+      "ADD": "Add review",
+      "COMMENT": "Comment",
+      "RATING": "Rating",
+      "REPORT": "Report",
+      "TITLE": "Reviews"
+    },
+    "SELECT": {
+      "PLACEHOLDER": "Select the activity"
+    },
+    "SHOW": {
+      "AVAILABILITY": "View availability",
+      "EVENTS": "View events",
+      "INFO": "View info",
+      "REVIEWS": "View reviews"
+    },
+    "SOLD": {
+      "OUT": "Sold out"
+    },
+    "STATE": {
+      "AVAILABLE": "Available",
+      "CANCELED": "Canceled",
+      "TEMPORALY-CLOSED": "Temporarily closed"
+    }
+  },
+  "CATEGORY": {
+    "CULTURAL": "Cultural",
+    "DEPORTIVA": "Sports",
+    "GASTRONÓMICA": "Gastronomic",
+    "NATURALEZA": "Nature",
+    "NOCTURNA": "Nightlife",
+    "RELIGIOSA": "Religious",
+    "SIN": "Without reservations",
+    "SOCIAL": "Social"
+  },
+  "CONTACT": {
+    "FOOTER": "Astour. All rights reserved.",
+    "TITLE": "Contact"
+  },
+  "DASHBOARD": {
+    "ACTIVITY": {
+      "TITLE": "Activities"
+    },
+    "LIST": {
+      "BIRTHDAY": "Birthday",
+      "CANCEL": "Cancel",
+      "CATEGORY": "Category",
+      "COUNTRY": "Country",
+      "DATE": "Date",
+      "DELETE": "Delete",
+      "DETAILS": "Details",
+      "DURATION": "Duration",
+      "EDIT": "Edit",
+      "EMAIL": "Email",
+      "GUIDE": "Guide number",
+      "ID": "ID Number",
+      "LOCATION": "Location",
+      "NAME": "Name",
+      "RESERVED-SEATS": "Reserved seats",
+      "ROLE": "Permissions",
+      "SEATS": "Seats",
+      "STATE": "State",
+      "TELEPHONE": "Phone"
+    },
+    "RECENT-ACTIVITY": "Recent activity",
+    "STATS": {
+      "CANCELATIONS": "Cancellations",
+      "CATEGORY-SALES": "Sales by category",
+      "INCOME": "Income",
+      "LAST-MONTH": "Last month",
+      "OCCUPATION": "Occupation",
+      "RESERVATIONS": "Reservations",
+      "USERS": "Users"
+    },
+    "TITLE": "Dashboard",
+    "USER": {
+      "TITLE": "Users"
+    }
+  },
+  "DATA": {
+    "BIRTHDAY": {
+      "ERROR": "You must enter a date earlier than today",
+      "LABEL": "Birthday",
+      "PLACEHOLDER": "Enter birth date"
+    },
+    "COUNTRY": {
+      "LABEL": "Country",
+      "PLACEHOLDER": "Enter country"
+    },
+    "EMAIL": {
+      "ERROR": "You must enter a valid email address",
+      "LABEL": "Email",
+      "PLACEHOLDER": "Enter email"
+    },
+    "NAME": {
+      "ERROR": "You must enter at least 8 characters",
+      "LABEL": "Name and surname",
+      "PLACEHOLDER": "Enter name and surname"
+    },
+    "PASSWORD": {
+      "CONFIRM": {
+        "ERROR": "Passwords do not match",
+        "FAIL": "Password change failed",
+        "LABEL": "Password confirmation",
+        "PLACEHOLDER": "Enter the new password again",
+        "SUCCESS": "Password changed successfully"
+      },
+      "CURRENT": {
+        "LABEL": "Current password",
+        "PLACEHOLDER": "Enter your current password"
+      },
+      "ERROR": "You must enter at least 8 characters",
+      "LABEL": "Password",
+      "PLACEHOLDER": "Enter a password"
+    },
+    "TELEPHONE": {
+      "ERROR": "You must enter a valid phone number",
+      "LABEL": "Phone",
+      "PLACEHOLDER": "Enter phone"
+    },
+    "UNKNOWN": "Unknown"
+  },
+  "DAY": "Day",
+  "FROM": "From",
+  "GO": {
+    "BACK": "Go back"
+  },
+  "HOME": {
+    "TITLE": "Home"
+  },
+  "LANGUAGE": {
+    "EN": "English",
+    "ES": "Spanish",
+    "FR": "French"
+  },
+  "LOG": {
+    "IN": "Log in",
+    "IN_TO_BOOK": "Log in to book",
+    "OUT": "Log out"
+  },
+  "MINUTES": "minutes",
+  "NEXTEVENTS": {
+    "TITLE": "Upcoming events"
+  },
+  "NOT": {
+    "ACCOUNT": "Don't have an account?"
+  },
+  "OPTIONAL": "Optional",
+  "PEOPLE": "People",
+  "PERSON": "Person",
+  "POLICY": {
+    "CANCEL": "Cancel 24 hours in advance at no cost.",
+    "PRIVACY": "I have read and accept the privacy policy and booking policy."
+  },
+  "PROFILE": {
+    "ACCOUNT": {
+      "CREATION": "Member since",
+      "DELETE": "Delete account",
+      "PASSWORD": {
+        "CHANGE": "Change password"
+      },
+      "TITLE": "Account"
+    },
+    "DATA": {
+      "MODIFY": "Edit data",
+      "TITLE": "Personal data"
+    },
+    "SETTINGS": {
+      "TITLE": "Settings"
+    },
+    "TITLE": "Personal area"
+  },
+  "RESERVATION": {
+    "ALL-SET": "All set!",
+    "CANCEL": {
+      "MESSAGE": "Are you sure you want to permanently cancel this reservation? If the reservation starts in less than 24 hours, you will not receive any refund. Otherwise, you will receive the full amount.",
+      "OPTION": {
+        "NO": "No, keep reservation",
+        "YES": "Yes, cancel reservation"
+      },
+      "TITLE": "Cancel reservation"
+    },
+    "CARD_DATA": {
+      "TITLE": "Payment method"
+    },
+    "CHECK": "You can view all your purchases in the reservations section",
+    "CONFIRM": "Your order has been successfully processed",
+    "DATA_CONTACT": {
+      "TITLE": "Contact information"
+    },
+    "DETAILS": {
+      "TITLE": "Reservation Details"
+    },
+    "ID": "Confirmation number",
+    "INSTRUCTION": {
+      "IMPORTANT": {
+        "FIRST_PARAGRAPH": "Remember to arrive at our office at least 15 minutes before your scheduled activity time. This will allow us to organize everything properly and ensure you have everything you need to enjoy your experience. If you have any questions or need additional assistance, do not hesitate to contact us at +34 123 123 123 or email us at info@astour.online.",
+        "SECOND_PARAGRAPH": "We look forward to seeing you soon and hope you enjoy your time in Asturias. Thank you for choosing AsTour!",
+        "TITLE": "Important!!"
+      },
+      "LOCATION": {
+        "FIRST_PARAGRAPH": "Our office is located at Calle de las Aventuras, number 123, in the heart of Oviedo. It is centrally located and easily accessible whether you come by car or public transport.",
+        "FOURTH_PARAGRAPH": "If you arrive by train at Oviedo station, you have two options: walking or taking a taxi. Walking, our office is about 15 minutes away. Exit the station and head towards Plaza de la Constitución. Then, turn right onto Calle del Progreso and continue straight until you reach Calle de las Aventuras. If you prefer the convenience of a taxi, you will find taxis available right outside the station. Ask the driver to take you to Calle de las Aventuras, 123.",
+        "SECOND_PARAGRAPH": "If you are arriving from Asturias Airport, the easiest way is to take a car or taxi. Upon exiting the airport, follow the signs for the A-8 motorway towards Oviedo. Continue on the A-8 and take exit 398 to join the A-66 towards Oviedo. From there, follow the signs to the city center and you will find our office without any problems. The drive usually takes about 30 minutes.",
+        "THIRD_PARAGRAPH": "For those who prefer public transportation, you can take the ALSA bus that connects the airport with the Oviedo bus station. From the station, our office is just a 10-minute walk. Simply follow the signs to the city center and look for Calle de las Aventuras.",
+        "TITLE": "How to get to our office?"
+      }
+    },
+    "LIST_EMPTY": "There is no reservation made.",
+    "SHOW": "View reservations",
+    "STATE": {
+      "CANCELED": "Canceled",
+      "COMPLETED": "Completed",
+      "PENDING": "Pending",
+      "SUCCESS": "Paid"
+    },
+    "SUMMARY": {
+      "TITLE": "Purchase summary"
+    },
+    "TITLE": "Reservations",
+    "TOTAL_PRICE": "Total price"
+  },
+  "RETURN": {
+    "HOME": "Return to Home"
+  },
+  "ROLE": {
+    "ADMIN": "Administrator",
+    "USER": "Tourist",
+    "WORKER": "Guide"
+  },
+  "SHOW": {
+    "MORE": "See more"
+  },
+  "SIGN": {
+    "UP": {
+      "HERE": "Sign up here"
+    }
+  },
+  "THEME": {
+    "CHANGE": "Change theme"
+  },
+  "TO": "To",
+  "USER": {
+    "ADD": {
+      "TITLE": "Add user"
+    },
+    "DELETE": {
+      "MESSAGE": "Are you sure you want to delete this user?",
+      "TITLE": "Delete user"
+    },
+    "EDIT": {
+      "TITLE": "Edit user"
+    }
+  },
   "WELCOME": {
+    "MESSAGE": "Discover the best tourism services in Asturias. From paradise beaches to stunning mountains, here you will find everything you need to enjoy your vacation!",
+    "SEARCH": "Start searching",
     "TITLE": "Asturias"
   }
 }

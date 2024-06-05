@@ -24,7 +24,7 @@ export const Summary: React.FC = () => {
     <section className={isMobile ? 'ion-padding ion-margin-bottom' : 'ion-padding ion-margin-top'} style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
       <IonRow class="ion-margin-top">
         <IonTitle class="ion-no-padding">
-          <strong>{t('summary')}</strong>
+          <strong>{t('RESERVATION.SUMMARY.TITLE')}</strong>
         </IonTitle>
       </IonRow>
       {!isMobile && <IonRow class="ion-margin-top ion-justify-content-center">
@@ -43,18 +43,18 @@ export const Summary: React.FC = () => {
           <IonCardSubtitle color={'tertiary'}>{activity?.location}</IonCardSubtitle>
         </IonRow>
         <IonRow class="ion-margin-top ion-justify-content-start">
-          <IonLabel>{formatDate(event?.date || null, true)}</IonLabel>
+          <IonLabel>{formatDate(event?.date || null, true, true)}</IonLabel>
         </IonRow>
         <IonRow class="ion-margin-top ion-justify-content-start">
-          <IonLabel>Actividad en {event?.language}</IonLabel>
+          <IonLabel>{t('ACTIVITY.EVENT.LANGUAGE') + ": " + t("LANGUAGE." + event?.language.toUpperCase())}</IonLabel>
         </IonRow>
         <IonRow class="ion-margin-top ion-justify-content-between">
-          <IonLabel>{reservation.numPersons > 0 ? reservation.numPersons : 1} Personas</IonLabel>
-          <IonLabel>{reservation.numPersons > 0 ? reservation.numPersons : 1}x{event?.price}€</IonLabel>
+          <IonLabel>{reservation.numPersons > 1 ? reservation.numPersons + " " + t('PEOPLE') : "1 " + t('PERSON')}</IonLabel>
+          <IonLabel>{reservation.numPersons > 1 ? reservation.numPersons : 1}x{event?.price}€</IonLabel>
         </IonRow>
         <IonItemDivider style={{ "border-bottom": "2px solid var(--ion-color-primary)", "--background": "var(--ion--color--background)" }} />
         <IonRow class='ion-margin-top ion-justify-content-between' style={{ fontSize: 18 }}>
-          <IonLabel>{t('total.price')}:</IonLabel>
+          <IonLabel>{t('RESERVATION.TOTAL_PRICE')}:</IonLabel>
           <IonLabel><strong>{reservation.price + '€'}</strong></IonLabel>
         </IonRow>
 
@@ -63,11 +63,11 @@ export const Summary: React.FC = () => {
         {Capacitor.isNativePlatform() ?
           <StripeCheckoutMobileButton disabled={!privacyPolicy || !isFormValid} />
           : <IonButton onClick={pay} disabled={!privacyPolicy || !isFormValid} expand="block" style={{ "width": "100%" }}>
-            {t('pay') + ' ' + reservation.price + '€'}
+            {t('ACTIONS.PAY') + ' ' + reservation.price + '€'}
           </IonButton>}
       </IonRow>
       <IonRow class='ion-margin-top'>
-        <strong>{t('cancel.policy')}</strong>
+        <strong>{t('POLICY.CANCEL')}</strong>
       </IonRow>
     </section>
   );

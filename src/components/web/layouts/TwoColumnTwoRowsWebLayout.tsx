@@ -1,6 +1,5 @@
 import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
-import AppMenu from "../AppMenu";
 import { Header } from "../Header";
 import Footer from "../Footer";
 import { useScreen } from "@hooks/useScreen";
@@ -15,7 +14,6 @@ const TwoColumnTwoRowsWebLayout: React.FC<Props> = ({ children, leftContent }) =
     const { isMobile } = useScreen(); //Hook to have data of screen dimensions
     return (
         <>
-            <AppMenu />
             <IonPage id="pageWeb">
                 <IonContent>
                     <div className="two-column">

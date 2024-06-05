@@ -25,7 +25,7 @@ export const DashboardPage: React.FC = () => {
                         <IonCardHeader>
                             <IonCardSubtitle>{t('DASHBOARD.STATS.RESERVATIONS')}</IonCardSubtitle>
                             <IonCardTitle>{totalReservations}</IonCardTitle>
-                            <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle>
+                            {/* <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle> */}
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
@@ -34,7 +34,7 @@ export const DashboardPage: React.FC = () => {
                         <IonCardHeader>
                             <IonCardSubtitle>{t('DASHBOARD.STATS.INCOME')}</IonCardSubtitle>
                             <IonCardTitle>{totalIncome}€</IonCardTitle>
-                            <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle>
+                            {/* <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle> */}
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
@@ -43,7 +43,7 @@ export const DashboardPage: React.FC = () => {
                         <IonCardHeader>
                             <IonCardSubtitle>{t('DASHBOARD.STATS.USERS')}</IonCardSubtitle>
                             <IonCardTitle>{totalUsers}</IonCardTitle>
-                            <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle>
+                            {/* <IonCardSubtitle>{t('DASHBOARD.STATS.LAST-MONTH')} 30.4k</IonCardSubtitle> */}
                         </IonCardHeader>
                     </IonCard>
                 </IonCol>
@@ -94,7 +94,7 @@ export const DashboardPage: React.FC = () => {
                             <tr key={index} >
                                 <td>
                                     <IonAvatar slot="start">
-                                        <img src="https://placehold.co/40x40.png" alt="User Avatar" />
+                                        <img src="https://cdn.icon-icons.com/icons2/2643/PNG/512/male_man_person_people_avatar_white_tone_icon_159365.png" alt="User Avatar" />
                                     </IonAvatar>
                                     <IonLabel>
                                         <h2>{i.reservations?.at(0)?.name}</h2>

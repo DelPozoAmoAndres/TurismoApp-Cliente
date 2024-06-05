@@ -9,12 +9,11 @@ const filterPropertiesNotNull = (data: any) => {
       filteredData[key] = value instanceof Set ? Array.from(value) : value;
     }
   });
-  console.log(filteredData);
   return filteredData;
 };
 
 //Formatear fechas para inputs
-const formatDate = (date: Date | null, showTime?: boolean): string => {
+const formatDate = (date: Date | null, showTime?: boolean, clean?: boolean): string => {
   if (!date) return '';
   date = new Date(date.toString());
   const year = date.getFullYear();
@@ -26,7 +25,7 @@ const formatDate = (date: Date | null, showTime?: boolean): string => {
     hours = hours.length > 1 ? hours : '0' + hours;
     let minutes = date.getMinutes().toString();
     minutes = minutes.length > 1 ? minutes : '0' + minutes;
-    time = 'T' + hours + ':' + minutes;
+    time = (clean ? " " : 'T') + hours + ':' + minutes;
   }
   return `${year}-${month}-${day}${time}`;
 };

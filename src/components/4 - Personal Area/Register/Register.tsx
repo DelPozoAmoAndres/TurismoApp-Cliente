@@ -28,16 +28,32 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
   useEffect(() => {
     setIsFormValid(
       lengthValidation(8, formData.name) &&
-        emailValidation(formData.email) &&
-        formData.telephone ? telephoneValidation(formData.telephone) : true &&
-        dateValidation(formatDate(formData.birthday || null)) &&
-        lengthValidation(8, formData.password) &&
+      emailValidation(formData.email) &&
+      (formData.telephone ? telephoneValidation(formData.telephone) : true) &&
+      (formData.birthday ? dateValidation(formatDate(formData.birthday || null)) : true) &&
+      lengthValidation(8, formData.password) &&
       formData.password === formData.confirmPassword
     );
   }, [formData]);
 
+  useEffect(() => {
+    modal.current?.onWillDismiss().then(() => {
+      loginModal.current?.dismiss();
+      setFormData({
+        name: '',
+        telephone: '',
+        email: '',
+        birthday: null,
+        country: null,
+        password: '',
+        confirmPassword: '',
+      });
+    });
+    // eslint-disable-next-line
+  }, [modal]);
+
   return (
-    <Modal id={'register-modal-card'} title={t('sign.up')} trigger={'register-modal'} modal={modal} minHeightAndroid={570} minHeightIos={590}>
+    <Modal id={'register-modal-card'} title={t('ACTIONS.SIGN.UP')} trigger={'register-modal'} modal={modal}>
       <form onSubmit={handleRegister}>
         <IonGrid class="ion-no-padding ion-margin-horizontal">
           <IonItem lines="none">
@@ -64,7 +80,7 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('DATA.TELEPHONE.LABEL')}
+              label={t('DATA.TELEPHONE.LABEL') + ' (' + t('OPTIONAL') + ')'}
               errorText={t('DATA.TELEPHONE.ERROR')}
               placeholder={t('DATA.TELEPHONE.PLACEHOLDER')}
               type="tel"
@@ -75,7 +91,7 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('DATA.BIRTHDAY.LABEL')}
+              label={t('DATA.BIRTHDAY.LABEL') + ' (' + t('OPTIONAL') + ')'}
               errorText={t('DATA.BIRTHDAY.ERROR')}
               placeholder={t('DATA.BIRTHDAY.PLACEHOLDER')}
               validationFn={dateValidation}
@@ -115,9 +131,9 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('personal.data.confirm.password')}
-              errorText={t('personal.data.confirm.password.error')}
-              placeholder={t('personal.data.confirm.password.placeholder')}
+              label={t('DATA.PASSWORD.CONFIRM.LABEL')}
+              errorText={t('DATA.PASSWORD.CONFIRM.ERROR')}
+              placeholder={t('DATA.PASSWORD.CONFIRM.PLACEHOLDER')}
               validationFn={(e) => e === formData.password}
               type="password"
               onIonInput={(e) => {
@@ -127,7 +143,7 @@ const Register: React.FC<RegisterProps> = ({ loginModal }) => {
             />
           </IonItem>
           <IonButton disabled={!isFormValid} type="submit" expand="block">
-            {loading ? <Spinner /> : t('sign.up')}
+            {loading ? <Spinner /> : t('ACTIONS.SIGN.UP')}
           </IonButton>
         </IonGrid>
       </form>

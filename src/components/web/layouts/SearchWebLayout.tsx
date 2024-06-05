@@ -1,7 +1,6 @@
 import Footer from "@components/web/Footer";
 import { Header } from "@components/web/Header";
 import React from "react";
-import AppMenu from "../AppMenu";
 import { IonContent, IonPage } from "@ionic/react";
 import "./SearchWebLayout.css";
 import { useScreen } from "@hooks/useScreen";
@@ -15,10 +14,9 @@ const SearchWebLayout: React.FC<Props> = ({ leftMenu, children }) => {
     const { isMobile } = useScreen(); //Hook to have data of screen dimensions
     return (
         <>
-            <AppMenu />
             <IonPage id="pageWeb" >
-                    <IonContent>
-                        <div className="search-web">
+                <IonContent>
+                    <div className="search-web">
                         <header><Header /></header>
                         <main>
                             {!isMobile && <div className="sticky">
@@ -27,8 +25,8 @@ const SearchWebLayout: React.FC<Props> = ({ leftMenu, children }) => {
                             {children}
                         </main>
                         <footer><Footer /></footer>
-                        </div>
-                    </IonContent >
+                    </div>
+                </IonContent >
             </IonPage >
         </>
     );

@@ -1,13 +1,13 @@
 import Footer from "@components/web/Footer";
 import { Header } from "@components/web/Header";
 import React, { useEffect, useState } from "react";
-import AppMenu from "../AppMenu";
 import { IonButton, IonContent, IonDatetime, IonIcon, IonList, IonPage } from "@ionic/react";
 import "./SearchWebLayout.css";
 import { useScreen } from "@hooks/useScreen";
 import { formatDate } from "@utils/Utils";
 import { Modal } from "@shared/Modal";
 import { calendarOutline } from "ionicons/icons";
+import { useTranslation } from "react-i18next";
 
 interface Props {
     highlightedDates: { date: string; textColor: string; backgroundColor: string }[];
@@ -22,11 +22,19 @@ const ScheduleWebLayout: React.FC<Props> = ({ highlightedDates, children, header
     const [selectedDate, setSelectedDate] = React.useState<Date>(new Date());
     const modal = React.useRef<HTMLIonModalElement>(null);
     const [showModal, setShowModal] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setDate != undefined && setDate(selectedDate);
         //eslint-disable-next-line
     }, [selectedDate]);
+
+    useEffect(() => {
+        if (highlightedDates.length > 0) {
+            setSelectedDate(new Date(highlightedDates?.sort((a, b) => Number(a.date) - Number(b.date))[0].date));
+        }
+        //eslint-disable-next-line
+    }, [highlightedDates]);
 
     useEffect(() => {
         getItemList !== undefined && getItemList(selectedDate);
@@ -42,12 +50,14 @@ const ScheduleWebLayout: React.FC<Props> = ({ highlightedDates, children, header
             value={formatDate(selectedDate)}
             onIonChange={e => e.detail.value && setSelectedDate(new Date(e.detail.value.toString()))}
             presentation='date'
-            showDefaultButtons={isMobile} />
+            showDefaultButtons={isMobile}
+            doneText={t('ACTIONS.CONFIRM') || ''}
+            cancelText={t('ACTIONS.CANCEL') || ''} />
     )
 
     const mobileContent = () => (
         <>
-            <Modal id="dateTimeOrigin" modal={modal} title='OriginDate' isOpen={showModal} setOpen={setShowModal} minHeightAndroid={100} minHeightIos={780}>
+            <Modal id="dateTimeOrigin" modal={modal} title={t('DASHBOARD.LIST.DATE')} isOpen={showModal} setOpen={setShowModal} height="470px">
                 {leftContent()}
             </Modal>
             <IonButton class="outlined" onClick={() => setShowModal(true)}><IonIcon icon={calendarOutline} class='ion-margin-end' />{formatDate(selectedDate)}</IonButton>
@@ -56,7 +66,6 @@ const ScheduleWebLayout: React.FC<Props> = ({ highlightedDates, children, header
 
     return (
         <>
-            <AppMenu />
             <IonPage id="pageWeb" >
                 <IonContent>
                     <div className="search-web">

@@ -6,8 +6,18 @@ export const useUserData = (userId: string) => {
   const [user, setUser] = useState(new User());
   const [forceUpdate, setForceUpdate] = useState(false);
   useEffect(() => {
-    if (forceUpdate) setForceUpdate(false);
+    if (forceUpdate) {
+      setForceUpdate(false);
+      getUser(userId).then(data => setUser(data))
+    }
+    // eslint-disable-next-line 
+  }, [forceUpdate])
+
+  useEffect(() => {
     getUser(userId).then(data => setUser(data))
-  }, [userId, forceUpdate])
+
+    // eslint-disable-next-line
+  }, [userId])
+
   return { user, setForceUpdate };
 }

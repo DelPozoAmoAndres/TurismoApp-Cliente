@@ -11,6 +11,7 @@ export const useSoldOut = (activity: Activity | undefined) => {
     const color = 'medium';
     const props = { style, disabled, color }; //Props with disabled state for the availability button
 
+
     setSoldOut(!activity || activity && activity.state == ActivityState['temporaly-closed'] || (activity.events && activity.events.filter(e => e.bookedSeats == undefined || e.seats > e.bookedSeats).length == 0) ? props : {});
   }, [activity]);
 

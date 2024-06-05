@@ -41,8 +41,8 @@ export const Header: React.FC = () => {
             <Button role={null} routeLink="/home" icon={homeOutline} text={t('HOME.TITLE')} />
             <Button role={null} routeLink="/perfil" icon={personOutline} text={t('PROFILE.TITLE')} />
             <Button role={Role.administrador} routeLink="/admin/dashboard" icon={gridOutline} text={t('DASHBOARD.TITLE')} />
-            <Button role={Role.guía} routeLink="/nextEvents" icon={briefcaseOutline} text={t('nextEvents.title')} />
-            <Button role={Role.turista} routeLink="/reservas" icon={briefcaseOutline} text={t('reservations.title')} />
+            <Button role={Role.guía} routeLink="/nextEvents" icon={briefcaseOutline} text={t('NEXTEVENTS.TITLE')} />
+            <Button role={Role.turista} routeLink="/reservas" icon={briefcaseOutline} text={t('RESERVATION.TITLE')} />
             <LanguageSelector hidden={isMobile} />
             <DarkModeToggle hidden={isMobile} />
           </IonButtons>

@@ -33,7 +33,7 @@ export const ActivityList: React.FC<{
         <IonSearchbar
           mode="ios"
           ref={searchBar}
-          placeholder={t('search.activity.placeholder') || ''}
+          placeholder={t('ACTIONS.SEARCH') || ''}
           debounce={500}
           onIonInput={(e) => setSearchText(e.detail.value || '')}
         />
@@ -47,13 +47,13 @@ export const ActivityList: React.FC<{
           <>
             <div className='sticky' >
               <IonButton id="filters-modal" style={{ width: '100%' }} expand="block" size="default">
-                {numFilters > 0 ? t('filters.applied') + ` (${numFilters})` : t('filters.add')}
+                {numFilters > 0 ? t('ACTIVITY.FILTERS.APPLIED') + ` (${numFilters})` : t('ACTIONS.FILTERS.ADD')}
               </IonButton>
             </div>
             <Modal id="modal-filters"
               modal={modal}
               trigger="filters-modal"
-              title={t('filters.title')}
+              title={t('ACTIVITY.FILTERS.TITLE')}
               minHeightIos={850}
               minHeightAndroid={800}>
               {leftMenu(modal)}

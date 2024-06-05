@@ -47,7 +47,6 @@ export const useFilters = (applyFilters: (arg0: UserFilter | ActivityFilter) => 
         filtersCopy = { ...filtersCopy, [name]: value };
       }
     });
-    console.log(filtersCopy);
     setFilters(filtersCopy);
   };
 

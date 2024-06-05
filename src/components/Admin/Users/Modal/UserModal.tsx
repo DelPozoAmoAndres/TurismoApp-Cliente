@@ -34,7 +34,7 @@ export const UserModal: React.FC<{ user: User, action: "add" | "edit", updateInf
   }, [formData]);
 
   return (
-    <Modal id={'modal-user'} trigger={user?._id || "modal-user-add"} title={t("USER.TITLE." + action.toUpperCase())} modal={modal}>
+    <Modal id={'modal-user'} trigger={user?._id || "modal-user-add"} title={t("USER." + action.toUpperCase() + ".TITLE")} modal={modal}>
       <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
         <IonGrid class='ion-no-padding ion-margin-end'>
           <IonRow class='ion-justify-content-center'>
@@ -79,7 +79,7 @@ export const UserModal: React.FC<{ user: User, action: "add" | "edit", updateInf
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('DATA.BIRTHDAY.LABEL')}
+              label={t('DATA.BIRTHDAY.LABEL') + ' (' + t('OPTIONAL') + ')'}
               errorText={t('DATA.BIRTHDAY.ERROR')}
               placeholder={t('DATA.BIRTHDAY.PLACEHOLDER')}
               validationFn={dateValidation}
@@ -92,7 +92,7 @@ export const UserModal: React.FC<{ user: User, action: "add" | "edit", updateInf
           </IonItem>
           <IonItem lines="none">
             <Field
-              label={t('DATA.TELEPHONE.LABEL')}
+              label={t('DATA.TELEPHONE.LABEL') + ' (' + t('OPTIONAL') + ')'}
               errorText={t('DATA.TELEPHONE.ERROR')}
               placeholder={t('DATA.TELEPHONE.PLACEHOLDER')}
               type="tel"

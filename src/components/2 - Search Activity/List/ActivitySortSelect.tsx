@@ -21,14 +21,14 @@ export const ActivitySortSelect: React.FC = () => {
           width: '100%',
         }}
         value={sort}
-        label={t('sort.by') || ''}
+        label={t('ACTIONS.SORT.TITLE') || ''}
         labelPlacement="start"
         onIonChange={(e) => { setSort(e.detail.value) }}
       >
-        <IonSelectOption value={1}>{t('sort.name.asc')}</IonSelectOption>
-        <IonSelectOption value={2}>{t('sort.name.des')}</IonSelectOption>
-        <IonSelectOption value={3}>{t('sort.price.asc')}</IonSelectOption>
-        <IonSelectOption value={4}>{t('sort.price.des')}</IonSelectOption>
+        <IonSelectOption value={1}>{t('ACTIONS.SORT.NAME.ASC')}</IonSelectOption>
+        <IonSelectOption value={2}>{t('ACTIONS.SORT.NAME.DESC')}</IonSelectOption>
+        <IonSelectOption value={4}>{t('ACTIONS.SORT.PRICE.ASC')}</IonSelectOption>
+        <IonSelectOption value={3}>{t('ACTIONS.SORT.PRICE.DESC')}</IonSelectOption>
       </IonSelect>
       {auth.user?.role == Role.administrador && <ActivityModal activity={new Activity()} action="add" />}
     </IonRow>

@@ -17,12 +17,12 @@ const BackShareAppLayout: React.FC<Props> = ({ children, onShareClick }) => {
           <IonToolbar>
             {/* Back button */}
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/" text={t('go.back')} />
+              <IonBackButton defaultHref="/" text={t('GO.BACK')} />
             </IonButtons>
             {/* Share button */}
             <IonButtons slot="end" onClick={onShareClick}>
               <IonButton>
-                {t('share')}
+                {t('ACTIONS.SHARE')}
                 <IonIcon slot="end" icon={shareSocialOutline} />
               </IonButton>
             </IonButtons>

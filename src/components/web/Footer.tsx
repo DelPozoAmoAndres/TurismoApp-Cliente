@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
               <IonCol>
                 <IonText>
                   <h3>{t('CONTACT.TITLE')}</h3>
-                  <p>{t('DATA.EMAIL.LABEL')}: contacto@turismoasturias.com</p>
-                  <p>{t('DATA.TELEPHONE.LABEL')}: +34 123 456 789</p>
+                  <p>{t('DATA.EMAIL.LABEL')}: info@astour.online</p>
+                  <p>{t('DATA.TELEPHONE.LABEL')}: +34 123 123 123</p>
                 </IonText>
               </IonCol>
               {/* <IonCol>

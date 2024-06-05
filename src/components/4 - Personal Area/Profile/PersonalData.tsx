@@ -27,11 +27,11 @@ export const PersonalData = () => {
           </IonRow>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
             <IonLabel>{t('DATA.TELEPHONE.LABEL') + ':'}</IonLabel>
-            <IonLabel>{auth.user?.telephone ? String(auth.user?.telephone) : t('personal.data.unknown')}</IonLabel>
+            <IonLabel>{auth.user?.telephone ? String(auth.user?.telephone) : t('DATA.UNKNOWN')}</IonLabel>
           </IonRow>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
             <IonLabel>{t('DATA.COUNTRY.LABEL') + ':'}</IonLabel>
-            <IonLabel>{auth.user?.country ? auth.user?.country : t('personal.data.unknown')}</IonLabel>
+            <IonLabel>{auth.user?.country ? auth.user?.country : t('DATA.UNKNOWN')}</IonLabel>
           </IonRow>
         </section>
         <section style={{ width: '100%' }}>
@@ -44,7 +44,7 @@ export const PersonalData = () => {
           <IonRow>
             <IonButton color={'danger'} style={{ width: '100%' }} expand="block" onClick={() => auth.logout()}>
               <IonIcon slot="start" icon={logOutOutline} />
-              {t('log.out')}
+              {t('LOG.OUT')}
             </IonButton>
           </IonRow>
         </section>

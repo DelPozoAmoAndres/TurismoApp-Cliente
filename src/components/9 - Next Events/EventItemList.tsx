@@ -1,6 +1,6 @@
 import { useScreen } from "@hooks/useScreen";
-import { IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonIcon, IonItem, IonLabel, IonList, IonText } from "@ionic/react";
-import { Activity } from "@models/Activity";
+import { IonButton, IonCard, IonCardContent, IonCardSubtitle, IonCardTitle, IonCol, IonIcon, IonItemDivider, IonLabel, IonList, IonRow, IonText } from "@ionic/react";
+import { Activity, Event } from "@models/Activity";
 import { Modal } from "@shared/Modal";
 import { formatDateToTime, formatTime } from "@utils/Utils";
 import { ellipsisHorizontalOutline } from "ionicons/icons";
@@ -8,20 +8,22 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getParticipants } from "@apis/eventsApi";
 import { Reservation } from "@models/Reservation";
+import { getActivityFromEvent } from "@apis/activityApi";
 
 interface Props {
-    activity: Activity;
+    event: Event;
 }
 
-export const EventItemList: React.FC<Props> = ({ activity }) => {
+export const EventItemList: React.FC<Props> = ({ event }) => {
     const { t } = useTranslation(); //Hook to change the translation without refreshing the page
     const { isMobile } = useScreen();
     const modal = React.useRef<HTMLIonModalElement>(null);
     const [participants, setParticipants] = useState<Reservation[]>();
-    const event = activity?.events !== undefined ? activity?.events[0] : null;
+    const [activity, setActivity] = useState<Activity>(new Activity());
 
     useEffect(() => {
         getParticipantsList();
+        event._id && getActivityFromEvent(event._id).then(a => setActivity(a));
         // eslint-disable-next-line
     }, [event]);
 
@@ -34,18 +36,18 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
             <IonButton
                 disabled={event?.bookedSeats === null || event?.bookedSeats == 0}
                 color={"primary"} id={"participants-" + event?._id}>
-                {t('event.participants')}
+                {t('ACTIVITY.EVENT.PARTICIPANTS')}
             </IonButton>
             <IonButton className="outlined" routerLink={`/activity/${activity._id}`}>
-                {t('activity.details')}
+                {t('ACTIVITY.SHOW.INFO')}
             </IonButton>
         </IonCol>
     )
     return (
         <>
-            <IonCardContent className="ion-no-margin ion-no-padding">
+            <IonCardContent className="ion-no-margin ion-padding" style={{ background: "var(--ion--color--background)", borderRadius: 10 }}>
                 <IonCol>
-                    <section className="ion-margin-bottom">
+                    <section className="ion-margin-bottom border-primary" >
                         <IonCol>
                             <IonCard class="ion-no-margin">
                                 <IonText>{formatDateToTime(event?.date || null)}</IonText>
@@ -72,18 +74,18 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
                             </IonCardSubtitle>
                             <section>
                                 <IonCol>
-                                    <IonLabel>
-                                        <strong>{t('event.bookedseats')}</strong>
+                                    <IonLabel color={"primary"}>
+                                        <strong>{t('DASHBOARD.LIST.RESERVED-SEATS')}</strong>
                                     </IonLabel>
                                     <IonText>{event?.bookedSeats || 0}/{event?.seats}</IonText>
                                 </IonCol>
 
                                 <IonCol>
-                                    <IonLabel>
-                                        <strong>{t('event.language')}</strong>
+                                    <IonLabel color={"primary"}>
+                                        <strong>{t('ACTIVITY.EVENT.LANGUAGE')}</strong>
                                     </IonLabel>
                                     <IonLabel>
-                                        {event?.language}
+                                        {t('LANGUAGE.' + event?.language.toUpperCase())}
                                     </IonLabel>
                                 </IonCol>
                             </section>
@@ -93,13 +95,20 @@ export const EventItemList: React.FC<Props> = ({ activity }) => {
                     </section>
                 </IonCol>
             </IonCardContent>
-            <Modal title={t('participant.list')} trigger={"participants-" + event?._id} id='participantsModal' modal={modal}>
+            <Modal title={t('ACTIVITY.EVENT.PARTICIPANTS')} trigger={"participants-" + event?._id} id='participantsModal' modal={modal}>
                 <IonList>
                     {participants?.map((participant) => (
-                        <IonItem key={participant._id} >
-                            <IonLabel style={{ textAlign: "start", maxWidth: "70%" }}>{participant.name}</IonLabel>
-                            <IonLabel style={{ textAlign: "end" }}>{participant.numPersons} {t("persons")}</IonLabel>
-                        </IonItem>
+                        <div key={participant._id}>
+                            <IonRow class="ion-justify-content-between ion-align-items-center ion-margin">
+                                <IonLabel style={{ textAlign: "start", maxWidth: "70%" }}>{participant.name}</IonLabel>
+                                <IonLabel style={{ textAlign: "end" }}>{participant.numPersons} {participant.numPersons > 1 ? t("PEOPLE") : t("PERSON")}</IonLabel>
+                            </IonRow>
+                            <IonRow class="ion-justify-content-between ion-align-items-center ion-margin-horizontal">
+                                <IonLabel style={{ textAlign: "start", maxWidth: "70%" }}>{participant.email}</IonLabel>
+                                <IonLabel style={{ textAlign: "end" }}>{participant.telephone}</IonLabel>
+                            </IonRow>
+                            <IonItemDivider></IonItemDivider>
+                        </div>
                     ))}
                 </IonList>
             </Modal >

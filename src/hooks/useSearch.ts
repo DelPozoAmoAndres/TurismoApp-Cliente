@@ -57,5 +57,5 @@ export const useSearch = (getList: (arg0: string, arg1: any) => Promise<[]>, fil
     setFilters(filters);
   };
 
-  return { handleFilter, setSearchText, items, filters, handleSort, sortConfig, setForceUpdate };
+  return { handleFilter, setSearchText, forced, items, filters, handleSort, sortConfig, setForceUpdate };
 };

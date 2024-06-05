@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonIcon, IonButton } from '@ionic/react';
+import { IonIcon, IonButton, IonRow } from '@ionic/react';
 import { useScreen } from '../hooks/useScreen';
 import GenericAppLayout from '@components/app/layouts/GenericAppLayout';
 import { happyOutline } from 'ionicons/icons';
@@ -23,15 +23,17 @@ const ThankYouPage: React.FC = () => {
             height: '100%'
         }}>
             <IonIcon icon={happyOutline} style={{ fontSize: '72px', color: '#10dc60' }} />
-            <h2>¡Todo listo!</h2>
-            <p>Tu orden ha sido procesada con éxito</p>
-            <p>{t('reservation.status.check.reservations')}</p>
-            <IonButton expand="block" onClick={() => handleRestoreHistory("/reservas")}>
-                {t('go.to.reservations')}
-            </IonButton>
-            <IonButton expand="block" onClick={() => handleRestoreHistory()} style={{ marginTop: '20px' }}>
-                Volver al inicio
-            </IonButton>
+            <h2>{t('RESERVATION.ALL-SET')}</h2>
+            <p>{t('RESERVATION.CONFIRM')}</p>
+            <p style={{ marginLeft: "10px", marginRight: "10px", textAlign: "center" }}>{t('RESERVATION.CHECK')}</p>
+            <IonRow style={{ gap: "20px" }}>
+                <IonButton style={{ margin: "auto" }} expand="block" onClick={() => handleRestoreHistory("/reservas")}>
+                    {t('RESERVATION.SHOW')}
+                </IonButton>
+                <IonButton style={{ margin: "auto" }} expand="block" onClick={() => handleRestoreHistory()}>
+                    {t('RETURN.HOME')}
+                </IonButton>
+            </IonRow>
         </div>
     );
     return !browsingWeb ? <GenericAppLayout>{content}</GenericAppLayout> : <GenericWebLayout>{content}</GenericWebLayout>;

@@ -1,0 +1,10 @@
+ion-tab-button {
+  font-size: 60%;
+}
+
+@media screen and (max-width: 340px) {
+  ion-tab-button {
+    font-size: 0px;
+  }
+
+}

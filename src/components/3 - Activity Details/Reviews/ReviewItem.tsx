@@ -42,19 +42,19 @@ export const ReviewItem: React.FC<{ comment: Review, setRefresh: (arg: boolean) 
             <IonRow class="ion-justify-content-between">
                 {auth.user?.role === Role.administrador && auth.user?._id !== comment.author &&
                     <IonButton color={'danger'} expand="block" onClick={() => comment._id && reportReview(comment._id)}>
-                        {t('report')}
+                        {t('ACTIVITY.REVIEWS.REPORT')}
                     </IonButton>
                 }
-                {auth.user?._id === comment.author && comment.activityId &&
-                    <>
+                {auth.user && auth.user._id === comment.author && comment.activityId &&
+                    <IonRow class="ion-justify-content-between ion-align-items-center ion-margin-top" style={{ width: "100%" }}>
                         <IonButton color={'danger'} onClick={() => comment._id && deleteReview(comment._id).then((res: boolean) => { if (res) { showNotification("Se ha eliminado correctamente"); setRefresh && setRefresh(true) } else showNotification("Ha habido un problema para eliminar la valoración"); })}>
-                            {t('delete')}
+                            {t('ACTIONS.DELETE')}
                         </IonButton>
                         <IonButton id={comment._id}>
-                            {t('edit')}
+                            {t('ACTIONS.EDIT')}
                         </IonButton>
                         <ReviewModal action={"edit"} activityId={comment.activityId} reviewData={comment} reservationId={comment.reservationId} setRefresh={setRefresh} />
-                    </>
+                    </IonRow>
                 }
             </IonRow>
         </IonCard >

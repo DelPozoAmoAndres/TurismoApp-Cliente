@@ -40,10 +40,10 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
             <strong>
               {activity?.events
                 ? t('FROM') + " " + Math.min(...activity.events.map((e) => e.price)).toString() + "€"
-                : t('sold.out')}
+                : t('ACTIVITY.SOLD.OUT')}
             </strong>
           </IonText>
-          <IonButton class="main-button" routerLink={`/activity/${activity._id}`}>{t('SHOW.INFO')}</IonButton>
+          <IonButton class="main-button" routerLink={`/activity/${activity._id}`}>{t('SHOW.MORE')}</IonButton>
         </IonCardContent>
       </IonCard>
       <IonAlert

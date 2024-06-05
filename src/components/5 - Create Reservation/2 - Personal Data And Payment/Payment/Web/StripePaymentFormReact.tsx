@@ -52,7 +52,7 @@ const CheckoutFormReact: React.FC<{
       <PaymentElement />
       {errorMessage && <div>{errorMessage}</div>}
       <IonButton id="paymentButton" type="submit" expand="block" style={{ "display": "none" }} disabled={!stripe}>
-        {t('pay') + ' ' + price + '€'}
+        {t('ACTIONS.PAY') + ' ' + price + '€'}
       </IonButton>
     </form>
   );

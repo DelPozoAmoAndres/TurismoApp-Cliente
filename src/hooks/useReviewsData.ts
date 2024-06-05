@@ -8,7 +8,7 @@ export const useReviewsData = (activityId: string) => {
         id: '1',
         activityId: '1',
         userId: '1',
-        rating: 5,
+        score: 4,
         comment: 'This is a test review',
         createdAt: new Date(),
         updatedAt: new Date(),

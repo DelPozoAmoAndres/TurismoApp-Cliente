@@ -4,13 +4,14 @@ import { Role } from '@models/User';
 import { Tabs } from '@components/app/TabBar/Tabs';
 
 const TabsFiltered = () => {
-  const { HomeTab, ProfileTab, PersonalAreaTab, ReservationsTab, NextEventsTab } = Tabs();
+  const { HomeTab, ProfileTab, PersonalAreaTab, ReservationsTab, NextEventsTab, ConfigTab } = Tabs();
 
   const TuristTabs = (
     <IonTabBar slot="bottom">
       {HomeTab}
       {ReservationsTab}
       {ProfileTab}
+      {ConfigTab}
     </IonTabBar>
   );
 
@@ -18,6 +19,7 @@ const TabsFiltered = () => {
     <IonTabBar slot="bottom">
       {HomeTab}
       {PersonalAreaTab}
+      {ConfigTab}
     </IonTabBar>
   );
 
@@ -26,6 +28,7 @@ const TabsFiltered = () => {
       {HomeTab}
       {NextEventsTab}
       {ProfileTab}
+      {ConfigTab}
     </IonTabBar>
   );
 
@@ -33,6 +36,7 @@ const TabsFiltered = () => {
     <IonTabBar slot="bottom">
       {HomeTab}
       {ProfileTab}
+      {ConfigTab}
     </IonTabBar>
   );
 

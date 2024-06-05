@@ -35,7 +35,6 @@ const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled 
         intent = await intentPayment(reservation.price);
         intent && setPaymentIntent(intent);
       }
-      console.log('PaymentIntent client secret:', intent?.client_secret);
 
       intent?.client_secret &&
         (await Stripe.createPaymentSheet({
@@ -44,14 +43,9 @@ const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled 
         }));
 
       const result = await Stripe.presentPaymentSheet();
-      switch (result.paymentResult) {
-        case PaymentSheetEventsEnum.Completed:
-          intent?.id && await registerReservation(intent?.id);
-          history.replace('/thank-you')
-          break;
-        case PaymentSheetEventsEnum.Canceled:
-          console.log('PaymentSheet canceled');
-          break
+      if (result.paymentResult === PaymentSheetEventsEnum.Completed) {
+        intent?.id && await registerReservation(intent?.id);
+        history.replace('/thank-you')
       }
 
     } catch (error) {
@@ -63,7 +57,7 @@ const StripeCheckoutMobileButton: React.FC<{ disabled: boolean }> = ({ disabled 
 
   return (
     <IonButton onClick={handleCheckout} disabled={disabled || loading} style={{ width: "100%" }}>
-      {loading ? <Spinner /> : t('continue')}
+      {loading ? <Spinner /> : t('ACTIONS.PAY')}
     </IonButton>
   );
 };

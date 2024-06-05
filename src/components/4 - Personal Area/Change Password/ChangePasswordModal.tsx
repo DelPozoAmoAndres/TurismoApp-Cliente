@@ -29,16 +29,16 @@ export const ChangePasswordModal: React.FC = () => {
     }, [oldPassword, password, confirmPassword]);
 
     return (
-        <Modal id="modal-change-password" title={t("change.password.title")} trigger='password-change-modal' minHeightAndroid={550} minHeightIos={492} modal={modal} >
+        <Modal id="modal-change-password" title={t("PROFILE.ACCOUNT.PASSWORD.CHANGE")} trigger='password-change-modal' minHeightAndroid={550} minHeightIos={492} modal={modal} >
             <IonRow class='ion-justify-content-center'>
                 <IonIcon icon={shieldOutline} style={{ fontSize: "128px" }} />
             </IonRow>
             <IonGrid class='ion-no-padding ion-margin-end'>
                 <IonItem lines='none'>
                     <Field
-                        label={t('DATA.PASSWORD.LABEL')}
+                        label={t('DATA.PASSWORD.CURRENT.LABEL')}
                         errorText={t('DATA.PASSWORD.ERROR')}
-                        placeholder={t('DATA.PASSWORD.PLACEHOLDER')}
+                        placeholder={t('DATA.PASSWORD.CURRENT.PLACEHOLDER')}
                         validationFn={(e) => lengthValidation(1, e)}
                         type="password"
                         onIonInput={(e) => {
@@ -62,9 +62,9 @@ export const ChangePasswordModal: React.FC = () => {
                 </IonItem>
                 <IonItem lines='none'>
                     <Field
-                        label={t('personal.data.confirm.password')}
-                        errorText={t('personal.data.confirm.password.error')}
-                        placeholder={t('personal.data.confirm.password.placeholder')}
+                        label={t('DATA.PASSWORD.CONFIRM.LABEL')}
+                        errorText={t('DATA.PASSWORD.CONFIRM.ERROR')}
+                        placeholder={t('DATA.PASSWORD.CONFIRM.PLACEHOLDER')}
                         validationFn={(e) => e === password}
                         type="password"
                         onIonInput={(e) => {

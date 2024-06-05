@@ -11,14 +11,14 @@ const BackHeaderAppLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <IonPage>
-          <IonHeader mode="ios" collapse="fade" class="ion-no-border sticky">
-            <IonToolbar>
-              <IonButtons slot="start">
-                <IonBackButton defaultHref="/" text={t('go.back')} />
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent id="main-content">{children}</IonContent>
+        <IonHeader mode="ios" collapse="fade" class="ion-no-border sticky" >
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton defaultHref="/" text={t('GO.BACK')} />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent id="main-content">{children}</IonContent>
       </IonPage>
     </>
   );

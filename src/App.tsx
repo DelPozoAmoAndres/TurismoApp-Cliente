@@ -7,7 +7,7 @@ import { Capacitor } from '@capacitor/core';
 /* Pages */
 import HomePage from '@home/HomePage';
 import NotFound from '@pages/NotFoundPage';
-import ReservationDetailsPage from '@reservation-details/ReservationDetailsPage';
+import ReservationDetailsPage from '@components/7 - Reservation Details/ReservationDetailsPage';
 import SearchActivityPage from '@search-activity/ActivitySearchPage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
 import ProfilePage from '@components/4 - Personal Area/ProfilePage';
@@ -42,10 +42,10 @@ import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
 import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';
 import { DashboardPage } from '@components/Admin/Dashboard/DashboardPage';
 import { AdminActivityList } from '@components/Admin/Activities/AdminActivityList';
-import { AdminReservationList } from '@components/Admin/Reservations/AdminReservationList';
 import { AdminUserList } from '@components/Admin/Users/AdminUserList';
-import { AdminEventList } from '@components/Admin/Events/AdminEventList';
 import ThankYouPage from '@pages/ThankYouPage';
+import AppMenu from '@components/web/AppMenu';
+import { useScreen } from '@hooks/useScreen';
 
 setupIonicReact();
 
@@ -62,6 +62,7 @@ axios.interceptors.request.use(
 
 const AppIndex: React.FC = () => {
   useTheme();
+  const { isMobile } = useScreen();
   return (
     <I18nextProvider i18n={i18n}>
       <IonApp>
@@ -87,13 +88,13 @@ const AppIndex: React.FC = () => {
             <PrivateRoute exact path="/reservation/:id" component={ReservationDetailsPage} alternativePath="/" />
             <AdminRoute exact path="/admin/dashboard" component={DashboardPage} />
             <AdminRoute exact path="/admin/activities" component={AdminActivityList} />
-            <AdminRoute exact path="/admin/reservations" component={AdminReservationList} />
             <AdminRoute exact path="/admin/users" component={AdminUserList} />
             <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
-            <AdminRoute exact path="/admin/events/" component={AdminEventList} />
             <PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />
           </IonRouterOutlet>
+          {isMobile && <AppMenu />}
         </IonReactRouter>
+
       </IonApp>
     </I18nextProvider>
   );

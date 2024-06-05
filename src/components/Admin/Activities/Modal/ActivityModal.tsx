@@ -30,19 +30,19 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
         gridTemplateColumns: `repeat(${Math.ceil(Math.sqrt(formData.images.length))}, 1fr)`,
         gridTemplateRows: `repeat(${Math.ceil(formData.images.length / Math.ceil(Math.sqrt(formData.images.length)))}, 1fr)`,
         width: '345px',
-        height: '470px',
+        height: '459px',
         overflow: 'hidden'
     }
 
     return (
-        <Modal id={'modal-activity-' + action} trigger={activity?._id || "modal-activity-add"} title={t("activity." + action + ".title")} modal={modal} >
-            <IonRow class='ion-margin-horizontal ion-align-items-center ion-justify-content-center'>
+        <Modal id={'modal-activity-' + action} trigger={activity?._id || "modal-activity-add"} title={t("ACTIVITY." + action.toUpperCase() + ".TITLE")} modal={modal} >
+            <IonRow class='ion-margin-horizontal ion-nowrap ion-justify-content-center'>
                 <section className='ion-margin-end '>
                     <IonRow class="ion-justify-content-center" style={gridStyle}>
                         {(formData?.images)?.map((image, imageIndex) =>
                             <div key={"image" + imageIndex} style={{ position: "relative" }} >
-                                <img src={String(image) || ""} />
-                                <span style={{ position: "absolute", top: 5, left: 5 }}>{imageIndex}</span>
+                                <img src={String(image) || ""} style={{ filter: 'brightness(50%)' }} />
+                                <span style={{ position: "absolute", top: 5, left: 5 }}>{imageIndex + 1}</span>
                                 <IonIcon
                                     onClick={() => {
                                         const updatedImages = formData?.images.filter((_, index) => index !== imageIndex);
@@ -64,50 +64,51 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                             }} />
                     </IonRow>
                     <IonButton expand='block'>
-                        <label htmlFor='file-input'>Seleccionar archivo</label>
+                        <label htmlFor='file-input'>{t("ACTIONS.SELECT.FILES")}</label>
                     </IonButton>
                 </section>
                 <IonList class='ion-no-padding'>
                     <IonItem>
                         <IonInput
                             value={formData?.name}
-                            label="Nombre"
+                            label={t('ACTIVITY.NAME') || ''}
                             labelPlacement="stacked"
                             onIonInput={(e) => formData && setFormData({ ...formData, name: e.detail.value || '' })}
                         ></IonInput>
                     </IonItem>
-                    <IonItem>
-                        <IonLabel>Categoría</IonLabel>
+                    <IonItem class='ion-margin-vertical' lines='inset'>
+                        <IonLabel>{t('ACTIVITY.CATEGORY')}</IonLabel>
                         <IonSelect
                             value={formData?.category}
-                            placeholder="Seleccionar categoría"
                             onIonChange={(e) => formData && setFormData({ ...formData, category: e.detail.value })}
                         >
                             {Object.keys(ActivityCategory).map((value, index) => (
                                 <IonSelectOption key={`categoryOption${index}`} value={ActivityCategory[value as keyof typeof ActivityCategory]}>
-                                    {ActivityCategory[value as keyof typeof ActivityCategory]}
+                                    {t("CATEGORY." + ActivityCategory[value as keyof typeof ActivityCategory].toUpperCase())}
                                 </IonSelectOption>
                             ))}
                         </IonSelect>
                     </IonItem>
-                    <IonSegment mode="ios" value={language} onIonChange={(e) => { e.detail.value && setLanguage(e.detail.value); }}>
-                        <IonSegmentButton value="es">
-                            <IonLabel>Español</IonLabel>
-                        </IonSegmentButton>
-                        <IonSegmentButton value="en">
-                            <IonLabel>English</IonLabel>
-                        </IonSegmentButton>
-                        <IonSegmentButton value="fr">
-                            <IonLabel>Français</IonLabel>
-                        </IonSegmentButton>
-                    </IonSegment>
+                    <IonItem lines='none'>
+                        <IonSegment mode="ios" value={language} onIonChange={(e) => { e.detail.value && setLanguage(e.detail.value); }}>
+                            <IonSegmentButton value="es">
+                                <IonLabel>{t('LANGUAGE.ES')}</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value="en">
+                                <IonLabel>{t("LANGUAGE.EN")}</IonLabel>
+                            </IonSegmentButton>
+                            <IonSegmentButton value="fr">
+                                <IonLabel>{t("LANGUAGE.FR")}</IonLabel>
+                            </IonSegmentButton>
+                        </IonSegment>
+                    </IonItem>
                     <IonItem>
                         <IonTextarea
                             class='resize'
                             value={formData?.description[language]}
-                            rows={5}
-                            label="Description1"
+                            label={t('ACTIVITY.DESCRIPTION') || ''}
                             labelPlacement="stacked"
+                            rows={4}
                             onIonInput={(e) => formData && setFormData({ ...formData, description: { ...formData.description, [language]: e.detail.value || '' } })}>
 
                         </IonTextarea>
@@ -115,7 +116,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                     <IonItem >
                         <IonInput
                             value={formData?.location}
-                            label="Ubicación"
+                            label={t('ACTIVITY.LOCATION') || ''}
                             labelPlacement="stacked"
                             onIonInput={(e) => formData && setFormData({ ...formData, location: e.detail.value || '' })}
                         ></IonInput>
@@ -123,7 +124,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                     <IonItem lines='none'>
                         <IonInput
                             value={formData?.duration}
-                            label="Duración (minutos)"
+                            label={t('ACTIVITY.DURATION') + " ( " + t('MINUTES') + " )" || ''}
                             labelPlacement="stacked"
                             type='number'
                             onIonInput={(e) => formData && setFormData({ ...formData, duration: Number(e.detail.value) })}
@@ -133,7 +134,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                         <IonSegment mode="ios" value={formData?.state} onIonChange={e => e.detail.value && formData && setFormData({ ...formData, state: ActivityState[e.detail.value as keyof typeof ActivityState] })}>
                             {Object.keys(ActivityState).map((value, index) =>
                                 <IonSegmentButton key={"activityStates" + index} value={value}>
-                                    <IonLabel>{t(value)}</IonLabel>
+                                    <IonLabel style={{ textWrap: "wrap", margin: "auto" }}>{t("ACTIVITY.STATE." + value.toUpperCase())}</IonLabel>
                                 </IonSegmentButton>)}
                         </IonSegment>
                     </IonItem>

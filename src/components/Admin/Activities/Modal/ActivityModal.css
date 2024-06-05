@@ -3,6 +3,11 @@
     width: 350px;
 }
 
+#modal-activity-edit section ion-button,
+#modal-activity-add section ion-button {
+    margin-bottom: 10px;
+}
+
 #modal-activity-edit ion-list,
 #modal-activity-edit ion-list+#modal-activity-edit+div,
 #modal-activity-add ion-list,

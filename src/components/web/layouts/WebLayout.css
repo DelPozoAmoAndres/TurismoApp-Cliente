@@ -29,12 +29,11 @@ h2 {
   margin: 0
 }
 
-/* @media screen and (max-width: 1300px) {
-  h2 {
-    margin-left: 10px;
-  }
-  
-} */
+body.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
+}
+
+
 
 #pageWeb ion-content>div {
   display: grid;

@@ -51,17 +51,11 @@
   }
 }
 
-.outlined:hover {
-  color: var(--ion-background-color, #fff);
-  --background: var(--ion-color-primary);
-}
-
 .outlined {
   --border-color: var(--ion-color-primary);
-  /* Color de tu elección */
   --border-style: solid;
   --border-width: 1px;
   color: var(--ion-color-primary);
-  --background: transparent;
+  --background: var(--ion--color--background);
   --background-focus: transparent;
 }

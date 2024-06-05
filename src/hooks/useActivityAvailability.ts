@@ -41,8 +41,8 @@ export const useActivityAvailability = (activityId: string) => {
       events.forEach((event) =>
         days.push({
           date: formatDate(event.date),
-          textColor: 'white',
-          backgroundColor: 'var(--ion-color-tertiary)',
+          textColor: 'var(--ion-color-light)',
+          backgroundColor: 'var(--ion-color-dark)',
         })
       );
 
@@ -55,6 +55,7 @@ export const useActivityAvailability = (activityId: string) => {
     selectedEvent,
     selectedEvents,
     numPersons,
+    events,
     setNumPersons,
     handleDateChange,
     setSelectedEvent,

@@ -1,7 +1,7 @@
 #reservation-list ion-card ion-card-content {
   display: flex;
   flex-direction: row;
-  margin-bottom: -15px;
+  margin-bottom: -10px;
 }
 
 #reservation-list ion-card ion-card-content ion-list {
@@ -21,6 +21,18 @@
 
 #reservation-list ion-card ion-item * {
   width: 100%;
+}
+
+#reservation-list ion-button {
+  min-width: 220px;
+}
+
+@media screen and (max-width: 700px) {
+
+  #reservation-list ion-button {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 #reservation-list ion-card {
@@ -51,5 +63,5 @@
 ion-card-content .img {
   object-fit: cover;
   aspect-ratio: 4/3;
-  margin-bottom: -10px;
+  margin-bottom: 10px;
 }

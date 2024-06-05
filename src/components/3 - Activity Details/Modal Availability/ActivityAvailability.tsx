@@ -16,7 +16,7 @@ import { useActivityAvailability } from '@hooks/useActivityAvailability';
 /* Styles */
 import './ActivityAvailability.css';
 import { Role } from '@models/User';
-import { addOutline, removeOutline } from 'ionicons/icons';
+import { addOutline, alarmOutline, globeOutline, removeOutline } from 'ionicons/icons';
 
 export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activityId }) => {
   const { selectedEvent, selectedEvents, selectedDate, highlightedDates, handleDateChange, setSelectedEvent, numPersons, setNumPersons } =
@@ -36,14 +36,21 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
   };
 
   useEffect(() => {
+    if (selectedDate === null && highlightedDates.length > 0) handleDateChange(new Date(highlightedDates[0].date));
+    // eslint-disable-next-line
+  }, [highlightedDates]);
+
+  useEffect(() => {
     if (selectedEvents && selectedEvents.length > 0) modal.current?.setCurrentBreakpoint(1)
     else modal.current?.setCurrentBreakpoint(modal.current?.breakpoints && modal.current?.breakpoints[1] || 1)
   }, [selectedEvents]);
 
+  console.log(highlightedDates)
+
   return (
     <Modal
       id="availability-modal-card"
-      title={t('availability')}
+      title={t('ACTIVITY.AVAILABILITY.TITLE')}
       trigger={'Availability-modal'}
       modal={modal}
       minHeightAndroid={selectedEvents.length ? window.innerHeight : 500}
@@ -60,7 +67,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
               highlightedDates={highlightedDates}
             />
             <div className="numPersons">
-              <IonLabel style={{ margin: '0 20px' }}>Personas:</IonLabel>
+              <IonLabel style={{ margin: '0 20px' }}>{t('PEOPLE')}:</IonLabel>
               <IonIcon icon={removeOutline} style={{ background: numPersons == 1 ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => numPersons > 1 && setNumPersons(numPersons - 1)} />
               <IonLabel style={{ margin: '0 20px' }}>{numPersons}</IonLabel>
               <IonIcon icon={addOutline} style={{ background: "var(--ion-color-primary)" }} onClick={() => setNumPersons(numPersons + 1)} />
@@ -72,15 +79,19 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
               <>
                 <IonButton
                   key={index}
-                  color={selectedEvent !== e ? 'primary' : 'secondary'}
+                  color={selectedEvent !== e ? 'dark' : "primary"}
                   onClick={() => {
                     if (selectedEvent !== e) setSelectedEvent(e);
                     else setSelectedEvent(null);
                   }}
                 >
-                  {`${formatDateToTime(e.date)}`}
-                  <br />
-                  {e.language} <br /> {e.price + '€'}
+                  <IonRow>
+                    <IonRow>
+                      <span><IonIcon icon={alarmOutline} /><span>{`${formatDateToTime(e.date)}`}</span></span>
+                      <span><IonIcon icon={globeOutline} /><span>{t("LANGUAGE." + e.language.toUpperCase()) + ""}</span></span>
+                    </IonRow>
+                    <strong className='price'>{e.price + '€'}</strong>
+                  </IonRow>
                 </IonButton>
               </>
             ))}
@@ -96,7 +107,7 @@ export const ActivityAvailability: React.FC<{ activityId: string }> = ({ activit
             }}
             disabled={selectedEvent === null}
           >
-            {auth.user ? 'Reservar' : 'Iniciar sesión para reservar'}
+            {t(auth.user ? 'ACTIONS.BOOK' : 'LOG.IN_TO_BOOK')}
           </IonButton>
         </div>
         }

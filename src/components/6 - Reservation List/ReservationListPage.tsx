@@ -21,19 +21,17 @@ const ReservationListPage: React.FC = () => {
   const reservationsGroup = useReservationList(); //Hooks to have all the reservation data
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
-  console.log(reservationsGroup);
-
   const content = (
     <IonList mode="ios" id="reservation-list">
       <IonRow class="ion-justify-content-center ion-margin-top">
         <IonLabel class="ion-text-center">
-          <h1><strong>Reservas</strong></h1>
+          <h1><strong>{t('RESERVATION.TITLE')}</strong></h1>
         </IonLabel>
       </IonRow>
       {reservationsGroup.length === 0 &&
         <p className='ion-text-center ion-margin-top'>
           <IonLabel>
-            {t('reservations.empty')}
+            {t('RESERVATION.LIST_EMPTY')}
           </IonLabel>
         </p>}
       {reservationsGroup.map((reservationGroup, index) => (

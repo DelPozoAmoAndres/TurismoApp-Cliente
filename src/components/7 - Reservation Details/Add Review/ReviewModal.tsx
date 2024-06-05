@@ -19,14 +19,14 @@ export const ReviewModal: React.FC<{ activityId: string, reviewData?: Review, ac
     }
     const { formData, setFormData, guardarCambios } = useEdit(review, callback);
     return (
-        <Modal id="modal-review" trigger={review._id || "add"} title={t("valoration.add.title")} modal={modal} >
+        <Modal id="modal-review" trigger={review._id || "add"} title={t("ACTIVITY.REVIEWS.ADD")} modal={modal} >
             <IonRow class=' ion-padding-horizontal ion-align-items-center ion-justify-content-center'>
                 <IonIcon icon={starOutline} />
                 <IonList>
                     <div className='ion-margin'>
                         <IonRow>
                             <IonLabel>
-                                <strong>{t('score.title')}</strong>
+                                <strong>{t('ACTIVITY.REVIEWS.RATING')}</strong>
                             </IonLabel>
                         </IonRow>
                         <IonRow>
@@ -45,7 +45,7 @@ export const ReviewModal: React.FC<{ activityId: string, reviewData?: Review, ac
                         <IonTextarea
                             value={formData?.comment}
                             rows={5}
-                            label="Comentario (opcional)"
+                            label={t('ACTIVITY.REVIEWS.COMMENT') + " (" + t('OPTIONAL') + ") "}
                             labelPlacement="stacked"
                             onIonInput={(e) => formData && setFormData({ ...formData, comment: String(e.detail.value) })}
                         ></IonTextarea>

@@ -76,7 +76,7 @@ const DeleteEventModal: React.FC<{ eventId: string | undefined, update?: () => v
                         </IonRow>
                         <IonRow >
                             <IonCol size="6">
-                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' size="fixed" min={new Date().toISOString()} value={recurrentParams.startDate.toISOString()} onIonChange={(e) => e.detail.value && setDayRange(String(e.detail.value), "startDate")} />
+                                <IonDatetime className='small-datetime' preferWheel={true} presentation='date' size="fixed" value={recurrentParams.startDate.toISOString()} onIonChange={(e) => e.detail.value && setDayRange(String(e.detail.value), "startDate")} />
                             </IonCol>
                             <IonCol size="6">
                                 <IonDatetime className='small-datetime' preferWheel={true} presentation='date' min={recurrentParams.startDate.toISOString()} value={recurrentParams.endDate.toISOString()} onIonChange={(e) => e.detail.value && setDayRange(String(e.detail.value), "endDate")} />

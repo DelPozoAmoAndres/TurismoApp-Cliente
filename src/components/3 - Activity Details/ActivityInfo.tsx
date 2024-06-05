@@ -22,7 +22,7 @@ export const ActivityInfo: React.FC<{
   share: () => void;
 }> = ({ activityData, share }) => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-  const { isMobile, browsingWeb } = useScreen(); //Hook to have data of screen dimensions
+  const { isMobile } = useScreen(); //Hook to have data of screen dimensions
   const auth = useAuth();
   const { soldOutProps } = useSoldOut(activityData);
   const date: Date = new Date();
@@ -42,25 +42,23 @@ export const ActivityInfo: React.FC<{
         <IonCardSubtitle>{activityData?.location}</IonCardSubtitle>
       </IonRow>
       <div style={{ width: "100%" }}>
-        {!isMobile &&
+        {!isMobile && <>
           <section>
             <IonButton {...soldOutProps} expand="block" id="Availability-modal">
               {auth.user?.role === Role.administrador
-                ? t('show.events')
+                ? t('ACTIVITY.SHOW.EVENTS')
                 : activityData?.events
                   && activityData.events.filter(e => e.bookedSeats == undefined || e.seats > e.bookedSeats).length > 0
                   && activityData.state != ActivityState['temporaly-closed']
-                  ? t('show.availability')
-                  : t('sold.out')}
+                  ? t('ACTIVITY.SHOW.AVAILABILITY')
+                  : t('ACTIVITY.SOLD.OUT')}
               <IonIcon slot="end" icon={calendarOutline} />
             </IonButton>
           </section>
-        }
-        {browsingWeb &&
           <IonButton class='outlined' onClick={share}>
-            {t('share')}
+            {t('ACTIONS.SHARE')}
             <IonIcon slot="end" icon={shareSocialOutline} />
-          </IonButton>}
+          </IonButton></>}
       </div>
 
       <div>
@@ -68,7 +66,7 @@ export const ActivityInfo: React.FC<{
           <IonRow>
             <IonRow class="ion-margin-top">
               <IonLabel>
-                <strong>{t('price')}</strong>
+                <strong>{t('ACTIVITY.EVENT.PRICE')}</strong>
               </IonLabel>
             </IonRow>
             {t('FROM')}{' '}
@@ -78,7 +76,7 @@ export const ActivityInfo: React.FC<{
         <IonRow>
           <IonRow class="ion-margin-top">
             <IonLabel>
-              <strong>{t('duration')}</strong>
+              <strong>{t('ACTIVITY.DURATION')}</strong>
             </IonLabel>
           </IonRow>
           {formatDateToTime(date)} {t('hours')}
@@ -86,7 +84,7 @@ export const ActivityInfo: React.FC<{
       </div>
       <IonRow class="ion-margin-top">
         <IonLabel>
-          <strong>{t('description')}</strong>
+          <strong>{t('ACTIVITY.DESCRIPTION')}</strong>
         </IonLabel>
       </IonRow>
       <IonRow>
@@ -94,8 +92,11 @@ export const ActivityInfo: React.FC<{
       </IonRow>
 
       {isMobile && <section className='sticky'>
-        <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-          {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
+        <IonButton slot='start' {...soldOutProps} expand="block" id="Availability-modal">
+          {activityData?.events && activityData.events.length > 0 ? auth.user?.role === Role.administrador ? t('ACTIVITY.SHOW.EVENTS') : t('ACTIVITY.SHOW.AVAILABILITY') : t('ACTIVITY.SOLD.OUT')}
+        </IonButton>
+        <IonButton slot='end' class='outlined' onClick={share}>
+          <IonIcon icon={shareSocialOutline} />
         </IonButton>
       </section>
       }

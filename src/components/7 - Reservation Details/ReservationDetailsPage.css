@@ -13,4 +13,64 @@
     flex-direction: column;
     background: var(--ion--color--background);
     margin-top: 5px;
+    padding-right: 20px;
+}
+
+#reservation-instructions ion-card {
+    background-color: var(--ion--color--background);
+}
+
+#reservation-instructions ion-card-content {
+    padding-bottom: 0;
+    color: var(--ion-color-dark)
+}
+
+#reservation-instructions ion-card-header {
+    font-size: large;
+    color: var(--ion-color-primary)
+}
+
+#reservation-instructions p {
+    margin-bottom: 10px;
+}
+
+#reservation-detail ion-item-divider {
+    border-color: var(--ion-color-primary);
+}
+
+#reservation-detail ion-button {
+    width: 45%;
+}
+
+@media screen and (max-width: 900px) {
+    #reservation-detail .img {
+        display: none !important;
+    }
+
+    #reservation-detail ion-card {
+        width: 90%;
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
+    #reservation-detail section {
+        margin: auto;
+    }
+
+
+
+    #reservation-detail ion-button {
+        width: 100%;
+    }
+
+    #reservation-instructions {
+        margin: auto;
+        width: 90%;
+    }
+
+    #reservation-instructions ion-card {
+        margin: auto;
+        margin-bottom: 20px;
+    }
+
 }

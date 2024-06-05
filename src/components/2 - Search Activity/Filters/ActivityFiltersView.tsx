@@ -29,7 +29,7 @@ export const ActivityFiltersView: React.FC<{
         <DateFilter handleFilters={handleFilters} filtersToApply={filtersToApply} />
         <IonRow class='ion-align-items-center ion-margin-vertical ion-justify-content-between' style={{ gap: 10 }}>
           <IonLabel>
-            <strong>{t('filters.participants')}:</strong>
+            <strong>{t('PEOPLE')}:</strong>
           </IonLabel>
           <div className='numPersons' >
             <IonIcon icon={removeOutline} style={{ background: filtersToApply.numPersons == 1 ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => Number(filtersToApply.numPersons) > 1 && handleFilters(Number(filtersToApply.numPersons) - 1, 'numPersons')} />
@@ -39,7 +39,7 @@ export const ActivityFiltersView: React.FC<{
         </IonRow>
         <IonRow>
           <IonLabel>
-            <strong>{t('filters.max.price')}:</strong> {(filtersToApply.price ? Number(filtersToApply.price) : Number(defaultFilters.price)) + "€"}
+            <strong>{t('ACTIVITY.FILTERS.MAX_PRICE')}:</strong> {(filtersToApply.price ? Number(filtersToApply.price) : Number(defaultFilters.price)) + "€"}
           </IonLabel>
         </IonRow>
         <IonRow>
@@ -54,7 +54,7 @@ export const ActivityFiltersView: React.FC<{
         </IonRow>
         <IonRow class='ion-align-items-center ion-margin-vertical ion-justify-content-between' style={{ gap: 10 }}>
           <IonLabel>
-            <strong>{t('filters.min.score')}:</strong>
+            <strong>{t('ACTIVITY.FILTERS.MIN_RATING')}:</strong>
           </IonLabel>
           <div className='numPersons' >
             <IonIcon icon={removeOutline} style={{ background: Number(filtersToApply.minScore) == 0 || Number.isNaN(Number(filtersToApply.minScore)) ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => Number(filtersToApply.minScore) > 0 && handleFilters(Number(filtersToApply.minScore) == 1 ? null : Number(filtersToApply.minScore) - 1, 'minScore')} />
@@ -64,7 +64,7 @@ export const ActivityFiltersView: React.FC<{
         </IonRow>
         <IonRow class="ion-margin-bottom">
           <IonLabel>
-            <strong>{t('filters.language')}</strong>
+            <strong>{t('ACTIVITY.EVENT.LANGUAGE')}</strong>
           </IonLabel>
         </IonRow>
         <IonRow class="ion-margin-bottom" style={{ gap: "7px", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between" }}>
@@ -74,7 +74,7 @@ export const ActivityFiltersView: React.FC<{
               onIonChange={() => handleFilters(language.code, 'language', 'multiple')}
               color={'primary'}
             >
-              <span style={{ textTransform: 'capitalize' }}>{language.name}</span>
+              <span style={{ textTransform: 'capitalize' }}>{t("LANGUAGE." + language.code.toUpperCase())}</span>
             </IonCheckbox>
           ))}
         </IonRow>

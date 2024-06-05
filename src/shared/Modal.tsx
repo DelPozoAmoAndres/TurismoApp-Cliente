@@ -15,8 +15,9 @@ export const Modal: React.FC<{
   title: string;
   isOpen?: boolean;
   height?: string;
+  width?: string;
   setOpen?: (isOpen: boolean) => void;
-}> = ({ id, title, children, modal, trigger, minHeightAndroid, minHeightIos, isOpen = false, setOpen = null, height }) => {
+}> = ({ id, title, children, modal, trigger, minHeightAndroid, minHeightIos, isOpen = false, setOpen = null, height, width }) => {
   let initialBreakpoint = 1;
   let props = {};
   const { isMobile } = useScreen();
@@ -39,7 +40,7 @@ export const Modal: React.FC<{
 
   const { t } = useTranslation();
   return (
-    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{ "--height": height && !minHeightAndroid ? height : "", "--max-width": "900px" }} onDidDismiss={() => setOpen && setOpen(!isOpen)}>
+    <IonModal ref={modal} id={id} trigger={trigger} {...props} isOpen={isOpen} style={{ "--height": height && !minHeightAndroid ? height : "", "--width": width ? width : "", "--max-width": width ? "" : "900px" }} onDidDismiss={() => setOpen && setOpen(!isOpen)}>
       <IonHeader mode="ios" collapse="fade" class="ion-margin-top">
         <IonToolbar>
           <IonButtons slot="end">

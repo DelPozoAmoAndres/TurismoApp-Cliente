@@ -27,14 +27,13 @@ export const getEvents = async (search: string, filters: Record<string, unknown>
   filters = filterPropertiesNotNull(filters);
   const params = new URLSearchParams({ search, ...filters }).toString();
   const response = await axios.get(`${baseUrl}/event/list?${params}`);
-  console.log(response.data);
   return response.data;
 }
 
-export const getAllActivities = async (search: string, filters: Record<string, unknown>): Promise<[]> => {
+export const getAllActivities = async (searchString = '', filters: Record<string, unknown>): Promise<[]> => {
   filters = filterPropertiesNotNull(filters);
-  const params = new URLSearchParams({ search, ...filters }).toString();
-  const response = await axios.get(`${baseUrl}/list?${params}`);
+  const params = new URLSearchParams({ searchString, ...filters }).toString();
+  const response = await axios.get(`${baseUrl}/list?${params}`).catch(() => { return { data: [] } });
   return response.data;
 }
 

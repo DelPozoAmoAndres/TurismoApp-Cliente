@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@hooks/useLanguage';
 
 interface RadialGraphProps {
     values: { category: string, reservationsRate: number }[];
@@ -8,8 +9,9 @@ interface RadialGraphProps {
 
 const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
     const ref = useRef<SVGSVGElement>(null);
-    const legend = useRef<SVGSVGElement>(null);
+    const legendRef = useRef<SVGSVGElement>(null);
     const { t } = useTranslation();
+    const { defaultLanguage } = useLanguage();
 
     const data = values.map((value) => value.reservationsRate);
 
@@ -18,16 +20,19 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             drawRadialGraph();
         }
         // eslint-disable-next-line
-    }, [data]);
-
-    const svg = d3.select(ref.current);
+    }, [data, defaultLanguage]);
 
     const width = 300;
     const height = 295;
 
-    const svgLegend = d3.select(legend.current);
-
     const drawRadialGraph = () => {
+        const svg = d3.select(ref.current);
+
+        const svgLegend = d3.select(legendRef.current);
+
+        svg.selectAll("*").remove();
+        svgLegend.selectAll("*").remove();
+
         const radius = Math.min(width, height) / 2;
 
         const total = d3.sum(data); // Suma total de los datos
@@ -57,8 +62,6 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             return colorArray[index];
         };
 
-        svg.selectAll("*").remove();
-
         const group = svg.append("g")
             .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
@@ -68,18 +71,21 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
             .enter()
             .append("g")
             .attr("class", "legend")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`)
+            .attr("transform", (d, i) => `translate(0, ${i * 25})`)
             .style("fill", "var(--ion-color-dark)");
 
         legend.append("rect")
-            .attr("width", 10)
-            .attr("height", 10)
-            .attr("fill", (d, i) => colorScale(i))
+            .attr("width", 12)
+            .attr("height", 12)
+            .attr("fill", (d, i) => colorScale(i));
 
         legend.append("text")
             .attr("x", 20)
             .attr("y", 10)
+            .style("font-size", "12px")
+            .style("alignment-baseline", "middle")
             .text((d, i) => t("CATEGORY." + values[i].category.toUpperCase()));
+
 
         // const arc = d3.arc()
         //     .innerRadius(0)
@@ -104,7 +110,7 @@ const RadialGraph: React.FC<RadialGraphProps> = ({ values }) => {
     };
 
     return <div style={{ minWidth: "425px" }}>
-        <svg ref={legend} width={125} height={"100%"}></svg>
+        <svg ref={legendRef} width={125} height={"100%"}></svg>
         <svg preserveAspectRatio="xMidYMid meet"
             ref={ref} width={width} height={height}>
         </svg>

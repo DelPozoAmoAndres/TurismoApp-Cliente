@@ -32,8 +32,10 @@ const AppMenu: React.FC = () => {
   const menuController = useRef<HTMLIonMenuElement>(null);
 
   const handleClick = () => {
-    // if (menuController.current?.isOpen())
-    //   menuController.current?.close();
+    if (menuController.current?.isOpen()) {
+      menuController.current?.close();
+      menuController.current?.close();
+    }
   };
 
   return (
@@ -56,7 +58,7 @@ const AppMenu: React.FC = () => {
           <IonMenuToggle onClick={handleClick} >
             <IonItem button routerLink="/buscar" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={searchOutline} />
-              <IonLabel>{t('search.title')}</IonLabel>
+              <IonLabel>{t('ACTIONS.SEARCH')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user !== null} onClick={() => auth.setShowLoginModal(true)} >
@@ -74,13 +76,13 @@ const AppMenu: React.FC = () => {
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick} >
             <IonItem button routerLink="/reservas" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={briefcaseOutline} />
-              <IonLabel>{t('reservations.title')}</IonLabel>
+              <IonLabel>{t('RESERVATION.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía}>
             <IonItem button routerLink="/nextEvents" style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
               <IonIcon color={'tertiary'} slot="start" icon={briefcaseOutline} />
-              <IonLabel>{t('nextEvents.title')}</IonLabel>
+              <IonLabel>{t('NEXTEVENTS.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
         </IonList>
@@ -92,7 +94,7 @@ const AppMenu: React.FC = () => {
             <IonMenuToggle onClick={handleClick}>
               <IonButton class="ion-margin-top" color={'danger'} expand="block" onClick={auth.logout}>
                 <IonIcon slot="start" icon={logOutOutline} />
-                <IonLabel>{t('log.out')}</IonLabel>
+                <IonLabel>{t('LOG.OUT')}</IonLabel>
               </IonButton>
             </IonMenuToggle>
           </>}
