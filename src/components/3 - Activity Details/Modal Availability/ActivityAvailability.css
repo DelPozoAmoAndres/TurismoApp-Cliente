@@ -131,9 +131,9 @@
     --border-radius: 6px;
   }
 
-  #availability-modal-card ion-grid .availability-button {
+  /* #availability-modal-card ion-grid .availability-button {
     width: 90vh;
-  }
+  } */
 
   #availability-modal-card ion-grid ion-row ion-list ion-button {
     height: 70px;
