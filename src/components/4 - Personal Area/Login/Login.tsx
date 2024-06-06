@@ -28,7 +28,7 @@ const Login: React.FC = () => {
   }, [modal]);
 
   return (
-    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} title={t('LOG.IN')} modal={modal} minHeightAndroid={330} minHeightIos={300}>
+    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} title={t('LOG.IN')} modal={modal} minHeightAndroid={330} minHeightIos={300} onlyNative={true}>
       <IonGrid id="login-grid" class="ion-no-padding">
         <IonRow>
           <IonList class="ion-margin-bottom">
