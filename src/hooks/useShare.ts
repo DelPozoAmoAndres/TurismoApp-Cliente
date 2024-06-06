@@ -28,7 +28,7 @@ export const useShare = (activityId: string) => {
       }
     } catch (err) {
       console.error(t('navigator.incompatible'), err);
-      setShowAlert(true);
+      // setShowAlert(true);
     }
   };
 

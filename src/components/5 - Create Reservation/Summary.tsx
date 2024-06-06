@@ -14,14 +14,14 @@ import { useScreen } from '@hooks/useScreen';
 export const Summary: React.FC = () => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { activity, event, reservation, isFormValid, privacyPolicy } = useReservation(); //Context of reservation
-  const { isMobile } = useScreen();
+  const { isMobile, browsingWeb } = useScreen();
 
   const pay = () => {
     document.getElementById('paymentButton')?.click();
   }
 
   return (
-    <section className={isMobile ? 'ion-padding ion-margin-bottom' : 'ion-padding ion-margin-top'} style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
+    <section className={browsingWeb ? 'ion-padding ion-margin-top' : 'ion-padding ion-margin-bottom'} style={{ background: "var(--ion--color--background)", borderRadius: 20 }}>
       <IonRow class="ion-margin-top">
         <IonTitle class="ion-no-padding">
           <strong>{t('RESERVATION.SUMMARY.TITLE')}</strong>

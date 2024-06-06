@@ -13,7 +13,7 @@ export const ReservationData: React.FC<{ reservation: Reservation }> = ({ reserv
   return (
     <>
       <IonCardHeader class='ion-no-padding'>
-        <IonRow class='ion-justify-content-between ion-align-items-center ion-margin-bottom'>
+        <IonRow class='ion-justify-content-between ion-align-items-center ion-margin-bottom ' style={{ "gap": 10 }}>
           <IonCardTitle><strong>{reservation?.activity?.name}</strong></IonCardTitle>
           <IonText color={reservation.state === "canceled" ? "danger" : "primary"} ><strong>{t('RESERVATION.STATE.' + reservation?.state.toUpperCase()).toUpperCase()}</strong></IonText>
         </IonRow>

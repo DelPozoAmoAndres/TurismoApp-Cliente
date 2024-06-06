@@ -2,7 +2,6 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 /* Ionic components */
 import {
-  IonAlert,
   IonRow,
   IonCard
 } from '@ionic/react';
@@ -14,8 +13,6 @@ import { useShare } from '@hooks/useShare';
 import { ActivityInfo } from '@activity-details/ActivityInfo';
 import { ActivityReviews } from '@activity-details/Reviews/ActivityReviews';
 import { ActivityAvailability } from '@activity-details/Modal Availability/ActivityAvailability';
-/* i18n */
-import { useTranslation } from 'react-i18next';
 /* Carousel */
 import { Keyboard, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -32,10 +29,9 @@ import TwoColumnTwoRowsWebLayout from '@components/web/layouts/TwoColumnTwoRowsW
 type ActivityDetailsProps = RouteComponentProps<{ id: string }>;
 
 const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
-  const { t } = useTranslation(); //Hook to change the translation without refreshing the page
   const { browsingWeb } = useScreen(); //Hook to have data of screen dimensions
   const { activityData } = useActivityData(match.params.id); //Hook to have all the data of an activity
-  const { shareActivity, showAlert, setShowAlert } = useShare(match.params.id); //Hook to share a link to the activity
+  const { shareActivity } = useShare(match.params.id); //Hook to share a link to the activity
 
   const leftContent = () => activityData && activityData._id && (
     <>
@@ -67,7 +63,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
     <>
       <ActivityInfo activityData={activityData} share={shareActivity} />
       {!browsingWeb && <ActivityReviews activityId={activityData._id} />}
-      <IonAlert
+      {/* <IonAlert
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
         header={t('alert.title.error') || 'Error'}
@@ -79,7 +75,7 @@ const ActivityDetailsPage: React.FC<ActivityDetailsProps> = ({ match }) => {
             handler: () => setShowAlert(false),
           },
         ]}
-      />
+      /> */}
     </>
   ) : (
     <LoadingPage />

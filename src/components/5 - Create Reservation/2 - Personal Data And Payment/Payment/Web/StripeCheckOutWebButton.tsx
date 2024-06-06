@@ -24,6 +24,10 @@ export const StripeCheckOutWebButton: React.FC = () => {
       '.Label': {
         color: theme === 'dark' ? '#fff' : '#000',
       },
+      '.Input': {
+        backgroundColor: theme === 'dark' ? '#0e0f10' : '#fff',
+        color: theme === 'dark' ? '#fff' : '#000',
+      },
     },
     variables: {
       colorPrimary: '#209059',

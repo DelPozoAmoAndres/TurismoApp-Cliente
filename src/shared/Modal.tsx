@@ -52,7 +52,7 @@ export const Modal: React.FC<{
               <IonLabel slot="start">{t('ACTIONS.CLOSE')}</IonLabel>
             </IonButton>
           </IonButtons>
-          <IonTitle>{title}</IonTitle>
+          {!isMobile && <IonTitle>{title}</IonTitle>}
         </IonToolbar>
       </IonHeader>
       <IonContent>{children}</IonContent>

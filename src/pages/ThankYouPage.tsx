@@ -27,7 +27,7 @@ const ThankYouPage: React.FC = () => {
             <p>{t('RESERVATION.CONFIRM')}</p>
             <p style={{ marginLeft: "10px", marginRight: "10px", textAlign: "center" }}>{t('RESERVATION.CHECK')}</p>
             <IonRow style={{ gap: "20px" }}>
-                <IonButton style={{ margin: "auto" }} expand="block" onClick={() => handleRestoreHistory("/reservas")}>
+                <IonButton style={{ margin: "auto" }} expand="block" routerLink={browsingWeb ? '/reservas' : '/movil/reservas'} >
                     {t('RESERVATION.SHOW')}
                 </IonButton>
                 <IonButton style={{ margin: "auto" }} expand="block" onClick={() => handleRestoreHistory()}>

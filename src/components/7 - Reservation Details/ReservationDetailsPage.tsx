@@ -97,7 +97,7 @@ const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) =>
           },
           {
             text: t('RESERVATION.CANCEL.OPTION.YES'),
-            handler: async () => { await cancelReservation(match.params.id) },
+            handler: async () => { cancelReservation(match.params.id).then(() => setRefresh(true)); },
           },
         ]}
       />

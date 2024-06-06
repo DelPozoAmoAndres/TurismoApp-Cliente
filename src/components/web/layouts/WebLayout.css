@@ -47,3 +47,7 @@ body.dark input[type="date"]::-webkit-calendar-picker-indicator {
   width: 100% !important;
   outline: none !important;
 }
+
+ion-title {
+  position: unset;
+}

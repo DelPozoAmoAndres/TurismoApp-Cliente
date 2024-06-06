@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 /* Ionic Components */
 import { IonCard, IonIcon, IonLabel, IonList, IonRow } from '@ionic/react';
 /* Hooks */
@@ -15,11 +15,21 @@ import "./ReservationList.css";
 import { useTranslation } from 'react-i18next';
 import { ellipsisHorizontal } from 'ionicons/icons';
 import GenericWebLayout from '@components/web/layouts/GenericWebLayout';
+import { useLocation } from 'react-router';
 
 const ReservationListPage: React.FC = () => {
   const { browsingWeb } = useScreen(); //Hook to have data of screen dimensions
-  const reservationsGroup = useReservationList(); //Hooks to have all the reservation data
+  const { reservationsGroup, setReload } = useReservationList(); //Hooks to have all the reservation data
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes('/reservas')) {
+      console.log('reload');
+      setReload(true);
+    }
+    // eslint-disable-next-line
+  }, [location.pathname]);
 
   const content = (
     <IonList mode="ios" id="reservation-list">
