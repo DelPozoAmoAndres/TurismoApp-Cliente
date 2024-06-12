@@ -16,10 +16,6 @@
     padding-right: 20px;
 }
 
-#reservation-instructions ion-card {
-    background-color: var(--ion--color--background);
-}
-
 #reservation-instructions ion-card-content {
     padding-bottom: 0;
     color: var(--ion-color-dark)

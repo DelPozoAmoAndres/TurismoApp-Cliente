@@ -7,7 +7,7 @@ export const ReservationInstructionsData = () => {
   const { t } = useTranslation();
   return (
     <div id="reservation-instructions" >
-      <IonCard class='ion-margin-bottom'>
+      <IonCard class='ion-no-margin ion-margin-bottom'>
         <IonCardHeader>
           {t('RESERVATION.INSTRUCTION.IMPORTANT.TITLE')}
         </IonCardHeader>
