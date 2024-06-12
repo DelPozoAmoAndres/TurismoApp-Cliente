@@ -173,6 +173,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                             <IonDatetime
                                 locale={defaultLanguage.code}
                                 value={repeatDays}
+                                min={formatDate(new Date(), false)}
                                 presentation="date"
                                 multiple
                                 onIonChange={(e) => e.detail.value && setRepeatDays(e.detail.value)}

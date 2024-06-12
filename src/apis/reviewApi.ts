@@ -16,10 +16,6 @@ export const getReviewFromReservation = async (reservationId: string): Promise<R
   return axios.get(`${url}/reservation/${reservationId}`).then((res) => res.data).catch(() => null);
 }
 
-export const getReviews = async (activityId: string): Promise<Review[]> => {
-  return axios.get(`${url}/activity/${activityId}`).then((res) => res.data);
-};
-
 export const deleteReview = async (reviewId: string) => {
   return axios.delete(`${url}/${reviewId}`).then(() => true).catch(() => false);
 };

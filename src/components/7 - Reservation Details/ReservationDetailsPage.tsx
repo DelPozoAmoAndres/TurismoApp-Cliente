@@ -72,7 +72,7 @@ const ReservationDetailsPage: React.FC<ReservationDetailsProps> = ({ match }) =>
             </IonRow>
           </IonCard>
           {reservation?.state === 'completed' && review !== null &&
-            <section style={{ marginInline: "5%" }}>
+            <section className="review-container">
               <h3>{t('ACTIVITY.REVIEWS.TITLE')}</h3>
               <ReviewItem comment={review} setRefresh={setRefresh} />
             </section>}

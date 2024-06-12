@@ -170,8 +170,8 @@ export const AdminActivityList: React.FC = () => {
                         </IonRow>
                     </IonCardHeader>
                     {showEvents && data.events && data.events.length > 0 && <IonCardContent class="ion-no-padding">
-                        <IonGrid>
-                            <IonRow className="sub-header">
+                        <IonGrid style={{ gap: 10, display: "flex", flexDirection: "column", background: "var(--ion-background-color)" }}>
+                            <IonRow className="sub-header sticky-header">
                                 <IonCol style={{ minWidth: "13.6%", maxWidth: "13.6%" }}>{t('DASHBOARD.LIST.DATE')}</IonCol>
                                 <IonCol style={{ minWidth: "13.6%", maxWidth: "13.6%" }}>{t('DASHBOARD.LIST.SEATS')}</IonCol>
                                 <IonCol style={{ minWidth: "13.6%", maxWidth: "13.6%" }}>{t('DASHBOARD.LIST.RESERVED-SEATS')}</IonCol>
@@ -182,7 +182,7 @@ export const AdminActivityList: React.FC = () => {
                             </IonRow>
                             {data.events && data.events.sort((e1, e2) => new Date(e1.date).getTime() - new Date(e2.date).getTime()).map((event, idx) => (
                                 <>
-                                    <IonRow key={idx} style={{ borderBottom: "10px solid var(--ion-background-color)" }}>
+                                    <IonRow key={idx} style={{ backgroundColor: "var(--ion--color--background)", borderRadius: 10 }}>
                                         <IonCol style={{ minWidth: "13.6%", maxWidth: "13.6%" }}>{formatDate(event.date, true, true)}</IonCol>
                                         <IonCol style={{ minWidth: "13.6%", maxWidth: "13.6%" }}>{String(event.seats)}</IonCol>
                                         <IonCol style={{ minWidth: "13.6%", maxWidth: "13.6%" }}>{String(event.bookedSeats)}</IonCol>

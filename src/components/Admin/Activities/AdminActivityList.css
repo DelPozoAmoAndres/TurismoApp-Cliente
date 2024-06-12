@@ -11,7 +11,7 @@
 
 #activityList-admin ion-card {
     background-color: var(--ion--color--background);
-    border-bottom: 10px solid var(--ion-background-color);
+    margin-bottom: 10px;
     box-shadow: none;
 }
 
@@ -30,7 +30,7 @@
     font-weight: bold;
     background-color: var(--ion-background-color);
     color: var(--ion-color-dark);
-    border: 5px solid var(--ion--color--background);
+    /* border: 5px solid var(--ion--color--background); */
 }
 
 #activityList-admin ion-row {

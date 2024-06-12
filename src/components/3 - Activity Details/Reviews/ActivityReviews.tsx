@@ -35,7 +35,7 @@ export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }
             </div>
           </>
         }
-        {(listOfComments && listOfComments?.length > 6) && <>
+        {(listOfComments && listOfComments?.length > 6 || listOfComments && isMobile) && <>
           <IonButton class="outlined ion-no-margin" style={{ width: "100%", height: "40px" }} id="modal-reviews" expand='block'>{t(isMobile ? "ACTIVITY.SHOW.REVIEWS" : "SHOW.MORE")}</IonButton>
           <ReviewsModal listOfComments={listOfComments} setRefresh={setRefresh} />
         </>}

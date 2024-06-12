@@ -15,17 +15,18 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({ mode, icon, text, role, routeLink="", id, onClick }) => {
+export const Button: React.FC<ButtonProps> = ({ mode, icon, text, role, routeLink = "", id, onClick }) => {
   const { props } = useNavButtonProps(routeLink); // Hook to mark as selected the navlink
   const auth = useAuth(); //Context of user
-  const routeProps = routeLink?{routerLink: routeLink}:{}
+  const routeProps = routeLink ? { routerLink: routeLink } : {}
   const { isMobile } = useScreen(); //
+
   return (
     <IonNavLink
       hidden={isMobile || !((auth.user && role === null) || auth.user?.role === role || (role === undefined && auth.token === null))}
     >
       <IonButton onClick={onClick} routerDirection='root' {...props} mode={mode || 'ios'} {...routeProps} id={id}>
-        <IonIcon icon={icon} />
+        <IonIcon icon={icon} style={{ marginRight: "10px" }} />
         <p>{text}</p>
       </IonButton>
     </IonNavLink>

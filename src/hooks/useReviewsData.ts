@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Review } from '@models/Activity';
-import { getReviews } from '@apis/reviewApi';
+import { getReviews } from '@apis/activityApi';
 
 export const useReviewsData = (activityId: string) => {
     const [listOfComments, setListOfComments] = useState<Review[]>();
