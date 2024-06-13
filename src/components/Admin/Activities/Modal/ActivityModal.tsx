@@ -42,7 +42,7 @@ export const ActivityModal: React.FC<{ activity: Activity, action: "add" | "edit
                         {(formData?.images)?.map((image, imageIndex) =>
                             <div key={"image" + imageIndex} style={{ position: "relative" }} >
                                 <img src={String(image) || ""} style={{ filter: 'brightness(50%)' }} />
-                                <span style={{ position: "absolute", top: 5, left: 5 }}>{imageIndex + 1}</span>
+                                <span style={{ position: "absolute", top: 5, left: 5, color: 'white' }}>{imageIndex + 1}</span>
                                 <IonIcon
                                     onClick={() => {
                                         const updatedImages = formData?.images.filter((_, index) => index !== imageIndex);

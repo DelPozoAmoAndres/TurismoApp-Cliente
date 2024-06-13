@@ -67,6 +67,14 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
         }
     };
 
+    const isvalid = () => {
+        if (action === "add") {
+            return formData?.price && formData?.language && formData?.seats && formData?.guide && (time || date);
+        }
+        return formData?.guide;
+    }
+
+
     useEffect(() => {
         action == "add" && !event._id && checkWorkers({
             repeatType: repeatType.toString(),
@@ -105,6 +113,8 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
 
     const handleRepeatTypeChange = (e: CustomEvent) => {
         const type = e.detail.value;
+        setDate(null);
+        setTime(null);
         setRepeatType(type);
         setRepeatDays([]);
         setRepeatStartDate('');
@@ -242,7 +252,7 @@ export const EventModal: React.FC<{ activity?: string, event: Event, action: "ad
                         ))}
                     </IonSelect>
                 </IonItem>
-                <IonButton expand="block" onClick={handleEvent} disabled={formData?.guide === "" || formData?.guide === undefined} aria-label={formData?.guide}>
+                <IonButton expand="block" onClick={handleEvent} disabled={!isvalid()} aria-label={formData?.guide}>
                     {action}.event
                 </IonButton>
             </IonList>
