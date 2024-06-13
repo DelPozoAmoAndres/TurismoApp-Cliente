@@ -28,10 +28,11 @@ export const ActivityItem: React.FC<{ activity: Activity, style?: IonicReactProp
         <IonCardSubtitle>
           <IonText color={'tertiary'} className="ion-margin-left">{activity.location}</IonText>
         </IonCardSubtitle>
-        {(activity?.reviews?.length || 0) > 0 && <IonText class="ion-no-margin ion-align-items-center">
-          <IonIcon icon={star} color="primary" />
-          {activity?.reviews?.reduce((acc, review) => acc + review.score, 0)}/5 ({activity?.reviews?.length})
-        </IonText>}
+        {activity.reviews && activity.reviews.length > 0 &&
+          <IonText class="ion-no-margin ion-align-items-center">
+            <IonIcon icon={star} color="primary" />
+            {(activity.reviews.reduce((acc, review) => acc + review.score, 0) / activity.reviews?.length).toFixed(2)}/5 ({activity?.reviews?.length})
+          </IonText>}
         {<IonText>
           <p>{activity.description && activity.description[defaultLanguage.code]}</p>
         </IonText>}
