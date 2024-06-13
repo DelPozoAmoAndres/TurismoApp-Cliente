@@ -37,14 +37,6 @@ body.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   color-scheme: dark;
 }
 
-body {
-  scrollbar-color: var(--ion-color-primary) var(--ion-background-color);
-}
-
-body.dark {
-  scrollbar-color: var(--ion--color--background) var(--ion-background-color);
-}
-
 #pageWeb ion-content>div {
   display: grid;
   grid-template-rows: auto 1fr auto;
@@ -60,4 +52,14 @@ body.dark {
 
 ion-title {
   position: unset;
+}
+
+@media screen and (min-width: 900px) {
+  body {
+    scrollbar-color: var(--ion-color-primary) var(--ion-background-color);
+  }
+
+  body.dark {
+    scrollbar-color: var(--ion--color--background) var(--ion-background-color);
+  }
 }
