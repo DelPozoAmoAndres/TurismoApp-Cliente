@@ -47,6 +47,7 @@ header {
 
 #listLayout ion-searchbar {
     --background: var(--ion--color--background);
+    --box-shadow: none;
 }
 
 #listLayout ion-button {
