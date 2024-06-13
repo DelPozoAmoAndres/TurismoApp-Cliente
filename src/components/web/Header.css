@@ -1,5 +1,7 @@
 #title-app {
   font-size: 30px;
+  --box-shadow: none;
+  margin: none;
 }
 
 ion-toolbar {
