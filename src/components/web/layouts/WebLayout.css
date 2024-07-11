@@ -1,10 +1,10 @@
 .limits-content {
-    max-width: 1300px; 
-    margin: auto;
+  max-width: 1300px;
+  margin: auto;
 }
 
 .toolBar-content {
-  max-width: 1300px; 
+  max-width: 1300px;
   margin: auto;
 
   align-items: center;
@@ -12,30 +12,54 @@
   justify-content: space-between;
 }
 
+ion-footer ion-toolbar {
+  --background: var(--ion--color--footer);
+  color: white
+}
+
 a {
   text-decoration: none;
 }
 
-h2{
-  margin:0
+h2 {
+  margin: 0
 }
 
-/* @media screen and (max-width: 1300px) {
-  h2 {
-    margin-left: 10px;
-  }
-  
-} */
+ion-card {
+  box-shadow: none;
+}
 
-#pageWeb ion-content > div{
+body.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
+}
+
+body.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
+}
+
+#pageWeb ion-content>div {
   display: grid;
-  grid-template-rows: auto 1fr auto; 
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   grid-template-columns: 1fr;
 }
 
-.resize label div textarea{
+.resize label div textarea {
   resize: vertical !important;
   width: 100% !important;
   outline: none !important;
+}
+
+ion-title {
+  position: unset;
+}
+
+@media screen and (min-width: 900px) {
+  body {
+    scrollbar-color: var(--ion-color-primary) var(--ion-background-color);
+  }
+
+  body.dark {
+    scrollbar-color: var(--ion--color--background) var(--ion-background-color);
+  }
 }

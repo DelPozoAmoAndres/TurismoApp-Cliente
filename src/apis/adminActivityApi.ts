@@ -9,8 +9,7 @@ export const createActivity = async (activity: Activity) => {
 };
 
 export const editActivity = async (activity: Activity): Promise<Activity> => {
-  const response = await axios.put(`${baseUrl}/${activity._id}`, activity);
-  return response.data;
+  return axios.put(`${baseUrl}/${activity._id}`, activity);
 };
 
 export const deleteActivity = async (id: string): Promise<Activity> => {
@@ -24,17 +23,17 @@ export const createEvent = async (activityId: string, event: Event, repeatInfo: 
   });
 };
 
-export const getEvents = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
+export const getEvents = async (search: string, filters: Record<string, unknown>): Promise<[]> => {
   filters = filterPropertiesNotNull(filters);
   const params = new URLSearchParams({ search, ...filters }).toString();
   const response = await axios.get(`${baseUrl}/event/list?${params}`);
   return response.data;
 }
 
-export const getAllActivities = async (search: string, filters : Record <string,unknown>): Promise<[]> => {
+export const getAllActivities = async (searchString = '', filters: Record<string, unknown>): Promise<[]> => {
   filters = filterPropertiesNotNull(filters);
-  const params = new URLSearchParams({ search, ...filters }).toString();
-  const response = await axios.get(`${baseUrl}/list?${params}`);
+  const params = new URLSearchParams({ searchString, ...filters }).toString();
+  const response = await axios.get(`${baseUrl}/list?${params}`).catch(() => { return { data: [] } });
   return response.data;
 }
 

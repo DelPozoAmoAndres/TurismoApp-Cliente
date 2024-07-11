@@ -15,21 +15,26 @@ import { useSoldOut } from '@hooks/useSoldOut';
 import { useAuth } from '@contexts/AuthContexts';
 import { calendarOutline, shareSocialOutline } from 'ionicons/icons';
 import { formatDateToTime } from '@utils/Utils';
+import { useLanguage } from '@hooks/useLanguage';
 
 export const ActivityInfo: React.FC<{
   activityData: Activity;
   share: () => void;
 }> = ({ activityData, share }) => {
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-  const { browsingWeb, isMobile } = useScreen(); //Hook to have data of screen dimensions
+  const { isMobile } = useScreen(); //Hook to have data of screen dimensions
   const auth = useAuth();
   const { soldOutProps } = useSoldOut(activityData);
   const date: Date = new Date();
+  const { defaultLanguage } = useLanguage();
+
   date.setHours(0, 0, 0, 0);
   date.setMinutes(activityData.duration);
 
+  console.log(activityData.events)
+
   return (
-    <div id="activity-info" className="ion-margin-top">
+    <div id="activity-info">
       <IonRow class="ion-margin-bottom">
         <IonCardTitle>
           <strong>{activityData?.name}</strong>
@@ -37,69 +42,61 @@ export const ActivityInfo: React.FC<{
         <IonCardSubtitle>{activityData?.location}</IonCardSubtitle>
       </IonRow>
       <div style={{ width: "100%" }}>
-        {browsingWeb && !isMobile && <>
-          <section hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
+        {!isMobile && <>
+          <section>
             <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-              {activityData?.events && activityData.events.length > 0 && activityData.state!=ActivityState['temporaly-closed'] ? t('show.availability') : t('sold.out')}
+              {auth.user?.role === Role.administrador
+                ? t('ACTIVITY.SHOW.EVENTS')
+                : activityData?.events
+                  && activityData.events.filter(e => e.bookedSeats == undefined || e.seats > e.bookedSeats).length > 0
+                  && activityData.state != ActivityState['temporaly-closed']
+                  ? t('ACTIVITY.SHOW.AVAILABILITY')
+                  : t('ACTIVITY.SOLD.OUT')}
               <IonIcon slot="end" icon={calendarOutline} />
             </IonButton>
           </section>
-          <section hidden={isMobile || !auth.user || auth.user?.role !== Role.administrador}>
-            <IonButton routerLink={`/admin/activity/${activityData._id}/events`} expand="block">
-              {t('show.events')}
-            </IonButton>
-          </section></>}
-        {browsingWeb &&
           <IonButton class='outlined' onClick={share}>
-            {t('share')}
+            {t('ACTIONS.SHARE')}
             <IonIcon slot="end" icon={shareSocialOutline} />
-          </IonButton>}</div>
+          </IonButton></>}
+      </div>
+
       <div>
         {activityData?.events && activityData?.events?.length > 0 && (
           <IonRow>
             <IonRow class="ion-margin-top">
               <IonLabel>
-                <strong>{t('price')}</strong>
+                <strong>{t('ACTIVITY.EVENT.PRICE')}</strong>
               </IonLabel>
             </IonRow>
-            {t('from')}{' '}
+            {t('FROM')}{' '}
             {activityData?.events && activityData.events.length > 0 ? Math.min(...activityData.events.map((e) => e.price)).toString() + "€" : ''}
           </IonRow>
         )}
         <IonRow>
           <IonRow class="ion-margin-top">
             <IonLabel>
-              <strong>{t('duration')}</strong>
+              <strong>{t('ACTIVITY.DURATION')}</strong>
             </IonLabel>
           </IonRow>
           {formatDateToTime(date)} {t('hours')}
         </IonRow>
-        <IonRow>
-          <IonRow class="ion-margin-top">
-            <IonLabel>
-              <strong>{t('notes')}</strong>
-            </IonLabel>
-          </IonRow>
-          {activityData?.petsPermited ? t('pet.allowed') : t('pet.not.allowed')}
-        </IonRow>
       </div>
       <IonRow class="ion-margin-top">
         <IonLabel>
-          <strong>{t('description')}</strong>
+          <strong>{t('ACTIVITY.DESCRIPTION')}</strong>
         </IonLabel>
       </IonRow>
       <IonRow>
-        <IonText style={{ whiteSpace: "pre-line" }}>{activityData?.description}</IonText>
+        <IonText style={{ whiteSpace: "pre-line" }}>{activityData?.description && activityData.description[defaultLanguage.code]}</IonText>
       </IonRow>
-      <IonRow class="ion-margin-top">
-        <IonLabel>
-          <strong>{t('accesibility')}</strong>
-        </IonLabel>
-      </IonRow>
-      <IonRow class='ion-margin-bottom' style={{ whiteSpace: "pre-line" }}>{activityData?.accesibility}</IonRow>
-      {isMobile && <section className='sticky' hidden={auth.user?.role === Role.administrador || auth.user?.role == Role.guía}>
-        <IonButton {...soldOutProps} expand="block" id="Availability-modal">
-          {activityData?.events && activityData.events.length > 0 ? t('show.availability') : t('sold.out')}
+
+      {isMobile && <section className='sticky'>
+        <IonButton slot='start' {...soldOutProps} expand="block" id="Availability-modal">
+          {activityData?.events && activityData.events.length > 0 ? auth.user?.role === Role.administrador ? t('ACTIVITY.SHOW.EVENTS') : t('ACTIVITY.SHOW.AVAILABILITY') : t('ACTIVITY.SOLD.OUT')}
+        </IonButton>
+        <IonButton slot='end' class='outlined' onClick={share}>
+          <IonIcon icon={shareSocialOutline} />
         </IonButton>
       </section>
       }

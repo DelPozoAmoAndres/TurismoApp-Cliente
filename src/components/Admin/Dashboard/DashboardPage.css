@@ -1,0 +1,44 @@
+.statistic-cards ion-card{
+    --background: var(--ion--color--background);
+    box-shadow: none;
+}
+
+.statistic-cards ion-card-subtitle{
+    color: var(--ion-color-primary);
+}
+
+.recent-activity tr {
+    --background: var(--ion--color--background);
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 2px solid var(--ion-background-color);
+}
+
+.recent-activity td {
+    padding: 10px;
+    height: auto;
+    max-width: none;
+}
+
+.recent-activity td:first-child {
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    align-items: center;
+}
+
+.recent-activity ion-label{
+    color: var(--ion-color-primary);
+    width: auto;
+    text-align: left;
+}
+
+.recent-activity h2{
+   color: var(--ion-color-dark)
+}
+
+.recent-activity p{
+    color:var(--ion-color-tertiary)
+}

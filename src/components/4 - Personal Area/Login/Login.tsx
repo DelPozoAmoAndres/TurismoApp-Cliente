@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 /* Ionic Components */
-import { IonInput, IonButton, IonText, IonItem, IonAlert, IonList, IonGrid, IonRow } from '@ionic/react';
+import { IonInput, IonButton, IonText, IonItem, IonList, IonGrid, IonRow } from '@ionic/react';
 /* Styles */
 import './Login.css';
 /* Components */
@@ -13,20 +13,29 @@ import { useTranslation } from 'react-i18next';
 import Register from '../Register/Register';
 import { useAuth } from '@contexts/AuthContexts';
 
-const Login: React.FC= () => {
-  const { handleLogin, setShowAlert, setEmail, setPassword, email, password, loading, showAlert, error } = useLogin();
+const Login: React.FC = () => {
   const modal = useRef<HTMLIonModalElement>(null); //Reference of the modal to close it
+  const { handleLogin, setEmail, setPassword, email, password, loading } = useLogin(modal);
   const { t } = useTranslation(); //Hook to change the translation without refreshing the page
-  const {showLoginModal, setShowLoginModal} = useAuth();
+  const { showLoginModal, setShowLoginModal } = useAuth();
+
+  useEffect(() => {
+    modal.current?.onDidDismiss().then(() => {
+      setEmail('');
+      setPassword('');
+    });
+    // eslint-disable-next-line
+  }, [modal]);
+
   return (
-    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} tittle={t('log.in')} modal={modal} minWidthAndroid={330} minWidthIos={492}>
+    <Modal id={'login-modal-card'} isOpen={showLoginModal} setOpen={setShowLoginModal} title={t('LOG.IN')} modal={modal} minHeightAndroid={330} minHeightIos={300} onlyNative={true}>
       <IonGrid id="login-grid" class="ion-no-padding">
         <IonRow>
           <IonList class="ion-margin-bottom">
             <IonItem lines="none">
               <IonInput
                 type="email"
-                placeholder={t('personal.data.email') || ''}
+                placeholder={t('DATA.EMAIL.LABEL') || ''}
                 value={email}
                 onIonInput={(e) => {
                   setEmail(e.detail.value || '');
@@ -36,16 +45,16 @@ const Login: React.FC= () => {
             <IonItem lines="none">
               <IonInput
                 type="password"
-                placeholder={t('personal.data.password') || ''}
+                placeholder={t('DATA.PASSWORD.LABEL') || ''}
                 value={password}
                 onIonInput={(e) => {
                   setPassword(e.detail.value || '');
                 }}
               />
             </IonItem>
-            <IonButton type="submit" expand="block" onClick={() => handleLogin()}>
+            <IonButton disabled={!email || !password} type="submit" expand="block" onClick={() => handleLogin()}>
               {' '}
-              {loading ? <Spinner /> : t('log.in')}
+              {loading ? <Spinner /> : t('LOG.IN')}
             </IonButton>
           </IonList>
         </IonRow>
@@ -56,25 +65,13 @@ const Login: React.FC= () => {
             style={{ borderRadius: '5px', width: '100%' }}
           >
             <IonText>
-              {t('not.account') + ' '}
-              <strong>{t('sign.up.here')}</strong>
+              {t('NOT.ACCOUNT') + ' '}
+              <strong style={{ cursor: "pointer" }}>{t('SIGN.UP.HERE')}</strong>
             </IonText>
           </IonItem>
         </IonRow>
       </IonGrid>
-      <Register loginModal={modal}/>
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => {
-          setShowAlert(false);
-          if (!error) {
-            modal.current?.dismiss();
-          }
-        }}
-        header={error ? t('alert.title.error') || 'Error' : t('log.in') || ''}
-        message={error ?? (t('alert.login.success') || '')}
-        buttons={['OK']}
-      ></IonAlert>
+      <Register loginModal={modal} />
     </Modal>
   );
 };

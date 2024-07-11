@@ -5,16 +5,22 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from './contexts/AuthContexts';
 import React from 'react';
 import ActivityListProvider from '@contexts/ActivityListContext';
+import { NotificationProvider } from '@contexts/NotificationToastContext';
+import { MenuProvider } from '@contexts/DashboardActivityContext';
 
 const container = document.getElementById('root');
 const root = container && createRoot(container);
 root?.render(
   // <React.StrictMode>
-  <AuthProvider>
-    <ActivityListProvider>
-      <AppIndex />
-    </ActivityListProvider>
-  </AuthProvider>
+  <NotificationProvider >
+    <AuthProvider>
+      <ActivityListProvider>
+        <MenuProvider>
+          <AppIndex />
+        </MenuProvider>
+      </ActivityListProvider>
+    </AuthProvider>
+  </NotificationProvider>
   // </React.StrictMode>
 );
 

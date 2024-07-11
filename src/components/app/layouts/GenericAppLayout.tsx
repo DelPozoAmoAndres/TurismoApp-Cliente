@@ -1,5 +1,6 @@
 import { IonContent, IonPage } from '@ionic/react';
 import React, { ReactNode } from 'react';
+import './GenericAppLayout.css';
 type Props = {
   children: ReactNode;
 };

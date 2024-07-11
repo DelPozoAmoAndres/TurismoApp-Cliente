@@ -1,6 +1,5 @@
 import React from "react";
-import {IonContent, IonPage} from "@ionic/react";
-import AppMenu from "../AppMenu";
+import { IonContent, IonPage } from "@ionic/react";
 import { Header } from "../Header";
 import Footer from "../Footer";
 
@@ -8,10 +7,9 @@ interface Props {
     children: React.ReactNode;
 }
 
-const GenericWebLayout : React.FC<Props> = ({ children }) => {
+const GenericWebLayout: React.FC<Props> = ({ children }) => {
     return (
         <>
-            <AppMenu />
             <IonPage id="pageWeb">
                 <IonContent>
                     <div>

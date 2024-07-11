@@ -13,12 +13,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    font-size: 1.5vw;
+    font-size: 1.4vw;
     align-items: center;
     color: var(--ion-color-primary);
     margin-right: -20px;
     box-shadow: none;
-    border: 1px solid var(--ion-color-primary);
 }
 
 #event-list section {
@@ -37,7 +36,7 @@
     }
 
     #event-list ion-card-content ion-card {
-        font-size: 130%;        
+        font-size: 130%;
     }
 
     #event-list img {
@@ -51,19 +50,20 @@
         text-align: left;
     }
 
-    #event-list .grid{
+    #event-list .grid {
         position: sticky;
         position: -webkit-sticky;
-        top:40px;
+        top: 40px;
         right: 0;
         z-index: 1000;
-        background: var(--ion-background-color,#ffff);
+        background: var(--ion-background-color, #ffff);
     }
 
     #event-list .grid {
         align-items: center;
         display: grid;
-        grid-template-columns: 1fr auto;    }
+        grid-template-columns: 1fr auto;
+    }
 }
 
 #event-list .img {

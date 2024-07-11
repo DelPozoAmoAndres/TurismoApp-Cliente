@@ -12,26 +12,35 @@
 
 .primaryColor ion-button:hover {
     --ion-color-contrast: var(--ion-color-primary) !important;
-    --ion-color:white;
+    --ion-color: white;
 }
 
-.primaryColor ion-select{
-    --background:transparent;
+.primaryColor ion-select {
+    --background: transparent;
 }
 
 #pageWeb ion-menu {
-    --width:200px;
+    --width: 200px;
     width: 200px;
+    margin-left: 10px;
 }
 
-#dashboard-content{
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
+#dashboard-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-ion-card-content{
-   display: flex;
-   justify-content: center;
+#dashboard-content ion-item {
+    --background: var(--ion--color--background);
+    border-radius: 10px;
+    width: "90%";
+    margin: "auto";
+    margin-bottom: 10px;
+}
+
+#dashboard-content ion-card-content {
+    display: flex;
+    justify-content: center;
 }

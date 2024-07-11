@@ -24,16 +24,20 @@ import DarkModeToggle from '@shared/DarkModeToggle';
 import { useTranslation } from 'react-i18next';
 import { Role } from '@models/User';
 import Logo from './Logo';
+import { useLocation } from 'react-router';
 
 const AppMenu: React.FC = () => {
   const auth = useAuth();
   const { t } = useTranslation();
+  const location = useLocation();
 
   const menuController = useRef<HTMLIonMenuElement>(null);
 
   const handleClick = () => {
-    if (menuController.current?.isOpen())
+    if (menuController.current?.isOpen()) {
       menuController.current?.close();
+      menuController.current?.close();
+    }
   };
 
   return (
@@ -46,41 +50,41 @@ const AppMenu: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonList>
+        <IonList class='ion-margin-top'>
           <IonMenuToggle onClick={handleClick}>
-            <IonItem button routerLink="/home">
-              <IonIcon slot="start" icon={homeOutline} />
-              <IonLabel>{t('home.title')}</IonLabel>
+            <IonItem button routerLink="/home" style={{ "--background": location.pathname.includes("/home") ? "var(--ion-color-primary)" : "var(--ion--color--background)", color: location.pathname.includes("/home") ? "white" : "var(--ion-color-dark)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
+              <IonIcon color={location.pathname.includes("/home") ? "white" : "tertiary"} slot="start" icon={homeOutline} />
+              <IonLabel>{t('HOME.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle onClick={handleClick}>
-            <IonItem button routerLink="/buscar">
-              <IonIcon slot="start" icon={searchOutline} />
-              <IonLabel>{t('search.title')}</IonLabel>
+          <IonMenuToggle onClick={handleClick} >
+            <IonItem button routerLink="/buscar" style={{ "--background": location.pathname.includes("/buscar") ? "var(--ion-color-primary)" : "var(--ion--color--background)", color: location.pathname.includes("/buscar") ? "white" : "var(--ion-color-dark)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
+              <IonIcon color={location.pathname.includes("/buscar") ? "white" : "tertiary"} slot="start" icon={searchOutline} />
+              <IonLabel>{t('ACTIONS.SEARCH')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user !== null} onClick={()=>auth.setShowLoginModal(true)}>
-            <IonItem button>
-              <IonIcon slot="start" icon={personOutline} />
-              <IonLabel>{t('account.title')}</IonLabel>
+          <IonMenuToggle hidden={auth.user !== null} onClick={() => auth.setShowLoginModal(true)} >
+            <IonItem button style={{ "--background": "var(--ion--color--background)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
+              <IonIcon color={"tertiary"} slot="start" icon={personOutline} />
+              <IonLabel>{t('PROFILE.ACCOUNT.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null} onClick={handleClick}>
-            <IonItem button routerLink="/perfil">
-              <IonIcon slot="start" icon={personOutline} />
-              <IonLabel>{t('profile.title')}</IonLabel>
+          <IonMenuToggle hidden={auth.user === null} onClick={handleClick} >
+            <IonItem button routerLink="/perfil" style={{ "--background": location.pathname.includes("/perfil") ? "var(--ion-color-primary)" : "var(--ion--color--background)", color: location.pathname.includes("/perfil") ? "white" : "var(--ion-color-dark)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
+              <IonIcon color={location.pathname.includes("/perfil") ? "white" : "tertiary"} slot="start" icon={personOutline} />
+              <IonLabel>{t('PROFILE.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick}>
-            <IonItem button routerLink="/reservas">
-              <IonIcon slot="start" icon={briefcaseOutline} />
-              <IonLabel>{t('reservations.title')}</IonLabel>
+          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.turista} onClick={handleClick} >
+            <IonItem button routerLink="/reservas" style={{ "--background": location.pathname.includes("/reservas") ? "var(--ion-color-primary)" : "var(--ion--color--background)", color: location.pathname.includes("/reservas") ? "white" : "var(--ion-color-dark)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
+              <IonIcon color={location.pathname.includes("/reservas") ? "white" : "tertiary"} slot="start" icon={briefcaseOutline} />
+              <IonLabel>{t('RESERVATION.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía} >
-            <IonItem button routerLink="/nextEvents">
-              <IonIcon slot="start" icon={briefcaseOutline} />
-              <IonLabel>{t('nextEvents.title')}</IonLabel>
+          <IonMenuToggle hidden={auth.user === null || auth.user.role !== Role.guía}>
+            <IonItem button routerLink="/nextEvents" style={{ "--background": location.pathname.includes("/nextEvents") ? "var(--ion-color-primary)" : "var(--ion--color--background)", color: location.pathname.includes("/nextEvents") ? "white" : "var(--ion-color-dark)", borderRadius: 10, width: "90%", margin: "auto", marginBottom: 10 }} lines='none'>
+              <IonIcon color={location.pathname.includes("/nextEvents") ? "white" : "tertiary"} slot="start" icon={briefcaseOutline} />
+              <IonLabel>{t('NEXTEVENTS.TITLE')}</IonLabel>
             </IonItem>
           </IonMenuToggle>
         </IonList>
@@ -88,11 +92,11 @@ const AppMenu: React.FC = () => {
           <LanguageSelector hidden={false} />
           <DarkModeToggle hidden={false} />
           {auth.user && <>
-            <IonItemDivider />
+            <IonItemDivider style={{ background: "var(--ion-background-color)" }} />
             <IonMenuToggle onClick={handleClick}>
               <IonButton class="ion-margin-top" color={'danger'} expand="block" onClick={auth.logout}>
                 <IonIcon slot="start" icon={logOutOutline} />
-                <IonLabel>{t('log.out')}</IonLabel>
+                <IonLabel>{t('LOG.OUT')}</IonLabel>
               </IonButton>
             </IonMenuToggle>
           </>}

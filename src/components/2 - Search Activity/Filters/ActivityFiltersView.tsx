@@ -1,114 +1,83 @@
 import React from 'react';
 /* Ionic components */
-import { IonCheckbox, IonCol, IonLabel, IonRange, IonRow } from '@ionic/react';
+import { IonCheckbox, IonCol, IonIcon, IonLabel, IonRange, IonRow } from '@ionic/react';
 /* Hooks */
 import { useFilters } from '@hooks/useFilters';
 /* Models */
-import { ActivityFilter, ActivityState } from '@models/Activity';
+import { ActivityFilter } from '@models/Activity';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import FilterList from '@shared/FilterList';
-import { useAuth } from '@contexts/AuthContexts';
-import { Role } from '@models/User';
 import { useLanguage } from '@hooks/useLanguage';
 import DateFilter from './DateFilter';
 import { useScreen } from '@hooks/useScreen';
+import { addOutline, removeOutline } from 'ionicons/icons';
 
 export const ActivityFiltersView: React.FC<{
   applyFilters: (arg0: ActivityFilter) => void;
   filters?: ActivityFilter;
-}> = ({ applyFilters, filters }) => {
-  const { filtersToApply, newFilters, confirmFilters, handleFilters, clearFilters } = useFilters(applyFilters, filters); // Hook to handle the filters
-  const {isMobile} = useScreen(); //Hook to have data of screen dimensions
-  const { t } = useTranslation(); //Hook to change the translation without refreshing the page
+  defaultFilters: ActivityFilter;
+}> = ({ applyFilters, filters, defaultFilters }) => {
   const { languages } = useLanguage();
-  const auth = useAuth();
+  const { filtersToApply, newFilters, confirmFilters, handleFilters, clearFilters } = useFilters(applyFilters, defaultFilters, filters); // Hook to handle the filters
+  const { isMobile } = useScreen(); //Hook to have data of screen dimensions
+  const { t } = useTranslation(); //Hook to change the translation without refreshing the page
 
   return (
     <FilterList onConfirm={confirmFilters} onClear={clearFilters} newFilters={newFilters}>
       <IonCol>
         <DateFilter handleFilters={handleFilters} filtersToApply={filtersToApply} />
+        <IonRow class='ion-align-items-center ion-margin-vertical ion-justify-content-between' style={{ gap: 10 }}>
+          <IonLabel>
+            <strong>{t('PEOPLE')}:</strong>
+          </IonLabel>
+          <div className='numPersons' >
+            <IonIcon icon={removeOutline} style={{ background: filtersToApply.numPersons == 1 ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => Number(filtersToApply.numPersons) > 1 && handleFilters(Number(filtersToApply.numPersons) - 1, 'numPersons')} />
+            <IonLabel style={{ margin: '0 20px' }}>{filtersToApply.numPersons ? Number(filtersToApply.numPersons) : 1}</IonLabel>
+            <IonIcon icon={addOutline} style={{ background: "var(--ion-color-primary)" }} onClick={() => handleFilters(Number(filtersToApply.numPersons) + 1, 'numPersons')} />
+          </div>
+        </IonRow>
         <IonRow>
           <IonLabel>
-            <strong>{t('filters.max.price')}:</strong> {filtersToApply.precio ? Number(filtersToApply.precio) + "€" : "∞"}
+            <strong>{t('ACTIVITY.FILTERS.MAX_PRICE')}:</strong> {(filtersToApply.price ? Number(filtersToApply.price) : Number(defaultFilters.price)) + "€"}
           </IonLabel>
         </IonRow>
         <IonRow>
           <IonRange
-            min={0}
-            max={500}
-            value={filtersToApply.precio ? Number(filtersToApply.precio) : 0}
+            min={1}
+            max={defaultFilters.price ? defaultFilters.price : 0}
+            value={filtersToApply.price ? Number(filtersToApply.price) : defaultFilters.price}
             pin={true}
             ticks={true}
-            onIonChange={(e) => (e.detail.value == 0 ? handleFilters(null, 'precio') : handleFilters(e.detail.value, 'precio'))}
+            onIonChange={(e) => (handleFilters(e.detail.value, 'price'))}
           ></IonRange>
         </IonRow>
-        <IonRow>
+        <IonRow class='ion-align-items-center ion-margin-vertical ion-justify-content-between' style={{ gap: 10 }}>
           <IonLabel>
-            <strong>{t('filters.max.duration')}:</strong> {filtersToApply.duration ? Number(filtersToApply.duration) + " " + t('hours') : "∞"}
+            <strong>{t('ACTIVITY.FILTERS.MIN_RATING')}:</strong>
           </IonLabel>
-        </IonRow>
-        <IonRow class='ion-margin-left'>
-          <IonRange min={0} max={24} pin={true} value={filtersToApply.duration ? Number(filtersToApply.duration) : 0} ticks={true}
-            onIonChange={(e) => (e.detail.value == 0 ? handleFilters(null, 'duration') : handleFilters(e.detail.value, 'duration'))}
-            class='ion-margin-left ion-margin-right'
-          ></IonRange>
-        </IonRow>
-        <IonRow>
-          <IonLabel>
-            <strong>{t('filters.min.score')}:</strong> {filtersToApply.score ? Number(filtersToApply.score) : "0"}
-          </IonLabel>
-        </IonRow>
-        <IonRow class='ion-margin-left'>
-          <IonRange min={0} max={5} pin={true} snaps value={filtersToApply.score ? Number(filtersToApply.score) : 0} ticks={true}
-            onIonChange={(e) => (e.detail.value == 0 ? handleFilters(null, 'score') : handleFilters(e.detail.value, 'score'))}
-            class='ion-margin-left ion-margin-right'
-          ></IonRange>
-        </IonRow>
-        <IonRow class="ion-margin-bottom">
-          <IonCheckbox
-            checked={filtersToApply.petsPermited ? Boolean(filtersToApply.petsPermited) : false}
-            onIonChange={(e) => handleFilters(e.detail.checked ? true : null, 'petsPermited')}
-            style={{width : "100%"}}
-          >
-            <span><strong>{t('filters.pets.friendly')}</strong></span>
-          </IonCheckbox>
+          <div className='numPersons' >
+            <IonIcon icon={removeOutline} style={{ background: Number(filtersToApply.minScore) == 0 || Number.isNaN(Number(filtersToApply.minScore)) ? "var(--ion--color--background)" : "var(--ion-color-primary)" }} onClick={() => Number(filtersToApply.minScore) > 0 && handleFilters(Number(filtersToApply.minScore) == 1 ? null : Number(filtersToApply.minScore) - 1, 'minScore')} />
+            <IonLabel style={{ margin: '0 20px' }}>{filtersToApply.minScore ? Number(filtersToApply.minScore) : 0}</IonLabel>
+            <IonIcon icon={addOutline} style={{ background: "var(--ion-color-primary)" }} onClick={() => handleFilters(Number.isNaN(Number(filtersToApply.minScore)) ? 1 : Number(filtersToApply.minScore) + 1, 'minScore')} />
+          </div>
         </IonRow>
         <IonRow class="ion-margin-bottom">
           <IonLabel>
-            <strong>{t('filters.language')}</strong>
+            <strong>{t('ACTIVITY.EVENT.LANGUAGE')}</strong>
           </IonLabel>
         </IonRow>
-        <IonRow style={{gap:"7px", flexDirection:isMobile?"column":"row"}}>
-        {Object.values(languages).map((language, index) => (
+        <IonRow class="ion-margin-bottom" style={{ gap: "7px", flexDirection: isMobile ? "column" : "row", justifyContent: "space-between" }}>
+          {Object.values(languages).map((language, index) => (
             <IonCheckbox key={'Filter' + index}
-              checked={filtersToApply.language === language.name}
-              onIonChange={(e) => handleFilters(e.detail.checked ? language.name : null, 'language')}
+              checked={filtersToApply.language && (filtersToApply.language as Set<string>).has(language.code) ? true : false}
+              onIonChange={() => handleFilters(language.code, 'language', 'multiple')}
+              color={'primary'}
             >
-              <span style={{ textTransform: 'capitalize' }}>{language.name}</span>
-            </IonCheckbox>  
-        ))}
+              <span style={{ textTransform: 'capitalize' }}>{t("LANGUAGE." + language.code.toUpperCase())}</span>
+            </IonCheckbox>
+          ))}
         </IonRow>
-        {auth.user?.role === Role.administrador &&
-          <>
-            <IonRow class="ion-margin-bottom">
-              <IonLabel>
-                <strong>{t('filters.state')}</strong>
-              </IonLabel>
-            </IonRow>
-
-            {Object.values(ActivityState).map((state, index) => (
-              <IonRow class="ion-margin-bottom ion-margin-start" key={'Filter' + index}>
-                <IonCheckbox
-                  checked={filtersToApply.state === state}
-                  onIonChange={(e) => handleFilters(e.detail.checked ? state : null, 'state')}
-                >
-                  {t('filters.state.' + state)}
-                </IonCheckbox>
-              </IonRow>
-            ))}
-          </>
-        }
       </IonCol>
     </FilterList >
   );

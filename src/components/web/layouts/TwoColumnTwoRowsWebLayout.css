@@ -1,0 +1,22 @@
+.two-column main {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: auto 1fr;
+    justify-content: center;
+    max-width: 1300px;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.two-column {
+    overflow-y: auto;
+    /* Hace que la barra de desplazamiento sea automática según el contenido */
+    height: 100%;
+}
+
+@media (max-width: 900px) {
+    .two-column main {
+        grid-template-columns: 1fr;
+    }
+}

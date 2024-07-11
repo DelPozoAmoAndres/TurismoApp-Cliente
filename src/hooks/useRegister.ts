@@ -1,10 +1,10 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useContext } from 'react';
 import { RegisterFormData } from '../models/User';
 import { useAuth } from '../contexts/AuthContexts';
 import { filterPropertiesNotNull } from '@utils/Utils';
-import { AxiosError } from 'axios';
+import { NotificationContext } from '@contexts/NotificationToastContext';
 
-export const useRegister = () => {
+export const useRegister = (modal: React.MutableRefObject<HTMLIonModalElement | null>, loginModal: React.MutableRefObject<HTMLIonModalElement | null>) => {
   const [formData, setFormData] = useState<RegisterFormData>({
     name: '',
     telephone: '',
@@ -15,30 +15,27 @@ export const useRegister = () => {
     confirmPassword: '',
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const { showNotification } = useContext(NotificationContext);
 
   const auth = useAuth();
 
   const handleRegister = async (e: FormEvent) => {
-    try {
-      e.preventDefault();
-      setLoading(true);
-      setError(null);
-      await auth.register(filterPropertiesNotNull(formData));
-    } catch (error: unknown) {
-      console.error(error);
-      if (error instanceof Error || error instanceof AxiosError) setError(error?.message ?? 'Ha habido un error en el servidor.');
-    }
+    e.preventDefault();
+    setLoading(true);
+    auth.register(filterPropertiesNotNull(formData))
+      .then(() => {
+        modal.current?.dismiss();
+        loginModal.current?.dismiss();
+        showNotification('Usuario registrado correctamente');
+      })
+      .catch(error => showNotification(error?.message ?? 'Ha habido un error en el servidor.'))
+
+
     setLoading(false);
-    setShowAlert(true);
-  };
+  }
   return {
     formData,
-    showAlert,
-    setShowAlert,
     loading,
-    error,
     setFormData,
     handleRegister,
   };

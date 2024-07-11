@@ -11,31 +11,33 @@ import './ActivityReviews.css';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 import { useScreen } from '@hooks/useScreen';
+import { Capacitor } from '@capacitor/core';
+import { Review } from '@models/Activity';
 
 export const ActivityReviews: React.FC<{ activityId: string }> = ({ activityId }) => {
-  const listOfComments = useReviewsData(activityId);
+  const { listOfComments, setRefresh } = useReviewsData(activityId);
   const { isMobile } = useScreen();
   const { t } = useTranslation();
   return (
-    listOfComments && listOfComments.length > 0 ? 
-      <div className={isMobile?"ion-margin-start ion-margin-end ion-margin-bottom":"ion-margin"} style={{minWidth:isMobile?"":300 }}>
+    listOfComments && listOfComments.length > 0 ?
+      <div className={isMobile ? "ion-margin-start ion-margin-end ion-margin-bottom" : "ion-margin"} style={{ minWidth: isMobile ? "" : 300, width: Capacitor.isNativePlatform() ? "100%" : "" }}>
         {!isMobile &&
           <>
             <IonLabel>
-              <strong>{t('reviews.title')}</strong>
+              <strong>{t('ACTIVITY.REVIEWS.TITLE')}</strong>
             </IonLabel>
             <div id="list-activity-review" className="ion-margin-vertical">
-              {listOfComments?.slice(-10, listOfComments.length).map((comment, index) => (
+              {listOfComments?.slice(-5, listOfComments.length).map((comment: Review, index: number) => (
                 <div key={"comment" + index} style={{ width: "100%" }}>
-                  <ReviewItem comment={comment} />
+                  <ReviewItem comment={comment} setRefresh={setRefresh} />
                 </div>
               ))}
             </div>
           </>
         }
-        {(listOfComments && listOfComments?.length > 10 || isMobile) && <>
-          <IonButton class="outlined ion-no-margin" style={{ width: "100%" }}  id="modal-reviews" expand='block'>{isMobile ? "Ver reviews" : "Ver más"}</IonButton>
-          <ReviewsModal listOfComments={listOfComments} />
+        {(listOfComments && listOfComments?.length > 6 || listOfComments && isMobile) && <>
+          <IonButton class="outlined ion-no-margin" style={{ width: "100%", height: "40px" }} id="modal-reviews" expand='block'>{t(isMobile ? "ACTIVITY.SHOW.REVIEWS" : "SHOW.MORE")}</IonButton>
+          <ReviewsModal listOfComments={listOfComments} setRefresh={setRefresh} />
         </>}
       </div>
       : <></>

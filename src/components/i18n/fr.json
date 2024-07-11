@@ -1,0 +1,336 @@
+{
+  "ACTIONS": {
+    "BOOK": "Réserver",
+    "CANCEL": "Annuler",
+    "CLOSE": "Fermer",
+    "CONFIRM": "Confirmer",
+    "CREATE": "Créer",
+    "DELETE": "Supprimer",
+    "EDIT": "Modifier",
+    "FILTERS": {
+      "ADD": "Ajouter des filtres",
+      "DELETE": "Supprimer les filtres"
+    },
+    "INCLUDE_CANCELLED": "Include canceled",
+    "MANAGE": "Gérer",
+    "PAY": "Payer",
+    "SAVE": "Sauvegarder les modifications",
+    "SEARCH": "Rechercher",
+    "SELECT": {
+      "FILES": "Sélectionner des fichiers"
+    },
+    "SHARE": "Partager",
+    "SIGN": {
+      "UP": " S'enregistrer"
+    },
+    "SORT": {
+      "NAME": {
+        "ASC": "Nom ascendant",
+        "DESC": "Nom descendant"
+      },
+      "PRICE": {
+        "ASC": "Prix ascendant",
+        "DESC": "Prix descendant"
+      },
+      "TITLE": "Trier par"
+    }
+  },
+  "ACTIVITY": {
+    "ADD": {
+      "TITLE": "Créer une activité"
+    },
+    "AVAILABILITY": {
+      "TITLE": "Disponibilité"
+    },
+    "CATEGORY": "Catégorie",
+    "DELETE": {
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer cette activité?",
+      "TITLE": "Supprimer l'activité"
+    },
+    "DESCRIPTION": "Description",
+    "DURATION": "Durée",
+    "EDIT": {
+      "TITLE": "Modifier l'activité"
+    },
+    "EVENT": {
+      "ADD": {
+        "TITLE": "Ajouter un événement"
+      },
+      "CANCELLED": "Annulé",
+      "EDIT": {
+        "TITLE": "Modifier l'événement"
+      },
+      "LANGUAGE": "Langue",
+      "PARTICIPANTS": "Participants",
+      "PRICE": "Prix",
+      "TITLE": "Événements"
+    },
+    "FILTERS": {
+      "APPLIED": "Filtres appliqués",
+      "DATE_RANGE": " Plage de dates",
+      "MAX_PRICE": "Prix maximum",
+      "MIN_RATING": "Note minimale",
+      "TITLE": "Filtres"
+    },
+    "LOCATION": "Emplacement",
+    "NAME": "Nom",
+    "REVIEWS": {
+      "ADD": "Ajouter une Évaluation",
+      "COMMENT": "Comment",
+      "RATING": "Note",
+      "REPORT": "Signaler",
+      "TITLE": "Avis"
+    },
+    "SELECT": {
+      "PLACEHOLDER": "Sélectionnez l'activité"
+    },
+    "SHOW": {
+      "AVAILABILITY": "Voir la disponibilité",
+      "EVENTS": "Voir les événements",
+      "INFO": "Voir infos",
+      "REVIEWS": "Voir les avis"
+    },
+    "SOLD": {
+      "OUT": "Épuisée"
+    },
+    "STATE": {
+      "AVAILABLE": "Disponible",
+      "CANCELED": "Annulé",
+      "TEMPORALY-CLOSED": "Temporairement fermé"
+    }
+  },
+  "CATEGORY": {
+    "CULTURAL": "Culturelle",
+    "DEPORTIVA": "Sportive",
+    "GASTRONÓMICA": "Gastronomique",
+    "NATURALEZA": "Nature",
+    "NOCTURNA": "Nocturne",
+    "RELIGIOSA": "Religieuse",
+    "SIN": "Sans réserves",
+    "SOCIAL": "Sociale"
+  },
+  "CONTACT": {
+    "FOOTER": "Astour. Tous droits réservés.",
+    "TITLE": "Contact"
+  },
+  "DASHBOARD": {
+    "ACTIVITY": {
+      "TITLE": "Activités"
+    },
+    "LIST": {
+      "BIRTHDAY": "Date de naissance",
+      "CANCEL": "Annuler",
+      "CATEGORY": "Catégorie",
+      "COUNTRY": "Pays",
+      "DATE": "Date",
+      "DELETE": "Supprimer",
+      "DETAILS": "Détails",
+      "DURATION": "Durée",
+      "EDIT": "Modifier",
+      "EMAIL": "Email",
+      "GUIDE": "N° de guide",
+      "ID": "Numéro d'identification",
+      "LOCATION": "Emplacement",
+      "NAME": "Nom",
+      "RESERVED-SEATS": "Places réservées",
+      "ROLE": "Permissions",
+      "SEATS": "Places",
+      "STATE": "État",
+      "TELEPHONE": "Téléphone"
+    },
+    "RECENT-ACTIVITY": "Activité récente",
+    "STATS": {
+      "CANCELATIONS": "Annulations",
+      "CATEGORY-SALES": "Ventes par catégorie",
+      "INCOME": "Revenus",
+      "LAST-MONTH": "Le mois dernier",
+      "OCCUPATION": "Occupation",
+      "RESERVATIONS": "Réservations",
+      "USERS": "Utilisateurs"
+    },
+    "TITLE": "Tableau de bord",
+    "USER": {
+      "TITLE": "Utilisateurs"
+    }
+  },
+  "DATA": {
+    "BIRTHDAY": {
+      "ERROR": "Vous devez entrer une date antérieure à aujourd'hui",
+      "LABEL": "Date de naissance",
+      "PLACEHOLDER": "Entrez la date de naissance"
+    },
+    "COUNTRY": {
+      "LABEL": "Pays",
+      "PLACEHOLDER": "Entrez le pays"
+    },
+    "EMAIL": {
+      "ERROR": "Vous devez entrer une adresse email valide",
+      "LABEL": "Email",
+      "PLACEHOLDER": "Entrez l'email"
+    },
+    "NAME": {
+      "ERROR": "Vous devez entrer au moins 8 caractères",
+      "LABEL": "Nom et prénom",
+      "PLACEHOLDER": "Entrez le nom et prénom"
+    },
+    "PASSWORD": {
+      "CONFIRM": {
+        "ERROR": "Les mots de passe ne correspondent pas",
+        "FAIL": "Échec du changement de mot de passe",
+        "LABEL": "Confirmation du mot de passe",
+        "PLACEHOLDER": "Entrez à nouveau le nouveau mot de passe",
+        "SUCCESS": "Mot de passe changé avec succès"
+      },
+      "CURRENT": {
+        "LABEL": "Mot de passe actuel",
+        "PLACEHOLDER": "Entrez votre mot de passe actuel"
+      },
+      "ERROR": "Vous devez entrer au moins 8 caractères",
+      "LABEL": "Mot de passe",
+      "PLACEHOLDER": "Entrez un mot de passe"
+    },
+    "TELEPHONE": {
+      "ERROR": "Vous devez entrer un numéro de téléphone valide",
+      "LABEL": "Téléphone",
+      "PLACEHOLDER": "Entrez le téléphone"
+    },
+    "UNKNOWN": "Inconnu"
+  },
+  "DAY": "Jour",
+  "FROM": "De",
+  "GO": {
+    "BACK": "Retour en arrière"
+  },
+  "HOME": {
+    "TITLE": "Accueil"
+  },
+  "LANGUAGE": {
+    "EN": "Anglais",
+    "ES": "Espagnol",
+    "FR": "Français"
+  },
+  "LOG": {
+    "IN": "Se connecter",
+    "IN_TO_BOOK": "Se connecter pour réserver",
+    "OUT": "Se déconnecter"
+  },
+  "MINUTES": "minutes",
+  "NEXTEVENTS": {
+    "TITLE": "Événements à venir"
+  },
+  "NOT": {
+    "ACCOUNT": "Vous n'avez pas de compte?"
+  },
+  "OPTIONAL": "Optionnel",
+  "PEOPLE": "Personnes",
+  "PERSON": "Personne",
+  "POLICY": {
+    "CANCEL": "Annulez 24 heures à l'avance sans frais.",
+    "PRIVACY": "J'ai lu et j'accepte les politiques de confidentialité et les politiques de réservation."
+  },
+  "PROFILE": {
+    "ACCOUNT": {
+      "CREATION": "Membre depuis",
+      "DELETE": "Supprimer le compte",
+      "PASSWORD": {
+        "CHANGE": "Changer le mot de passe"
+      },
+      "TITLE": "Compte"
+    },
+    "DATA": {
+      "MODIFY": "Modifier les données",
+      "TITLE": "Données personnelles"
+    },
+    "SETTINGS": {
+      "TITLE": "Paramètres"
+    },
+    "TITLE": "Zone personnelle"
+  },
+  "RESERVATION": {
+    "ALL-SET": "Tout est prêt !",
+    "CANCEL": {
+      "MESSAGE": "Êtes-vous sûr de vouloir annuler définitivement cette réservation ? Si la réservation commence dans moins de 24 heures, vous ne recevrez aucun remboursement. Sinon, vous recevrez la totalité du montant.",
+      "OPTION": {
+        "NO": "Non, conserver la réservation",
+        "YES": "Oui, annuler la réservation"
+      },
+      "TITLE": "Annuler la réservation"
+    },
+    "CARD_DATA": {
+      "TITLE": "Méthode de paiement"
+    },
+    "CHECK": "Vous pouvez voir tous vos achats dans la section des réservations",
+    "CONFIRM": "Votre commande a été traitée avec succès",
+    "DATA_CONTACT": {
+      "TITLE": "Informations de contact"
+    },
+    "DETAILS": {
+      "TITLE": "Détails de la Réservation"
+    },
+    "ID": "Numéro de confirmation",
+    "INSTRUCTION": {
+      "IMPORTANT": {
+        "FIRST_PARAGRAPH": "N'oubliez pas d'arriver à notre bureau au moins 15 minutes avant l'heure prévue de votre activité. Cela nous permettra d'organiser tout correctement et de nous assurer que vous avez tout ce dont vous avez besoin pour profiter de votre expérience. Si vous avez des questions ou avez besoin d'une assistance supplémentaire, n'hésitez pas à nous contacter au +34 123 123 123 ou par email à info@astour.online.",
+        "SECOND_PARAGRAPH": "Nous espérons vous voir bientôt et que vous profiterez de votre séjour dans les Asturies. Merci d'avoir choisi AsTour!",
+        "TITLE": "Important!!"
+      },
+      "LOCATION": {
+        "FIRST_PARAGRAPH": "Notre bureau est situé à Calle de las Aventuras, numéro 123, au cœur d'Oviedo. Il est central et facilement accessible, que vous veniez en voiture ou en transport en commun.",
+        "FOURTH_PARAGRAPH": "Si vous arrivez en train à la gare d'Oviedo, vous avez deux options : marcher ou prendre un taxi. À pied, notre bureau est à environ 15 minutes. Sortez de la gare et dirigez-vous vers la Plaza de la Constitución. Ensuite, tournez à droite dans la Calle del Progreso et continuez tout droit jusqu'à Calle de las Aventuras. Si vous préférez le confort d'un taxi, vous trouverez des taxis disponibles juste devant la gare. Demandez au chauffeur de vous emmener à Calle de las Aventuras, 123.",
+        "SECOND_PARAGRAPH": "Si vous arrivez de l'aéroport des Asturies, le moyen le plus simple est de prendre une voiture ou un taxi. En sortant de l'aéroport, suivez les indications pour l'autoroute A-8 en direction d'Oviedo. Continuez sur l'A-8 et prenez la sortie 398 pour rejoindre l'A-66 en direction d'Oviedo. De là, suivez les panneaux vers le centre-ville et vous trouverez notre bureau sans problème. Le trajet en voiture dure généralement environ 30 minutes.",
+        "THIRD_PARAGRAPH": "Pour ceux qui préfèrent les transports en commun, vous pouvez prendre le bus ALSA qui relie l'aéroport à la gare routière d'Oviedo. Depuis la gare routière, notre bureau est à seulement 10 minutes à pied. Il vous suffit de suivre les indications vers le centre-ville et de chercher Calle de las Aventuras.",
+        "TITLE": "Comment se rendre à notre bureau ?"
+      }
+    },
+    "LIST_EMPTY": "Il n'y a aucune réservation effectuée.",
+    "SHOW": "Voir les réservations",
+    "STATE": {
+      "CANCELED": "Annulée",
+      "COMPLETED": "Honorée",
+      "PENDING": "En attente",
+      "SUCCESS": "Payée"
+    },
+    "SUMMARY": {
+      "TITLE": "Résumé de l'achat"
+    },
+    "TITLE": "Réservations",
+    "TOTAL_PRICE": "Prix total"
+  },
+  "RETURN": {
+    "HOME": "Retour à l'accueil"
+  },
+  "ROLE": {
+    "ADMIN": "Administrateur",
+    "USER": "Touriste",
+    "WORKER": "Guide"
+  },
+  "SHOW": {
+    "MORE": "Voir plus"
+  },
+  "SIGN": {
+    "UP": {
+      "HERE": "Inscrivez-vous ici"
+    }
+  },
+  "THEME": {
+    "CHANGE": "Changer de thème"
+  },
+  "TO": "À",
+  "USER": {
+    "ADD": {
+      "TITLE": "Ajouter un utilisateur"
+    },
+    "DELETE": {
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer cet utilisateur?",
+      "TITLE": "Supprimer l'utilisateur"
+    },
+    "EDIT": {
+      "TITLE": "Modifier l'utilisateur"
+    }
+  },
+  "WELCOME": {
+    "MESSAGE": "Découvrez les meilleurs services touristiques des Asturies. Des plages paradisiaques aux montagnes impressionnantes, ici vous trouverez tout ce dont vous avez besoin pour profiter de vos vacances!",
+    "SEARCH": "Commencer à chercher",
+    "TITLE": "Asturies"
+  }
+}

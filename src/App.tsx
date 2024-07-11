@@ -1,14 +1,13 @@
-import React, { useEffect } from 'react';
-import { Redirect, Route, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
 /* Ionic Components */
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Capacitor } from '@capacitor/core';
-import { App, URLOpenListenerEvent } from '@capacitor/app';
 /* Pages */
 import HomePage from '@home/HomePage';
 import NotFound from '@pages/NotFoundPage';
-import ReservationDetailsPage from '@reservation-details/ReservationDetailsPage';
+import ReservationDetailsPage from '@components/7 - Reservation Details/ReservationDetailsPage';
 import SearchActivityPage from '@search-activity/ActivitySearchPage';
 import ReservationListPage from '@reservation-list/ReservationListPage';
 import ProfilePage from '@components/4 - Personal Area/ProfilePage';
@@ -40,13 +39,13 @@ import PrivateRoute from '@shared/PrivateRoute';
 /* Hooks */
 import { useTheme } from '@hooks/useTheme';
 import UserDetailsPage from '@components/Admin/Users/UserDetailsPage';
-import EventsPage from '@components/10- See Events/EventsPage';
 import { NextEventsPage } from '@components/9 - Next Events/NextEventsPage';
-import {DashboardPage} from '@components/Admin/DashboardPage';
-import { AdminActivityList } from '@components/Admin/List/AdminActivityList';
-import { AdminReservationList } from '@components/Admin/List/AdminReservationList';
-import { AdminUserList } from '@components/Admin/List/AdminUserList';
-import { AdminEventList } from '@components/Admin/List/AdminEventList';
+import { DashboardPage } from '@components/Admin/Dashboard/DashboardPage';
+import { AdminActivityList } from '@components/Admin/Activities/AdminActivityList';
+import { AdminUserList } from '@components/Admin/Users/AdminUserList';
+import ThankYouPage from '@pages/ThankYouPage';
+import AppMenu from '@components/web/AppMenu';
+import { useScreen } from '@hooks/useScreen';
 
 setupIonicReact();
 
@@ -63,49 +62,39 @@ axios.interceptors.request.use(
 
 const AppIndex: React.FC = () => {
   useTheme();
-  const history =useHistory();
-
-  useEffect(() => {
-    App.addListener('appUrlOpen', (event: URLOpenListenerEvent) => {
-      const slug = event.url.split('.online').pop();
-      if (slug) {
-        history.push(slug);
-      }
-    });
-  }, [history]);
-
+  const { isMobile } = useScreen();
   return (
     <I18nextProvider i18n={i18n}>
       <IonApp>
         <IonReactRouter>
-            <IonRouterOutlet id="ion-router-outlet">
+          <IonRouterOutlet id="ion-router-outlet">
             <Route path={"/*"} component={NotFound} />
-              <Route exact path="/">
-                {Capacitor.isNativePlatform() ? <Redirect to="/movil" /> : <Redirect to="/home" />}
-              </Route>
-              <Route exact path="/home">
-                {Capacitor.isNativePlatform() ? <Redirect to="/movil" /> : <Redirect to="/home" />}
-              </Route>
-              <Route path="/movil" render={() => <TabBar />} />
-              <Route exact path="/home"component={HomePage} />
-              <Route exact path="/buscar" component={SearchActivityPage} />
-              <Route exact path="/activity/:id" component={ActivityDetailsPage} />
-              <PrivateRoute path="/activity/:id/reservar/" component={ReservationPage} alternativePath="/" />
-              <PrivateRoute exact path="/perfil" component={ProfilePage} alternativePath="/" />
-              <PrivateRoute exact path="/reservas" component={ReservationListPage} alternativePath="/" />
-              {/* <Route path="/payment/status" component={ReservationStatusPage} /> */}
-              {/* <PrivateRoute exact path="/saved" component={SavedPage} alternativePath='/' /> */}
-              <PrivateRoute exact path="/reservation/:id" component={ReservationDetailsPage} alternativePath="/" />
-              <AdminRoute exact path="/admin/dashboard" component={DashboardPage} />
-              <AdminRoute exact path="/admin/activities" component={AdminActivityList} />
-              <AdminRoute exact path="/admin/reservations" component={AdminReservationList} />
-              <AdminRoute exact path="/admin/users" component={AdminUserList} />
-              <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
-              <AdminRoute exact path="/admin/activity/:id/events/" component={EventsPage}/>
-              <AdminRoute exact path="/admin/events/" component={AdminEventList}/>
-              <PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />
-            </IonRouterOutlet>
+            <Route exact path="/">
+              {Capacitor.isNativePlatform() ? <Redirect to="/movil" /> : <Redirect to="/home" />}
+            </Route>
+            <Route exact path="/home">
+              {Capacitor.isNativePlatform() ? <Redirect to="/movil" /> : <Redirect to="/home" />}
+            </Route>
+            <Route path="/movil" render={() => <TabBar />} />
+            <Route exact path="/home" component={HomePage} />
+            <Route exact path="/buscar" component={SearchActivityPage} />
+            <Route exact path="/activity/:id" component={ActivityDetailsPage} />
+            <PrivateRoute path="/activity/:id/reservar/" component={ReservationPage} alternativePath="/" />
+            <PrivateRoute exact path="/perfil" component={ProfilePage} alternativePath="/" />
+            <PrivateRoute exact path="/reservas" component={ReservationListPage} alternativePath="/" />
+            <PrivateRoute exact path="/thank-you" component={ThankYouPage} alternativePath="/" />
+            {/* <Route path="/payment/status" component={ReservationStatusPage} /> */}
+            {/* <PrivateRoute exact path="/saved" component={SavedPage} alternativePath='/' /> */}
+            <PrivateRoute exact path="/reservation/:id" component={ReservationDetailsPage} alternativePath="/" />
+            <AdminRoute exact path="/admin/dashboard" component={DashboardPage} />
+            <AdminRoute exact path="/admin/activities" component={AdminActivityList} />
+            <AdminRoute exact path="/admin/users" component={AdminUserList} />
+            <AdminRoute exact path="/admin/user/:id" component={UserDetailsPage} />
+            <PrivateRoute exact path="/nextEvents/" component={NextEventsPage} alternativePath="/" />
+          </IonRouterOutlet>
+          {isMobile && <AppMenu />}
         </IonReactRouter>
+
       </IonApp>
     </I18nextProvider>
   );

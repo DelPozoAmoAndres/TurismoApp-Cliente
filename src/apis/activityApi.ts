@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { filterPropertiesNotNull } from '@utils/Utils';
-import { Activity, ActivityFilter, Event } from '@models/Activity';
+import { Activity, ActivityFilter, Event, Review } from '@models/Activity';
 
 const baseUrl = `${process.env.REACT_APP_API_URL}/activity`;
 
@@ -19,5 +19,17 @@ export const getActivityFromEvent = async (eventId: string): Promise<Activity> =
 };
 
 export const getEvents = async (activityId: string): Promise<Event[]> => {
-  return axios.get(`${baseUrl}/${activityId}/events`).then((res) => res.data).catch(()=>null);
+  return axios.get(`${baseUrl}/${activityId}/events`).then((res) => res.data).catch(() => null);
+};
+
+export const maxPrice = async (): Promise<number> => {
+  return axios.get(`${baseUrl}/maxPrice`).then((res) => res.data);
+};
+
+export const getPopular = async (): Promise<Activity[]> => {
+  return axios.get(`${baseUrl}/popular`).then((res) => res.data);
+}
+
+export const getReviews = async (activityId: string): Promise<Review[]> => {
+  return axios.get(`${baseUrl}/${activityId}/reviews`).then((res) => res.data);
 };

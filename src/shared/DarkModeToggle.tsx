@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 
 type DarkModeToggleProps = {
   hidden: boolean,
-  color?:string
+  color?: string
 };
 
-const DarkModeToggle: React.FC<DarkModeToggleProps> = ({hidden,color}) => {
+const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ hidden, color }) => {
   const { theme } = useTheme();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return theme === 'dark';
@@ -26,9 +26,9 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({hidden,color}) => {
 
   return (
     <IonNavLink hidden={hidden}>
-      <IonButton expand="block" onClick={toggleDarkMode} disabled={getItem('i18nextLng') === null} color={color} style={{color:"white"}}>
+      <IonButton expand="block" onClick={toggleDarkMode} disabled={getItem('i18nextLng') === null} color={color} style={{ color: "white" }}>
         <IonIcon icon={isDarkMode ? sunnyOutline : moonOutline} slot="start" />
-        <span>{t('theme.change')}</span>
+        <span>{t('THEME.CHANGE')}</span>
       </IonButton>
     </IonNavLink>
   );

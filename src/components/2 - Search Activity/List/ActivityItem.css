@@ -1,20 +1,33 @@
 #card-search {
-  height: 100;
+  height: 100%;
   width: 100%;
   margin-top: 0;
 
   --background: var(--ion-background-color);
 }
-
 #card-search ion-card {
   background-size: cover;
   background-position: center;
   height: 100%;
   min-height: 221px;
-  width: 100%;
+  width: 50%;
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 10px;
   box-shadow: none;
+  background-color: var(--ion--color--background); 
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+#card-search .card-text {
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+#card-search .main-button {
+  color:white;
+  --background:var(--ion-color-primary);
 }
 
 #card-search ion-card:last-child {
@@ -57,7 +70,20 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 95%;
 }
+
+@media screen and (max-width: 550px) {
+  #card-search ion-card {
+    width: 40%;
+  }
+
+  #card-search .card-text {
+    width: 60%;
+  }
+  
+}
+
 
 @media only screen and (width<= 340px) {
   #card-search ion-card p {
@@ -84,6 +110,5 @@
   #card-search ion-card ion-card-content {
     position: fixed;
     bottom: 5px;
-    width: 85%;
   }
 }

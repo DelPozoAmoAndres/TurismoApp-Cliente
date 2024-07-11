@@ -12,7 +12,7 @@ interface Props {
 }
 
 const FilterList: React.FC<Props> = ({ children, onConfirm, onClear, newFilters }) => {
-    const {isMobile } = useScreen(); //Hook to have data of screen dimensions
+    const { isMobile } = useScreen(); //Hook to have data of screen dimensions
     const { t } = useTranslation(); //Hook to change the translation without refreshing the page
     return (
         <IonList class="ion-padding" style={{ width: isMobile ? "100%" : '360px' }}>
@@ -21,7 +21,7 @@ const FilterList: React.FC<Props> = ({ children, onConfirm, onClear, newFilters 
                     <h2>
                         <IonIcon icon={filterOutline} />
                         {' '}
-                        {t('filters.title')}
+                        {t('ACTIVITY.FILTERS.TITLE')}
                     </h2>
                 </IonRow>
             )}
@@ -29,11 +29,11 @@ const FilterList: React.FC<Props> = ({ children, onConfirm, onClear, newFilters 
             <div className=" ion-no-padding">
                 {newFilters && (
                     <IonButton style={{ width: '100%' }} expand="block" onClick={onClear}>
-                        {t('filters.delete')}
+                        {t('ACTIONS.FILTERS.DELETE')}
                     </IonButton>
                 )}
                 <IonButton expand="block" style={{ width: '100%' }} onClick={onConfirm}>
-                    {t('filters.apply')}
+                    {t('ACTIONS.FILTERS.ADD')}
                 </IonButton>
             </div>
         </IonList>

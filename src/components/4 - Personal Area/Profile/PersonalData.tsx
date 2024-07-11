@@ -5,7 +5,7 @@ import { logOutOutline, pencilOutline } from 'ionicons/icons';
 /* Contexts */
 import { useAuth } from '@contexts/AuthContexts';
 /* Components */
-import { UserModal } from '@search-user/Edit Modal/UserModal';
+import { UserModal } from '@components/Admin/Users/Modal/UserModal';
 /* i18n */
 import { useTranslation } from 'react-i18next';
 
@@ -16,40 +16,40 @@ export const PersonalData = () => {
     <IonGrid style={{ width: '100%' }}>
       <IonRow>
         <h2>
-          <strong>{t('personal.data.title')}</strong>
+          <strong>{t('PROFILE.DATA.MODIFY')}</strong>
         </h2>
       </IonRow>
       <IonRow class="ion-justify-content-between">
         <section style={{ width: '100%' }}>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
-            <IonLabel>{t('personal.data.email') + ':'}</IonLabel>
+            <IonLabel>{t('DATA.EMAIL.LABEL') + ':'}</IonLabel>
             <IonLabel>{auth.user?.email}</IonLabel>
           </IonRow>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
-            <IonLabel>{t('personal.data.telephone') + ':'}</IonLabel>
-            <IonLabel>{auth.user?.telephone ? String(auth.user?.telephone) : t('personal.data.unknown')}</IonLabel>
+            <IonLabel>{t('DATA.TELEPHONE.LABEL') + ':'}</IonLabel>
+            <IonLabel>{auth.user?.telephone ? String(auth.user?.telephone) : t('DATA.UNKNOWN')}</IonLabel>
           </IonRow>
           <IonRow class="ion-justify-content-between ion-margin-vertical">
-            <IonLabel>{t('personal.data.country') + ':'}</IonLabel>
-            <IonLabel>{auth.user?.country ? auth.user?.country : t('personal.data.unknown')}</IonLabel>
+            <IonLabel>{t('DATA.COUNTRY.LABEL') + ':'}</IonLabel>
+            <IonLabel>{auth.user?.country ? auth.user?.country : t('DATA.UNKNOWN')}</IonLabel>
           </IonRow>
         </section>
         <section style={{ width: '100%' }}>
           <IonRow>
             <IonButton id={auth.user?._id} style={{ width: '100%' }} expand="block">
               <IonIcon slot="start" icon={pencilOutline} />
-              {t('personal.data.modify')}
+              {t('PROFILE.DATA.MODIFY')}
             </IonButton>
           </IonRow>
           <IonRow>
-            <IonButton color={'danger'} style={{ width: '100%' }} expand="block" onClick={()=>auth.logout()}>
+            <IonButton color={'danger'} style={{ width: '100%' }} expand="block" onClick={() => auth.logout()}>
               <IonIcon slot="start" icon={logOutOutline} />
-              {t('log.out')}
+              {t('LOG.OUT')}
             </IonButton>
           </IonRow>
         </section>
       </IonRow>
-        {auth.user && <UserModal user={auth.user} action='edit' />}
+      {auth.user && <UserModal user={auth.user} action='edit' updateInfo={() => auth.setForcedUpdate(true)} />}
     </IonGrid>
   );
 };

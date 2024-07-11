@@ -1,7 +1,10 @@
 #activity-info {
-  /* max-width: 600px; */
-  width: 100%;
   height: fit-content;
+  background: var(--ion--color--background);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px;
+  width: 100%;
 }
 
 #activity-info ion-row {
@@ -11,8 +14,9 @@
 
 #activity-info div {
   display: flex;
-  flex-flow: row wrap;
   gap: 20px;
+  flex-wrap: wrap;
+  row-gap: 5px;
 }
 
 #activity-info div ion-button {
@@ -20,7 +24,7 @@
   min-width: 150px;
 }
 
-#activity-info section > ion-button {
+#activity-info section>ion-button {
   width: 100%;
 }
 
@@ -28,17 +32,24 @@
   width: 100%;
 }
 
-@media only screen and (width <= 440px) {
+@media only screen and (width <=900px) {
   #activity-info section.sticky {
     position: -webkit-sticky;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 10px;
     position: sticky;
     bottom: 0;
-    left: 0; 
+    left: 0;
     width: 100%;
+    margin: 0;
+    padding-top: 10px;
     padding-bottom: 2dvh;
     /* background-color: var(--background); */
   }
+
   #activity-info {
     min-width: auto;
+    max-width: none;
   }
 }

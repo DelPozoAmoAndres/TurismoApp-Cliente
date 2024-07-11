@@ -6,24 +6,28 @@ import { RegisterFormData } from '@models/User';
 import { getItem, removeItem, setItem } from '@utils/Utils';
 import Login from '@components/4 - Personal Area/Login/Login';
 import { deleteUser } from '@apis/userApi';
+import { NotificationContext } from './NotificationToastContext';
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
   token: null,
-  login: (arg0, arg1) => {
+  login: async (arg0, arg1) => {
     console.log(arg0, arg1);
   },
   logout: () => {
     console.log('logout');
   },
-  register: (arg0) => {
+  register: async (arg0) => {
     console.log(arg0);
   },
-  deleteAccount: () => {
+  deleteAccount: async () => {
     console.log('deleteAccount');
   },
   setShowLoginModal: (arg0) => {
     console.log(arg0);
+  },
+  setForcedUpdate: () => {
+    console.log('setForcedUpdate');
   },
   showLoginModal: false,
 });
@@ -38,6 +42,8 @@ const AuthProvider: React.FC<Props> = (props) => {
   const [token, setToken] = useState<string | null>(getItem('token'));
   const [user, setUser] = useState<User | null>(null);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const { showNotification } = useContext(NotificationContext);
+  const [forcedUpdate, setForcedUpdate] = useState(false);
 
   const register = async (formData: RegisterFormData) => {
     // Validar que las contraseñas coincidan
@@ -50,7 +56,7 @@ const AuthProvider: React.FC<Props> = (props) => {
       .then((response) => {
         //Si se ha creado correctamente iniciar sesión automaticamente
         if (response.status !== HttpStatusCode.Ok) throw new Error(response.data.message);
-        else login(formData.email, formData.password);
+        else login(formData.email, formData.password)
       })
       .catch((error) => {
         // Manejar errores de registro
@@ -81,14 +87,18 @@ const AuthProvider: React.FC<Props> = (props) => {
     setUser(null);
     setToken(null);
     removeItem('token');
+    showNotification('Has cerrado sesión correctamente');
   };
 
   const deleteAccount = async () => {
     await deleteUser();
     logout();
+    showNotification('Cuenta eliminada correctamente');
   }
 
   useEffect(() => {
+    if (forcedUpdate) setForcedUpdate(false);
+
     const handleToken = () => {
       const token = getItem('token');
       setToken(token);
@@ -117,10 +127,11 @@ const AuthProvider: React.FC<Props> = (props) => {
     return () => {
       window.removeEventListener('storage', handleToken);
     };
-  }, [token]);
+    // eslint-disable-next-line
+  }, [token, forcedUpdate,]);
 
-  return ( 
-    <AuthContext.Provider value={{ user, token, login, logout, register,deleteAccount, setShowLoginModal, showLoginModal }}>
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout, register, deleteAccount, setShowLoginModal, showLoginModal, setForcedUpdate }}>
       <Login />
       {props.children}
     </AuthContext.Provider>

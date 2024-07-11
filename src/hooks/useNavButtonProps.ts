@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useLocation } from 'react-router';
 
 export const useNavButtonProps = (routeLink: string) => {
-  const history = useHistory();
+  const location = useLocation();
   const [props, setProps] = useState({});
 
   useEffect(() => {
     const style = { borderBottom: ' 1px solid var(--ion-color-primary)' };
-    const handlePopState = () => {
-      if (routeLink==="") return {}
-      return history.location.pathname.includes(routeLink) ? { style } : {};
-    };
-    history.listen(() => setProps(handlePopState));
-  }, [history, routeLink]);
+    if (routeLink === "") return setProps({});
+    setProps(location.pathname.includes(routeLink) ? { style } : {})
+  }, [location, routeLink]);
 
   return { props };
 };

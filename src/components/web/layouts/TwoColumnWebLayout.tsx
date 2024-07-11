@@ -1,6 +1,5 @@
 import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
-import AppMenu from "../AppMenu";
 import { Header } from "../Header";
 import Footer from "../Footer";
 import { useScreen } from "@hooks/useScreen";
@@ -11,17 +10,16 @@ interface Props {
     leftContent: () => React.ReactNode;
 }
 
-const TwoColumnWebLayout: React.FC<Props> = ({ children ,leftContent }) => {
+const TwoColumnWebLayout: React.FC<Props> = ({ children, leftContent }) => {
     const { isMobile } = useScreen(); //Hook to have data of screen dimensions
     return (
         <>
-            <AppMenu />
             <IonPage id="pageWeb">
                 <IonContent>
                     <div className="two-column">
                         <header><Header /></header>
                         <main>
-                            <div className={!isMobile ? "sticky" :""}>
+                            <div className={!isMobile ? "sticky" : ""}>
                                 {leftContent()}
                             </div>
                             {children}
